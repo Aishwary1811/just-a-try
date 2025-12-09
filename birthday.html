@@ -18,9 +18,9 @@ body{
   text-align:center; color:#4a4a4a;
 }
 @keyframes backgroundShift {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
+    0% {background-position: 0% 50;}
+    50% {background-position: 100% 50;}
+    100% {background-position: 0% 50;}
 }
 
 /* Rose Petal Fall Effect */
@@ -152,6 +152,8 @@ button:hover {transform:scale(1.15); box-shadow:0 10px 25px rgba(255,64,129,0.6)
 
 /* Heart Tree */
 #heartTree{position:absolute; bottom:20px;}
+#treeTrunk{width:20px; height:100px; background:#8B4513; margin:0 auto; border-radius:10px;}
+.heartLeaf{position:absolute; width:15px; height:15px; background-image:url('heart.png'); background-size:contain; background-repeat:no-repeat; pointer-events:none;}
 </style>
 </head>
 <body>
@@ -169,7 +171,7 @@ button:hover {transform:scale(1.15); box-shadow:0 10px 25px rgba(255,64,129,0.6)
     <div class="petal"></div>
 </div>
 
-<audio id="bgm" src="until_i_found_you.mp3" loop></audio>
+<audio id="bgm" **src="song.mp3"** loop></audio>
 
 <div id="screen0" class="center">
   <div id="introBox" class="show">
@@ -181,7 +183,7 @@ button:hover {transform:scale(1.15); box-shadow:0 10px 25px rgba(255,64,129,0.6)
 </div>
 
 <div id="screen1" class="center" style="display:none;">
-  <img id="envelopeImg" src="envelope.png">
+  <img id="envelopeImg" **src="envelope.png"**>
   <div class="small" style="margin-top:10px; font-weight:600;">Tap the envelope to open my heart 💌</div>
 </div>
 
@@ -199,7 +201,7 @@ button:hover {transform:scale(1.15); box-shadow:0 10px 25px rgba(255,64,129,0.6)
 <div id="screen3" class="center" style="display:none;">
   <div id="cakeSection">
     <div style="position:relative; display:inline-block;">
-      <img id="cakeImg" src="cake.jpg">
+      <img id="cakeImg" **src="cake.jpg"**>
       <div id="cakeCandle"></div>
       <div id="candleFlame"></div>
       <div id="cakeSlice"></div>
@@ -209,14 +211,14 @@ button:hover {transform:scale(1.15); box-shadow:0 10px 25px rgba(255,64,129,0.6)
 </div>
 
 <div id="screen4" class="center" style="display:none;">
-  <img id="p1" class="photo" src="photo1.jpg">
-  <img id="p2" class="photo" src="photo2.jpg">
-  <img id="p3" class="photo" src="photo3.png">
+  <img id="p1" class="photo" **src="pic_one.jpg"**>
+  <img id="p2" class="photo" **src="pic_two.jpg"**>
+  <img id="p3" class="photo" **src="pic_three.png"**>
 </div>
 
 <div id="screen5" class="center" style="display:none;">
   <div id="giftBox"><div id="finalMessage">✨ Happy Birthday, Lakshtu! ✨</div></div>
-  <img id="tulip" src="tulip.png">
+  <img id="tulip" **src="tulip.png"**>
   <div id="heartTree"><div id="treeTrunk"></div></div>
 </div>
 
