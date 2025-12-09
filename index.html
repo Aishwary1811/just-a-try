@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Lakshtu 💖</title>
 <style>
-/* Fonts + Base */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 :root{
   --bg1:#fff6f3; --bg2:#ffeef9; --accent:#ff4f9a; --peach:#ffb88c; --muted:#63414a;
@@ -31,7 +30,7 @@ body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg
 #treeStage{position:relative;width:100%;height:300px;}
 #treeBase {
   width: 24px;
-  height: 150px;
+  height: 0;
   background: #8b5a2b;
   border-radius: 12px;
   position: absolute;
@@ -39,17 +38,21 @@ body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg
   left: 50%;
   transform: translateX(-50%);
   z-index:1;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  transition: height 1.2s ease;
 }
 .branch{
   position:absolute;
   width:12px;
-  height:90px;
+  height:0;
   background:#8b5a2b;
   border-radius:6px;
-  bottom:130px;
+  bottom:150px;
   left:50%;
   transform-origin:bottom center;
   z-index:1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: height 1s ease, transform 0.6s ease;
 }
 .branch1{transform:translateX(-50%) rotate(-40deg);}
 .branch2{transform:translateX(-50%) rotate(-25deg);}
@@ -59,11 +62,25 @@ body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg
 
 /* Leaf hearts */
 #leafLayer{position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;}
-.tree-heart{position:absolute;width:28px;height:28px;background-image:url('heart.png');background-size:contain;background-repeat:no-repeat;opacity:0;transform:scale(0);transition:transform 0.8s ease, opacity 0.8s ease;}
-.tree-heart.pop{opacity:1;transform:scale(1);}
-@keyframes floatUp {
-  0%{transform:translateY(0) rotate(0deg);}
-  100%{transform:translateY(-50px) rotate(360deg);}
+.tree-heart{
+  position:absolute;
+  width:28px;height:28px;
+  background-image:url('heart.png');
+  background-size:contain;
+  background-repeat:no-repeat;
+  opacity:0;
+  transform:scale(0);
+  transition:transform 0.8s ease, opacity 0.8s ease;
+  filter:drop-shadow(0 2px 8px rgba(255,100,150,0.3));
+}
+.tree-heart.pop{
+  opacity:1;
+  transform:scale(1);
+  animation: floatGlow 2.5s ease forwards;
+}
+@keyframes floatGlow {
+  0%{transform:scale(1) translateY(0);}
+  100%{transform:scale(0.7) translateY(-40px);}
 }
 
 /* Cake */
@@ -173,57 +190,64 @@ const gallerySection = document.getElementById('gallery');
 const leafLayer = document.getElementById('leafLayer');
 const cakeImg = document.getElementById('cakeImg');
 const lid = document.getElementById('lid');
+const treeBase = document.getElementById('treeBase');
+const branches = document.querySelectorAll('.branch');
 const bgm = document.getElementById('bgm');
 
-// Start music & envelope
 startBtn.addEventListener('click', ()=>{
   bgm.play().catch(()=>{});
   document.getElementById('intro').classList.remove('active');
   envelopeStage.classList.add('active');
 });
 
-// Envelope click → tree
 document.getElementById('envelope').addEventListener('click', async ()=>{
   envelopeStage.classList.remove('active');
   treeStage.classList.add('active');
-  const count = 25;
-  for(let i=0;i<count;i++){
-    createHeart(i,count);
-    await new Promise(r=>setTimeout(r,120));
-  }
+
+  // Animate trunk
+  treeBase.style.height='150px';
+
+  // Animate branches sequentially
+  branches.forEach((b,i)=>setTimeout(()=>b.style.height='90px', i*300));
+
+  // After branches appear, create hearts
+  setTimeout(()=>{
+    for(let i=0;i<25;i++){
+      setTimeout(()=>createHeartOnBranch(), i*150);
+    }
+  }, 1800);
+
+  // After all, move to cake
   setTimeout(()=>{
     treeStage.classList.remove('active');
     cakeStage.classList.add('active');
-  },4000);
+  }, 6000);
 });
 
-function createHeart(index,total){
-  const w=leafLayer.clientWidth||300;
-  const h=leafLayer.clientHeight||200;
-  const el = document.createElement('div'); el.className='tree-heart';
-  // Random positions on upper branches
-  const x = w*0.3 + Math.random()*w*0.4;
-  const y = h*0.1 + Math.random()*h*0.5;
-  el.style.left=x+'px';
-  el.style.top=y+'px';
+function createHeartOnBranch(){
+  const w = leafLayer.clientWidth||300;
+  const h = leafLayer.clientHeight||200;
+  const el = document.createElement('div'); 
+  el.className='tree-heart';
+  const branchX = [0.3,0.4,0.5,0.6,0.7][Math.floor(Math.random()*5)];
+  const branchY = 0.1 + Math.random()*0.3;
+  el.style.left = w*branchX + Math.random()*20 - 10 + 'px';
+  el.style.top = h*branchY + 'px';
   leafLayer.appendChild(el);
-  setTimeout(()=>el.classList.add('pop'),index*100);
-  // Floating effect
+  setTimeout(()=>el.classList.add('pop'),Math.random()*300);
   setTimeout(()=>{
     el.style.transition='transform 2500ms ease, opacity 2500ms ease';
     el.style.transform='translateY(-40px) scale(0.7) rotate('+Math.random()*360+'deg)';
     el.style.opacity=0;
     setTimeout(()=>el.remove(),2500);
-  },1500 + Math.random()*1000);
+  },1000 + Math.random()*1000);
 }
 
-// Cake click → gift
 cakeImg.addEventListener('click', ()=>{
   cakeStage.classList.remove('active');
   giftStage.classList.add('active');
 });
 
-// Gift click → final letter + gallery
 document.getElementById('gift3D').addEventListener('click', ()=>{
   lid.classList.add('open');
   setTimeout(()=>{
@@ -235,7 +259,6 @@ document.getElementById('gift3D').addEventListener('click', ()=>{
   },900);
 });
 
-// Typing
 const message = `My sweet Lakshtu,\n\nYou make my world brighter just by being in it. You are the kindest part of my heart — the calm in my chaos, and the softest place where my feelings rest.\n\nThank you for loving me in your own little ways, for supporting me, for choosing me, and for making every day feel special without even trying.\n\nOn your birthday, I just want you to know — you are precious to me, you are loved more than words can hold, and you will always, always have a place in my heart.\n\nI LOVE YOU, LAKSHTU 💖✨`;
 let tIndex=0;
 function startTyping(){
