@@ -1,84 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Happy Birthday Lakshtu 💖</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-  :root{
-    --bg1:#ffe9df; --bg2:#ffdff4; --accent:#ff4f9a; --gold:#ffd166; --muted:#5b3140;
-  }
-  html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--muted);overflow-x:hidden;}
-  .center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:94%;max-width:540px;text-align:center;}
+body, html {
+  margin:0; padding:0; font-family:'Poppins',sans-serif; background:linear-gradient(135deg,#ffe9df,#ffdff4); overflow-x:hidden;
+}
 
-  .card{background:rgba(255,255,255,0.95);border-radius:18px;padding:20px;box-shadow:0 16px 48px rgba(0,0,0,0.06);}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:94%;max-width:540px;text-align:center;}
 
-  h1{margin:6px 0;color:var(--accent);font-size:22px}
-  p.lead{margin:8px 0 18px;color:#7b465b}
+.card{background:rgba(255,255,255,0.95);border-radius:18px;padding:20px;box-shadow:0 16px 48px rgba(0,0,0,0.06);}
+h1{margin:6px 0;color:#ff4f9a;font-size:22px}
+p.lead{margin:8px 0 18px;color:#7b465b}
+button{background:linear-gradient(180deg,#ffd166,#ff4f9a);border:none;color:#fff;padding:12px 20px;border-radius:12px;font-weight:800;cursor:pointer;box-shadow:0 10px 28px rgba(255,100,150,0.14);}
+button:active{transform:translateY(1px) scale(.997);}
+.mini{font-size:13px;color:#7a4356;margin-top:8px}
 
-  button{
-    background:linear-gradient(180deg,var(--gold),var(--accent));
-    border:none;color:#fff;padding:12px 20px;border-radius:12px;font-weight:800;cursor:pointer;
-    box-shadow:0 10px 28px rgba(255,100,150,0.14);
-  }
-  button:active{transform:translateY(1px) scale(.997);}
+#envelope{width:300px;max-width:86vw;border-radius:12px;cursor:pointer;box-shadow:0 16px 40px rgba(0,0,0,0.12);display:block;margin:0 auto;transition:transform .6s}
+#envelope:hover{transform:translateY(-6px)}
 
-  .mini{font-size:13px;color:#7a4356;margin-top:8px}
+#treeArea{width:380px;height:340px;margin:0 auto;display:none;position:relative}
+#treeSVG{width:100%;height:100%;display:block}
+#trunk{transform-origin:center bottom;opacity:0;transition:opacity .9s ease, transform .9s cubic-bezier(.2,.9,.2,1);}
+.branch{fill:none;stroke:#7b4a3b;stroke-width:6; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1000; stroke-dashoffset:1000; transition: stroke-dashoffset 900ms ease;}
+#leafArea{position:absolute;left:50%;transform:translateX(-50%);bottom:150px;width:340px;height:160px;pointer-events:none}
+.heart-bud{position:absolute;width:28px;height:28px;background-image:url('heart.png');background-size:contain;background-repeat:no-repeat;opacity:0;transform:scale(.3) translateY(12px);transition:transform .7s cubic-bezier(.2,.9,.2,1),opacity .7s ease, filter .7s;}
+.heart-bud.pop{opacity:1; transform:scale(1) translateY(0); filter: drop-shadow(0 8px 18px rgba(255,110,170,0.18));}
 
-  /* envelope */
-  #envelope{width:300px;max-width:86vw;border-radius:12px;cursor:pointer;box-shadow:0 16px 40px rgba(0,0,0,0.12);display:block;margin:0 auto;transition:transform .6s}
-  #envelope:hover{transform:translateY(-6px)}
+#cake{width:320px;max-width:86vw;border-radius:16px;display:none;margin:12px auto;cursor:pointer;box-shadow:0 20px 50px rgba(0,0,0,0.15);transition:transform .18s}
+#cake.press{transform:scale(.94)}
 
-  /* tree container (envelope morphs into svg tree) */
-  #treeArea{width:380px;height:340px;margin:0 auto;display:none;position:relative}
-  #treeSVG{width:100%;height:100%;display:block}
+#giftBox{width:240px;height:140px;margin:18px auto;border-radius:16px;display:none;cursor:pointer;background:linear-gradient(180deg,#ffe6cc,#ffd1a8);box-shadow:0 24px 60px rgba(255,150,120,0.12);display:flex;align-items:center;justify-content:center;font-weight:800;color:#6b2f47}
+#giftBox:hover{transform:scale(1.02)}
 
-  /* trunk appears */
-  #trunk{transform-origin:center bottom;opacity:0;transition:opacity .9s ease, transform .9s cubic-bezier(.2,.9,.2,1);}
+#finalPanel{display:none;width:92%;max-width:720px;margin:14px auto;background:linear-gradient(180deg,#fff7f9,#fff2f6);border-radius:14px;padding:18px;box-shadow:0 18px 44px rgba(255,150,190,0.08);text-align:left;color:#5b2b44;line-height:1.55}
+.typewriter{white-space:pre-wrap;font-weight:500;font-size:15.5px}
+.cursor{display:inline-block;width:10px;margin-left:6px;background:#ff4f9a;height:18px;vertical-align:bottom;border-radius:3px;animation:blink 1s steps(2,start) infinite}
+@keyframes blink{50%{opacity:0}}
 
-  /* branches (SVG stroke draw) */
-  .branch{fill:none;stroke:#7b4a3b;stroke-width:6; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1000; stroke-dashoffset:1000; transition: stroke-dashoffset 900ms ease;}
+#photos{display:none;margin-top:16px}
+#photos img{width:280px;max-width:86vw;margin:10px;border-radius:12px;box-shadow:0 18px 45px rgba(0,0,0,0.12);opacity:0;transform:translateY(20px);transition:transform .6s ease,opacity .6s ease}
+#photos img.show{opacity:1;transform:translateY(0)}
 
-  /* leaf hearts - placed absolutely inside #leafArea */
-  #leafArea{position:absolute;left:50%;transform:translateX(-50%);bottom:150px;width:340px;height:160px;pointer-events:none}
-  .heart-bud{position:absolute;width:28px;height:28px;background-image:url('heart.png');background-size:contain;background-repeat:no-repeat;opacity:0;transform:scale(.3) translateY(12px);transition:transform .7s cubic-bezier(.2,.9,.2,1),opacity .7s ease, filter .7s;}
-  .heart-bud.pop{opacity:1; transform:scale(1) translateY(0); filter: drop-shadow(0 8px 18px rgba(255,110,170,0.18));}
+.confetti{position:absolute;width:8px;height:8px;border-radius:50%;pointer-events:none;opacity:.95;transform:translateY(-120px);animation:confettiFall 2.4s linear forwards}
+@keyframes confettiFall{to{transform:translateY(240px) rotate(360deg);opacity:0.6}}
 
-  /* cake */
-  #cake{width:320px;max-width:86vw;border-radius:16px;display:none;margin:12px auto;cursor:pointer;box-shadow:0 20px 50px rgba(0,0,0,0.15);transition:transform .18s}
-  #cake.press{transform:scale(.94)}
-
-  /* gift */
-  #giftBox{width:240px;height:140px;margin:18px auto;border-radius:16px;display:none;cursor:pointer;background:linear-gradient(180deg,#ffe6cc,#ffd1a8);box-shadow:0 24px 60px rgba(255,150,120,0.12);display:flex;align-items:center;justify-content:center;font-weight:800;color:#6b2f47}
-  #giftBox:hover{transform:scale(1.02)}
-
-  /* final panel (typewriter) */
-  #finalPanel{display:none;width:92%;max-width:720px;margin:14px auto;background:linear-gradient(180deg,#fff7f9,#fff2f6);border-radius:14px;padding:18px;box-shadow:0 18px 44px rgba(255,150,190,0.08);text-align:left;color:#5b2b44;line-height:1.55}
-  .typewriter{white-space:pre-wrap;font-weight:500;font-size:15.5px}
-  .cursor{display:inline-block;width:10px;margin-left:6px;background:var(--accent);height:18px;vertical-align:bottom;border-radius:3px;animation:blink 1s steps(2,start) infinite}
-  @keyframes blink{50%{opacity:0}}
-
-  /* photos */
-  #photos{display:none;margin-top:16px}
-  #photos img{width:280px;max-width:86vw;margin:10px;border-radius:12px;box-shadow:0 18px 45px rgba(0,0,0,0.12);opacity:0;transform:translateY(20px);transition:transform .6s ease,opacity .6s ease}
-  #photos img.show{opacity:1;transform:translateY(0)}
-
-  /* confetti & sparkles */
-  .confetti{position:absolute;width:8px;height:8px;border-radius:50%;pointer-events:none;opacity:.95;transform:translateY(-120px);animation:confettiFall 2.4s linear forwards}
-  @keyframes confettiFall{to{transform:translateY(240px) rotate(360deg);opacity:0.6}}
-
-  .sparkle{position:absolute;width:6px;height:6px;border-radius:50%;pointer-events:none;transform:scale(.2);animation:sparklePop 700ms ease forwards;filter:drop-shadow(0 8px 16px rgba(255,190,210,0.18))}
-  @keyframes sparklePop{0%{transform:scale(.2) translateY(0);opacity:0}40%{transform:scale(1.05) translateY(-6px);opacity:1}100%{transform:scale(.6) translateY(-30px);opacity:0}}
-
-  /* responsive */
-  @media(max-width:420px){ #envelope{width:86vw} #cake{width:86vw} #giftBox{width:86vw} #treeArea{width:92vw} }
 </style>
 </head>
 <body>
 
-<!-- audio -->
 <audio id="bgm" src="song.mp3" preload="auto" loop></audio>
 
 <!-- Intro -->
@@ -91,34 +65,27 @@
   </div>
 </div>
 
-<!-- Envelope area (visible after click) -->
+<!-- Envelope -->
 <div id="envelopeArea" class="center" style="display:none">
   <img id="envelope" src="envelope.png" alt="envelope" />
   <div class="mini">Tap the envelope to open 💌</div>
 </div>
 
-<!-- Tree area (envelope morphs into tree) -->
-<div id="treeArea" class="center hidden" style="display:none">
-  <div id="treeAreaInner" style="width:100%;max-width:380px;margin:0 auto">
-    <div id="treeWrap" style="display:none">
-      <svg id="treeSVG" viewBox="0 0 380 340" xmlns="http://www.w3.org/2000/svg">
-        <!-- trunk (rectangle for effect) -->
-        <rect id="trunk" x="172" y="190" width="36" height="140" rx="10" fill="#7b4a34" style="opacity:0;transform-origin:188px 330px;"/>
-        <!-- branches paths (initially hidden via stroke-dashoffset) -->
-        <path id="b1" class="branch" d="M188 210 C 140 170, 90 160, 60 130" />
-        <path id="b2" class="branch" d="M188 200 C 220 170, 270 150, 310 120" />
-        <path id="b3" class="branch" d="M188 240 C 150 210, 120 200, 90 180" />
-        <path id="b4" class="branch" d="M188 240 C 230 210, 260 200, 300 180" />
-      </svg>
-      <div id="leafArea"></div>
-    </div>
-  </div>
-  <div class="mini">The tree will grow with branches and heart blossoms 🌳💖</div>
+<!-- Tree -->
+<div id="treeArea" class="center" style="display:none">
+  <svg id="treeSVG" viewBox="0 0 380 340">
+    <rect id="trunk" x="172" y="190" width="36" height="140" rx="10" fill="#7b4a34"/>
+    <path id="b1" class="branch" d="M188 210 C 140 170, 90 160, 60 130" />
+    <path id="b2" class="branch" d="M188 200 C 220 170, 270 150, 310 120" />
+    <path id="b3" class="branch" d="M188 240 C 150 210, 120 200, 90 180" />
+    <path id="b4" class="branch" d="M188 240 C 230 210, 260 200, 300 180" />
+  </svg>
+  <div id="leafArea"></div>
 </div>
 
-<!-- Cake area -->
+<!-- Cake -->
 <div id="cakeArea" class="center" style="display:none">
-  <img id="cake" src="cake.jpg" alt="cake" />
+  <img id="cake" src="cake.jpg" alt="cake"/>
   <div class="mini">Tap the cake to cut it 🎂</div>
 </div>
 
@@ -128,7 +95,7 @@
   <div class="mini">Click the gift to reveal the final letter</div>
 </div>
 
-<!-- Final panel -->
+<!-- Final Letter -->
 <div id="finalArea" class="center" style="display:none">
   <div id="finalPanel">
     <div id="typed" class="typewriter"></div><span id="cursor" class="cursor"></span>
@@ -137,14 +104,97 @@
 
 <!-- Photos -->
 <div id="photos" class="center" style="display:none">
-  <img id="ph1" src="pic_one.jpg" alt="pic1" />
-  <img id="ph2" src="pic_two.jpg" alt="pic2" />
-  <img id="ph3" src="pic_three.png" alt="pic3" />
+  <img id="ph1" src="pic_one.jpg" />
+  <img id="ph2" src="pic_two.jpg" />
+  <img id="ph3" src="pic_three.png" />
 </div>
 
 <script>
-// Your existing JavaScript code here, without duplication and issues
+const bgm=document.getElementById('bgm');
+document.getElementById('yesBtn').onclick=()=>{
+  document.getElementById('intro').style.display='none';
+  document.getElementById('envelopeArea').style.display='block';
+  bgm.play().catch(()=>{});
+}
 
+const envelope=document.getElementById('envelope');
+envelope.onclick=()=>{
+  document.getElementById('envelopeArea').style.display='none';
+  document.getElementById('treeArea').style.display='block';
+  growTree();
+}
+
+function growTree(){
+  const trunk=document.getElementById('trunk');
+  trunk.style.opacity='1';
+  trunk.style.transform='scaleY(1)';
+  const branches=document.querySelectorAll('.branch');
+  branches.forEach((b,i)=>{
+    setTimeout(()=>{b.style.strokeDashoffset='0';},i*400);
+  });
+  const leafArea=document.getElementById('leafArea');
+  const hearts=[];
+  for(let i=0;i<12;i++){
+    const h=document.createElement('div');
+    h.className='heart-bud';
+    h.style.left=Math.random()*320+'px';
+    h.style.bottom=Math.random()*20+'px';
+    leafArea.appendChild(h);
+    hearts.push(h);
+  }
+  hearts.forEach((h,i)=>{
+    setTimeout(()=>{h.classList.add('pop');},1500+i*200);
+  });
+  // after hearts, show cake
+  setTimeout(()=>{document.getElementById('treeArea').style.display='none';document.getElementById('cakeArea').style.display='block';},4500);
+}
+
+const cake=document.getElementById('cake');
+cake.onclick=()=>{
+  cake.classList.add('press');
+  setTimeout(()=>cake.classList.remove('press'),180);
+  showGift();
+}
+
+function showGift(){
+  document.getElementById('cakeArea').style.display='none';
+  document.getElementById('giftArea').style.display='block';
+}
+
+const giftBox=document.getElementById('giftBox');
+giftBox.onclick=()=>{
+  document.getElementById('giftArea').style.display='none';
+  document.getElementById('finalArea').style.display='block';
+  typeLetter("My sweet Lakshtu ❤️\nYou mean the world to me. Thank you for filling my life with love, happiness and warmth.\nOn your special day, I wish you a year full of joy, soft moments, and beautiful memories.\nHappiest Birthday, my precious one 💕");
+  showPhotos();
+}
+
+function typeLetter(text){
+  const typed=document.getElementById('typed');
+  let i=0;
+  const interval=setInterval(()=>{
+    typed.textContent+=text[i];
+    i++;
+    if(i>=text.length) clearInterval(interval);
+  },35);
+}
+
+function showPhotos(){
+  const phs=[document.getElementById('ph1'),document.getElementById('ph2'),document.getElementById('ph3')];
+  phs.forEach((p,i)=>{
+    setTimeout(()=>{p.classList.add('show');document.getElementById('photos').style.display='block';},i*500);
+  });
+}
+
+// simple confetti
+for(let i=0;i<60;i++){
+  const c=document.createElement('div');
+  c.className='confetti';
+  c.style.left=Math.random()*window.innerWidth+'px';
+  c.style.backgroundColor=`hsl(${Math.random()*50+300},70%,85%)`;
+  c.style.animationDuration=1+Math.random()*1.5+'s';
+  document.body.appendChild(c);
+}
 </script>
 </body>
 </html>
