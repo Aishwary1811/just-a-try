@@ -1,240 +1,429 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Happy Birthday Lakshtu 💖</title>
-
 <style>
-    body {
-        margin:0;
-        padding:0;
-        background: #ffd7ea;
-        font-family: "Poppins", sans-serif;
-        text-align:center;
-        overflow:hidden;
-    }
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-    .centerBox{
-        position:absolute;
-        top:50%; left:50%;
-        transform:translate(-50%, -50%);
-        width:90%;
-        max-width:350px;
-    }
+  :root{
+    /* mix of warm peach+gold and baby pink+lavender glow */
+    --bg1: #ffe6de;       /* soft peach */
+    --bg2: #ffd7f0;       /* baby pink-lavender */
+    --peach: #ffb88c;     /* peach accent */
+    --gold:  #ffd166;     /* gold accent */
+    --pink:  #ff4f9a;     /* bright pink */
+    --muted: #5b3140;     /* deep mauve text */
+    --card:  rgba(255,255,255,0.95);
+    --glow:  rgba(255,130,180,0.12);
+  }
 
-    /* Fade-in animation */
-    .fade {
-        animation: fadeIn 1.2s ease forwards;
-        opacity:0;
-    }
-    @keyframes fadeIn {
-        to { opacity:1; }
-    }
+  html,body{height:100%; margin:0; font-family:'Poppins',sans-serif; background: linear-gradient(135deg,var(--bg1),var(--bg2)); color:var(--muted); overflow:hidden;}
+  .center { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:94%; max-width:460px; text-align:center; }
 
-    /* Float */
-    @keyframes float {
-        0%,100% { transform:translate(-50%, -50%) translateY(0); }
-        50% { transform:translate(-50%, -50%) translateY(-12px); }
-    }
+  /* Card */
+  .card{ background:var(--card); border-radius:18px; padding:22px; box-shadow: 0 14px 40px rgba(0,0,0,0.06); }
 
-    /* Heart tree slow appear */
-    #heartTree {
-        width:240px;
-        opacity:0;
-        transition:opacity 2.5s ease-in;
-    }
+  h1 { margin:10px 0 6px; color:var(--pink); font-size:22px; letter-spacing:0.2px;}
+  p.lead { margin:8px 0 18px; color:#7a4b5f; }
 
-    /* Envelope floating */
-    #envelope {
-        width:260px;
-        cursor:pointer;
-        animation: float 3s ease-in-out infinite;
-    }
+  button{
+    background: linear-gradient(180deg,var(--peach), var(--pink));
+    border:none; color:white; padding:12px 20px; border-radius:12px; font-weight:700; cursor:pointer;
+    box-shadow: 0 10px 24px rgba(255,100,150,0.18);
+  }
+  button:active{ transform: translateY(1px) scale(.997); }
 
-    /* Letter */
-    #letter {
-        background:white;
-        padding:22px;
-        border-radius:16px;
-        color:#444;
-        font-size:16px;
-        box-shadow:0 0 30px rgba(255,255,255,0.8);
-        display:none;
-    }
+  /* Float animation for envelope/cake/gift */
+  .floaty { animation: floaty 3s ease-in-out infinite; }
+  @keyframes floaty { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-10px) } }
 
-    button {
-        margin-top:18px;
-        padding:12px 22px;
-        border:none;
-        background:#ff5ea5;
-        color:white;
-        border-radius:12px;
-        font-weight:bold;
-        cursor:pointer;
-        font-size:15px;
-        box-shadow:0 6px 15px rgba(0,0,0,0.2);
-    }
+  /* subtle fade */
+  .fade-in { animation: fadeIn .6s ease forwards; opacity:0; }
+  @keyframes fadeIn { to { opacity:1 } }
 
-    /* Cake */
-    #cake {
-        width:260px;
-        border-radius:18px;
-        display:none;
-        box-shadow:0 5px 20px rgba(0,0,0,0.25);
-        cursor:pointer;
-    }
+  /* envelope */
+  #envelope { width:280px; border-radius:14px; cursor:pointer; display:block; margin:0 auto; box-shadow:0 14px 40px rgba(0,0,0,0.12); }
 
-    /* Photos */
-    .photo {
-        display:none;
-        width:260px;
-        margin-top:10px;
-        border-radius:18px;
-        box-shadow:0 5px 20px rgba(0,0,0,0.25);
-    }
+  /* letter card */
+  #letterCard{ display:none; margin-top:12px; background:linear-gradient(180deg,#fff9fb,#fff2f6); padding:18px; border-radius:14px; color:var(--muted); box-shadow:0 12px 30px rgba(255,140,170,0.08); text-align:left; line-height:1.5; }
 
-    /* Gift Box */
-    #giftBox {
-        width:200px;
-        display:none;
-        cursor:pointer;
-        animation: float 3s ease-in-out infinite;
-    }
+  /* cake */
+  #cake { display:none; width:320px; border-radius:16px; cursor:pointer; box-shadow:0 18px 45px rgba(0,0,0,0.15); margin:0 auto; }
 
-    /* Final message */
-    #finalMessage {
-        display:none;
-        background:white;
-        padding:25px;
-        border-radius:18px;
-        font-size:17px;
-        color:#444;
-        box-shadow:0 0 25px rgba(255,255,255,0.8);
-    }
+  .hint{ color:#7a4b5f; font-size:13px; margin-top:8px; }
 
-    #tulip {
-        width:180px;
-        margin-top:15px;
-        display:none;
-        animation: fadeIn 2s ease forwards;
-    }
+  /* photos (appear after final letter) */
+  .photo { display:none; width:300px; margin:14px auto; border-radius:12px; box-shadow:0 14px 35px rgba(0,0,0,0.12); transform: translateY(22px); opacity:0; transition: transform .6s ease, opacity .6s ease; }
+  .photo.show { transform: translateY(0); opacity:1; }
+
+  /* tree and leaves */
+  #treeArea { display:none; margin-top:16px; position:relative; height:240px; }
+  #treeTrunk { width:28px; height:120px; background:linear-gradient(180deg,#8b5a3a,#6b3f2a); margin:0 auto; border-radius:10px; position:relative; top:50px; box-shadow:0 10px 28px rgba(0,0,0,0.12); }
+  #leaves { position:absolute; left:50%; transform:translateX(-50%); bottom:120px; width:320px; height:140px; pointer-events:none; }
+
+  .leafHeart {
+    position:absolute; width:26px; height:26px; background-image:url('heart.png'); background-size:contain; background-repeat:no-repeat;
+    opacity:0; transform: scale(.5) translateY(18px) rotate(0deg);
+    transition: transform .85s cubic-bezier(.2,.9,.2,1), opacity .85s ease;
+    filter: drop-shadow(0 8px 14px rgba(255,125,170,0.16));
+  }
+  @keyframes leafPop {
+    0% { transform: scale(.35) translateY(18px) rotate(0deg); opacity:0; }
+    50% { transform: scale(1.08) translateY(0) rotate(12deg); opacity:1; }
+    100% { transform: scale(.92) translateY(0) rotate(0deg); opacity:1; }
+  }
+
+  /* gift box */
+  #giftWrap { display:none; margin-top:12px; }
+  #giftBox {
+    width:240px; height:140px; margin:0 auto; border-radius:16px;
+    background: linear-gradient(180deg, rgba(255,220,190,0.95), rgba(255,183,130,0.95));
+    box-shadow: 0 22px 60px rgba(255,150,120,0.12), inset 0 -6px 18px rgba(255,200,160,0.08);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; overflow:hidden;
+    transition: transform .28s ease, box-shadow .28s ease;
+  }
+  #giftBox:hover{ transform: scale(1.02); box-shadow: 0 28px 72px rgba(255,140,120,0.16); }
+  #giftLabel { font-weight:800; color: #6a2b45; text-shadow: 0 6px 18px rgba(255,255,255,0.22); }
+
+  /* confetti on gift */
+  .confetti { position:absolute; width:9px; height:9px; border-radius:50%; pointer-events:none; opacity:0.95; transform: translateY(-120px); animation: confettiFall 2.3s linear forwards; }
+  @keyframes confettiFall { to { transform: translateY(220px) rotate(360deg); opacity:0.6; } }
+
+  /* sparkles during final typing */
+  .sparkle { position:absolute; width:6px; height:6px; border-radius:50%; pointer-events:none; transform: scale(0.2); animation: sparklePop 700ms ease forwards; filter: drop-shadow(0 6px 12px rgba(255,200,220,0.25)); }
+  @keyframes sparklePop { 0%{ transform: scale(0.2) translateY(0); opacity:0; } 40%{ transform: scale(1.15) translateY(-6px); opacity:1 } 100%{ transform: scale(0.6) translateY(-30px); opacity:0 } }
+
+  /* final panel & typewriter */
+  #finalPanel { display:none; width:92%; margin:10px auto 0; background: linear-gradient(180deg,#fff7f9,#fff3f6); border-radius:14px; padding:18px; color:#5b2b44; box-shadow:0 18px 55px rgba(255,150,190,0.08); line-height:1.55; font-size:15px; text-align:left; }
+  .typewriter { white-space:pre-wrap; font-weight:500; }
+
+  .cursor { display:inline-block; width:10px; background:var(--pink); margin-left:6px; animation: blink 1s steps(2,start) infinite; height:16px; vertical-align:bottom; border-radius:3px; }
+  @keyframes blink { 50%{ opacity:0 } }
+
+  .hidden { display:none !important; }
+  .small { font-size:13px; color:#7a4356; margin-top:10px; }
+
+  /* responsive smaller images */
+  @media (max-width:420px){
+    #envelope { width:240px; }
+    #cake { width:260px; }
+    .photo { width:260px; }
+    #giftBox { width:200px; height:120px; }
+  }
 </style>
 </head>
-
 <body>
 
-<audio id="bgm" src="song.mp3" loop></audio>
+<!-- audio -->
+<audio id="bgm" src="song.mp3" preload="auto" loop></audio>
 
-<!-- PAGE 1 — Intro -->
-<div id="page1" class="centerBox fade">
-    <img id="heartTree" src="heart.png">
-    <h2 style="color:#ff2f87; margin-top:15px;">It's your special day 💖</h2>
-    <p style="color:#7b3d59;">Do you want to see your gift?</p>
-    <button onclick="goEnvelope()">Yes 🎁</button>
+<!-- INTRO -->
+<div id="intro" class="center">
+  <div class="card fade-in">
+    <img src="heart.png" alt="heart" style="width:72px; height:72px; display:block; margin:0 auto; border-radius:12px; box-shadow:0 10px 30px rgba(255,120,170,0.18);" />
+    <h1>It's your special day!</h1>
+    <p class="lead">Do you want to see your gift?</p>
+    <button id="yesBtn">Yes 💖</button>
+  </div>
 </div>
 
-<!-- PAGE 2 — Envelope -->
-<div id="page2" class="centerBox fade" style="display:none;">
-    <img id="envelope" src="envelope.png">
-    <p style="color:white; margin-top:10px; opacity:0.9;">Tap the envelope 💌</p>
+<!-- ENVELOPE -->
+<div id="envelopePage" class="center hidden">
+  <div>
+    <img id="envelope" src="envelope.png" alt="envelope" class="floaty" />
+    <div class="small">Tap the envelope to open 💌</div>
+  </div>
 </div>
 
-<!-- PAGE 3 — Letter -->
-<div id="page3" class="centerBox fade" style="display:none;">
-    <div id="letter">
-        My sweet Lakshtu ❤️<br><br>
-        You make my world softer, brighter and happier.  
-        Thank you for being the most precious part of my life.  
-        I hope this birthday brings you endless joy and love.  
-        <br><br>
-        Tap below to continue 🎀
+<!-- LETTER -->
+<div id="letterPage" class="center hidden">
+  <div id="letterCard">
+    <strong>My sweet Lakshtu,</strong><br><br>
+    You make my world softer, brighter and happier. Thank you for being the most precious part of my life. I hope this birthday brings you endless joy and love.<br><br>
+    Tap below to see the cake 🎂
+  </div>
+  <button id="toCakeBtn">See Cake ➜</button>
+</div>
+
+<!-- CAKE -->
+<div id="cakePage" class="center hidden">
+  <div>
+    <img id="cake" src="cake.jpg" alt="cake" class="floaty" />
+    <div class="hint">Tap the cake to cut it and reveal the surprise 🎂</div>
+  </div>
+</div>
+
+<!-- AFTER final: PHOTOS (appear after final letter typed) -->
+<div id="photosArea" class="center hidden" style="width:100%; max-width:720px;">
+  <img id="pic1" class="photo" src="pic_one.jpg" alt="pic1">
+  <img id="pic2" class="photo" src="pic_two.jpg" alt="pic2">
+  <img id="pic3" class="photo" src="pic_three.png" alt="pic3">
+</div>
+
+<!-- TREE + GIFT area (appears before final panel) -->
+<div id="afterPhotos" class="center hidden" style="width:100%; max-width:720px;">
+  <div id="treeArea" style="display:none;">
+    <div id="leaves"></div>
+    <div id="treeTrunk"></div>
+  </div>
+
+  <div id="giftWrap" style="display:none;">
+    <div id="giftBox" title="Click to open the final gift">
+      <div id="giftLabel">Open Gift</div>
     </div>
-    <button onclick="goCake()">Next ➜</button>
+    <div class="small">Click the gift to reveal your final letter</div>
+  </div>
 </div>
 
-<!-- PAGE 4 — Cake -->
-<div id="page4" class="centerBox fade" style="display:none;">
-    <img id="cake" src="cake.jpg">
-    <p style="color:white; margin-top:8px;">Tap the cake to cut 🎂</p>
+<!-- FINAL PANEL -->
+<div id="finalArea" class="center hidden">
+  <div id="finalPanel">
+    <div id="typed" class="typewriter"></div><span id="cursor" class="cursor"></span>
+  </div>
 </div>
-
-<!-- PAGE 5 — Photos -->
-<div id="page5" class="centerBox fade" style="display:none;">
-    <img id="p1" class="photo" src="pic_one.jpg">
-    <img id="p2" class="photo" src="pic_two.jpg">
-    <img id="p3" class="photo" src="pic_three.png">
-</div>
-
-<!-- PAGE 6 — Gift Box -->
-<div id="page6" class="centerBox fade" style="display:none;">
-    <img id="giftBox" src="heart.png">
-    <p style="color:white;">Tap to open your final gift 🎁</p>
-</div>
-
-<!-- PAGE 7 — Final -->
-<div id="page7" class="centerBox fade" style="display:none;">
-    <div id="finalMessage">
-        Happy Birthday, my precious Lakshtu 💗<br><br>
-        May your days be filled with soft love, warm hugs  
-        and every beautiful moment you deserve.  
-        <br><br>
-        I adore you endlessly. 🌸
-    </div>
-    <img id="tulip" src="tulip.png">
-</div>
-
 
 <script>
-/* HEART TREE APPEAR */
-window.onload = () => {
+/* ====== Elements ====== */
+const yesBtn = document.getElementById('yesBtn');
+const bgm = document.getElementById('bgm');
+const intro = document.getElementById('intro');
+const envelopePage = document.getElementById('envelopePage');
+const envelope = document.getElementById('envelope');
+const letterPage = document.getElementById('letterPage');
+const toCakeBtn = document.getElementById('toCakeBtn');
+const cakePage = document.getElementById('cakePage');
+const cake = document.getElementById('cake');
+const photosArea = document.getElementById('photosArea');
+const pic1 = document.getElementById('pic1'), pic2 = document.getElementById('pic2'), pic3 = document.getElementById('pic3');
+const afterPhotos = document.getElementById('afterPhotos');
+const treeArea = document.getElementById('treeArea');
+const leaves = document.getElementById('leaves');
+const giftWrap = document.getElementById('giftWrap');
+const giftBox = document.getElementById('giftBox');
+const finalArea = document.getElementById('finalArea');
+const typed = document.getElementById('typed');
+const cursor = document.getElementById('cursor');
+
+/* Final letter text (B + C combined) */
+const finalText = `My sweet Lakshtu,\n\nYou make my world brighter just by being in it. You are the kindest part of my heart — the calm in my chaos, and the softest place where my feelings rest.\n\nThank you for loving me in your own little ways, for supporting me, for choosing me, and for making every day feel special without even trying.\n\nOn your birthday, I just want you to know — you are precious to me, you are loved more than words can hold, and you will always, always have a place in my heart.\n\nHappy Birthday, my love.\nMy sweetest girl.\nMy Lakshtu. 💖✨`;
+
+/* ====== Sound (WebAudio) ====== */
+let audioCtx = null;
+function ensureAudio(){
+  if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+}
+function playTone(freq = 880, dur = 260){
+  ensureAudio();
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type = 'triangle';
+  o.frequency.value = freq;
+  const o2 = audioCtx.createOscillator();
+  o2.type = 'sine';
+  o2.frequency.value = freq * 1.5;
+  g.gain.setValueAtTime(0, audioCtx.currentTime);
+  g.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur/1000);
+  o.connect(g); o2.connect(g); g.connect(audioCtx.destination);
+  o.start(); o2.start();
+  setTimeout(()=>{ o.stop(); o2.stop(); g.disconnect(); }, dur + 30);
+}
+
+/* ====== FLOW ====== */
+/* 1 Intro -> envelope */
+yesBtn.addEventListener('click', () => {
+  bgm.play().catch(()=>{});
+  intro.classList.add('hidden');
+  envelopePage.classList.remove('hidden');
+});
+
+/* 2 Envelope -> letter */
+envelope.addEventListener('click', () => {
+  envelopePage.classList.add('hidden');
+  letterPage.classList.remove('hidden');
+  setTimeout(()=> document.getElementById('letterCard').classList.add('fade-in'), 120);
+});
+
+/* 3 Letter -> cake */
+toCakeBtn.addEventListener('click', () => {
+  letterPage.classList.add('hidden');
+  cakePage.classList.remove('hidden');
+  setTimeout(()=> cake.style.display = 'block', 160);
+});
+
+/* 4 Cake click -> show tree + gift area (then final click to reveal letter) */
+cake.addEventListener('click', () => {
+  // small cut/press animation
+  cake.style.transition = 'transform .22s';
+  cake.style.transform = 'scale(.94)';
+  setTimeout(()=> cake.style.transform = 'scale(1)', 180);
+
+  // reveal photos area (they should appear AFTER final letter; but here we follow your flow: show tree & gift first)
+  setTimeout(()=> {
+    cakePage.classList.add('hidden');
+
+    // Next: show tree area and gift area
+    afterPhotos.classList.remove('hidden');
+    treeArea.style.display = 'block';
+    treeArea.style.opacity = 0;
+    setTimeout(()=> treeArea.style.opacity = 1, 60);
+
+    // small burst of leaves and then slow drip
+    setTimeout(()=> spawnLeavesBurst(7), 700);
+
+    // show gift box with confetti after tree appears
     setTimeout(()=> {
-        document.getElementById("heartTree").style.opacity = 1;
-    }, 400);
-};
+      giftWrap.style.display = 'block';
+      showConfettiOnGift();
+    }, 1200);
 
-/* PAGE FUNCTIONS */
-function goEnvelope(){
-    document.getElementById("page1").style.display="none";
-    document.getElementById("page2").style.display="block";
+  }, 260);
+});
+
+/* spawn initial burst then interval */
+function spawnLeavesBurst(n){
+  for(let i=0;i<n;i++){
+    setTimeout(()=> createLeafAtRandom(true), i*140);
+  }
+  setTimeout(()=> {
+    window.leafInterval = setInterval(()=> createLeafAtRandom(false), 780);
+  }, 1000);
 }
 
-document.getElementById("envelope").onclick = () => {
-    document.getElementById("page2").style.display="none";
-    document.getElementById("page3").style.display="block";
+/* create a leaf heart at random position inside leaves area */
+function createLeafAtRandom(initialPop=false){
+  const leaf = document.createElement('div');
+  leaf.className = 'leafHeart';
+  const areaW = 320, areaH = 120;
+  const x = Math.random() * (areaW - 40);
+  const y = Math.random() * (areaH - 40);
+  leaf.style.left = `${x}px`;
+  leaf.style.top = `${y}px`;
+  leaves.appendChild(leaf);
 
-    bgm.play().catch(()=>{});
-};
+  // small pop animation
+  requestAnimationFrame(()=> {
+    leaf.style.animation = 'leafPop 420ms cubic-bezier(.2,.9,.2,1) forwards';
+    leaf.style.opacity = '1';
+  });
 
-function goCake(){
-    document.getElementById("page3").style.display="none";
-    document.getElementById("page4").style.display="block";
-    document.getElementById("cake").style.display="block";
+  // after pop, float & fade
+  const floatDelay = 1100 + Math.random()*1400;
+  setTimeout(()=> {
+    leaf.style.transition = 'transform 2200ms ease-in, opacity 2200ms ease';
+    leaf.style.transform = `translateY(-72px) scale(.6) rotate(${Math.random()*720}deg)`;
+    leaf.style.opacity = 0;
+    setTimeout(()=> leaf.remove(), 2400);
+  }, floatDelay);
 }
 
-document.getElementById("cake").onclick = () => {
-    document.getElementById("page4").style.display="none";
-    document.getElementById("page5").style.display="block";
+/* Confetti around gift */
+function showConfettiOnGift(){
+  const gift = giftBox;
+  for(let i=0;i<18;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = (40 + (Math.random()*160 - 80)) + 'px';
+    c.style.top = (10 + Math.random()*20) + 'px';
+    c.style.background = `hsl(${Math.random()*40 + 320}, 80%, 76%)`;
+    gift.appendChild(c);
+    setTimeout(()=> c.remove(), 2600 + Math.random()*1200);
+  }
+}
 
-    setTimeout(()=>document.getElementById("p1").style.display="block", 300);
-    setTimeout(()=>document.getElementById("p2").style.display="block", 800);
-    setTimeout(()=>document.getElementById("p3").style.display="block", 1300);
+/* 5 Gift click -> reveal final letter (typewriter) */
+giftBox.addEventListener('click', () => {
+  if(window.leafInterval) clearInterval(window.leafInterval);
 
-    setTimeout(()=>{
-        document.getElementById("page5").style.display="none";
-        document.getElementById("page6").style.display="block";
-        document.getElementById("giftBox").style.display="block";
-    }, 2800);
-};
+  // hide gift area
+  giftWrap.classList.add('hidden');
 
-/* GIFT BOX → FINAL */
-document.getElementById("giftBox").onclick = () => {
-    document.getElementById("page6").style.display="none";
-    document.getElementById("page7").style.display="block";
+  // show final panel
+  finalArea.classList.remove('hidden');
 
-    setTimeout(()=>document.getElementById("tulip").style.display="block", 1000);
-};
+  // start typewriter
+  startTypewriter(finalText, typed, 26);
+});
+
+/* sparkles around finalPanel during typing */
+function spawnSparkles(count=10){
+  const panel = document.getElementById('finalPanel');
+  const rect = panel.getBoundingClientRect();
+  for(let i=0;i<count;i++){
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = (10 + Math.random()*(rect.width-20)) + 'px';
+    s.style.top = (8 + Math.random()*(rect.height-20)) + 'px';
+    s.style.background = `hsl(${Math.random()*40 + 320}, 80%, 76%)`;
+    panel.appendChild(s);
+    setTimeout(()=> s.remove(), 900 + Math.random()*500);
+  }
+}
+
+/* Typewriter with line-end detection: spawn sparkles & play tone on each newline */
+function startTypewriter(text, outEl, speed=26){
+  outEl.textContent = '';
+  cursor.style.display = 'inline-block';
+  let i = 0;
+  function step(){
+    if(i < text.length){
+      const ch = text[i++];
+      outEl.textContent += ch;
+      if(ch === '\n'){
+        spawnSparkles(9);
+        playTone(720 + Math.random()*240, 260);
+      }
+      if(ch === ',' || ch === '.'){
+        setTimeout(step, speed * 7);
+      } else {
+        setTimeout(step, speed + Math.random()*12);
+      }
+    } else {
+      cursor.style.display = 'none';
+      spawnSparkles(18);
+      playTone(900, 320);
+      // after full text typed, show photos after a short pause
+      setTimeout(()=> revealPhotos(), 1000);
+    }
+  }
+  step();
+}
+
+/* reveal photos after final message typed */
+function revealPhotos(){
+  photosArea.classList.remove('hidden');
+  setTimeout(()=> { pic1.classList.add('show'); pic1.style.display='block'; }, 300);
+  setTimeout(()=> { pic2.classList.add('show'); pic2.style.display='block'; }, 850);
+  setTimeout(()=> { pic3.classList.add('show'); pic3.style.display='block'; }, 1400);
+}
+
+/* WebAudio helper (used earlier) */
+let audioCtx = null;
+function ensureAudio(){
+  if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+}
+function playTone(freq = 880, dur = 220){
+  ensureAudio();
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type = 'triangle'; o.frequency.value = freq;
+  const o2 = audioCtx.createOscillator(); o2.type = 'sine'; o2.frequency.value = freq * 1.45;
+  g.gain.setValueAtTime(0, audioCtx.currentTime);
+  g.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur/1000);
+  o.connect(g); o2.connect(g); g.connect(audioCtx.destination);
+  o.start(); o2.start();
+  setTimeout(()=>{ o.stop(); o2.stop(); g.disconnect(); }, dur + 30);
+}
+
+/* small accessibility: allow Enter key on gift */
+giftBox.tabIndex = 0;
+giftBox.addEventListener('keydown', (e)=> { if(e.key === 'Enter') giftBox.click(); });
+
+/* safety: pause music on page hide */
+window.addEventListener('pagehide', ()=> bgm.pause());
 </script>
-
 </body>
 </html>
