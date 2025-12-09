@@ -36,8 +36,8 @@ body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg
 #cakeBox{display:flex;flex-direction:column;align-items:center;gap:8px;}
 #cakeImg{width:360px;max-width:88vw;border-radius:16px;cursor:pointer;box-shadow:0 26px 68px rgba(0,0,0,0.12);transition:transform .18s;}
 #cakeImg:active{transform:scale(.94);}
-.candle{position:relative;width:8px;height:34px;background:#fff;border-radius:8px;left:50%;transform:translateX(-50%);top:-52px;opacity:0;}
-.flame{position:absolute;left:50%;top:-18px;width:14px;height:14px;border-radius:50%;transform:translateX(-50%);background:radial-gradient(circle,#ffd800 0%, #ff5e00 70%);filter:drop-shadow(0 8px 14px rgba(255,120,60,0.3));opacity:0;}
+.candle{position:relative;width:8px;height:34px;background:#fff;border-radius:8px;left:50%;transform:translateX(-50%);top:-52px;opacity:1;}
+.flame{position:absolute;left:50%;top:-18px;width:14px;height:14px;border-radius:50%;transform:translateX(-50%);background:radial-gradient(circle,#ffd800 0%, #ff5e00 70%);filter:drop-shadow(0 8px 14px rgba(255,120,60,0.3));opacity:1;}
 
 /* Gift */
 #gift3D{width:240px;height:140px;border-radius:12px;background:linear-gradient(180deg,#fff3e6,#ffd6b3);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 22px 68px rgba(255,150,120,0.12);position:relative;overflow:visible;transform-style:preserve-3d;transition:transform .45s;}
@@ -146,16 +146,15 @@ startBtn.addEventListener('click', ()=>{
 document.getElementById('envelope').addEventListener('click', async ()=>{
   envelopeStage.classList.remove('active');
   treeStage.classList.add('active');
-  // create hearts
   const count = 18;
   for(let i=0;i<count;i++){
     createHeart(i,count);
-    await new Promise(r=>setTimeout(r,220));
+    await new Promise(r=>setTimeout(r,150));
   }
   setTimeout(()=>{
     treeStage.classList.remove('active');
     cakeStage.classList.add('active');
-  },1200);
+  },4000);
 });
 
 function createHeart(index,total){
@@ -165,8 +164,13 @@ function createHeart(index,total){
   const x = Math.random()*w*0.7; const y = Math.random()*h*0.7;
   el.style.left=x+'px'; el.style.top=y+'px';
   leafLayer.appendChild(el);
-  setTimeout(()=>el.classList.add('pop'),120+index*180);
-  setTimeout(()=>{el.style.transition='transform 2200ms ease, opacity 2200ms ease'; el.style.transform='translateY(-74px) scale(.6) rotate('+Math.random()*360+'deg)'; el.style.opacity=0; setTimeout(()=>el.remove(),2200);},3500+Math.random()*1200);
+  setTimeout(()=>el.classList.add('pop'),120+index*120);
+  setTimeout(()=>{
+    el.style.transition='transform 2200ms ease, opacity 2200ms ease'; 
+    el.style.transform='translateY(-74px) scale(.6) rotate('+Math.random()*360+'deg)';
+    el.style.opacity=0; 
+    setTimeout(()=>el.remove(),2200);
+  },3000+Math.random()*1200);
 }
 
 // Cake click → gift
@@ -183,6 +187,7 @@ document.getElementById('gift3D').addEventListener('click', ()=>{
     gallerySection.style.display='block';
     finalStage.classList.add('active');
     startTyping();
+    document.getElementById('finalPanel').style.display='block';
   },900);
 });
 
