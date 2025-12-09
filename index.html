@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Happy Birthday Lakshtu 💖</title>
+<style>
+/* ---------- Fonts + base ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+:root{
+  --bg1:#fff6f3; --bg2:#ffeef9; --accent:#ff4f9a; --peach:#ffb88c; --muted:#63414a;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2));color:var(--muted);-webkit-font-smoothing:antialiased}
+.container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden}
+
+/* small animated background */
+.bg-soft{position:absolute;inset:-20%;background:
+  radial-gradient(circle at 10% 20%, rgba(255,210,190,0.12), transparent 12%),
+  radial-gradient(circle at 80% 80%, rgba(230,200,255,0.08), transparent 12%);transform:scale(1.02);animation:bgMove 14s linear infinite;z-index:0}
+@keyframes bgMove{0%{transform:translateY(0) scale(1.02)}50%{transform:translateY(-30px) scale(1.01)}100%{transform:translateY(0) scale(1.02)}}
+
+/* card */
+.card{position:relative;z-index:4;width:100%;max-width:900px;background:rgba(255,255,255,0.96);border-radius:16px;padding:20px;box-shadow:0 30px 80px rgba(120,50,80,0.06);display:flex;flex-direction:column;align-items:center;gap:12px}
+.header-heart{width:68px;height:68px;background-image:url('heart.png');background-size:contain;background-repeat:no-repeat;border-radius:12px;box-shadow:0 12px 30px rgba(255,110,170,0.12)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;border:none;color:white;font-weight:700;cursor:pointer;background:linear-gradient(180deg,var(--peach),var(--accent));box-shadow:0 12px 30px rgba(255,100,150,0.14);transition:transform .18s}
+.btn:active{transform:translateY(1px)}
+.btn.secondary{background:linear-gradient(180deg,#aebaff,#c89bff)}
+
+/* stages */
+.stage{width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;transition:opacity .5s, transform .5s}
+.hidden{display:none}
+
+/* envelope */
+#envelope{width:320px;max-width:86vw;border-radius:12px;cursor:pointer;box-shadow:0 18px 40px rgba(0,0,0,0.12);transition:transform .5s}
+#envelope:hover{transform:translateY(-6px)}
+
+/* tree */
+#treeWrap{width:100%;max-width:420px;height:360px;position:relative;display:flex;align-items:center;justify-content:center}
+#leafLayer{position:absolute;left:50%;transform:translateX(-50%);bottom:80px;width:320px;height:220px;pointer-events:none}
+.tree-heart{position:absolute;width:30px;height:30px;background-image:url('heart.png');background-size:contain;background-repeat:no-repeat;opacity:0;transform:scale(.35) translateY(18px);transition:transform .85s cubic-bezier(.2,.9,.2,1),opacity .85s,filter .85s}
+.tree-heart.pop{opacity:1;transform:scale(1) translateY(0);filter:drop-shadow(0 10px 22px rgba(255,120,170,0.14))}
+
+/* cake */
+#cakeBox{display:flex;flex-direction:column;align-items:center;gap:8px}
+#cakeImg{width:360px;max-width:88vw;border-radius:16px;cursor:pointer;box-shadow:0 26px 68px rgba(0,0,0,0.12);transition:transform .18s}
+#cakeImg:active{transform:scale(.94)}
+.candle{position:relative;width:8px;height:34px;background:#fff;border-radius:8px;left:50%;transform:translateX(-50%);top:-52px;opacity:0}
+.flame{position:absolute;left:50%;top:-18px;width:14px;height:14px;border-radius:50%;transform:translateX(-50%);background:radial-gradient(circle,#ffd800 0%, #ff5e00 70%);filter:drop-shadow(0 8px 14px rgba(255,120,60,0.3));opacity:0}
+
+/* balloons */
+.balloon{position:absolute;width:46px;height:66px;border-radius:60%;bottom:-120px;opacity:0;transform:translateY(0);transition:transform 3s cubic-bezier(.2,.9,.2,1),opacity .4s}
+.balloon.a{left:10%;background:linear-gradient(180deg,#ff94c8,#ff4f9a)}
+.balloon.b{right:12%;background:linear-gradient(180deg,#ffd17a,#ff7a5a)}
+
+/* gift */
+#gift3D{width:240px;height:140px;border-radius:12px;background:linear-gradient(180deg,#fff3e6,#ffd6b3);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 22px 68px rgba(255,150,120,0.12);position:relative;overflow:visible;transform-style:preserve-3d;transition:transform .45s}
+.lid{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:260px;height:44px;background:linear-gradient(180deg,#ffd8b0,#ffb07a);border-radius:8px;transform-origin:50% 100%;transition:transform .6s}
+.lid.open{transform:translateX(-50%) rotateX(-78deg) translateY(-14px)}
+
+/* final letter */
+#finalPanel{width:92%;max-width:760px;background:linear-gradient(180deg,#fff7f9,#fff2f6);border-radius:14px;padding:18px;margin-top:12px;box-shadow:0 20px 48px rgba(255,150,190,0.07);display:none;text-align:left}
+.typewriter{white-space:pre-wrap;font-weight:500;font-size:16px}
+.cursor{display:inline-block;width:10px;height:18px;background:var(--accent);margin-left:8px;border-radius:3px;animation:blink 1s steps(2,start) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* LOVE YOU Grand Reveal */
+#loveYou{
+  font-size:32px;
+  font-weight:700;
+  text-align:center;
+  width:100%;
+  margin-top:18px;
+  color:#ff2e74;
+  opacity:0;
+  transform:translateY(40px) scale(.8);
+  animation:loveRise 1.8s ease forwards 0.4s;
+  text-shadow:0 0 18px rgba(255,80,150,0.55), 0 0 30px rgba(255,120,180,0.45);
+}
+@keyframes loveRise{
+  0%{opacity:0;transform:translateY(40px) scale(.8)}
+  60%{opacity:1;transform:translateY(-6px) scale(1.05)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.firework{
+  position:absolute;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:#ff6fb9;
+  animation:fw 900ms ease-out forwards;
+}
+@keyframes fw{
+  0%{transform:scale(.2);opacity:1}
+  70%{transform:scale(2.2);opacity:0.8}
+  100%{transform:scale(3.3);opacity:0}
+}
+
+/* gallery */
+.gallery{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.gallery img{width:270px;max-width:86vw;border-radius:12px;box-shadow:0 22px 60px rgba(0,0,0,0.10);opacity:0;transform:translateY(18px) scale(.98);transition:transform .6s,opacity .6s}
+.gallery img.show{opacity:1;transform:translateY(0) scale(1)}
+
+/* confetti */
+.confetti{position:absolute;width:8px;height:8px;border-radius:50%;pointer-events:none;opacity:.95;transform:translateY(-120px);animation:confettiFall 2.4s linear forwards}
+@keyframes confettiFall{to{transform:translateY(250px) rotate(360deg);opacity:0.6}}
+
+.sparkle{position:absolute;width:6px;height:6px;border-radius:50%;pointer-events:none;transform:scale(.2);animation:sparklePop 700ms ease forwards}
+@keyframes sparklePop{0%{transform:scale(.2) translateY(0);opacity:0}40%{transform:scale(1.05) translateY(-6px);opacity:1}100%{transform:scale(.6) translateY(-30px);opacity:0}}
+
+/* responsive */
+@media(max-width:560px){ .gallery img{width:86vw} #cakeImg{width:86vw} #envelope{width:86vw} }
+</style>
+</head>
+<body>
+<div class="bg-soft"></div>
+<div class="container">
+  <div class="card">
+    <div class="header-heart"></div>
+
+    <div id="intro" class="stage">
+      <h2 style="margin:6px 0;color:var(--accent)">It's your special day!</h2>
+      <div style="color:#7a3b54;margin-bottom:6px">Ready to open your surprise?</div>
+      <div style="display:flex;gap:12px">
+        <button id="startBtn" class="btn">Start & Play Music 💖</button>
+        <button id="galleryBtn" class="btn secondary">Open Gallery</button>
+      </div>
+    </div>
+
+    <div id="envelopeStage" class="stage hidden">
+      <img id="envelope" src="envelope.png"/>
+      <div style="font-size:13px;color:#7a3b54">Tap the envelope 💌</div>
+    </div>
+
+    <div id="treeStage" class="stage hidden">
+      <div id="treeWrap">
+        <svg id="treeCanvas" viewBox="0 0 380 340"></svg>
+        <div id="leafLayer"></div>
+      </div>
+      <div style="font-size:13px;color:#7a3b54">Tree grows slowly — watch the blossoms 🌳💖</div>
+    </div>
+
+    <div id="cakeStage" class="stage hidden">
+      <div id="cakeBox">
+        <div class="candle" id="candle"><div class="flame" id="flame"></div></div>
+        <img id="cakeImg" src="cake.jpg"/>
+      </div>
+      <div style="font-size:13px;color:#7a3b54">Tap the cake to cut it 🎂</div>
+    </div>
+
+    <div id="giftStage" class="stage hidden">
+      <div id="gift3D">
+        <div class="lid" id="lid"></div>
+        <div id="giftText">Open Gift</div>
+      </div>
+    </div>
+
+    <div id="finalStage" class="stage hidden">
+      <div id="finalPanel">
+        <div id="typed" class="typewriter"></div><span id="cursor" class="cursor"></span>
+        <div id="loveYou">I LOVE YOU, LAKSHTU 💖✨</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button id="skipBtn" class="btn" style="background:linear-gradient(180deg,#ffe6e8,#ff9ab1)">Skip Typing</button>
+        <button id="replayBtn" class="btn" style="background:linear-gradient(180deg,#a3ffd8,#7af1c4)">Replay</button>
+      </div>
+    </div>
+
+    <div id="gallery" class="stage hidden">
+      <div class="gallery" id="photoGrid">
+        <img id="img1" src="pic_one.jpg"/>
+        <img id="img2" src="pic_two.jpg"/>
+        <img id="img3" src="pic_three.png"/>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div id="confettiRoot"></div>
+<audio id="bgm" src="song.mp3" preload="auto" loop></audio>
+<script>
+/* ---------- JS ---------- */
+const startBtn=document.getElementById('startBtn'),galleryBtn=document.getElementById('galleryBtn'),envelopeStage=document.getElementById('envelopeStage'),envelope=document.getElementById('envelope'),treeStage=document.getElementById('treeStage'),leafLayer=document.getElementById('leafLayer'),cakeStage=document.getElementById('cakeStage'),cakeImg=document.getElementById('cakeImg'),candle=document.getElementById('candle'),flame=document.getElementById('flame'),giftStage=document.getElementById('giftStage'),lid=document.getElementById('lid'),finalStage=document.getElementById('finalStage'),typed=document.getElementById('typed'),cursor=document.getElementById('cursor'),skipBtn=document.get
