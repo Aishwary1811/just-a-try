@@ -10,7 +10,6 @@
 body{
   margin:0; padding:0;
   font-family:'Poppins',sans-serif;
-  /* Softer Pink Background with continuous shift */
   background: linear-gradient(135deg, #fce4ec, #f8bbd0);
   background-size: 400% 400%;
   animation: backgroundShift 15s ease infinite;
@@ -25,38 +24,17 @@ body{
 
 /* Rose Petal Fall Effect */
 .petal-fall {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 0;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 0;
 }
 .petal {
-    position: absolute;
-    width: 15px; height: 15px;
-    background: radial-gradient(#fff, #ffccd5); /* Soft pink/white gradient */
-    border-radius: 50%;
-    opacity: 0.6;
-    animation: fall 10s linear infinite;
+    position: absolute; width: 15px; height: 15px; background: radial-gradient(#fff, #ffccd5); border-radius: 50%; opacity: 0.6; animation: fall 10s linear infinite;
 }
 @keyframes fall {
     0% {transform: translate(0, -10vh) rotateZ(0deg);}
     100% {transform: translate(100px, 100vh) rotateZ(720deg);}
 }
 /* Generate 10 petals with unique start delays */
-.petal:nth-child(1) {left: 10%; animation-delay: 0s;}
-.petal:nth-child(2) {left: 20%; animation-delay: 2s; animation-duration: 12s;}
-.petal:nth-child(3) {left: 35%; animation-delay: 4s;}
-.petal:nth-child(4) {left: 50%; animation-delay: 6s; animation-duration: 9s;}
-.petal:nth-child(5) {left: 65%; animation-delay: 8s;}
-.petal:nth-child(6) {left: 80%; animation-delay: 10s; animation-duration: 11s;}
-.petal:nth-child(7) {left: 5%; animation-delay: 12s;}
-.petal:nth-child(8) {left: 90%; animation-delay: 14s; animation-duration: 13s;}
-.petal:nth-child(9) {left: 25%; animation-delay: 1s; animation-duration: 9.5s;}
-.petal:nth-child(10) {left: 75%; animation-delay: 5s; animation-duration: 11.5s;}
+.petal:nth-child(1) {left: 10%; animation-delay: 0s;} .petal:nth-child(2) {left: 20%; animation-delay: 2s; animation-duration: 12s;} .petal:nth-child(3) {left: 35%; animation-delay: 4s;} .petal:nth-child(4) {left: 50%; animation-delay: 6s; animation-duration: 9s;} .petal:nth-child(5) {left: 65%; animation-delay: 8s;} .petal:nth-child(6) {left: 80%; animation-delay: 10s; animation-duration: 11s;} .petal:nth-child(7) {left: 5%; animation-delay: 12s;} .petal:nth-child(8) {left: 90%; animation-delay: 14s; animation-duration: 13s;} .petal:nth-child(9) {left: 25%; animation-delay: 1s; animation-duration: 9.5s;} .petal:nth-child(10) {left: 75%; animation-delay: 5s; animation-duration: 11.5s;}
 
 
 /* Center containers */
@@ -64,83 +42,53 @@ body{
 
 /* Buttons */
 button{
-  margin-top:20px; padding:12px 25px; border:none; border-radius:30px; /* More rounded */
-  background:linear-gradient(145deg, #ff80ab, #ff4081); /* Gradient pink */
+  margin-top:20px; padding:12px 25px; border:none; border-radius:30px; 
+  background:linear-gradient(145deg, #ff80ab, #ff4081); 
   color:white; font-weight:700; font-size:16px; cursor:pointer;
   box-shadow:0 6px 18px rgba(255,64,129,0.4); transition: all 0.4s;
-  animation: pulse 2s infinite ease-in-out; /* Slower, softer pulse */
+  animation: pulse 2s infinite ease-in-out; 
 }
 button:hover {transform:scale(1.15); box-shadow:0 10px 25px rgba(255,64,129,0.6);}
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
 
 /* Float animation */
-@keyframes float {0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-15px) rotate(-1deg);}} /* More dramatic float */
+@keyframes float {0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-15px) rotate(-1deg);}} 
 
 /* Intro */
 #introBox{
-    background:#fff8fd; 
-    padding:30px 25px; 
-    border-radius:25px; 
-    font-size:18px; 
-    line-height:1.6; 
-    box-shadow:0 12px 30px rgba(255,192,203,0.5); 
-    transform:scale(0.5); opacity:0; 
-    transition:transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s; /* Spring effect */
-    color: #333;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtle inner glow */
+    background:#fff8fd; padding:30px 25px; border-radius:25px; font-size:18px; line-height:1.6; box-shadow:0 12px 30px rgba(255,192,203,0.5); transform:scale(0.5); opacity:0; transition:transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s; 
+    color: #333; text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); 
 }
 #introBox.show{transform:scale(1); opacity:1;}
 
 /* Envelope */
-#envelopeImg{width:250px; cursor:pointer; animation:float 3s ease-in-out infinite;} /* Bigger envelope */
+#envelopeImg{width:250px; cursor:pointer; animation:float 3s ease-in-out infinite;} 
 
 /* Letter */
 #letterBox{
-    display:none; 
-    background:#fff8fd; 
-    padding:30px 25px; 
-    border-radius:25px; 
-    font-size:17px; 
-    line-height:1.7; 
-    box-shadow:0 12px 30px rgba(255,192,203,0.5); 
-    color:#4a4a4a;
+    display:none; background:#fff8fd; padding:30px 25px; border-radius:25px; font-size:17px; line-height:1.7; box-shadow:0 12px 30px rgba(255,192,203,0.5); color:#4a4a4a;
 }
 
 /* Cake */
 #cakeSection{display:none;}
 #cakeImg{width:260px; border-radius:25px; cursor:pointer; transform:scale(0.5); opacity:0; transition:transform 0.6s, opacity 0.6s; position:relative;}
 #cakeImg.show{transform:scale(1); opacity:1;}
-#candleFlame{animation:flame 0.8s infinite alternate;} /* Faster flame */
+#candleFlame{animation:flame 0.8s infinite alternate;} 
 @keyframes flame{0%{opacity:0.7; transform:translate(-50%, -50%) scale(1);}100%{opacity:1; transform:translate(-50%, -50%) scale(1.1);}}
 
 /* Photos */
 .photo{
-    width:250px; 
-    margin-top:15px; 
-    border-radius:20px; 
-    box-shadow:0 10px 30px rgba(255,105,180,0.4); 
-    transform:translateY(50px) scale(0.9); /* Starts smaller/lower */
-    opacity:0; 
-    transition:transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.8s; /* Springy photo entrance */
+    width:250px; margin-top:15px; border-radius:20px; box-shadow:0 10px 30px rgba(255,105,180,0.4); transform:translateY(50px) scale(0.9); opacity:0; transition:transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.8s; 
 }
 .photo.show{transform:translateY(0) scale(1); opacity:1;}
 .photo:hover{transform:scale(1.1);}
 
 /* Gift */
 #giftBox{
-    display:none; 
-    width:280px; height:180px; 
-    margin:25px auto 0; 
-    background:#ffb6c1; 
-    border-radius:25px; 
-    box-shadow:0 10px 30px rgba(255,105,180,0.6); 
+    display:none; width:280px; height:180px; margin:25px auto 0; background:#ffb6c1; border-radius:25px; box-shadow:0 10px 30px rgba(255,105,180,0.6); 
 }
 #finalMessage{
-    font-size:24px; 
-    font-weight:900; 
-    color:white; 
-    text-shadow:0 0 10px #fff, 0 0 20px #ff80ab, 0 0 30px #ff4081; /* Stronger sparkle */
-    animation: sparkle 1.5s infinite alternate;
+    font-size:24px; font-weight:900; color:white; text-shadow:0 0 10px #fff, 0 0 20px #ff80ab, 0 0 30px #ff4081; animation: sparkle 1.5s infinite alternate;
 }
 @keyframes sparkle {
     0% { text-shadow:0 0 10px #fff, 0 0 20px #ff80ab; }
@@ -148,12 +96,12 @@ button:hover {transform:scale(1.15); box-shadow:0 10px 25px rgba(255,64,129,0.6)
 }
 
 /* Tulip */
-#tulip{width:60px; margin:30px auto 0;} /* Slightly larger tulip */
+#tulip{width:60px; margin:30px auto 0;} 
 
 /* Heart Tree */
 #heartTree{position:absolute; bottom:20px;}
 #treeTrunk{width:20px; height:100px; background:#8B4513; margin:0 auto; border-radius:10px;}
-.heartLeaf{position:absolute; width:15px; height:15px; background-image:url('heart.png'); background-size:contain; background-repeat:no-repeat; pointer-events:none;}
+.heartLeaf{position:absolute; width:15px; height:15px; background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_icon.svg/15px-Heart_icon.svg.png'); background-size:contain; background-repeat:no-repeat; pointer-events:none;}
 </style>
 </head>
 <body>
@@ -171,7 +119,7 @@ button:hover {transform:scale(1.15); box-shadow:0 10px 25px rgba(255,64,129,0.6)
     <div class="petal"></div>
 </div>
 
-<audio id="bgm" src="song.mp3" loop></audio>
+<audio id="bgm" **src="https://www.dl.dropboxusercontent.com/s/s781u21r33t51z7/bg_music.mp3?dl=0"** loop></audio>
 
 <div id="screen0" class="center">
   <div id="introBox" class="show">
@@ -183,7 +131,7 @@ button:hover {transform:scale(1.15); box-shadow:0 10px 25px rgba(255,64,129,0.6)
 </div>
 
 <div id="screen1" class="center" style="display:none;">
-  <img id="envelopeImg" src="envelope.png">
+  <img id="envelopeImg" **src="https://images.unsplash.com/photo-1517402129994-e3c35b469420?q=80&w=250&h=250&fit=crop"**>
   <div class="small" style="margin-top:10px; font-weight:600;">Tap the envelope to open my heart 💌</div>
 </div>
 
@@ -201,7 +149,7 @@ button:hover {transform:scale(1.15); box-shadow:0 10px 25px rgba(255,64,129,0.6)
 <div id="screen3" class="center" style="display:none;">
   <div id="cakeSection">
     <div style="position:relative; display:inline-block;">
-      <img id="cakeImg" src="cake.jpg">
+      <img id="cakeImg" **src="https://images.unsplash.com/photo-1542691763-718873752e2a?q=80&w=260&h=260&fit=crop"**>
       <div id="cakeCandle"></div>
       <div id="candleFlame"></div>
       <div id="cakeSlice"></div>
@@ -211,14 +159,14 @@ button:hover {transform:scale(1.15); box-shadow:0 10px 25px rgba(255,64,129,0.6)
 </div>
 
 <div id="screen4" class="center" style="display:none;">
-  <img id="p1" class="photo" src="pic_one.jpg">
-  <img id="p2" class="photo" src="pic_two.jpg">
-  <img id="p3" class="photo" src="pic_three.png">
+  <img id="p1" class="photo" **src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=250&h=250&fit=crop"**>
+  <img id="p2" class="photo" **src="https://images.unsplash.com/photo-1582234033481-22921f0ce532?q=80&w=250&h=250&fit=crop"**>
+  <img id="p3" class="photo" **src="https://images.unsplash.com/photo-1543666551-78d148443916?q=80&w=250&h=250&fit=crop"**>
 </div>
 
 <div id="screen5" class="center" style="display:none;">
   <div id="giftBox"><div id="finalMessage">✨ Happy Birthday, Lakshtu! ✨</div></div>
-  <img id="tulip" src="tulip.png">
+  <img id="tulip" **src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Tulipa_sp._%287313628796%29.jpg/60px-Tulipa_sp._%287313628796%29.jpg"**>
   <div id="heartTree"><div id="treeTrunk"></div></div>
 </div>
 
@@ -267,11 +215,10 @@ cakeImg.onclick=()=>{
   setTimeout(()=>{
     screen3.style.display="none"; 
     screen4.style.display="block"; 
-    // Adjusted photo timing for the springy animation
     setTimeout(()=>document.getElementById("p1").classList.add("show"),300); 
     setTimeout(()=>document.getElementById("p2").classList.add("show"),800); 
     setTimeout(()=>document.getElementById("p3").classList.add("show"),1300); 
-    setTimeout(showGift,2000); // Wait longer for photos to settle
+    setTimeout(showGift,2000); 
   },800);
 }
 
@@ -280,12 +227,12 @@ function showGift(){
   screen5.style.display="block"; 
 
   document.getElementById("giftBox").classList.add("show");
-  document.getElementById("tulip").style.display="block"; // Tulip display change
-  setTimeout(()=>document.getElementById("tulip").classList.add("show"),500); // Delayed show
+  document.getElementById("tulip").style.display="block"; 
+  setTimeout(()=>document.getElementById("tulip").classList.add("show"),500); 
 
   
   const tree=document.getElementById("heartTree");
-  setTimeout(()=>{tree.style.transform="translateX(-50%) scale(1)"; tree.style.opacity=1;},1000); // Delayed tree growth
+  setTimeout(()=>{tree.style.transform="translateX(-50%) scale(1)"; tree.style.opacity=1;},1000); 
 
   // Floating heart leaves
   setInterval(()=>{
