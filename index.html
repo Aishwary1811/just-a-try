@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Lakshtu 💖</title>
+<style>
+/* Fonts + Base */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+:root{
+  --bg1:#fff6f3; --bg2:#ffeef9; --accent:#ff4f9a; --peach:#ffb88c; --muted:#63414a;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2));color:var(--muted);min-height:100vh;display:flex;justify-content:center;align-items:center;overflow-x:hidden;}
+.container{width:100%;max-width:900px;position:relative;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;background:rgba(255,255,255,0.96);border-radius:16px;box-shadow:0 30px 80px rgba(120,50,80,0.06);}
+
+/* Buttons */
+.btn{padding:12px 20px;border-radius:999px;border:none;color:white;font-weight:700;cursor:pointer;background:linear-gradient(180deg,var(--peach),var(--accent));box-shadow:0 12px 30px rgba(255,100,150,0.14);transition:transform .18s;}
+.btn:active{transform:translateY(1px);}
+.btn.secondary{background:linear-gradient(180deg,#aebaff,#c89bff);}
+
+/* Stage sections */
+.stage{display:none;flex-direction:column;align-items:center;gap:12px;}
+.stage.active{display:flex;}
+
+/* Envelope */
+#envelope{width:320px;max-width:86vw;border-radius:12px;cursor:pointer;box-shadow:0 18px 40px rgba(0,0,0,0.12);transition:transform .5s;}
+#envelope:hover{transform:translateY(-6px);}
+
+/* Tree */
+#leafLayer{position:relative;width:320px;height:220px;margin-top:20px;}
+.tree-heart{position:absolute;width:30px;height:30px;background-image:url('heart.png');background-size:contain;background-repeat:no-repeat;opacity:0;transform:scale(.35) translateY(18px);transition:transform .85s cubic-bezier(.2,.9,.2,1),opacity .85s,filter .85s;}
+.tree-heart.pop{opacity:1;transform:scale(1) translateY(0);filter:drop-shadow(0 10px 22px rgba(255,120,170,0.14));}
+
+/* Cake */
+#cakeBox{display:flex;flex-direction:column;align-items:center;gap:8px;}
+#cakeImg{width:360px;max-width:88vw;border-radius:16px;cursor:pointer;box-shadow:0 26px 68px rgba(0,0,0,0.12);transition:transform .18s;}
+#cakeImg:active{transform:scale(.94);}
+.candle{position:relative;width:8px;height:34px;background:#fff;border-radius:8px;left:50%;transform:translateX(-50%);top:-52px;opacity:0;}
+.flame{position:absolute;left:50%;top:-18px;width:14px;height:14px;border-radius:50%;transform:translateX(-50%);background:radial-gradient(circle,#ffd800 0%, #ff5e00 70%);filter:drop-shadow(0 8px 14px rgba(255,120,60,0.3));opacity:0;}
+
+/* Gift */
+#gift3D{width:240px;height:140px;border-radius:12px;background:linear-gradient(180deg,#fff3e6,#ffd6b3);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 22px 68px rgba(255,150,120,0.12);position:relative;overflow:visible;transform-style:preserve-3d;transition:transform .45s;}
+.lid{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:260px;height:44px;background:linear-gradient(180deg,#ffd8b0,#ffb07a);border-radius:8px;transform-origin:50% 100%;transition:transform .6s;}
+.lid.open{transform:translateX(-50%) rotateX(-78deg) translateY(-14px);}
+
+/* Final letter */
+#finalPanel{width:92%;max-width:760px;background:linear-gradient(180deg,#fff7f9,#fff2f6);border-radius:14px;padding:18px;margin-top:12px;box-shadow:0 20px 48px rgba(255,150,190,0.07);text-align:left;display:none;}
+.typewriter{white-space:pre-wrap;font-weight:500;font-size:16px;}
+.cursor{display:inline-block;width:10px;height:18px;background:var(--accent);margin-left:8px;border-radius:3px;animation:blink 1s steps(2,start) infinite;}
+@keyframes blink{50%{opacity:0;}}
+
+/* Gallery (after gift) */
+.gallery-section{padding:40px 20px;text-align:center;display:none;}
+.gallery-title{font-size:2rem;margin-bottom:20px;color:#ff5599;font-weight:700;}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;width:90%;margin:auto;}
+.gallery-item{overflow:hidden;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:0.4s ease;}
+.gallery-item:hover{transform:scale(1.05);box-shadow:0 10px 30px rgba(0,0,0,0.25);}
+.gallery-item img{width:100%;height:100%;object-fit:cover;}
+.gallery-item.tall img{object-position:center top;}
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- Intro -->
+  <div id="intro" class="stage active">
+    <h2 style="margin:6px 0;color:var(--accent)">It's your special day!</h2>
+    <div style="color:#7a3b54;margin-bottom:6px">Ready to open your surprise?</div>
+    <div style="display:flex;gap:12px">
+      <button id="startBtn" class="btn">Start & Play Music 💖</button>
+    </div>
+  </div>
+
+  <!-- Envelope -->
+  <div id="envelopeStage" class="stage">
+    <img id="envelope" src="envelope.png" alt="envelope"/>
+    <div style="font-size:13px;color:#7a3b54">Tap the envelope 💌</div>
+  </div>
+
+  <!-- Tree -->
+  <div id="treeStage" class="stage">
+    <div id="leafLayer"></div>
+    <div style="font-size:13px;color:#7a3b54">Tree grows slowly — watch the blossoms 🌳💖</div>
+  </div>
+
+  <!-- Cake -->
+  <div id="cakeStage" class="stage">
+    <div id="cakeBox">
+      <div class="candle" id="candle"><div class="flame" id="flame"></div></div>
+      <img id="cakeImg" src="cake.jpg" alt="cake"/>
+    </div>
+    <div style="font-size:13px;color:#7a3b54">Tap the cake to cut it 🎂</div>
+  </div>
+
+  <!-- Gift -->
+  <div id="giftStage" class="stage">
+    <div id="gift3D">
+      <div class="lid" id="lid"></div>
+      <div id="giftText">Open Gift</div>
+    </div>
+  </div>
+
+  <!-- Final Letter -->
+  <div id="finalStage" class="stage">
+    <div id="finalPanel">
+      <div id="typed" class="typewriter"></div><span id="cursor" class="cursor"></span>
+    </div>
+  </div>
+
+  <!-- Gallery after gift -->
+  <section id="gallery" class="gallery-section">
+    <h2 class="gallery-title">Our Beautiful Moments 💗</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item tall"><img src="pic_three.png" alt="Her Eyes"></div>
+      <div class="gallery-item"><img src="pic_one.jpg" alt="Memory 1"></div>
+      <div class="gallery-item"><img src="pic_two.jpg" alt="Memory 2"></div>
+    </div>
+  </section>
+</div>
+
+<audio id="bgm" src="song.mp3" preload="auto" loop></audio>
+
+<script>
+const startBtn = document.getElementById('startBtn');
+const envelopeStage = document.getElementById('envelopeStage');
+const treeStage = document.getElementById('treeStage');
+const cakeStage = document.getElementById('cakeStage');
+const giftStage = document.getElementById('giftStage');
+const finalStage = document.getElementById('finalStage');
+const typed = document.getElementById('typed');
+const cursor = document.getElementById('cursor');
+const gallerySection = document.getElementById('gallery');
+const leafLayer = document.getElementById('leafLayer');
+const cakeImg = document.getElementById('cakeImg');
+const lid = document.getElementById('lid');
+const bgm = document.getElementById('bgm');
+
+// Start music & envelope
+startBtn.addEventListener('click', ()=>{
+  bgm.play().catch(()=>{});
+  document.getElementById('intro').classList.remove('active');
+  envelopeStage.classList.add('active');
+});
+
+// Envelope click → tree
+document.getElementById('envelope').addEventListener('click', async ()=>{
+  envelopeStage.classList.remove('active');
+  treeStage.classList.add('active');
+  // create hearts
+  const count = 18;
+  for(let i=0;i<count;i++){
+    createHeart(i,count);
+    await new Promise(r=>setTimeout(r,220));
+  }
+  setTimeout(()=>{
+    treeStage.classList.remove('active');
+    cakeStage.classList.add('active');
+  },1200);
+});
+
+function createHeart(index,total){
+  const w=leafLayer.clientWidth||320;
+  const h=leafLayer.clientHeight||220;
+  const el = document.createElement('div'); el.className='tree-heart';
+  const x = Math.random()*w*0.7; const y = Math.random()*h*0.7;
+  el.style.left=x+'px'; el.style.top=y+'px';
+  leafLayer.appendChild(el);
+  setTimeout(()=>el.classList.add('pop'),120+index*180);
+  setTimeout(()=>{el.style.transition='transform 2200ms ease, opacity 2200ms ease'; el.style.transform='translateY(-74px) scale(.6) rotate('+Math.random()*360+'deg)'; el.style.opacity=0; setTimeout(()=>el.remove(),2200);},3500+Math.random()*1200);
+}
+
+// Cake click → gift
+cakeImg.addEventListener('click', ()=>{
+  cakeStage.classList.remove('active');
+  giftStage.classList.add('active');
+});
+
+// Gift click → final letter + gallery
+document.getElementById('gift3D').addEventListener('click', ()=>{
+  lid.classList.add('open');
+  setTimeout(()=>{
+    giftStage.classList.remove('active');
+    gallerySection.style.display='block';
+    finalStage.classList.add('active');
+    startTyping();
+  },900);
+});
+
+// Typing
+const message = `My sweet Lakshtu,\n\nYou make my world brighter just by being in it. You are the kindest part of my heart — the calm in my chaos, and the softest place where my feelings rest.\n\nThank you for loving me in your own little ways, for supporting me, for choosing me, and for making every day feel special without even trying.\n\nOn your birthday, I just want you to know — you are precious to me, you are loved more than words can hold, and you will always, always have a place in my heart.\n\nI LOVE YOU, LAKSHTU 💖✨`;
+let tIndex=0;
+function startTyping(){
+  typed.textContent=''; tIndex=0; cursor.style.display='inline-block';
+  function step(){
+    if(tIndex<message.length){
+      typed.textContent+=message.charAt(tIndex++);
+      setTimeout(step,28+Math.random()*18);
+    }else cursor.style.display='none';
+  }
+  step();
+}
+</script>
+</body>
+</html>
