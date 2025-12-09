@@ -28,7 +28,34 @@ body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg
 #envelope:hover{transform:translateY(-6px);}
 
 /* Tree */
-#leafLayer{position:relative;width:320px;height:220px;margin-top:20px;}
+#treeStage{position:relative;width:100%;height:280px;}
+#treeBase {
+  width: 20px; 
+  height: 140px; 
+  background: #8b5a2b; 
+  border-radius: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index:1;
+}
+.branch {
+  position: absolute;
+  width: 10px;
+  height: 60px;
+  background: #8b5a2b;
+  transform-origin: bottom center;
+  bottom: 120px; /* trunk top */
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg);
+  border-radius: 5px;
+  z-index:1;
+}
+.branch.left { transform: translateX(-50%) rotate(-35deg); }
+.branch.right { transform: translateX(-50%) rotate(35deg); }
+
+#leafLayer{position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;}
 .tree-heart{position:absolute;width:30px;height:30px;background-image:url('heart.png');background-size:contain;background-repeat:no-repeat;opacity:0;transform:scale(.35) translateY(18px);transition:transform .85s cubic-bezier(.2,.9,.2,1),opacity .85s,filter .85s;}
 .tree-heart.pop{opacity:1;transform:scale(1) translateY(0);filter:drop-shadow(0 10px 22px rgba(255,120,170,0.14));}
 
@@ -79,8 +106,11 @@ body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg
 
   <!-- Tree -->
   <div id="treeStage" class="stage">
+    <div id="treeBase"></div>
+    <div class="branch left"></div>
+    <div class="branch right"></div>
     <div id="leafLayer"></div>
-    <div style="font-size:13px;color:#7a3b54">Tree grows slowly — watch the blossoms 🌳💖</div>
+    <div style="font-size:13px;color:#7a3b54;position:absolute;bottom:-25px;">Tree grows slowly — watch the blossoms 🌳💖</div>
   </div>
 
   <!-- Cake -->
@@ -161,8 +191,10 @@ function createHeart(index,total){
   const w=leafLayer.clientWidth||320;
   const h=leafLayer.clientHeight||220;
   const el = document.createElement('div'); el.className='tree-heart';
-  const x = Math.random()*w*0.7; const y = Math.random()*h*0.7;
-  el.style.left=x+'px'; el.style.top=y+'px';
+  const x = Math.random()*w*0.7 + w*0.15; 
+  const y = Math.random()*h*0.5; 
+  el.style.left=x+'px'; 
+  el.style.top=y+'px';
   leafLayer.appendChild(el);
   setTimeout(()=>el.classList.add('pop'),120+index*120);
   setTimeout(()=>{
@@ -186,8 +218,8 @@ document.getElementById('gift3D').addEventListener('click', ()=>{
     giftStage.classList.remove('active');
     gallerySection.style.display='block';
     finalStage.classList.add('active');
-    startTyping();
     document.getElementById('finalPanel').style.display='block';
+    startTyping();
   },900);
 });
 
