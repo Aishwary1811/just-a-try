@@ -6,54 +6,58 @@
 <title>Happy Birthday Lakshtu 💖</title>
 <style>
   /* ---------- Base ---------- */
-  @font-face{
-    font-family: PoppinsLocal;
-    src: local('Poppins'), local('Segoe UI'), local('Helvetica Neue'), local('Arial');
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
   :root{
-    --bg1:#fff6f3; --bg2:#ffeef9; --accent:#ff4f9a; --rose: #ff5e8a; --muted:#63414a;
+    --bg1:#fff6f3; --bg2:#ffeef9; --accent:#ff4f9a; --rose:#ff5e8a; --muted:#63414a;
   }
   *{box-sizing:border-box}
   body{
-    margin:0;font-family:PoppinsLocal,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+    margin:0;font-family:Poppins,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
     background:linear-gradient(160deg,var(--bg1),var(--bg2));
-    color:var(--muted);min-height:100vh;display:flex;align-items:center;justify-content:center;
-    padding:18px;
+    color:var(--muted);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;
   }
-  .container{width:100%;max-width:980px;background:rgba(255,255,255,0.98);border-radius:16px;padding:22px;box-shadow:0 30px 80px rgba(120,50,80,0.06);display:flex;flex-direction:column;align-items:center;gap:16px;}
+  .container{width:100%;max-width:980px;background:rgba(255,255,255,0.98);border-radius:16px;padding:22px;box-shadow:0 30px 80px rgba(120,50,80,0.06);display:flex;flex-direction:column;align-items:center;gap:16px}
+
   h1{margin:0;color:var(--rose);font-weight:700}
   .btn{padding:12px 22px;border-radius:999px;border:none;color:white;font-weight:800;background:linear-gradient(90deg,#ffb88c,#ff4f9a);cursor:pointer;box-shadow:0 12px 28px rgba(255,100,150,0.14)}
   .stage{display:none;flex-direction:column;align-items:center;gap:12px;width:100%}
   .stage.active{display:flex}
   small{color:#7a3b54}
-  /* Gallery */
-  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;width:92%}
-  .gallery-item{border-radius:14px;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,0.12)}
-  .gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
-  /* final panel */
+
+  /* tree area */
+  #svgWrap{width:100%;display:flex;justify-content:center}
+  svg#heartTree{max-width:520px;width:92vw;height:auto;overflow:visible;display:block}
+
+  /* blossom style (SVG groups get these classes) */
+  .leaf-g{opacity:0; transform-origin:center center;}
+  .leaf-g.show{opacity:1; transition:opacity .45s ease, transform .5s cubic-bezier(.2,.9,.2,1); transform:scale(1) translate(0,0) rotate(var(--rot));}
+  .leaf-shape{fill:var(--rose); stroke:#ff2f73; stroke-width:.8; filter: drop-shadow(0 6px 18px rgba(255,94,138,0.14));}
+
+  /* gentle continuous pulse on shown leaves */
+  .leaf-g.show.pulse .leaf-shape{ animation:leafPulse 3000ms ease-in-out infinite; transform-origin:center; }
+  @keyframes leafPulse{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+
+  /* falling hearts */
+  .falling{fill:var(--rose); opacity:0.92; filter: drop-shadow(0 8px 18px rgba(255,94,138,0.12));}
+
+  /* cake/gift/final styles kept simple so gallery images unchanged */
+  #cakeImg{width:360px;max-width:88vw;border-radius:16px;cursor:pointer;box-shadow:0 26px 68px rgba(0,0,0,0.12);transition:transform .18s}
+  #cakeImg:active{transform:scale(.95)}
+  #gift3D{width:240px;height:150px;border-radius:12px;background:linear-gradient(180deg,#fff3e6,#ffd6b3);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;box-shadow:0 22px 68px rgba(255,150,120,0.12)}
+  .lid{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:260px;height:44px;background:#ffb88c;border-radius:10px;transition:transform .6s;transform-origin:50% 100%}
+  .lid.open{transform:translateX(-50%) rotateX(-78deg) translateY(-8px)}
+
   #finalPanel{display:none;width:92%;max-width:820px;background:linear-gradient(180deg,#fff7f9,#fff2f6);border-radius:14px;padding:18px;box-shadow:0 20px 48px rgba(255,150,190,0.07)}
   .typewriter{white-space:pre-wrap;font-weight:500;font-size:16px}
   .cursor{display:inline-block;width:10px;height:18px;background:var(--accent);margin-left:8px;border-radius:3px;animation:blink 1s steps(2,start) infinite}
   @keyframes blink{50%{opacity:0}}
-  /* SVG area */
-  #svgWrap{width:100%;display:flex;justify-content:center}
-  svg{max-width:520px;width:90vw;height:auto;overflow:visible}
-  /* trunk/branch drawing */
-  .branch-stroke{fill:none;stroke:#6d4633;stroke-linecap:round;stroke-linejoin:round;stroke-width:10;filter:drop-shadow(0 10px 22px rgba(0,0,0,0.08))}
-  .branch-thin{stroke-width:8;opacity:0.95}
-  .canopy-outline{fill:none;stroke:rgba(255,94,138,0.06);stroke-width:0}
-  /* blossoms hearts (base style) */
-  .blossom{transform-origin:center center;opacity:0;transition: transform 600ms cubic-bezier(.2,.9,.2,1), opacity 400ms}
-  .blossom.show{opacity:1;transform:scale(1)}
-  /* gentle pulse for shown blossoms */
-  .blossom.pulse{animation: pulse 2600ms ease-in-out infinite}
-  @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
-  /* falling petals */
-  .petal{fill:var(--rose);opacity:.95;transform-origin:center center}
-  /* small helpers */
-  .center-note{font-size:14px;color:#7a3b54}
-  /* responsive */
-  @media (min-width:1000px){ svg{width:520px} }
+
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;width:92%}
+  .gallery-item{border-radius:14px;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,0.12)}
+  .gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* small responsive */
+  @media (min-width:1000px){ svg#heartTree{width:520px} }
 </style>
 </head>
 <body>
@@ -71,77 +75,56 @@
 
   <!-- ENVELOPE -->
   <div id="envelopeStage" class="stage" role="button" tabindex="0" aria-label="Open envelope">
-    <!-- simple inline envelope svg -->
-    <svg width="260" height="120" viewBox="0 0 260 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <linearGradient id="envG" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stop-color="#fff"/>
-          <stop offset="1" stop-color="#fff6fb"/>
-        </linearGradient>
-      </defs>
-      <rect x="6" y="14" rx="12" ry="12" width="248" height="92" fill="url(#envG)" stroke="#ffdcee" stroke-width="1.5" />
-      <path d="M14 24 L130 68 L246 24" fill="none" stroke="#ffd0e4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      <text x="130" y="90" text-anchor="middle" fill="#ff5e8a" font-size="18" font-weight="700">Open 💌</text>
-    </svg>
+    <img id="envelope" src="envelope.png" alt="envelope" style="width:320px;max-width:86vw;cursor:pointer;box-shadow:0 18px 40px rgba(0,0,0,0.06)">
     <small>Tap the envelope 💌</small>
   </div>
 
-  <!-- TREE (SVG drawn, animated) -->
+  <!-- HEART-SHAPED TREE (SVG only) -->
   <div id="treeStage" class="stage" aria-live="polite">
     <div id="svgWrap" aria-hidden="false">
-      <svg id="treeSVG" viewBox="0 0 520 520" role="img" aria-label="Animated Sakura Heart Tree">
-        <!-- trunk + main branches (paths drawn, animated by stroke-dashoffset) -->
-        <g id="trunkGroup" transform="translate(260,460)">
-          <!-- trunk path (from ground up) -->
-          <path id="trunkPath" class="branch-stroke branch-thin" d="M0 0 C -8 -20 -20 -160 -24 -200 C -28 -250 -48 -300 -36 -340 C -24 -380 18 -390 40 -360 C 62 -330 80 -260 86 -220 C 90 -190 72 -80 54 -40" stroke-linecap="round"></path>
-          <!-- a couple of thick branches -->
-          <path id="b1" class="branch-stroke" d="M8 -110 C 44 -140 140 -190 200 -200" stroke-linecap="round"></path>
-          <path id="b2" class="branch-stroke" d="M-12 -130 C -60 -160 -150 -220 -210 -210" stroke-linecap="round"></path>
-          <path id="b3" class="branch-stroke" d="M28 -80 C 72 -100 110 -120 160 -120" stroke-linecap="round"></path>
-          <path id="b4" class="branch-stroke" d="M-6 -70 C -34 -90 -70 -110 -110 -100" stroke-linecap="round"></path>
+      <!-- svg scaled to viewBox 520x520 -->
+      <svg id="heartTree" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animated heart-shaped tree">
+        <!-- trunk (drawn path) placed at bottom center -->
+        <g id="trunkGroup" transform="translate(260,480)">
+          <path id="trunk" d="M0 0 C -6 -20 -20 -110 -18 -165 C -16 -220 -26 -280 -10 -320 C 6 -360 30 -360 48 -320 C 66 -280 84 -220 80 -170 C 76 -120 52 -40 30 -8" fill="none" stroke="#6b4231" stroke-linecap="round" stroke-linejoin="round" stroke-width="12" />
         </g>
 
-        <!-- soft canopy guide path (heart-shaped param curve, invisible) -->
-        <path id="canopyGuide" class="canopy-outline" d="" />
+        <!-- invisible heart canopy path (used to sample positions) -->
+        <path id="heartGuide" d="" fill="none" stroke="none"></path>
 
-        <!-- group to hold blossoms (hearts) -->
-        <g id="blossoms" transform="translate(0,0)"></g>
+        <!-- group for leaves -->
+        <g id="leavesLayer"></g>
 
-        <!-- group for falling petals -->
-        <g id="petalLayer"></g>
+        <!-- falling petals layer -->
+        <g id="fallLayer"></g>
       </svg>
     </div>
-    <div class="center-note">Watch the tree grow and blossom 🌸❤️</div>
+    <div style="font-size:13px;color:#7a3b54">The heart-tree will bloom — watch the blossoms appear 🌸❤️</div>
   </div>
 
   <!-- CAKE -->
-  <div id="cakeStage" class="stage">
-    <!-- simple cake placeholder; users can replace with cake.jpg -->
-    <svg width="380" height="220" viewBox="0 0 380 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="36" y="64" rx="18" width="308" height="120" fill="#fff0f6" stroke="#ffd6e8" />
-      <rect x="72" y="30" rx="10" width="236" height="44" fill="#ffd6d9" />
-      <text x="190" y="140" text-anchor="middle" fill="#b05462" font-weight="700">Tap the cake to cut it 🎂</text>
-    </svg>
+  <div id="cakeStage" class="stage" style="align-items:center">
+    <img id="cakeImg" src="cake.jpg" alt="cake (tap to cut)" />
     <small>Tap the cake to cut it 🎂</small>
   </div>
 
   <!-- GIFT -->
-  <div id="giftStage" class="stage">
-    <div id="gift3D" style="width:240px;height:150px;border-radius:12px;background:linear-gradient(180deg,#fff3e6,#ffd6b3);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 22px 68px rgba(255,150,120,0.12);cursor:pointer">
-      <div id="lid" style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:260px;height:44px;background:linear-gradient(180deg,#ffd8b0,#ffb07a);border-radius:8px;transform-origin:50% 100%;transition:transform .6s"></div>
+  <div id="giftStage" class="stage" style="align-items:center">
+    <div id="gift3D" aria-label="Open gift">
+      <div class="lid" id="lid" aria-hidden="true"></div>
       <div style="font-weight:700;color:#6b3a3f">Open Gift</div>
     </div>
   </div>
 
   <!-- FINAL LETTER -->
-  <div id="finalStage" class="stage">
+  <div id="finalStage" class="stage" style="align-items:center">
     <div id="finalPanel">
       <div id="typed" class="typewriter"></div><span id="cursor" class="cursor"></span>
     </div>
   </div>
 
   <!-- GALLERY -->
-  <section id="gallery" class="stage" style="padding:18px;width:100%">
+  <section id="gallery" class="stage" style="align-items:center;padding:10px;width:100%">
     <h3 style="color:var(--rose);margin:0">Our Beautiful Moments 💗</h3>
     <div class="gallery-grid" id="galleryGrid">
       <div class="gallery-item"><img src="pic_three.png" alt=""></div>
@@ -149,13 +132,18 @@
       <div class="gallery-item"><img src="pic_two.jpg" alt=""></div>
     </div>
   </section>
-
 </div>
 
 <audio id="bgm" src="song.mp3" preload="auto" loop></audio>
 
 <script>
-/* ---------------- Setup ---------------- */
+/* ---------------- CONFIG ---------------- */
+const LEAF_COUNT = 120;          // change if you want more/less leaves
+const BLOOM_INTERVAL = 45;       // ms between each leaf bloom (lower = faster)
+const PETAL_INTERVAL = 850;      // ms between falling petals
+const PETAL_LIFETIME = 4200;     // ms fall duration
+
+/* ---------------- ELEMENTS ---------------- */
 const startBtn = document.getElementById('startBtn');
 const envelopeStage = document.getElementById('envelopeStage');
 const treeStage = document.getElementById('treeStage');
@@ -164,62 +152,261 @@ const giftStage = document.getElementById('giftStage');
 const finalStage = document.getElementById('finalStage');
 const galleryStage = document.getElementById('gallery');
 const bgm = document.getElementById('bgm');
-const trunkPath = document.getElementById('trunkPath');
-const bPaths = [document.getElementById('b1'), document.getElementById('b2'), document.getElementById('b3'), document.getElementById('b4')];
-const blossomsGroup = document.getElementById('blossoms');
-const petalLayer = document.getElementById('petalLayer');
-const canopyGuide = document.getElementById('canopyGuide');
-const lid = document.getElementById('lid');
 
-/* Start -> envelope stage */
-startBtn.addEventListener('click', ()=> {
+const heartTree = document.getElementById('heartTree');
+const heartGuide = document.getElementById('heartGuide');
+const leavesLayer = document.getElementById('leavesLayer');
+const fallLayer = document.getElementById('fallLayer');
+const lid = document.getElementById('lid');
+const cakeImg = document.getElementById('cakeImg');
+
+const typedEl = document.getElementById('typed');
+const cursorEl = document.getElementById('cursor');
+
+/* ---------- accessibility ---------- */
+envelopeStage.tabIndex = 0;
+envelopeStage.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') envelopeStage.click(); });
+
+/* ---------------- Start -> envelope stage ---------------- */
+startBtn.addEventListener('click', () => {
   bgm.play().catch(()=>{});
   document.getElementById('intro').classList.remove('active');
   envelopeStage.classList.add('active');
 });
 
-/* keyboard accessibility for envelope */
-envelopeStage.addEventListener('keydown', e=>{
-  if(e.key==='Enter' || e.key===' ') { e.preventDefault(); envelopeStage.click(); }
-});
-
-/* Envelope click -> grow tree */
-envelopeStage.addEventListener('click', async ()=> {
+/* ---------------- Envelope click -> heart tree growth & bloom ---------------- */
+envelopeStage.addEventListener('click', async () => {
   envelopeStage.classList.remove('active');
   treeStage.classList.add('active');
 
-  // 1) animate trunk and branches drawing using stroke-dash technique
-  await drawPath(trunkPath, 1200, 0);
-  // small delay between branches
-  for(let i=0;i<bPaths.length;i++){
-    await drawPath(bPaths[i], 700, 120*i);
-  }
+  // 1) draw a heart-shaped guide path in SVG coordinates (centered above trunk)
+  setHeartGuidePath();
 
-  // 2) build canopy guide (heart-like shape) and calculate blossom positions
-  buildCanopyGuide();
+  // 2) place leaves positions by sampling the guide + some random positions inside heart
+  const positions = sampleHeartPositions(LEAF_COUNT);
 
-  // 3) spawn blossoms along branches + canopy
-  await bloomBlossoms({count:70, tempo:60});
+  // 3) animate trunk drawing (stroke-dash style)
+  await drawTrunk();
 
-  // 4) start gentle falling petals loop
-  startPetalShower(14);
+  // 4) bloom leaves one-by-one and keep them (they remain)
+  await bloomLeaves(positions);
 
-  // after a pause, automatically go to cake
-  setTimeout(()=>{
+  // 5) start gentle petal fall in background
+  startPetalFall();
+
+  // auto transition to cake after short pause (keeps UI consistent)
+  setTimeout(() => {
     treeStage.classList.remove('active');
     cakeStage.classList.add('active');
-  }, 3800);
+  }, 4200);
 });
 
-/* Cake click -> gift */
-cakeStage.addEventListener('click', ()=>{
+/* ---------------- draw trunk path with stroke-dash drawing ---------------- */
+function drawTrunk(){
+  return new Promise(res=>{
+    const trunk = document.getElementById('trunk');
+    const len = trunk.getTotalLength();
+    trunk.style.strokeDasharray = len;
+    trunk.style.strokeDashoffset = len;
+    // animate to 0
+    trunk.getBoundingClientRect();
+    trunk.style.transition = 'stroke-dashoffset 1100ms cubic-bezier(.2,.9,.2,1)';
+    trunk.style.strokeDashoffset = '0';
+    setTimeout(res, 1150);
+  });
+}
+
+/* ---------------- build heart guide path ---------------- */
+function setHeartGuidePath(){
+  // parametric heart curve scaled for our SVG viewport
+  const pts = [];
+  const samples = 240;
+  for(let i=0;i<samples;i++){
+    const t = (i / (samples-1)) * Math.PI * 2;
+    // classic heart param
+    const x = 16 * Math.pow(Math.sin(t),3);
+    const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+    pts.push({x,y});
+  }
+  // normalize and map to SVG coordinate space.
+  // we'll center the heart at (260,160) in the 520x520 viewBox
+  const xs = pts.map(p=>p.x), ys = pts.map(p=>p.y);
+  const minx = Math.min(...xs), maxx = Math.max(...xs), miny = Math.min(...ys), maxy = Math.max(...ys);
+  const W = 320, H = 260; // scaling for canopy
+  const cx = 260, cy = 180;
+  let d = '';
+  pts.forEach((p,i)=>{
+    const nx = (p.x - minx) / (maxx - minx);
+    const ny = (p.y - miny) / (maxy - miny);
+    const X = cx - W*0.5 + nx * W;
+    const Y = cy - H*0.45 + ny * H;
+    d += (i===0 ? `M ${X} ${Y}` : ` L ${X} ${Y}`);
+  });
+  d += ' Z';
+  heartGuide.setAttribute('d', d);
+}
+
+/* ---------------- sample positions inside heart area ---------------- */
+function sampleHeartPositions(count){
+  const positions = [];
+  // strategy:
+  // - sample points along heartGuide perimeter
+  // - sample random points inside bounding box and test if inside path using isPointInFill via temporary SVG
+  const svg = heartTree;
+  const guide = heartGuide;
+  const guideLen = guide.getTotalLength();
+
+  // 1) perimeter samples
+  const perimSamples = Math.floor(count * 0.35);
+  for(let i=0;i<perimSamples;i++){
+    const t = i / perimSamples;
+    const p = guide.getPointAtLength(guideLen * t);
+    positions.push({x: p.x, y: p.y});
+  }
+
+  // 2) interior samples by random jitter around center and keep if inside path
+  // We'll use the browser's SVG isPointInFill by creating a tiny temporary element and using getBBox collision? Instead we can use winding rule via element.isPointInFill — but not supported everywhere.
+  // Instead approximate: sample points around center and accept if they're roughly inside heart by using ray-casting using the path's points array.
+  const pathPoints = getPathPointsFromD(guide.getAttribute('d'));
+  function pointInPoly(x,y, poly){
+    let inside=false;
+    for(let i=0,j=poly.length-1;i<poly.length;j=i++){
+      const xi=poly[i].x, yi=poly[i].y;
+      const xj=poly[j].x, yj=poly[j].y;
+      const intersect = ((yi>y)!=(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi);
+      if(intersect) inside = !inside;
+    }
+    return inside;
+  }
+
+  const bbox = svg.getBBox();
+  const maxAttempts = count * 30;
+  let attempts = 0;
+  while(positions.length < count && attempts < maxAttempts){
+    attempts++;
+    const rx = 200 + Math.random() * 160; // x range roughly inside heart
+    const ry = 80 + Math.random() * 220;  // y range
+    if(pointInPoly(rx, ry, pathPoints)){
+      positions.push({x: rx + (Math.random()*8-4), y: ry + (Math.random()*8-4)});
+    }
+  }
+
+  // if still short, fallback to random points along perimeter jittered inward
+  while(positions.length < count){
+    const t = Math.random();
+    const p = guide.getPointAtLength(guideLen * t);
+    positions.push({x: p.x + (Math.random()*36-18), y: p.y + (Math.random()*36-18)});
+  }
+
+  // shuffle positions for varied bloom
+  for(let i=positions.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [positions[i], positions[j]] = [positions[j], positions[i]];
+  }
+  return positions.slice(0, count);
+}
+
+/* utility: parse d string into points (approx) */
+function getPathPointsFromD(d){
+  // crude parse: extract numbers from d and group pairs sequentially after M/L commands
+  const nums = d.match(/-?\d+\.?\d*/g).map(Number);
+  const pts = [];
+  for(let i=0;i<nums.length;i+=2){
+    pts.push({x: nums[i], y: nums[i+1]});
+  }
+  return pts;
+}
+
+/* ---------------- create leaf element and add to SVG ---------------- */
+function createLeafAt(x,y){
+  const ns = "http://www.w3.org/2000/svg";
+  const g = document.createElementNS(ns,'g');
+  g.setAttribute('class','leaf-g');
+  // random rotation for natural look
+  const rot = (Math.random()*40 - 20).toFixed(2);
+  g.style.setProperty('--rot', rot + 'deg');
+  // position small random offset for natural placement
+  const ox = (Math.random()*10 - 5);
+  const oy = (Math.random()*10 - 6);
+  g.setAttribute('transform', `translate(${x+ox}, ${y+oy}) scale(0.001) rotate(${rot})`);
+  // path for heart-leaf (relative coords)
+  const p = document.createElementNS(ns,'path');
+  p.setAttribute('class','leaf-shape');
+  // simple heart path scaled to ~10-14 px
+  p.setAttribute('d','M0 -8 C -6 -18 -20 -16 -20 -4 C -20 6 -4 18 0 22 C 4 18 20 6 20 -4 C 20 -16 6 -18 0 -8 Z');
+  // small transform to scale down inside group
+  p.setAttribute('transform','scale(0.45) translate(0,2)');
+  g.appendChild(p);
+  return g;
+}
+
+/* ---------------- bloom leaves sequentially (they remain) ---------------- */
+async function bloomLeaves(positions){
+  for(let i=0;i<positions.length;i++){
+    const pos = positions[i];
+    const leaf = createLeafAt(pos.x, pos.y);
+    leavesLayer.appendChild(leaf);
+    // force reflow then show
+    leaf.getBoundingClientRect();
+    // animate pop with small scaling and slight up offset then settle
+    // we'll set transform to scale(1) rotate(r) and allow CSS transition to smooth
+    // apply slight translate for 'pop' effect
+    leaf.setAttribute('transform', `translate(${pos.x}, ${pos.y - 6}) scale(1) rotate(${leaf.style.getPropertyValue('--rot')})`);
+    leaf.classList.add('show');
+    // optionally add pulse class for subtle motion
+    if(Math.random() > 0.65) leaf.classList.add('pulse');
+    // small stagger
+    await new Promise(r => setTimeout(r, BLOOM_INTERVAL + Math.random()*BLOOM_INTERVAL));
+  }
+}
+
+/* ---------------- start petal fall ---------------- */
+function startPetalFall(){
+  setInterval(()=> spawnFallingPetal(), PETAL_INTERVAL);
+}
+
+/* spawn one falling small heart petal */
+function spawnFallingPetal(){
+  const ns = "http://www.w3.org/2000/svg";
+  const p = document.createElementNS(ns,'path');
+  p.setAttribute('class','falling');
+  p.setAttribute('d','M0 -4 C -4 -8 -12 -6 -12 -1 C -12 5 -2 11 0 13 C 2 11 12 5 12 -1 C 12 -6 4 -8 0 -4 Z');
+  // starting position somewhere near top of canopy
+  const startX = 180 + Math.random()*160;
+  const startY = 70 + Math.random()*40;
+  const scale = 0.45 + Math.random()*0.6;
+  p.setAttribute('transform', `translate(${startX},${startY}) scale(${scale}) rotate(${Math.random()*40-20})`);
+  fallLayer.appendChild(p);
+
+  // animate position using JS frames (so this works across browsers)
+  const duration = PETAL_LIFETIME + Math.random()*1200;
+  const start = performance.now();
+  const endX = startX - (20 + Math.random()*120);
+  const endY = startY + (240 + Math.random()*120);
+  function frame(now){
+    const t = Math.min(1, (now - start) / duration);
+    // gentle ease-out
+    const ease = 1 - Math.pow(1 - t, 2);
+    const curX = startX + (endX - startX) * ease;
+    const curY = startY + (endY - startY) * ease;
+    const rot = (ease * 360) + (Math.random()*30);
+    const s = scale * (1 - 0.2 * ease);
+    p.setAttribute('transform', `translate(${curX},${curY}) scale(${s}) rotate(${rot})`);
+    p.setAttribute('opacity', String(1 - ease));
+    if(t < 1) requestAnimationFrame(frame);
+    else p.remove();
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ---------------- CAKE -> GIFT -> FINAL sequence ---------------- */
+cakeImg.addEventListener('click', ()=>{
   cakeStage.classList.remove('active');
   giftStage.classList.add('active');
 });
 
-/* Gift click */
 giftStage.addEventListener('click', ()=>{
-  lid.style.transform = 'translateX(-50%) rotateX(-78deg)';
+  lid.classList.add('open');
   setTimeout(()=>{
     giftStage.classList.remove('active');
     galleryStage.classList.add('active');
@@ -228,7 +415,7 @@ giftStage.addEventListener('click', ()=>{
   },900);
 });
 
-/* Typing message */
+/* ---------------- typing effect ---------------- */
 const message = `My sweet Lakshtu,
 
 You make my world brighter just by being in it. You are the kindest part of my heart — the calm in my chaos, and the softest place where my feelings rest.
@@ -238,200 +425,21 @@ Thank you for loving me in your own little ways, for supporting me, for choosing
 On your birthday, I just want you to know — you are precious to me, you are loved more than words can hold, and you will always, always have a place in my heart.
 
 I LOVE YOU, LAKSHTU 💖✨`;
-
-const typedEl = document.getElementById('typed');
-const cursor = document.getElementById('cursor');
-
 function startTyping(){
   typedEl.textContent = '';
-  cursor.style.display = 'inline-block';
-  let i=0;
+  cursorEl.style.display = 'inline-block';
+  let i = 0;
   function step(){
-    if(i<message.length){ typedEl.textContent += message.charAt(i++); setTimeout(step, 18 + Math.random()*26); }
-    else cursor.style.display='none';
+    if(i < message.length){ typedEl.textContent += message.charAt(i++); setTimeout(step, 18 + Math.random()*26); }
+    else cursorEl.style.display = 'none';
   }
   step();
 }
 
-/* ---------------- SVG helpers ---------------- */
+/* ---------------- Utility: simple random helper ---------------- */
+function randInt(a,b){ return Math.floor(a + Math.random()*(b-a+1)); }
 
-/* Draw path animation using stroke-dasharray */
-function drawPath(pathEl, duration=800, delay=0){
-  return new Promise(res=>{
-    const len = pathEl.getTotalLength();
-    pathEl.style.strokeDasharray = len;
-    pathEl.style.strokeDashoffset = len;
-    pathEl.getBoundingClientRect(); // force reflow
-    pathEl.style.transition = `stroke-dashoffset ${duration}ms cubic-bezier(.2,.9,.2,1) ${delay}ms`;
-    pathEl.style.strokeDashoffset = '0';
-    setTimeout(()=>res(), duration + delay + 30);
-  });
-}
-
-/* Build canopy guide (parametric heart) */
-function buildCanopyGuide(){
-  // heart param: use scaled param curve centered above trunk base
-  const pts = [];
-  for(let t=0;t<Math.PI*2; t+=Math.PI*2/120){
-    // classic heart param
-    const x = 16 * Math.pow(Math.sin(t),3);
-    const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
-    pts.push({x,y});
-  }
-  // normalize to SVG space: canopy center around (260,150)
-  const xs = pts.map(p=>p.x), ys = pts.map(p=>p.y);
-  const minx=Math.min(...xs), maxx=Math.max(...xs), miny=Math.min(...ys), maxy=Math.max(...ys);
-  const W = 380, H = 220; // local scale
-  const cx = 260, cy = 170;
-  // map and build path string
-  const mapped = pts.map(p=>{
-    const nx = (p.x - minx) / (maxx - minx);
-    const ny = (p.y - miny) / (maxy - miny);
-    const left = cx - W*0.45 + nx*W*0.9; // spread horizontally
-    const top  = cy - H*0.6 + ny*(H*0.95); // compress vertically
-    return {x:left, y:top};
-  });
-  let d = '';
-  mapped.forEach((p,i)=> d += (i===0?`M ${p.x} ${p.y}`:` L ${p.x} ${p.y}`));
-  canopyGuide.setAttribute('d', d + ' Z');
-  // (canopyGuide is invisible; used for sampling positions)
-}
-
-/* Sample positions along trunk & branches and canopy guide for blossoms */
-function samplePositions(desiredCount=70){
-  const positions = [];
-  // sample branch paths
-  const allPaths = [trunkPath,...bPaths];
-  allPaths.forEach(path=>{
-    const L = path.getTotalLength();
-    const samples = Math.max(6, Math.floor(desiredCount / 8));
-    for(let i=0;i<samples;i++){
-      const t = (i+0.2) / (samples+0.4); // avoid ends
-      const p = path.getPointAtLength(L * t);
-      positions.push({x: p.x + 260, y: p.y + 0}); // because trunkGroup translated earlier; trunkGroup translate used 260,460 - handled below
-    }
-  });
-
-  // sample canopy guide (heart)
-  const guideLen = canopyGuide.getTotalLength();
-  const canopySamples = Math.floor(desiredCount * 0.6);
-  for(let i=0;i<canopySamples;i++){
-    const t = Math.random();
-    const p = canopyGuide.getPointAtLength(guideLen * t);
-    positions.push({x: p.x, y: p.y});
-  }
-
-  // jitter positions a bit and filter duplicates
-  const shuffled = positions.sort(()=>0.5 - Math.random());
-  const unique = [];
-  const seen = new Set();
-  for(const p of shuffled){
-    const key = `${Math.round(p.x/6)}_${Math.round(p.y/6)}`;
-    if(!seen.has(key)){ seen.add(key); unique.push(p); }
-    if(unique.length >= desiredCount) break;
-  }
-  return unique;
-}
-
-/* create single heart blossom (SVG group) at (x,y) in SVG coordinates */
-function createBlossom(x,y,scale=1.0){
-  const ns = "http://www.w3.org/2000/svg";
-  const g = document.createElementNS(ns,'g');
-  g.setAttribute('class','blossom');
-  g.setAttribute('transform',`translate(${x},${y}) scale(${0.001})`);
-  // tiny random rotation
-  const rot = (Math.random()*36 - 18);
-  g.style.transformBox = 'fill-box';
-  g.style.transformOrigin = 'center';
-  // heart path (simple rounded heart)
-  const path = document.createElementNS(ns,'path');
-  path.setAttribute('d','M0 -6 C -6 -16 -24 -14 -24 -2 C -24 8 -4 20 0 24 C 4 20 24 8 24 -2 C 24 -14 6 -16 0 -6 Z');
-  path.setAttribute('fill', '#ff7aa2'); // inner color
-  path.setAttribute('stroke','#ff4f86');
-  path.setAttribute('stroke-width','1');
-  path.setAttribute('transform','scale(0.9)');
-  g.appendChild(path);
-  // halo (soft circle behind)
-  const halo = document.createElementNS(ns,'ellipse');
-  halo.setAttribute('cx',0);
-  halo.setAttribute('cy',2);
-  halo.setAttribute('rx',18);
-  halo.setAttribute('ry',12);
-  halo.setAttribute('fill','rgba(255,94,138,0.12)');
-  halo.setAttribute('filter','none');
-  g.insertBefore(halo, path);
-  // store rotation in transform attribute
-  g.dataset.rot = rot;
-  return g;
-}
-
-/* bloomBlossoms - animate appearing blossoms, blossoms stay */
-async function bloomBlossoms({count=60, tempo=70} = {}){
-  const pos = samplePositions(count);
-  for(let i=0;i<pos.length && i<count;i++){
-    const p = pos[i];
-    // create blossom
-    const b = createBlossom(p.x, p.y, 1.0);
-    // apply random initial scale and rotation
-    const sx = 0.6 + Math.random()*0.8;
-    b.setAttribute('transform', `translate(${p.x},${p.y}) scale(${0.001}) rotate(${Math.random()*40 - 20})`);
-    blossomsGroup.appendChild(b);
-    // small delay before showing
-    await new Promise(r=>setTimeout(r, Math.floor(Math.random()*tempo) + 20));
-    // show: set class and transform to scale 1
-    b.classList.add('show');
-    b.classList.add('pulse');
-    // set transform with rotation preserved
-    const rot = b.dataset.rot || (Math.random()*20 - 10);
-    b.style.transition = 'transform 600ms cubic-bezier(.2,.9,.2,1), opacity 400ms';
-    b.setAttribute('transform', `translate(${p.x},${p.y}) scale(1) rotate(${rot})`);
-  }
-}
-
-/* startPetalShower - create falling small hearts/petals */
-function startPetalShower(rate=10){
-  // create petals periodically
-  setInterval(()=>{
-    const ns = "http://www.w3.org/2000/svg";
-    const p = document.createElementNS(ns,'path');
-    // small heart petal path scaled
-    p.setAttribute('d','M0 -4 C -4 -8 -12 -6 -12 -1 C -12 5 -2 11 0 13 C 2 11 12 5 12 -1 C 12 -6 4 -8 0 -4 Z');
-    p.setAttribute('fill', 'rgba(255,94,138,0.85)');
-    p.setAttribute('opacity', 0.9);
-    // random start position across canopy top
-    const xs = 110 + Math.random() * 300;
-    const ys = 70 + Math.random() * 40;
-    p.setAttribute('transform', `translate(${xs},${ys}) scale(${0.6 + Math.random()*0.8}) rotate(${Math.random()*60 - 30})`);
-    petalLayer.appendChild(p);
-    // animate falling using SMIL-like JS (tween)
-    const duration = 4200 + Math.random()*2400;
-    const start = performance.now();
-    const startX = xs;
-    const endX = xs - (20 + Math.random()*80);
-    const startY = ys;
-    const endY = ys + 260 + Math.random()*60;
-    function frame(now){
-      const t = Math.min(1, (now - start) / duration);
-      const ease = t; // linear ok
-      const curX = startX + (endX - startX) * ease;
-      const curY = startY + (endY - startY) * ease;
-      const rot = (ease * 360) + (Math.random()*30);
-      p.setAttribute('transform', `translate(${curX},${curY}) scale(${0.6 + Math.random()*0.8}) rotate(${rot})`);
-      p.setAttribute('opacity', String(1 - ease));
-      if(t < 1) requestAnimationFrame(frame);
-      else p.remove();
-    }
-    requestAnimationFrame(frame);
-  }, 900);
-}
-
-/* ---------------- Accessibility helpers ---------------- */
-envelopeStage.addEventListener('keypress', e=>{ if(e.key==='Enter') envelopeStage.click(); });
-document.getElementById('treeStage').addEventListener('keydown', e=>{ if(e.key==='Enter') {/* no-op */} });
-
-/* ensure blossoms remain after resize by not clearing them */
-
-/* End of script */
+/* ---------------- END ---------------- */
 </script>
 </body>
 </html>
