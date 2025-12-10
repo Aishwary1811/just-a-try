@@ -6,22 +6,41 @@
 <title>Happy Birthday Lakshtu 💖</title>
 
 <style>
-/* BASE */
+/* --------------------------------------------------
+                BASE STYLES
+-------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 :root{
-  --bg1:#fff6f3; --bg2:#ffeef9; --accent:#ff4f9a; 
-  --peach:#ffb88c; --muted:#63414a;
+  --bg1:#fff6f3;
+  --bg2:#ffeef9;
+  --accent:#ff4f9a;
+
+  --peach:#ffb88c;
+  --muted:#63414a;
+
+  /* NIGHT MODE */
+  --night1:#0f0f1a;
+  --night2:#1a1a2d;
+  --nightText:#ffe7f7;
 }
+
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
   background:linear-gradient(160deg,var(--bg1),var(--bg2));
-  color:var(--muted);
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   overflow-x:hidden;
+  transition:0.6s;
+}
+
+/* NIGHT MODE CLASS */
+body.night{
+  background:linear-gradient(160deg,var(--night1),var(--night2));
+  color:var(--nightText);
 }
 
 .container{
@@ -35,9 +54,15 @@ body{
   background:rgba(255,255,255,0.96);
   border-radius:16px;
   box-shadow:0 30px 80px rgba(120,50,80,0.06);
+  transition:0.6s;
 }
 
-/* Buttons */
+body.night .container{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(8px);
+  box-shadow:0 20px 60px rgba(255,255,255,0.1);
+}
+
 .btn{
   padding:12px 20px;
   border-radius:999px;
@@ -46,14 +71,38 @@ body{
   font-weight:700;
   cursor:pointer;
   background:linear-gradient(180deg,var(--peach),var(--accent));
-  box-shadow:0 12px 30px rgba(255,100,150,0.14);
-  transition:transform .18s;
+  box-shadow:0 0 14px #ff6fa7;
+  transition:transform .18s, box-shadow .4s;
 }
-.btn:active{transform:translateY(1px);}
 
-/* Stages */
+.btn:hover{
+  box-shadow:0 0 20px #ff8ec2;
+}
+
 .stage{display:none;flex-direction:column;align-items:center;gap:12px;}
 .stage.active{display:flex;}
+
+/* PETALS FALLING */
+.petal{
+  position:fixed;
+  width:18px;height:18px;
+  background:pink;
+  border-radius:60% 40% 60% 40%;
+  opacity:0.8;
+  pointer-events:none;
+  animation:fall 7s linear infinite;
+  filter:blur(0.5px);
+}
+
+@keyframes fall{
+  0%{transform:translateY(-10vh) rotate(0deg);}
+  100%{transform:translateY(110vh) rotate(360deg);}
+}
+
+/* Glow elements */
+.glow{
+  filter:drop-shadow(0 0 12px rgba(255,120,160,0.8));
+}
 
 /* Envelope */
 #envelope{
@@ -61,159 +110,120 @@ body{
   max-width:86vw;
   border-radius:12px;
   cursor:pointer;
-  box-shadow:0 18px 40px rgba(0,0,0,0.12);
-  transition:transform .5s;
+  transition:0.5s;
+  box-shadow:0 0 20px #ff8abf;
 }
 #envelope:hover{transform:translateY(-6px);}
 
-/* === HEART TREE === */
+/* TREE */
 #treeContainer{
-  width:360px;
-  height:360px;
+  width:360px;height:360px;
   position:relative;
-}
-
-#treeCanvas{
-  width:100%;
-  height:100%;
 }
 
 .leaf-heart{
   position:absolute;
-  width:22px;
-  height:22px;
-  background:linear-gradient(135deg,#ff5d98,#ff8bbb);
+  width:30px;  /* bigger */
+  height:30px; /* bigger */
+  background:radial-gradient(circle,#ff2f7f,#ff8bbb);
   transform:translate(-50%,-50%) scale(0);
   opacity:0;
+  transition:0.9s cubic-bezier(.21,1.18,.57,1.01);
   clip-path:polygon(50% 0%,61% 7%,72% 17%,80% 28%,85% 40%,87% 52%,
     86% 63%,82% 72%,75% 81%,66% 88%,56% 93%,50% 95%,44% 93%,
-    34% 88%,25% 81%,18% 72%,14% 63%,13% 52%,15% 40%,20% 28%,28% 17%,39% 7%);
-  transition:0.8s cubic-bezier(.21,1.18,.57,1.01);
-}
-.leaf-heart.bloom{
-  opacity:1;
-  transform:translate(-50%,-50%) scale(1);
+    34% 88%,25% 81%,18% 72%,14% 63%,13% 52%,15% 40%,20% 28%,
+    28% 17%,39% 7%);
+  filter:drop-shadow(0 0 10px #ff4f9a);
 }
 
-/* Cake */
+.leaf-heart.bloom{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1.2);
+}
+
+/* CAKE */
 #cakeImg{
   width:360px;
-  max-width:88vw;
   border-radius:16px;
   cursor:pointer;
-  box-shadow:0 26px 68px rgba(0,0,0,0.12);
+  box-shadow:0 0 20px pink;
 }
-#cakeImg:active{transform:scale(.94);}
 
 /* Gift */
 #gift3D{
   width:240px;height:140px;
   border-radius:12px;
   background:linear-gradient(180deg,#fff3e6,#ffd6b3);
-  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 20px #ffc0a0;
   cursor:pointer;
-  box-shadow:0 22px 68px rgba(255,150,120,0.12);
-  position:relative;
-  transform-style:preserve-3d;
-  transition:transform .45s;
 }
-.lid{
-  position:absolute;
-  top:-18px;left:50%;
-  transform:translateX(-50%);
-  width:260px;height:44px;
-  background:linear-gradient(180deg,#ffd8b0,#ffb07a);
-  border-radius:8px;
-  transform-origin:50% 100%;
-  transition:transform .6s;
-}
-.lid.open{transform:translateX(-50%) rotateX(-78deg) translateY(-14px);}
 
-/* Final Letter */
-#finalPanel{
-  width:92%;max-width:760px;
-  background:linear-gradient(180deg,#fff7f9,#fff2f6);
-  border-radius:14px;
-  padding:18px;margin-top:12px;
-  box-shadow:0 20px 48px rgba(255,150,190,0.07);
-  text-align:left;
-  display:none;
+/* NIGHT MODE BUTTON */
+#nightBtn{
+  position:fixed;
+  top:15px;right:15px;
+  padding:10px 16px;
+  background:#333;
+  color:white;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+  font-size:14px;
+  opacity:0.8;
 }
-.typewriter{white-space:pre-wrap;font-weight:500;font-size:16px;}
-.cursor{
-  display:inline-block;width:10px;height:18px;
-  background:var(--accent);margin-left:8px;
-  border-radius:3px;animation:blink 1s steps(2,start) infinite;
-}
-@keyframes blink{50%{opacity:0;}}
-
-/* Gallery */
-.gallery-section{text-align:center;display:none;padding:40px 20px;}
-.gallery-title{font-size:2rem;margin-bottom:20px;color:#ff5599;font-weight:700;}
-.gallery-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;width:90%;margin:auto;
-}
-.gallery-item{overflow:hidden;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:0.4s;}
-.gallery-item:hover{transform:scale(1.05);}
-.gallery-item img{width:100%;height:100%;object-fit:cover;}
-.gallery-item.tall img{object-position:center top;}
 </style>
 </head>
 
 <body>
+
+<button id="nightBtn">🌙 Night Mode</button>
+
 <div class="container">
 
 <!-- INTRO -->
 <div id="intro" class="stage active">
-  <h2 style="margin:6px 0;color:var(--accent)">It's your special day!</h2>
-  <div style="color:#7a3b54;margin-bottom:6px">Ready to open your surprise?</div>
-  <button id="startBtn" class="btn">Start & Play Music 💖</button>
+  <h2 style="color:var(--accent)">It's your special day!</h2>
+  <div style="color:#7a3b54">Ready to open your surprise?</div>
+  <button id="startBtn" class="btn glow">Start & Play Music 💖</button>
 </div>
 
 <!-- ENVELOPE -->
 <div id="envelopeStage" class="stage">
-  <img id="envelope" src="envelope.png"/>
+  <img id="envelope" class="glow" src="envelope.png">
   <div style="font-size:13px;color:#7a3b54">Tap the envelope 💌</div>
 </div>
 
 <!-- TREE -->
 <div id="treeStage" class="stage">
-  <div id="treeContainer">
-      <canvas id="treeCanvas"></canvas>
-  </div>
+  <div id="treeContainer"><canvas id="treeCanvas"></canvas></div>
   <div style="font-size:13px;color:#7a3b54">Your blooming heart tree 🌳💖</div>
 </div>
 
 <!-- CAKE -->
 <div id="cakeStage" class="stage">
-  <img id="cakeImg" src="cake.jpg" alt="">
-  <div style="font-size:13px;color:#7a3b54">Tap the cake to cut it 🎂</div>
+  <img id="cakeImg" class="glow" src="cake.jpg">
+  <div style="font-size:13px;color:#7a3b54">Tap the cake 🎂</div>
 </div>
 
 <!-- GIFT -->
 <div id="giftStage" class="stage">
-  <div id="gift3D">
-    <div class="lid" id="lid"></div>
-    <div id="giftText">Open Gift</div>
-  </div>
+  <div id="gift3D" class="glow"><div id="giftText">Open Gift</div></div>
 </div>
 
 <!-- FINAL LETTER -->
 <div id="finalStage" class="stage">
-  <div id="finalPanel">
-    <div id="typed" class="typewriter"></div>
-    <span id="cursor" class="cursor"></span>
+  <div id="finalPanel" style="width:90%;background:#fff0f7;padding:20px;border-radius:14px;box-shadow:0 0 20px pink;">
+    <div id="typed" style="white-space:pre-wrap;font-size:16px;"></div>
   </div>
 </div>
 
 <!-- GALLERY -->
-<section id="gallery" class="gallery-section">
-  <h2 class="gallery-title">Our Beautiful Moments 💗</h2>
-  <div class="gallery-grid">
-    <div class="gallery-item tall"><img src="pic_three.png"></div>
-    <div class="gallery-item"><img src="pic_one.jpg"></div>
-    <div class="gallery-item"><img src="pic_two.jpg"></div>
+<section id="gallery" style="display:none;text-align:center;padding:30px">
+  <h2 style="color:#ff5599;font-size:2rem">Our Beautiful Moments 💗</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;width:90%;margin:auto;">
+    <div><img src="pic_three.png" style="width:100%;border-radius:20px;"></div>
+    <div><img src="pic_one.jpg" style="width:100%;border-radius:20px;"></div>
+    <div><img src="pic_two.jpg" style="width:100%;border-radius:20px;"></div>
   </div>
 </section>
 
@@ -222,95 +232,98 @@ body{
 <audio id="bgm" src="song.mp3" preload="auto" loop></audio>
 
 <script>
-/* MUSIC + STAGE SWITCH */
+/* -------------------------------------
+        START BUTTON + MUSIC
+-------------------------------------- */
 startBtn.onclick = ()=>{
   bgm.play().catch(()=>{});
   intro.classList.remove("active");
   envelopeStage.classList.add("active");
 };
 
-/* === HEART TREE === */
-const canvas = document.getElementById("treeCanvas");
-const ctx = canvas.getContext("2d");
-const leafLayer = document.getElementById("treeContainer");
+/* -------------------------------------
+        PETAL FALLING GENERATOR
+-------------------------------------- */
+function createPetal(){
+  const petal=document.createElement("div");
+  petal.className="petal";
+  petal.style.left=Math.random()*100+"vw";
+  petal.style.animationDuration=6+Math.random()*4+"s";
+  petal.style.opacity=0.5+Math.random()*0.5;
+  document.body.appendChild(petal);
+  setTimeout(()=>petal.remove(),10000);
+}
+setInterval(createPetal,300);
+
+/* -------------------------------------
+        HEART TREE
+-------------------------------------- */
+const canvas=document.getElementById("treeCanvas");
+const ctx=canvas.getContext("2d");
+const leafLayer=document.getElementById("treeContainer");
 
 function resizeCanvas(){
-  canvas.width = canvas.clientWidth;
-  canvas.height = canvas.clientHeight;
+  canvas.width=canvas.clientWidth;
+  canvas.height=canvas.clientHeight;
 }
 resizeCanvas();
 
-/* Strong Realistic Trunk */
 function drawTrunk(){
-  ctx.lineWidth = 26;
-  ctx.strokeStyle = "#5a3b27";
-  ctx.lineCap = "round";
+  ctx.lineWidth=26;
+  ctx.strokeStyle="#5a3b27";
+  ctx.lineCap="round";
 
   ctx.beginPath();
   ctx.moveTo(canvas.width/2, canvas.height);
-  ctx.bezierCurveTo(
-    canvas.width/2 - 35, canvas.height*0.7,
-    canvas.width/2 - 40, canvas.height*0.45,
-    canvas.width/2 - 10, canvas.height*0.32
-  );
+  ctx.bezierCurveTo(canvas.width/2 -35, canvas.height*0.7,
+    canvas.width/2 -40, canvas.height*0.45,
+    canvas.width/2 -10, canvas.height*0.32);
   ctx.stroke();
 
   ctx.beginPath();
   ctx.moveTo(canvas.width/2, canvas.height);
-  ctx.bezierCurveTo(
-    canvas.width/2 + 35, canvas.height*0.7,
-    canvas.width/2 + 40, canvas.height*0.45,
-    canvas.width/2 + 10, canvas.height*0.32
-  );
+  ctx.bezierCurveTo(canvas.width/2 +35, canvas.height*0.7,
+    canvas.width/2 +40, canvas.height*0.45,
+    canvas.width/2 +10, canvas.height*0.32);
   ctx.stroke();
 }
 
-/* Heart Canopy Branches */
 function drawBranches(){
-  ctx.lineWidth = 12;
-  ctx.strokeStyle = "#734b32";
+  ctx.lineWidth=12;
+  ctx.strokeStyle="#734b32";
 
   ctx.beginPath();
-  ctx.moveTo(canvas.width/2 - 10, canvas.height*0.32);
-  ctx.bezierCurveTo(
-    canvas.width/2 - 120, canvas.height*0.1,
-    canvas.width/2 - 60, canvas.height*0.05,
-    canvas.width/2, canvas.height*0.17
-  );
+  ctx.moveTo(canvas.width/2 -10, canvas.height*0.32);
+  ctx.bezierCurveTo(canvas.width/2 -120, canvas.height*0.1,
+    canvas.width/2 -60, canvas.height*0.05,
+    canvas.width/2, canvas.height*0.17);
   ctx.stroke();
 
   ctx.beginPath();
-  ctx.moveTo(canvas.width/2 + 10, canvas.height*0.32);
-  ctx.bezierCurveTo(
-    canvas.width/2 + 120, canvas.height*0.1,
-    canvas.width/2 + 60, canvas.height*0.05,
-    canvas.width/2, canvas.height*0.17
-  );
+  ctx.moveTo(canvas.width/2 +10, canvas.height*0.32);
+  ctx.bezierCurveTo(canvas.width/2 +120, canvas.height*0.1,
+    canvas.width/2 +60, canvas.height*0.05,
+    canvas.width/2, canvas.height*0.17);
   ctx.stroke();
 }
 
-/* Leaves */
 function generateLeaves(){
-  const leafCount = 150; // FULL dense canopy
-  const cx = canvas.width/2;
-  const cy = canvas.height*0.18;
-  const size = 150;
+  const leafCount=160;
+  const cx=canvas.width/2;
+  const cy=canvas.height*0.18;
+  const size=150;
 
   for(let i=0;i<leafCount;i++){
-    const angle = Math.random()*Math.PI*2;
-    const r = size*(0.55 + Math.random()*0.45);
+    const angle=Math.random()*Math.PI*2;
+    const r=size*(0.55+Math.random()*0.45);
 
-    const x = cx + r*Math.cos(angle);
-    const y = cy + r*Math.sin(angle*1.2);
-
-    const leaf = document.createElement("div");
-    leaf.className = "leaf-heart";
-    leaf.style.left = x+"px";
-    leaf.style.top = y+"px";
-
+    const leaf=document.createElement("div");
+    leaf.className="leaf-heart";
+    leaf.style.left=(cx+r*Math.cos(angle))+"px";
+    leaf.style.top=(cy+r*Math.sin(angle*1.2))+"px";
     leafLayer.appendChild(leaf);
 
-    setTimeout(()=>leaf.classList.add("bloom"),200 + i*35);
+    setTimeout(()=>leaf.classList.add("bloom"),200+i*35);
   }
 }
 
@@ -321,58 +334,65 @@ function drawHeartTree(){
 }
 
 /* Envelope → Tree */
-envelope.onclick = ()=>{
+envelope.onclick=()=>{
   envelopeStage.classList.remove("active");
   treeStage.classList.add("active");
-
-  setTimeout(drawHeartTree, 500);
+  setTimeout(drawHeartTree,500);
 };
 
 /* Tree → Cake */
-cakeImg.onclick = ()=>{
+cakeImg.onclick=()=>{
   treeStage.classList.remove("active");
   cakeStage.classList.add("active");
 };
 
 /* Cake → Gift */
-cakeImg.onclick = ()=>{
+cakeImg.onclick=()=>{
   cakeStage.classList.remove("active");
   giftStage.classList.add("active");
 };
 
-/* Gift → Final */
-gift3D.onclick = ()=>{
-  lid.classList.add("open");
-  setTimeout(()=>{
-    giftStage.classList.remove("active");
-    gallery.style.display="block";
-    finalStage.classList.add("active");
-    startTyping();
-  },900);
+/* Gift → Final Letter */
+gift3D.onclick=()=>{
+  giftStage.classList.remove("active");
+  gallery.style.display="block";
+  finalStage.classList.add("active");
+  startTyping();
 };
 
-/* Typewriter */
+/* Typewriter Message */
 const message = `My sweet Lakshtu,
 
-You make my world brighter just by being in it. You are the kindest part of my heart — the calm in my chaos, and the softest place where my feelings rest.
+You make my world brighter just by being in it.  
+You are the kindest part of my heart — the calm in my chaos  
+and the softest place where my feelings rest.
 
-Thank you for loving me in your own little ways, for supporting me, for choosing me, and for making every day feel special without even trying.
+Thank you for loving me in your own beautiful ways.  
+Thank you for choosing me, supporting me, and making every day special  
+without even trying.
 
-On your birthday, I just want you to know — you are precious to me, you are loved more than words can hold, and you will always, always have a place in my heart.
+On your birthday, I just want you to know —  
+you are precious to me, loved beyond words,  
+and you will always have a place in my heart.
 
 I LOVE YOU, LAKSHTU 💖✨`;
 
 let i=0;
 function startTyping(){
   typed.textContent="";
-  function step(){
+  function type(){
     if(i<message.length){
       typed.textContent+=message[i++];
-      setTimeout(step,26+Math.random()*18);
-    }else cursor.style.display="none";
+      setTimeout(type,26+Math.random()*18);
+    }
   }
-  step();
+  type();
 }
+
+/* NIGHT MODE TOGGLE */
+nightBtn.onclick=()=>{
+  document.body.classList.toggle("night");
+};
 </script>
 </body>
 </html>
