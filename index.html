@@ -328,13 +328,13 @@ body {
   background: var(--card-bg);
   backdrop-filter: blur(10px);
   border-radius: 25px;
-  white-space: pre-wrap;
   color: var(--text-primary);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
   font-family: 'Poppins', sans-serif;
   position: relative;
   overflow: hidden;
+  min-height: 300px;
 }
 
 #letterBox::before {
@@ -576,6 +576,8 @@ const moodToggle = document.getElementById("moodToggle");
 const musicToggle = document.getElementById("musicToggle");
 const loading = document.getElementById("loading");
 const progressDots = document.querySelectorAll('.dot');
+const letterBox = document.getElementById("letterBox");
+const cursor = document.querySelector(".cursor");
 
 // --- CANVAS & TREE ELEMENTS ---
 const canvas = document.getElementById("treeCanvas");
@@ -583,6 +585,34 @@ const ctx = canvas.getContext("2d");
 const leafLayer = document.getElementById("treeContainer");
 let animationFrameId;
 let currentStage = 1;
+
+// --- MESSAGE TEXT ---
+const message = `My sweet Lakshtu 💖,
+
+You make my world brighter just by being in it.
+Your smile, your voice, the way you talk — everything feels magical.
+
+Thank you for choosing me, caring for me,
+and making my heart feel safe.
+
+On your special day, I want you to know:
+
+✨ You are precious beyond words.
+✨ You are deeply loved.
+✨ You are my favorite person in the entire world.
+
+May this year bring you all the happiness you deserve,
+and may our journey together continue to grow
+with love, laughter, and beautiful memories.
+
+Happy Birthday, my love! 
+You mean everything to me. 💕
+
+With all my love,
+Always and forever...`;
+
+let typingIndex = 0;
+let isTyping = false;
 
 // --- INITIALIZATION ---
 window.addEventListener('load', () => {
@@ -745,56 +775,47 @@ cake.onclick = () => {
   startTyping();
 }
 
-// --- TYPEWRITER ---
-let message = `My sweet Lakshtu 💖,
-
-You make my world brighter just by being in it.
-Your smile, your voice, the way you talk — everything feels magical.
-
-Thank you for choosing me, caring for me,
-and making my heart feel safe.
-
-On your special day, I want you to know:
-
-✨ You are precious beyond words.
-✨ You are deeply loved.
-✨ You are my favorite person in the entire world.
-
-May this year bring you all the happiness you deserve,
-and may our journey together continue to grow
-with love, laughter, and beautiful memories.
-
-Happy Birthday, my love! 
-You mean everything to me. 💕
-
-With all my love,
-Always and forever...`;
-
-let typingSpeed = 26 + Math.random() * 18;
-let i = 0;
-
+// --- TYPEWRITER EFFECT ---
 function startTyping() {
-  const letterBox = document.getElementById("letterBox");
-  const cursor = document.querySelector(".cursor");
+  if (isTyping) return;
+  
+  isTyping = true;
+  typingIndex = 0;
   letterBox.textContent = "";
-  i = 0;
   cursor.style.display = "inline-block";
   
-  function step() {
-    if (i < message.length) {
-      letterBox.textContent += message[i];
-      i++;
+  function typeCharacter() {
+    if (typingIndex < message.length) {
+      // Add current character
+      letterBox.textContent += message.charAt(typingIndex);
       
-      // Add slight speed variation for natural feel
-      typingSpeed = 24 + Math.random() * 20;
-      setTimeout(step, typingSpeed);
+      // Scroll to keep cursor in view
+      letterBox.scrollTop = letterBox.scrollHeight;
+      
+      typingIndex++;
+      
+      // Determine speed based on character
+      const char = message.charAt(typingIndex - 1);
+      let speed = 50; // Default speed
+      
+      if (char === '\n') speed = 400; // Pause at new lines
+      else if (char === '.' || char === '!') speed = 300; // Pause at punctuation
+      else if (char === ',') speed = 200; // Short pause at commas
+      else if (char.match(/\s/)) speed = 80; // Slight pause at spaces
+      else speed = 30 + Math.random() * 20; // Random typing speed
+      
+      // Continue typing
+      setTimeout(typeCharacter, speed);
     } else {
+      // Typing complete
       cursor.style.display = "none";
-      // Add confetti effect when typing completes
+      isTyping = false;
       createConfetti();
     }
   }
-  step();
+  
+  // Start typing after a short delay
+  setTimeout(typeCharacter, 500);
 }
 
 // --- DAY/NIGHT MODE TOGGLE ---
