@@ -1,140 +1,277 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For You 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Lakshtu 💖</title>
 <style>
-body {
-  margin: 0;
-  padding: 20px;
-  font-family: Poppins, sans-serif;
-  background: linear-gradient(160deg,#ffe8f4,#fff0fa);
-  transition: .5s ease;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root{
+  --accent:#ff4f9a;
+  --peach:#ffb88c;
 }
 
-/* Dark mode background */
-.dark {
-  background: #0d0d0d;
-  color: white;
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#0d0d0d;
+  color:white;
+  overflow:hidden;
 }
 
-h1 {
-  color: #ff4f9a;
-  transition: .4s ease;
-}
-.dark h1 {
-  color: #ff87d6;
-}
-
-/* Night mode button */
-#toggleMode {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #ff4f9a;
-  border: none;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 16px;
-  box-shadow: 0 0 10px rgba(255,0,100,0.4);
-  transition: .3s ease;
-}
-.dark #toggleMode {
-  background: #ff87d6;
+.stage{
+  display:none;
+  width:100%;
+  height:100vh;
+  position:absolute;
+  top:0;left:0;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  transition: opacity 1s ease;
 }
 
-/* Gallery */
-.gallery {
-  margin-top: 40px;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
+.stage.active{
+  display:flex;
+  opacity:1;
 }
 
-.gallery img {
-  width: 260px;
-  height: 330px;
-  object-fit: cover;
-  border-radius: 16px;
-  box-shadow: 0 0 15px rgba(255,50,150,0.4);
+/* BUTTON */
+.btn{
+  padding:12px 24px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(180deg,var(--peach),var(--accent));
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 12px 30px rgba(255,100,150,0.2);
+  transition: transform .2s;
+}
+.btn:active{ transform:scale(0.95); }
+
+/* Envelope */
+#envelope{
+  width:260px;
+  cursor:pointer;
+  animation: float 2.5s ease-in-out infinite, glow 1.8s ease-in-out infinite;
+}
+@keyframes float{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-14px);}
+  100%{transform:translateY(0);}
+}
+@keyframes glow{
+  0%{filter:drop-shadow(0 0 0px #ff4fa6);}
+  50%{filter:drop-shadow(0 0 18px #ff4fa6);}
+  100%{filter:drop-shadow(0 0 0px #ff4fa6);}
+}
+
+/* TREE + GALAXY */
+#treeStage{
+  background:url('galaxy.jpg') center/cover no-repeat fixed;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+#treeContainer{
+  width:460px; height:460px; position:relative;
+}
+#treeCanvas{ width:100%; height:100%; position:absolute; filter:drop-shadow(0 0 25px #ff66dd); }
+.leaf{
+  position:absolute;
+  width:28px;height:28px;
+  background:pink;
+  transform:translate(-50%,-50%) scale(0);
+  clip-path:polygon(50% 0%,61% 7%,72% 17%,80% 28%,85% 40%,87% 52%,86% 63%,82% 72%,75% 81%,66% 88%,56% 93%,50% 95%,44% 93%,34% 88%,25% 81%,18% 72%,14% 63%,13% 52%,15% 40%,20% 28%,28% 17%,39% 7%);
+  transition:.7s ease;
+  filter:drop-shadow(0 0 10px hotpink);
+}
+.leaf.grow{ transform:translate(-50%,-50%) scale(1); }
+
+/* Petals */
+.petals{
+  position:absolute;
+  width:12px;height:12px;
+  background:pink;
+  border-radius:50%;
+  opacity:0.8;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  0%{transform:translateY(-20px) rotate(0deg);}
+  100%{transform:translateY(500px) rotate(360deg);}
+}
+
+/* Cake */
+#cake{
+  width:220px;
+  margin-top:30px;
+  transform:scale(0);
+  transition:.7s ease;
+  filter:drop-shadow(0 0 18px white);
+  cursor:pointer;
+}
+#cake.show{ transform:scale(1); }
+
+/* Final Stage */
+#finalStage{
+  flex-direction:column;
+  background:linear-gradient(180deg,#0d0d0d,#1a001a);
+  overflow-y:auto;
+}
+#letterBox{
+  width:90%;max-width:650px;margin:20px auto;padding:20px;font-size:18px;
+  background:rgba(255,255,255,0.05);
+  border-radius:16px;
+  white-space:pre-wrap;
+}
+.cursor{
+  display:inline-block;width:8px;height:20px;
+  background:#ff4f9a;
+  animation:blink 1s infinite;
+}
+@keyframes blink{50%{opacity:0;}}
+.gallery{
+  display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:20px;
+}
+.gallery img{
+  width:260px;height:330px;object-fit:cover;border-radius:16px;
+  box-shadow:0 0 15px rgba(255,50,150,0.4);
   animation: glowPulse 3s infinite ease-in-out;
-  transition: .4s ease;
 }
-
-/* Dark mode photo glow */
-.dark .gallery img {
-  box-shadow: 0 0 25px hotpink;
+@keyframes glowPulse{
+  0%{box-shadow:0 0 12px rgba(255,50,150,0.4);}
+  50%{box-shadow:0 0 20px rgba(255,50,180,0.7);}
+  100%{box-shadow:0 0 12px rgba(255,50,150,0.4);}
 }
-
-/* Glow animation */
-@keyframes glowPulse {
-  0% { box-shadow: 0 0 12px rgba(255,50,150,0.4); }
-  50% { box-shadow: 0 0 20px rgba(255,50,180,0.7); }
-  100% { box-shadow: 0 0 12px rgba(255,50,150,0.4); }
-}
-
-/* Letter box */
-#letterBox {
-  width: 90%;
-  max-width: 650px;
-  margin: auto;
-  padding: 20px;
-  font-size: 18px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(255,120,160,0.2);
-  margin-top: 20px;
-  white-space: pre-wrap;
-  color: black;
-  transition: .5s ease;
-}
-
-/* dark mode box */
-.dark #letterBox {
-  background: #1a1a1a;
-  color: #ffd8f2;
-  box-shadow: 0 0 20px rgba(255,0,150,0.4);
-}
-
-/* Cursor */
-.cursor {
-  display: inline-block;
-  width: 8px;
-  height: 20px;
-  background: #ff4f9a;
-  animation: blink 1s infinite;
-}
-.dark .cursor {
-  background: #ff87d6;
-}
-
-@keyframes blink {50%{opacity:0;}}
 </style>
 </head>
-
 <body>
 
-<button id="toggleMode">Night Mode 🌙</button>
-
-<h1>Our Beautiful Memories 💗</h1>
-
-<div class="gallery">
-  <img src="pic_one.jpg">
-  <img src="pic_two.jpg">
-  <img src="pic_three.png">
+<!-- PAGE 1: Envelope -->
+<div id="page1" class="stage active">
+  <h2>Tap the envelope 💌</h2>
+  <img src="envelope.png" id="envelope">
 </div>
 
-<div id="letterBox"></div><span class="cursor"></span>
+<!-- PAGE 2: Tree + Cake -->
+<div id="page2" class="stage">
+  <div id="treeContainer">
+    <canvas id="treeCanvas"></canvas>
+  </div>
+  <img src="cake.jpg" id="cake">
+</div>
+
+<!-- PAGE 3: Final Letter + Gallery -->
+<div id="finalStage" class="stage">
+  <h1>Our Beautiful Memories 💗</h1>
+  <div class="gallery">
+    <img src="pic_one.jpg">
+    <img src="pic_two.jpg">
+    <img src="pic_three.png">
+  </div>
+  <div id="letterBox"></div><span class="cursor"></span>
+</div>
+
+<audio id="bgm" src="song.mp3" preload="auto" loop></audio>
 
 <script>
-// Typewriter text
-let msg = `My sweet love,
+// --- PAGE TRANSITIONS ---
+const page1=document.getElementById("page1");
+const page2=document.getElementById("page2");
+const finalStage=document.getElementById("finalStage");
+const envelope=document.getElementById("envelope");
+const bgm=document.getElementById("bgm");
+const cake=document.getElementById("cake");
 
-You make my life brighter just by being in it.
+// --- PAGE 1: Tap Envelope ---
+envelope.onclick=()=>{
+  bgm.play().catch(()=>{});
+  page1.classList.remove("active");
+  page2.classList.add("active");
+  setTimeout(initTree,500);
+}
+
+// --- TREE SETUP ---
+const canvas=document.getElementById("treeCanvas");
+const ctx=canvas.getContext("2d");
+canvas.width=canvas.clientWidth;
+canvas.height=canvas.clientHeight;
+const leafLayer=document.getElementById("treeContainer");
+
+// Draw trunk
+function drawTrunk(){
+  ctx.lineWidth=26;
+  ctx.strokeStyle="#ff33cc";
+  ctx.beginPath();
+  ctx.moveTo(canvas.width/2,canvas.height);
+  ctx.bezierCurveTo(canvas.width/2-40,canvas.height*.7,canvas.width/2-30,canvas.height*.4,canvas.width/2,canvas.height*.2);
+  ctx.stroke();
+}
+
+// Draw branches
+function drawBranches(){
+  ctx.lineWidth=12;
+  ctx.strokeStyle="#ff66ff";
+  ctx.beginPath();
+  ctx.moveTo(canvas.width/2,canvas.height*.2);
+  ctx.bezierCurveTo(canvas.width/2-140,canvas.height*.1,canvas.width/2-60,canvas.height*.03,canvas.width/2,canvas.height*.15);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(canvas.width/2,canvas.height*.2);
+  ctx.bezierCurveTo(canvas.width/2+140,canvas.height*.1,canvas.width/2+60,canvas.height*.03,canvas.width/2,canvas.height*.15);
+  ctx.stroke();
+}
+
+// Create heart leaves
+function createLeaves(){
+  const colors=["#ff4fa6","#ff8bd5","#ff66cc","#ff99ff"];
+  const cx=canvas.width/2;
+  const cy=canvas.height*.15;
+  for(let i=0;i<150;i++){
+    let leaf=document.createElement("div");
+    leaf.className="leaf";
+    leaf.style.background=colors[Math.floor(Math.random()*colors.length)];
+    let angle=Math.random()*Math.PI*2;
+    let r=150*(0.4+Math.random()*0.6);
+    leaf.style.left=(cx+r*Math.cos(angle))+"px";
+    leaf.style.top=(cy+r*Math.sin(angle))+"px";
+    leafLayer.appendChild(leaf);
+    setTimeout(()=>leaf.classList.add("grow"),200+i*20);
+  }
+}
+
+// Falling petals
+for(let i=0;i<25;i++){
+  let p=document.createElement("div");
+  p.className="petals";
+  p.style.left=Math.random()*window.innerWidth+"px";
+  p.style.animationDuration=(3+Math.random()*2)+"s";
+  p.style.animationDelay=(Math.random()*5)+"s";
+  document.body.appendChild(p);
+}
+
+function initTree(){
+  drawTrunk();
+  drawBranches();
+  createLeaves();
+  // show cake after tree
+  setTimeout(()=>cake.classList.add("show"),2000);
+}
+
+// --- PAGE 2: Cake click → Final Stage ---
+cake.onclick=()=>{
+  page2.classList.remove("active");
+  finalStage.classList.add("active");
+  startTyping();
+}
+
+// --- TYPEWRITER ---
+let message=`My sweet Lakshtu,
+
+You make my world brighter just by being in it.
 Your smile, your voice, the way you talk — everything feels magical.
 
 Thank you for choosing me, caring for me,
@@ -146,22 +283,21 @@ You are precious.
 You are loved.
 You are my favourite person.
 
-I love you more than words can ever explain. 💖✨`;
+I LOVE YOU, LAKSHTU 💖✨`;
 
-let i = 0;
-function type() {
-  if (i < msg.length) {
-    document.getElementById("letterBox").textContent += msg[i];
-    i++;
-    setTimeout(type, 30);
+let i=0;
+function startTyping(){
+  const letterBox=document.getElementById("letterBox");
+  const cursor=document.querySelector(".cursor");
+  letterBox.textContent="";
+  function step(){
+    if(i<message.length){
+      letterBox.textContent+=message[i++];
+      setTimeout(step,26+Math.random()*18);
+    } else { cursor.style.display="none"; }
   }
+  step();
 }
-type();
-
-// Night Mode Toggle
-document.getElementById("toggleMode").onclick = () => {
-  document.body.classList.toggle("dark");
-};
 </script>
 
 </body>
