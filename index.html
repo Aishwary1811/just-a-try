@@ -1,150 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Happy Birthday Lakshtu 💖</title>
 <style>
+/* ---------- Fonts + Base ---------- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 :root{
   --bg1:#fff6f3; --bg2:#ffeef9; --accent:#ff4f9a; --peach:#ffb88c; --muted:#63414a;
+  --rose:#ff5e8a; /* chosen color */
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2));color:var(--muted);min-height:100vh;display:flex;justify-content:center;align-items:center;overflow-x:hidden;}
-.container{width:100%;max-width:900px;position:relative;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;background:rgba(255,255,255,0.96);border-radius:16px;box-shadow:0 30px 80px rgba(120,50,80,0.06);}
+html,body{height:100%}
+body{
+  margin:0; font-family:'Poppins',sans-serif;
+  background: radial-gradient(1200px 600px at 10% 10%, #fff9fb 0%, #fff1f6 20%, #fff6f3 50%), linear-gradient(160deg,var(--bg1),var(--bg2));
+  color:var(--muted); min-height:100vh; display:flex; justify-content:center; align-items:center; overflow-x:hidden;
+}
 
-/* Buttons */
-.btn{padding:12px 20px;border-radius:999px;border:none;color:white;font-weight:700;cursor:pointer;background:linear-gradient(180deg,var(--peach),var(--accent));box-shadow:0 12px 30px rgba(255,100,150,0.14);transition:transform .18s;}
+/* ---------- Container ---------- */
+.container{
+  width:100%; max-width:980px; position:relative; padding:26px;
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,250,252,0.98));
+  border-radius:18px; box-shadow:0 30px 80px rgba(120,50,80,0.06);
+}
+
+/* ---------- Buttons ---------- */
+.btn{padding:12px 20px;border-radius:999px;border:none;color:white;font-weight:700;cursor:pointer;
+  background:linear-gradient(180deg,var(--peach),var(--accent));box-shadow:0 12px 30px rgba(255,100,150,0.14);transition:transform .18s, box-shadow .18s;}
 .btn:active{transform:translateY(1px);}
-.btn.secondary{background:linear-gradient(180deg,#aebaff,#c89bff);}
+.icon-btn{background:transparent;border:0;padding:8px;cursor:pointer;}
 
-/* Stage sections */
-.stage{display:none;flex-direction:column;align-items:center;gap:12px;}
+/* ---------- Stages ---------- */
+.stage{display:none;flex-direction:column;align-items:center;gap:12px;width:100%;}
 .stage.active{display:flex;}
 
-/* Envelope */
-#envelope{width:320px;max-width:86vw;border-radius:12px;cursor:pointer;box-shadow:0 18px 40px rgba(0,0,0,0.12);transition:transform .5s;}
-#envelope:hover{transform:translateY(-6px);}
-
-/* Tree */
-#treeStage{position:relative;width:100%;height:300px;}
-#treeBase {
-  width: 24px;
-  height: 0;
-  background: #8b5a2b;
-  border-radius: 12px;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index:1;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-  transition: height 1.2s ease;
+/* ---------- Envelope (inline svg button) ---------- */
+.envelope-btn{
+  width:320px; max-width:86vw; border-radius:14px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  padding:18px; background:linear-gradient(180deg,#fff,#fff8fb); box-shadow:0 18px 40px rgba(0,0,0,0.06); transition:transform .28s;
 }
+.envelope-btn:hover{transform:translateY(-6px) scale(1.01);}
+
+/* ---------- TREE (Heart-shaped Sakura hybrid) ---------- */
+#treeStage{position:relative;width:100%;height:360px;display:flex;justify-content:center;align-items:flex-end;overflow:visible;padding-bottom:20px;}
+#treeWrap{position:relative;width:420px;height:340px;}
+
+/* trunk */
+#trunk{
+  position:absolute; left:50%; bottom:0; transform:translateX(-50%) translateY(6px);
+  width:28px; height:0; background: linear-gradient(180deg,#8b5a2b,#6f3f29); border-radius:18px;
+  box-shadow:inset -4px -6px 12px rgba(0,0,0,0.12), 0 20px 30px rgba(0,0,0,0.06);
+  transition:height 1.2s cubic-bezier(.2,.9,.2,1);
+}
+
+/* small root glow */
+#trunk::after{
+  content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-14px;
+  width:220px; height:36px; border-radius:50%;
+  background: radial-gradient(60% 40% at 50% 40%, rgba(0,0,0,0.08), rgba(0,0,0,0.02));
+  opacity:0; transition:opacity .8s;
+}
+
+/* branches */
 .branch{
-  position:absolute;
-  width:12px;
-  height:0;
-  background:#8b5a2b;
-  border-radius:6px;
-  bottom:150px;
-  left:50%;
-  transform-origin:bottom center;
-  z-index:1;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: height 1s ease, transform 0.6s ease;
+  position:absolute; left:50%; bottom:120px; width:18px; height:0; transform-origin:bottom center;
+  border-radius:12px; background:linear-gradient(180deg,#8b5a2b,#70402a); box-shadow:0 6px 18px rgba(0,0,0,0.12);
+  transition:height .9s ease, transform .9s ease;
 }
-.branch1{transform:translateX(-50%) rotate(-40deg);}
-.branch2{transform:translateX(-50%) rotate(-25deg);}
-.branch3{transform:translateX(-50%) rotate(20deg);}
-.branch4{transform:translateX(-50%) rotate(35deg);}
-.branch5{transform:translateX(-50%) rotate(10deg);}
+.branch.b1{ transform: translateX(-50%) rotate(-55deg); bottom:110px; left:48%; --rot:-55; }
+.branch.b2{ transform: translateX(-50%) rotate(-38deg); bottom:125px; left:46.5%; --rot:-38; }
+.branch.b3{ transform: translateX(-50%) rotate(-12deg); bottom:138px; left:50.5%; --rot:-12; }
+.branch.b4{ transform: translateX(-50%) rotate(28deg); bottom:125px; left:53.5%; --rot:28; }
+.branch.b5{ transform: translateX(-50%) rotate(48deg); bottom:108px; left:52%; --rot:48; }
 
-/* Leaf hearts */
-#leafLayer{position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;}
-.tree-heart{
-  position:absolute;
-  width:28px;height:28px;
-  background-image:url('heart.png');
-  background-size:contain;
-  background-repeat:no-repeat;
-  opacity:0;
-  transform:scale(0);
-  transition:transform 0.8s ease, opacity 0.8s ease;
-  filter:drop-shadow(0 2px 8px rgba(255,100,150,0.3));
-}
-.tree-heart.pop{
-  opacity:1;
-  transform:scale(1);
-  animation: floatGlow 2.5s ease forwards;
-}
-@keyframes floatGlow {
-  0%{transform:scale(1) translateY(0);}
-  100%{transform:scale(0.7) translateY(-40px);}
+.branch.sway{ animation: branchSway 5s ease-in-out infinite alternate; transform-origin:bottom center; }
+@keyframes branchSway{
+  0%{ transform: translateX(-50%) rotate(calc(var(--rot) - 6deg)); }
+  50%{ transform: translateX(-50%) rotate(calc(var(--rot) + 6deg)); }
+  100%{ transform: translateX(-50%) rotate(calc(var(--rot) - 4deg)); }
 }
 
-/* Cake */
+/* leaf layer */
+#leafLayer{position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:visible;}
+
+/* heart element */
+.heart{
+  position:absolute; width:36px; height:36px; transform:translate(-50%,-50%) scale(0);
+  opacity:0; filter: drop-shadow(0 10px 20px rgba(255,100,150,0.14));
+  transition: transform .6s cubic-bezier(.2,.9,.2,1), opacity .6s;
+  will-change: transform, opacity;
+}
+.heart.pop{ transform:translate(-50%,-50%) scale(1); opacity:1; }
+
+/* pulse */
+.heart .svg-heart { transition: transform .8s; transform-origin:center center; }
+.heart.pop .svg-heart { animation: pulse 2.6s ease-in-out infinite; }
+@keyframes pulse {
+  0%{ transform: scale(1); filter: drop-shadow(0 6px 12px rgba(255,94,138,0.18)); }
+  50%{ transform: scale(1.06); filter: drop-shadow(0 16px 32px rgba(255,94,138,0.22)); }
+  100%{ transform: scale(1); filter: drop-shadow(0 6px 12px rgba(255,94,138,0.18)); }
+}
+
+/* halo */
+.heart .halo{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:64px; height:64px; border-radius:50%;
+  background: radial-gradient(circle, rgba(255,94,138,0.14) 0%, rgba(255,94,138,0.06) 30%, transparent 55%);
+  opacity:0; transition:opacity .6s;
+}
+.heart.pop .halo{ opacity:1; }
+
+/* petals */
+.petal{
+  position:absolute; width:12px; height:8px; background:var(--rose); border-radius:70% 70% 70% 70% / 60% 60% 40% 40%;
+  opacity:0.9; transform:rotate(20deg); filter: drop-shadow(0 6px 12px rgba(255,94,138,0.08));
+  animation: fall linear forwards;
+}
+@keyframes fall {
+  0%{ transform: translateY(-10px) rotate(0deg); opacity:1; }
+  100%{ transform: translateY(220px) rotate(360deg); opacity:0; }
+}
+
+/* ---------- Cake / Gift / Final panel / Gallery ---------- */
 #cakeBox{display:flex;flex-direction:column;align-items:center;gap:8px;}
 #cakeImg{width:360px;max-width:88vw;border-radius:16px;cursor:pointer;box-shadow:0 26px 68px rgba(0,0,0,0.12);transition:transform .18s;}
 #cakeImg:active{transform:scale(.94);}
-.candle{position:relative;width:8px;height:34px;background:#fff;border-radius:8px;left:50%;transform:translateX(-50%);top:-52px;opacity:1;}
-.flame{position:absolute;left:50%;top:-18px;width:14px;height:14px;border-radius:50%;transform:translateX(-50%);background:radial-gradient(circle,#ffd800 0%, #ff5e00 70%);filter:drop-shadow(0 8px 14px rgba(255,120,60,0.3));opacity:1;}
 
-/* Gift */
+/* gift */
 #gift3D{width:240px;height:140px;border-radius:12px;background:linear-gradient(180deg,#fff3e6,#ffd6b3);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 22px 68px rgba(255,150,120,0.12);position:relative;overflow:visible;transform-style:preserve-3d;transition:transform .45s;}
 .lid{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:260px;height:44px;background:linear-gradient(180deg,#ffd8b0,#ffb07a);border-radius:8px;transform-origin:50% 100%;transition:transform .6s;}
 .lid.open{transform:translateX(-50%) rotateX(-78deg) translateY(-14px);}
 
-/* Final letter */
+/* final letter */
 #finalPanel{width:92%;max-width:760px;background:linear-gradient(180deg,#fff7f9,#fff2f6);border-radius:14px;padding:18px;margin-top:12px;box-shadow:0 20px 48px rgba(255,150,190,0.07);text-align:left;display:none;}
 .typewriter{white-space:pre-wrap;font-weight:500;font-size:16px;}
 .cursor{display:inline-block;width:10px;height:18px;background:var(--accent);margin-left:8px;border-radius:3px;animation:blink 1s steps(2,start) infinite;}
 @keyframes blink{50%{opacity:0;}}
 
-/* Gallery */
+/* gallery */
 .gallery-section{padding:40px 20px;text-align:center;display:none;}
-.gallery-title{font-size:2rem;margin-bottom:20px;color:#ff5599;font-weight:700;}
+.gallery-title{font-size:2rem;margin-bottom:20px;color:var(--rose);font-weight:700;}
 .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;width:90%;margin:auto;}
 .gallery-item{overflow:hidden;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:0.4s ease;}
 .gallery-item:hover{transform:scale(1.05);box-shadow:0 10px 30px rgba(0,0,0,0.25);}
 .gallery-item img{width:100%;height:100%;object-fit:cover;}
 .gallery-item.tall img{object-position:center top;}
+
+/* responsive */
+@media (max-width:520px){
+  #treeWrap{width:320px;height:300px}
+  .heart{width:30px;height:30px}
+  .heart .halo{width:48px;height:48px}
+}
 </style>
 </head>
 <body>
 <div class="container">
   <!-- Intro -->
   <div id="intro" class="stage active">
-    <h2 style="margin:6px 0;color:var(--accent)">It's your special day!</h2>
+    <h2 style="margin:6px 0;color:var(--rose)">It's your special day!</h2>
     <div style="color:#7a3b54;margin-bottom:6px">Ready to open your surprise?</div>
     <div style="display:flex;gap:12px">
       <button id="startBtn" class="btn">Start & Play Music 💖</button>
     </div>
   </div>
 
-  <!-- Envelope -->
+  <!-- Envelope stage uses inline svg so it always shows -->
   <div id="envelopeStage" class="stage">
-    <img id="envelope" src="envelope.png" alt="envelope"/>
+    <button id="envelope" class="envelope-btn" aria-label="Open envelope">
+      <!-- simple envelope SVG -->
+      <svg width="220" height="120" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#fff"/>
+            <stop offset="1" stop-color="#ffeef6"/>
+          </linearGradient>
+        </defs>
+        <rect x="6" y="14" rx="12" ry="12" width="208" height="92" fill="url(#g1)" stroke="#ffd9e9" stroke-width="1.5" />
+        <path d="M14 24 L110 68 L206 24" fill="none" stroke="#ffd0e4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16 28 L110 78 L204 28" fill="#fff0f6" opacity="0.5" />
+        <text x="110" y="88" text-anchor="middle" fill="#ff5e8a" font-weight="700" font-size="18">Open 💌</text>
+      </svg>
+    </button>
     <div style="font-size:13px;color:#7a3b54">Tap the envelope 💌</div>
   </div>
 
-  <!-- Tree -->
-  <div id="treeStage" class="stage">
-    <div id="treeBase"></div>
-    <div class="branch branch1"></div>
-    <div class="branch branch2"></div>
-    <div class="branch branch3"></div>
-    <div class="branch branch4"></div>
-    <div class="branch branch5"></div>
-    <div id="leafLayer"></div>
-    <div style="font-size:13px;color:#7a3b54;position:absolute;bottom:-25px;">Tree grows slowly — watch the blossoms 🌳💖</div>
+  <!-- TREE -->
+  <div id="treeStage" class="stage" aria-hidden="true">
+    <div id="treeWrap">
+      <div id="trunk" aria-hidden="true"></div>
+
+      <!-- five branches -->
+      <div class="branch b1" style="--rot:-55deg;"></div>
+      <div class="branch b2" style="--rot:-38deg;"></div>
+      <div class="branch b3" style="--rot:-12deg;"></div>
+      <div class="branch b4" style="--rot:28deg;"></div>
+      <div class="branch b5" style="--rot:48deg;"></div>
+
+      <div id="leafLayer" aria-hidden="true"></div>
+    </div>
+    <div style="font-size:13px;color:#7a3b54;position:relative;margin-top:6px;">Tree grows slowly — watch the blossoms 🌸❤️</div>
   </div>
 
   <!-- Cake -->
   <div id="cakeStage" class="stage">
     <div id="cakeBox">
       <div class="candle" id="candle"><div class="flame" id="flame"></div></div>
-      <img id="cakeImg" src="cake.jpg" alt="cake"/>
+      <!-- If cake.jpg missing, the alt text will show; include your file for best look -->
+      <img id="cakeImg" src="cake.jpg" alt="cake (click to cut)" />
     </div>
     <div style="font-size:13px;color:#7a3b54">Tap the cake to cut it 🎂</div>
   </div>
@@ -164,7 +229,7 @@ body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg
     </div>
   </div>
 
-  <!-- Gallery -->
+  <!-- Gallery after gift -->
   <section id="gallery" class="gallery-section">
     <h2 class="gallery-title">Our Beautiful Moments 💗</h2>
     <div class="gallery-grid">
@@ -175,10 +240,13 @@ body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(160deg
   </section>
 </div>
 
+<!-- background music (keep song.mp3 in same folder) -->
 <audio id="bgm" src="song.mp3" preload="auto" loop></audio>
 
 <script>
+/* ---------- Elements ---------- */
 const startBtn = document.getElementById('startBtn');
+const envelope = document.getElementById('envelope');
 const envelopeStage = document.getElementById('envelopeStage');
 const treeStage = document.getElementById('treeStage');
 const cakeStage = document.getElementById('cakeStage');
@@ -190,65 +258,152 @@ const gallerySection = document.getElementById('gallery');
 const leafLayer = document.getElementById('leafLayer');
 const cakeImg = document.getElementById('cakeImg');
 const lid = document.getElementById('lid');
-const treeBase = document.getElementById('treeBase');
-const branches = document.querySelectorAll('.branch');
+const trunk = document.getElementById('trunk');
+const branches = Array.from(document.querySelectorAll('.branch'));
 const bgm = document.getElementById('bgm');
+const gift3D = document.getElementById('gift3D');
 
-startBtn.addEventListener('click', ()=>{
+/* ---------- Utility: make inline heart element ---------- */
+function makeHeartElement(size = 36){
+  const wrapper = document.createElement('div');
+  wrapper.className = 'heart';
+  wrapper.style.width = size + 'px';
+  wrapper.style.height = size + 'px';
+  // inline SVG (fill uses the chosen color)
+  const svg = `
+    <svg class="svg-heart" viewBox="0 0 32 32" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="#ff5e8a" d="M23.6 3.6c-2.3 0-4.2 1.5-5.6 3-1.4-1.5-3.3-3-5.6-3C6.1 3.6 2 8 2 12.9 2 19 8.2 22.7 16 28c7.8-5.3 14-9 14-15.1 0-4.9-4.1-9.3-6.4-9.3z"/>
+    </svg>`;
+  const halo = `<div class="halo" aria-hidden="true"></div>`;
+  wrapper.innerHTML = svg + halo;
+  return wrapper;
+}
+
+/* ---------- Start button ---------- */
+startBtn.addEventListener('click', ()=> {
   bgm.play().catch(()=>{});
   document.getElementById('intro').classList.remove('active');
   envelopeStage.classList.add('active');
 });
 
-document.getElementById('envelope').addEventListener('click', async ()=>{
+/* ---------- Envelope click -> grow tree -> blossom ---------- */
+envelope.addEventListener('click', ()=> {
   envelopeStage.classList.remove('active');
   treeStage.classList.add('active');
 
-  // Animate trunk
-  treeBase.style.height='150px';
+  // 1) grow trunk
+  setTimeout(()=> {
+    trunk.style.height = '160px';
+    trunk.style.transition = 'height 1100ms cubic-bezier(.2,.9,.2,1)';
+    trunk.style.transform = 'translateX(-50%) translateY(0)';
+    // show root glow
+    trunk.style.setProperty('opacity','1');
+    trunk.style.setProperty('box-shadow','inset -6px -8px 18px rgba(0,0,0,0.12), 0 26px 40px rgba(0,0,0,0.06)');
+  }, 120);
 
-  // Animate branches sequentially
-  branches.forEach((b,i)=>setTimeout(()=>b.style.height='90px', i*300));
+  // 2) grow branches one by one and then add sway
+  branches.forEach((b, i) => {
+    setTimeout(()=> {
+      const h = 70 + Math.floor(Math.random()*40);
+      b.style.height = h + 'px';
+      // set CSS variable --rot used in keyframes
+      const rot = b.getAttribute('style') && (b.style.getPropertyValue('--rot') || b.dataset.rot) || b.dataset.rot;
+      b.style.setProperty('--rot', (b.style.getPropertyValue('--rot') || b.getAttribute('data-rot') || b.style.getPropertyValue('--rot') || b.style.getPropertyValue('--rot')) || b.style.getPropertyValue('--rot') );
+      // after grown, give gentle sway
+      setTimeout(()=> b.classList.add('sway'), 700);
+    }, 420 + i * 260);
+  });
 
-  // After branches appear, create hearts
-  setTimeout(()=>{
-    for(let i=0;i<25;i++){
-      setTimeout(()=>createHeartOnBranch(), i*150);
+  // 3) after branches appear, place hearts along a heart parametric curve scaled to the leaf layer
+  setTimeout(()=> {
+    const rect = leafLayer.getBoundingClientRect();
+    const W = rect.width || 420, H = rect.height || 320;
+    // sample a heart-shaped curve
+    const coords = [];
+    const samples = 28;
+    for(let i=0;i<samples;i++){
+      const t = (i / (samples-1)) * Math.PI * 2;
+      const x = 16 * Math.pow(Math.sin(t),3);
+      const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+      coords.push({x,y});
     }
-  }, 1800);
+    const xs = coords.map(p=>p.x), ys = coords.map(p=>p.y);
+    const minx = Math.min(...xs), maxx = Math.max(...xs);
+    const miny = Math.min(...ys), maxy = Math.max(...ys);
+    const pad = 36;
+    coords.forEach((p, idx) => {
+      const nx = (p.x - minx) / (maxx - minx);
+      const ny = (p.y - miny) / (maxy - miny);
+      const left = nx * (W - pad*2) + pad;
+      const top  = ny * (H*0.62) + 18;
+      setTimeout(()=> {
+        const heart = makeHeartElement(36);
+        heart.style.left = left + 'px';
+        heart.style.top  = top + 'px';
+        heart.style.transform = `translate(-50%,-50%) scale(0) rotate(${Math.random()*30-15}deg)`;
+        leafLayer.appendChild(heart);
+        setTimeout(()=> heart.classList.add('pop'), 40 + Math.random()*280);
+        // fade/float away after some time
+        setTimeout(()=> {
+          heart.style.transition = 'transform 2600ms ease, opacity 2600ms ease';
+          heart.style.transform = `translate(-50%,-120%) scale(0.78) rotate(${Math.random()*360}deg)`;
+          heart.style.opacity = '0';
+          setTimeout(()=> heart.remove(), 2600);
+        }, 2800 + Math.random()*1600);
+      }, idx*120 + Math.random()*140);
+    });
 
-  // After all, move to cake
+    // extras
+    for(let k=0;k<6;k++){
+      setTimeout(()=> {
+        const h = makeHeartElement(30);
+        h.style.left = (W*0.36 + Math.random()*(W*0.28)) + 'px';
+        h.style.top  = (H*0.18 + Math.random()*(H*0.22)) + 'px';
+        leafLayer.appendChild(h);
+        setTimeout(()=> h.classList.add('pop'), 80 + Math.random()*220);
+        setTimeout(()=> { h.style.opacity='0'; setTimeout(()=>h.remove(),2200); }, 4200 + Math.random()*1200);
+      }, 1800 + k*220);
+    }
+
+    spawnFallingPetals(14);
+  }, 1600);
+
+  // 4) move to cake after a while
   setTimeout(()=>{
     treeStage.classList.remove('active');
     cakeStage.classList.add('active');
-  }, 6000);
+  }, 6400);
 });
 
-function createHeartOnBranch(){
-  const w = leafLayer.clientWidth||300;
-  const h = leafLayer.clientHeight||200;
-  const el = document.createElement('div'); 
-  el.className='tree-heart';
-  const branchX = [0.3,0.4,0.5,0.6,0.7][Math.floor(Math.random()*5)];
-  const branchY = 0.1 + Math.random()*0.3;
-  el.style.left = w*branchX + Math.random()*20 - 10 + 'px';
-  el.style.top = h*branchY + 'px';
-  leafLayer.appendChild(el);
-  setTimeout(()=>el.classList.add('pop'),Math.random()*300);
-  setTimeout(()=>{
-    el.style.transition='transform 2500ms ease, opacity 2500ms ease';
-    el.style.transform='translateY(-40px) scale(0.7) rotate('+Math.random()*360+'deg)';
-    el.style.opacity=0;
-    setTimeout(()=>el.remove(),2500);
-  },1000 + Math.random()*1000);
+/* ---------- falling petals ---------- */
+function spawnFallingPetals(count=10){
+  const rect = leafLayer.getBoundingClientRect();
+  const W = rect.width || 420, H = rect.height || 320;
+  for(let i=0;i<count;i++){
+    setTimeout(()=>{
+      const p = document.createElement('div');
+      p.className = 'petal';
+      const startX = (W*0.25 + Math.random()*(W*0.5));
+      p.style.left = startX + 'px';
+      p.style.top = (Math.random()*30 - 40) + 'px';
+      p.style.opacity = 0.95;
+      p.style.transform = `rotate(${(Math.random()*360)}deg)`;
+      const dur = 4200 + Math.random()*2600;
+      p.style.animationDuration = dur + 'ms';
+      leafLayer.appendChild(p);
+      setTimeout(()=> { p.remove(); }, dur + 200);
+    }, Math.random()*2000);
+  }
 }
 
+/* ---------- cake -> gift ---------- */
 cakeImg.addEventListener('click', ()=>{
   cakeStage.classList.remove('active');
   giftStage.classList.add('active');
 });
 
-document.getElementById('gift3D').addEventListener('click', ()=>{
+/* ---------- gift open -> gallery + final letter ---------- */
+gift3D.addEventListener('click', ()=>{
   lid.classList.add('open');
   setTimeout(()=>{
     giftStage.classList.remove('active');
@@ -259,6 +414,7 @@ document.getElementById('gift3D').addEventListener('click', ()=>{
   },900);
 });
 
+/* ---------- typing message ---------- */
 const message = `My sweet Lakshtu,\n\nYou make my world brighter just by being in it. You are the kindest part of my heart — the calm in my chaos, and the softest place where my feelings rest.\n\nThank you for loving me in your own little ways, for supporting me, for choosing me, and for making every day feel special without even trying.\n\nOn your birthday, I just want you to know — you are precious to me, you are loved more than words can hold, and you will always, always have a place in my heart.\n\nI LOVE YOU, LAKSHTU 💖✨`;
 let tIndex=0;
 function startTyping(){
@@ -266,11 +422,25 @@ function startTyping(){
   function step(){
     if(tIndex<message.length){
       typed.textContent+=message.charAt(tIndex++);
-      setTimeout(step,28+Math.random()*18);
-    }else cursor.style.display='none';
+      setTimeout(step,18 + Math.random()*26);
+    } else cursor.style.display='none';
   }
   step();
 }
+
+/* ---------- accessibility + keyboard ---------- */
+[startBtn, envelope, cakeImg, gift3D].forEach(el=>{
+  if(el) el.setAttribute('tabindex','0');
+});
+envelope.addEventListener('keydown', e=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); envelope.click(); }});
+cakeImg.addEventListener('keydown', e=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); cakeImg.click(); }});
+gift3D.addEventListener('keydown', e=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); gift3D.click(); }});
+
+/* ---------- cleanup on resize ---------- */
+window.addEventListener('resize', ()=> {
+  const kids = Array.from(leafLayer.children);
+  kids.forEach(k => { if(k.classList.contains('heart') || k.classList.contains('petal')) k.remove(); });
+});
 </script>
 </body>
 </html>
