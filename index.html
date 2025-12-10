@@ -695,4 +695,420 @@
             
             .envelope-wrapper {
                 width: 250px;
-                height: 1
+                height: 170px;
+            }
+            
+            .tree-container {
+                width: 280px;
+                height: 350px;
+            }
+            
+            .gallery {
+                gap: 15px;
+            }
+            
+            .message-box {
+                padding: 20px;
+                margin: 15px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader">
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+        </div>
+        <div class="loading-text">Loading Birthday Surprise...</div>
+    </div>
+
+    <div class="container">
+        <!-- Stage 1: Envelope -->
+        <div id="stage-1" class="stage active">
+            <h2 class="stage-title">Click the Envelope to Open 💌</h2>
+            <div class="envelope-wrapper">
+                <div class="envelope">
+                    <div class="envelope-body"></div>
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-seal">💖</div>
+                    <div class="envelope-content">
+                        <h2>Happy Birthday Lakshmi! 🎂</h2>
+                        <p>Dear Lakshmi, on your special day, I wish you endless joy, laughter, and all the happiness in the world. You deserve the very best!</p>
+                        <p>Click anywhere to continue your birthday journey! 🎉</p>
+                    </div>
+                </div>
+            </div>
+            <p class="instruction">Click the pink envelope to reveal the birthday message!</p>
+        </div>
+
+        <!-- Stage 2: Heart Tree -->
+        <div id="stage-2" class="stage">
+            <h2 class="stage-title">Birthday Heart Tree 🌸</h2>
+            <div class="tree-container">
+                <div class="tree">
+                    <div class="tree-branches"></div>
+                    <div class="tree-trunk"></div>
+                </div>
+                <!-- Hearts will be added by JavaScript -->
+            </div>
+            <p class="instruction">Click on the hearts to discover birthday messages!</p>
+        </div>
+
+        <!-- Stage 3: Cake Celebration -->
+        <div id="stage-3" class="stage">
+            <h2 class="stage-title">Make a Wish & Blow! 🎂</h2>
+            <div class="cake-container">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1089&q=80" alt="Birthday Cake" class="cake">
+            </div>
+            <p class="instruction">Click on the cake to blow out the candles and make a wish!</p>
+        </div>
+
+        <!-- Stage 4: Memory Gallery -->
+        <div id="stage-4" class="stage">
+            <h2 class="stage-title">Beautiful Memories 📸</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Birthday Celebration">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Happy Moments">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Celebration Time">
+                </div>
+            </div>
+            <p class="instruction">Hover over the photos to see them come alive!</p>
+        </div>
+
+        <!-- Stage 5: Final Message -->
+        <div id="stage-5" class="stage">
+            <h2 class="stage-title">A Special Message For You 💝</h2>
+            <div class="message-box">
+                <div class="typing-text" id="typing-text">
+                    <!-- Text will be typed here -->
+                </div>
+                <div class="cursor"></div>
+            </div>
+            <p class="instruction">Sit back and read your personalized birthday message!</p>
+        </div>
+    </div>
+
+    <!-- Day/Night Toggle -->
+    <div class="day-night-toggle">
+        <button class="toggle-btn">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button class="control-btn" id="music-btn">
+            <i class="fas fa-music"></i>
+        </button>
+        <button class="control-btn" id="fireworks-btn">
+            <i class="fas fa-fire"></i>
+        </button>
+        <button class="control-btn" id="confetti-btn">
+            <i class="fas fa-birthday-cake"></i>
+        </button>
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="dot active" data-stage="1"></div>
+        <div class="dot" data-stage="2"></div>
+        <div class="dot" data-stage="3"></div>
+        <div class="dot" data-stage="4"></div>
+        <div class="dot" data-stage="5"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen after 3 seconds
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 800);
+            }, 3000);
+
+            // Stage Navigation
+            const stages = document.querySelectorAll('.stage');
+            const dots = document.querySelectorAll('.dot');
+            
+            function navigateToStage(stageNumber) {
+                // Hide all stages
+                stages.forEach(stage => {
+                    stage.classList.remove('active');
+                });
+                
+                // Show target stage
+                const targetStage = document.getElementById(`stage-${stageNumber}`);
+                if (targetStage) {
+                    targetStage.classList.add('active');
+                    
+                    // Update navigation dots
+                    dots.forEach((dot, index) => {
+                        if (index === stageNumber - 1) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                    
+                    // Special initialization for each stage
+                    switch(stageNumber) {
+                        case 2:
+                            initHeartTree();
+                            break;
+                        case 5:
+                            startTypingEffect();
+                            break;
+                    }
+                }
+            }
+            
+            // Dot click handlers
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    navigateToStage(index + 1);
+                });
+            });
+            
+            // Stage 1: Envelope click
+            const envelopeWrapper = document.querySelector('.envelope-wrapper');
+            if (envelopeWrapper) {
+                envelopeWrapper.addEventListener('click', function() {
+                    const envelope = document.querySelector('.envelope');
+                    envelope.classList.toggle('open');
+                    
+                    if (envelope.classList.contains('open')) {
+                        setTimeout(() => {
+                            navigateToStage(2);
+                        }, 2000);
+                    }
+                });
+            }
+            
+            // Stage 2: Heart Tree initialization
+            function initHeartTree() {
+                const treeContainer = document.querySelector('.tree-container');
+                if (!treeContainer) return;
+                
+                // Clear existing hearts
+                const existingHearts = treeContainer.querySelectorAll('.heart-leaf');
+                existingHearts.forEach(heart => heart.remove());
+                
+                // Heart colors
+                const heartColors = [
+                    '#ff4f9a', '#ff3399', '#ff66cc', 
+                    '#9b59b6', '#3498db', '#2ecc71',
+                    '#ffd700', '#ff9900', '#ff3366'
+                ];
+                
+                // Heart messages
+                const heartMessages = [
+                    "You're amazing!",
+                    "Stay blessed always!",
+                    "Keep smiling!",
+                    "Wish you joy!",
+                    "You're special!",
+                    "Stay awesome!",
+                    "Many happy returns!",
+                    "Enjoy your day!",
+                    "Stay beautiful!"
+                ];
+                
+                // Create hearts
+                for (let i = 0; i < 15; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-leaf';
+                    
+                    // Random position on tree
+                    const radiusX = 120 + Math.random() * 60;
+                    const radiusY = 100 + Math.random() * 60;
+                    const angle = Math.random() * Math.PI * 2;
+                    
+                    const x = Math.cos(angle) * radiusX;
+                    const y = Math.sin(angle) * radiusY;
+                    
+                    heart.style.left = `calc(50% + ${x}px)`;
+                    heart.style.top = `calc(50% + ${y}px)`;
+                    
+                    // Random color
+                    const colorIndex = Math.floor(Math.random() * heartColors.length);
+                    heart.style.setProperty('--heart-color', heartColors[colorIndex]);
+                    
+                    // Random rotation
+                    heart.style.setProperty('--rotate-angle', `${Math.random() * 360}deg`);
+                    
+                    // Animation delay
+                    heart.style.animationDelay = `${i * 0.1}s`;
+                    
+                    // Click event for heart
+                    heart.addEventListener('click', function() {
+                        const msgIndex = Math.floor(Math.random() * heartMessages.length);
+                        createFloatingElement(heartMessages[msgIndex]);
+                        
+                        // Heart pop effect
+                        this.style.transform = 'scale(1.5)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                        }, 300);
+                    });
+                    
+                    treeContainer.appendChild(heart);
+                }
+            }
+            
+            // Stage 3: Cake click
+            const cakeContainer = document.querySelector('.cake-container');
+            if (cakeContainer) {
+                cakeContainer.addEventListener('click', function() {
+                    createFloatingElement('🎉 Make a Wish! 🎉');
+                    setTimeout(() => {
+                        navigateToStage(4);
+                    }, 2000);
+                });
+            }
+            
+            // Stage 4: Gallery item click
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    createFloatingElement('📸 Beautiful Memory!');
+                });
+            });
+            
+            // Stage 5: Typing effect
+            function startTypingEffect() {
+                const typingText = document.getElementById('typing-text');
+                if (!typingText) return;
+                
+                const message = `Dearest Lakshmi,
+
+Happy Birthday! 🎉🎂
+
+On this wonderful day, I want you to know how truly special you are. Your kindness, intelligence, and beautiful spirit light up every room you enter.
+
+May this year bring you:
+✨ Endless joy and laughter
+✨ Success in all your endeavors
+✨ Good health and prosperity
+✨ Beautiful memories with loved ones
+✨ Dreams that come true
+
+Remember that you are capable of amazing things and deserve all the happiness in the world. Never stop being your wonderful self!
+
+Wishing you a birthday as incredible as you are. May your day be filled with love, surprises, and everything that brings you joy.
+
+With lots of love and best wishes,
+Your Well-wisher 💖
+
+P.S. Keep shining brightly! The world needs your light.`;
+                
+                typingText.textContent = '';
+                let i = 0;
+                
+                function typeWriter() {
+                    if (i < message.length) {
+                        typingText.textContent += message.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 30);
+                    }
+                }
+                
+                typeWriter();
+            }
+            
+            // Floating elements function
+            function createFloatingElement(text) {
+                const floatingElement = document.createElement('div');
+                floatingElement.className = 'floating-element';
+                floatingElement.textContent = text;
+                floatingElement.style.left = Math.random() * 100 + 'vw';
+                floatingElement.style.animationDuration = (3 + Math.random() * 4) + 's';
+                floatingElement.style.fontSize = (20 + Math.random() * 15) + 'px';
+                floatingElement.style.color = getRandomColor();
+                
+                document.body.appendChild(floatingElement);
+                
+                setTimeout(() => {
+                    floatingElement.remove();
+                }, 5000);
+            }
+            
+            function getRandomColor() {
+                const colors = [
+                    '#ff4f9a', '#ff3399', '#9b59b6',
+                    '#3498db', '#2ecc71', '#ffd700',
+                    '#ff9900', '#ff3366', '#1abc9c'
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            // Day/Night mode toggle
+            const toggleBtn = document.querySelector('.toggle-btn');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function() {
+                    document.body.classList.toggle('night-mode');
+                    const icon = this.querySelector('i');
+                    if (document.body.classList.contains('night-mode')) {
+                        icon.className = 'fas fa-sun';
+                    } else {
+                        icon.className = 'fas fa-moon';
+                    }
+                });
+            }
+            
+            // Control buttons
+            document.getElementById('music-btn').addEventListener('click', function() {
+                createFloatingElement('🎵 Music Playing! 🎵');
+            });
+            
+            document.getElementById('fireworks-btn').addEventListener('click', function() {
+                createFloatingElement('🎆 Fireworks! 🎆');
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        createFloatingElement('✨');
+                    }, i * 100);
+                }
+            });
+            
+            document.getElementById('confetti-btn').addEventListener('click', function() {
+                createFloatingElement('🎊 Confetti! 🎊');
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        createFloatingElement('🎉');
+                    }, i * 50);
+                }
+            });
+            
+            // Auto-advance through stages after certain time
+            let currentStage = 1;
+            const autoAdvanceInterval = setInterval(() => {
+                if (currentStage < 5) {
+                    currentStage++;
+                    navigateToStage(currentStage);
+                } else {
+                    clearInterval(autoAdvanceInterval);
+                }
+            }, 15000); // Change stage every 15 seconds
+            
+            // Touch/mouse interaction for floating elements
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('stage-title') || 
+                    e.target.classList.contains('instruction') ||
+                    e.target.classList.contains('tree-container') ||
+                    e.target.classList.contains('gallery')) {
+                    createFloatingElement('💖');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
