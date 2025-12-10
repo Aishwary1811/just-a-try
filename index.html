@@ -8,16 +8,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 :root{
-  --accent:#ff4f9a;
-  --peach:#ffb88c;
+  --accent: #ff4f9a;
+  --peach: #ffb88c;
+  /* Night Mode Variables */
+  --bg-primary: #0b001a;
+  --text-primary: white;
+  --tree-trunk: #ff33cc;
+  --tree-branch: #ff66ff;
+  --glow-color: #ff4fa6;
+}
+
+/* Day Mode Variables - Overridden by .day-mode */
+.day-mode{
+  --bg-primary: #f0f8ff; /* Light sky blue */
+  --text-primary: #333333;
+  --tree-trunk: #8b4513; /* Brown */
+  --tree-branch: #a0522d; /* Lighter brown */
+  --glow-color: #ff69b4; /* Hot pink (keeps the romance) */
 }
 
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:#0b001a;
-  color:white;
+  background:var(--bg-primary);
+  color:var(--text-primary);
   overflow:hidden;
+  transition:background 0.8s ease, color 0.8s ease;
 }
 
 /* STAGES */
@@ -30,6 +46,7 @@ body{
   justify-content:center;
   align-items:center;
   flex-direction:column;
+  opacity:0;
   transition: opacity 1s ease;
 }
 .stage.active{ display:flex; opacity:1; }
@@ -46,22 +63,19 @@ body{
   100%{transform:translateY(0);}
 }
 @keyframes glow{
-  0%{filter:drop-shadow(0 0 0px #ff4fa6);}
-  50%{filter:drop-shadow(0 0 18px #ff4fa6);}
-  100%{filter:drop-shadow(0 0 0px #ff4fa6);}
+  0%{filter:drop-shadow(0 0 0px var(--glow-color));}
+  50%{filter:drop-shadow(0 0 18px var(--glow-color));}
+  100%{filter:drop-shadow(0 0 0px var(--glow-color));}
 }
 
-/* TREE */
+/* TREE STAGE */
 #treeStage{
-  background:#0b001a;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
   position:relative;
 }
 #treeContainer{
-  width:500px; height:500px; position:relative;
+  width:90vw; max-width:500px;
+  height:90vh; max-height:500px; 
+  position:relative;
 }
 #treeCanvas{ 
   width:100%; 
@@ -70,32 +84,36 @@ body{
 }
 .leaf{
   position:absolute;
-  width:30px;height:30px;
-  background:pink;
+  width:20px;height:20px; 
+  background:var(--accent); 
   transform:translate(-50%,-50%) scale(0);
   clip-path:polygon(50% 0%,61% 7%,72% 17%,80% 28%,85% 40%,87% 52%,86% 63%,82% 72%,75% 81%,66% 88%,56% 93%,50% 95%,44% 93%,34% 88%,25% 81%,18% 72%,14% 63%,13% 52%,15% 40%,20% 28%,28% 17%,39% 7%);
   transition:.7s ease;
-  filter:drop-shadow(0 0 12px hotpink);
+  filter:drop-shadow(0 0 5px var(--glow-color)); 
 }
-.leaf.grow{ transform:translate(-50%,-50%) scale(1); animation: glowPulse 3s infinite alternate;}
+.leaf.grow{ 
+  transform:translate(-50%,-50%) scale(1); 
+  animation: glowPulse 3s infinite alternate;
+}
 @keyframes glowPulse{
-  0%{filter:drop-shadow(0 0 12px hotpink);}
-  50%{filter:drop-shadow(0 0 28px #ff66ff);}
-  100%{filter:drop-shadow(0 0 12px hotpink);}
+  0%{filter:drop-shadow(0 0 5px var(--glow-color));}
+  50%{filter:drop-shadow(0 0 14px var(--glow-color));}
+  100%{filter:drop-shadow(0 0 5px var(--glow-color));}
 }
 
-/* PETALS */
+/* PETALS (Fall) */
 .petals{
   position:absolute;
-  width:12px;height:12px;
-  background:pink;
+  width:10px;height:10px;
+  background:var(--accent);
   border-radius:50%;
   opacity:0.8;
   animation:fall linear infinite;
+  filter:drop-shadow(0 0 4px var(--glow-color));
 }
 @keyframes fall{
   0%{transform:translateY(-20px) rotate(0deg);}
-  100%{transform:translateY(500px) rotate(360deg);}
+  100%{transform:translateY(100vh) rotate(360deg);}
 }
 
 /* CAKE */
@@ -104,15 +122,16 @@ body{
   margin-top:30px;
   transform:scale(0);
   transition:.7s ease;
-  filter:drop-shadow(0 0 25px white);
+  filter:drop-shadow(0 0 25px var(--text-primary));
   cursor:pointer;
+  z-index:10; 
 }
 #cake.show{ transform:scale(1); }
 
 /* FINAL STAGE */
 #finalStage{
   flex-direction:column;
-  background:linear-gradient(180deg,#0d0d0d,#1a001a);
+  background:linear-gradient(180deg, var(--bg-primary), #1a001a); 
   overflow-y:auto;
   align-items:center;
 }
@@ -121,48 +140,84 @@ body{
   background:rgba(255,255,255,0.05);
   border-radius:16px;
   white-space:pre-wrap;
+  color:var(--text-primary);
 }
 .cursor{
   display:inline-block;width:8px;height:20px;
-  background:#ff4f9a;
+  background:var(--accent);
   animation:blink 1s infinite;
 }
-@keyframes blink{50%{opacity:0;}}
 .gallery{
   display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:20px;
 }
 .gallery img{
   width:260px;height:330px;object-fit:cover;border-radius:16px;
   box-shadow:0 0 20px rgba(255,50,150,0.6);
-  animation: glowPulse 3s infinite ease-in-out;
+  animation: glowPulseImg 3s infinite ease-in-out;
 }
-.gallery img.special{ width:320px;height:380px; box-shadow:0 0 35px #ff66ff; }
-.gallery img.pic2{ width:360px;height:440px; filter:brightness(1.3) drop-shadow(0 0 30px #ff99ff);}
+.gallery img.special{ 
+  width:320px;
+  height:380px; 
+  box-shadow:0 0 35px #ff66ff; 
+  object-fit: cover;
+}
+.gallery img.pic2{ 
+  width:360px;
+  height:440px; 
+  /* Ensures the entire image content is shown */
+  object-fit: contain; 
+  /* Fills the box when the image doesn't match the aspect ratio */
+  background-color: #333333; 
+  filter:brightness(1.3) drop-shadow(0 0 30px #ff99ff);
+}
+@keyframes glowPulseImg{
+  0%{box-shadow:0 0 20px rgba(255,50,150,0.6);}
+  50%{box-shadow:0 0 30px rgba(255,50,150,0.9);}
+  100%{box-shadow:0 0 20px rgba(255,50,150,0.6);}
+}
+
+/* MOOD TOGGLE BUTTON */
+#moodToggle{
+  position:absolute;
+  top:20px;right:20px;
+  padding:10px 15px;
+  border:none;
+  border-radius:25px;
+  background:rgba(255,255,255,0.2);
+  color:white;
+  cursor:pointer;
+  font-weight:600;
+  z-index:100;
+  transition:background 0.3s ease, color 0.3s ease;
+}
+.day-mode #moodToggle{
+  background:rgba(0,0,0,0.1);
+  color:#333;
+}
 </style>
 </head>
-<body>
+<body class="night-mode">
 
-<!-- PAGE 1: Envelope -->
+<button id="moodToggle" title="Toggle Day/Night Mode">☀️ Day Mode</button>
+
 <div id="page1" class="stage active">
   <h2>Tap the envelope 💌</h2>
-  <img src="envelope.png" id="envelope">
+  <img src="envelope.png" id="envelope" alt="Envelope">
 </div>
 
-<!-- PAGE 2: Tree + Cake -->
-<div id="page2" class="stage">
+<div id="page2" class="stage" id="treeStage">
   <div id="treeContainer">
     <canvas id="treeCanvas"></canvas>
   </div>
-  <img src="cake.jpg" id="cake">
+  <img src="cake.jpg" id="cake" alt="Birthday Cake">
 </div>
 
-<!-- PAGE 3: Final Letter + Gallery -->
 <div id="finalStage" class="stage">
   <h1>Our Beautiful Memories 💗</h1>
   <div class="gallery">
-    <img src="pic_one.jpg" class="special">
-    <img src="pic_two.jpg" class="pic2">
-    <img src="pic_three.png">
+    <img src="pic_one.jpg" class="special" alt="Memory Photo 1">
+    <img src="pic_two.jpg" class="pic2" alt="Memory Photo 2">
+    <img src="pic_three.png" alt="Memory Photo 3">
   </div>
   <div id="letterBox"></div><span class="cursor"></span>
 </div>
@@ -170,98 +225,136 @@ body{
 <audio id="bgm" src="song.mp3" preload="auto" loop></audio>
 
 <script>
-// --- PAGE TRANSITIONS ---
+// --- GLOBAL ELEMENTS ---
+const body = document.body;
 const page1=document.getElementById("page1");
 const page2=document.getElementById("page2");
 const finalStage=document.getElementById("finalStage");
 const envelope=document.getElementById("envelope");
 const bgm=document.getElementById("bgm");
 const cake=document.getElementById("cake");
+const moodToggle=document.getElementById("moodToggle");
 
-// --- PAGE 1 ---
-envelope.onclick=()=>{
-  bgm.play().catch(()=>{});
-  page1.classList.remove("active");
-  page2.classList.add("active");
-  setTimeout(initTree,500);
-}
-
-// --- TREE ---
+// --- CANVAS & TREE ELEMENTS ---
 const canvas=document.getElementById("treeCanvas");
 const ctx=canvas.getContext("2d");
-function resizeCanvas(){
-  canvas.width=canvas.clientWidth;
-  canvas.height=canvas.clientHeight;
-}
-resizeCanvas();
-window.addEventListener('resize',resizeCanvas);
 const leafLayer=document.getElementById("treeContainer");
+let animationFrameId;
 
-// Draw trunk
-function drawTrunk(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.lineWidth=28;
-  ctx.strokeStyle="#ff33cc";
+function resizeCanvas(){
+  if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+    canvas.width=canvas.clientWidth;
+    canvas.height=canvas.clientHeight;
+    if(page2.classList.contains('active')) {
+      drawTree(true); 
+    }
+  }
+}
+window.addEventListener('resize',resizeCanvas);
+
+function drawTree(clearFirst = false){
+  const trunkColor = getComputedStyle(body).getPropertyValue('--tree-trunk').trim();
+  const branchColor = getComputedStyle(body).getPropertyValue('--tree-branch').trim();
+  
+  if (clearFirst) {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+
+  const w=canvas.width;
+  const h=canvas.height;
+  const cw=w/2;
+
+  // 1. Draw Trunk
+  ctx.lineWidth=w * 0.05; 
+  ctx.strokeStyle=trunkColor;
+  ctx.lineCap='round';
   ctx.beginPath();
-  ctx.moveTo(canvas.width/2,canvas.height);
-  ctx.bezierCurveTo(canvas.width/2-50,canvas.height*0.7,canvas.width/2-30,canvas.height*0.4,canvas.width/2,canvas.height*0.2);
+  ctx.moveTo(cw, h);
+  ctx.bezierCurveTo(cw - w*0.1, h * 0.7, cw - w*0.05, h * 0.4, cw, h * 0.2);
+  ctx.stroke();
+
+  // 2. Draw Branches
+  ctx.lineWidth=w * 0.028;
+  ctx.strokeStyle=branchColor;
+  
+  // Left branch
+  ctx.beginPath();
+  ctx.moveTo(cw, h * 0.2);
+  ctx.bezierCurveTo(cw - w*0.35, h * 0.1, cw - w*0.15, h * 0.03, cw - w*0.05, h * 0.15);
+  ctx.stroke();
+
+  // Right branch
+  ctx.beginPath();
+  ctx.moveTo(cw, h * 0.2);
+  ctx.bezierCurveTo(cw + w*0.35, h * 0.1, cw + w*0.15, h * 0.03, cw + w*0.05, h * 0.15);
   ctx.stroke();
 }
 
-// Draw branches
-function drawBranches(){
-  ctx.lineWidth=14;
-  ctx.strokeStyle="#ff66ff";
-  ctx.beginPath();
-  ctx.moveTo(canvas.width/2,canvas.height*0.2);
-  ctx.bezierCurveTo(canvas.width/2-180,canvas.height*0.1,canvas.width/2-80,canvas.height*0.02,canvas.width/2,canvas.height*0.15);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(canvas.width/2,canvas.height*0.2);
-  ctx.bezierCurveTo(canvas.width/2+180,canvas.height*0.1,canvas.width/2+80,canvas.height*0.02,canvas.width/2,canvas.height*0.15);
-  ctx.stroke();
-}
-
-// Create heart leaves
 function createLeaves(){
+  leafLayer.querySelectorAll('.leaf').forEach(leaf => leaf.remove());
+  
   const colors=["#ff4fa6","#ff8bd5","#ff66cc","#ff99ff"];
-  const cx=canvas.width/2;
-  const cy=canvas.height*0.15;
-  for(let i=0;i<200;i++){
+  const w=canvas.width;
+  const h=canvas.height;
+  const cx=w/2;
+  const cy=h*0.15;
+  const maxR = w * 0.35; 
+
+  for(let i=0;i<120;i++){ 
     let leaf=document.createElement("div");
     leaf.className="leaf";
     leaf.style.background=colors[Math.floor(Math.random()*colors.length)];
+    
     let angle=Math.random()*Math.PI*2;
-    let r=180*(0.4+Math.random()*0.6);
+    let r=maxR*(0.2+Math.random()*0.8); 
+    
     leaf.style.left=(cx+r*Math.cos(angle))+"px";
     leaf.style.top=(cy+r*Math.sin(angle*1.1))+"px";
+    
     leafLayer.appendChild(leaf);
     setTimeout(()=>leaf.classList.add("grow"),200+i*15);
   }
 }
 
-// Falling petals
-for(let i=0;i<30;i++){
-  let p=document.createElement("div");
-  p.className="petals";
-  p.style.left=Math.random()*window.innerWidth+"px";
-  p.style.animationDuration=(3+Math.random()*3)+"s";
-  p.style.animationDelay=(Math.random()*5)+"s";
-  document.body.appendChild(p);
+function initPetals(){
+  document.querySelectorAll('.petals').forEach(p => p.remove());
+
+  for(let i=0;i<30;i++){
+    let p=document.createElement("div");
+    p.className="petals";
+    p.style.left=Math.random()*window.innerWidth+"px";
+    p.style.animationDuration=(3+Math.random()*3)+"s";
+    p.style.animationDelay=(Math.random()*5)+"s";
+    document.body.appendChild(p);
+  }
 }
 
 function initTree(){
-  drawTrunk();
-  drawBranches();
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+  }
+  resizeCanvas();
+  drawTree(true); 
   createLeaves();
   setTimeout(()=>cake.classList.add("show"),2000);
 }
 
-// --- PAGE 2: Cake click → Final Stage ---
+// --- PAGE TRANSITIONS ---
+envelope.onclick=()=>{
+  bgm.play().catch(()=>{});
+  page1.classList.remove("active");
+  page2.classList.add("active");
+  initPetals(); 
+  setTimeout(initTree,500);
+}
+
 cake.onclick=()=>{
   page2.classList.remove("active");
   finalStage.classList.add("active");
   startTyping();
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+  }
 }
 
 // --- TYPEWRITER ---
@@ -286,6 +379,8 @@ function startTyping(){
   const letterBox=document.getElementById("letterBox");
   const cursor=document.querySelector(".cursor");
   letterBox.textContent="";
+  i = 0; 
+  cursor.style.display="inline-block";
   function step(){
     if(i<message.length){
       letterBox.textContent+=message[i++];
@@ -294,6 +389,24 @@ function startTyping(){
   }
   step();
 }
+
+// --- DAY/NIGHT MODE TOGGLE ---
+let isDayMode = false;
+
+moodToggle.onclick = () => {
+  isDayMode = !isDayMode;
+  if (isDayMode) {
+    body.classList.add('day-mode');
+    moodToggle.textContent = '🌙 Night Mode';
+  } else {
+    body.classList.remove('day-mode');
+    moodToggle.textContent = '☀️ Day Mode';
+  }
+
+  if (page2.classList.contains('active')) {
+    drawTree(true);
+  }
+};
 </script>
 </body>
 </html>
