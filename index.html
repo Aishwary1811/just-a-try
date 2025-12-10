@@ -318,6 +318,7 @@ body {
   50% { transform: translateY(-15px); }
 }
 
+/* Letter Box Styles */
 #letterBox {
   width: 90%;
   max-width: 700px;
@@ -335,6 +336,14 @@ body {
   position: relative;
   overflow: hidden;
   min-height: 300px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#letterBox.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 #letterBox::before {
@@ -347,19 +356,191 @@ body {
   background: linear-gradient(90deg, var(--accent), var(--accent-light));
 }
 
+/* Typewriter Styles */
+.typing-text {
+  display: inline;
+}
+
 .cursor {
   display: inline-block;
   width: 3px;
   height: 24px;
   background: var(--accent);
   animation: blink 1s infinite;
-  margin-left: 4px;
+  margin-left: 2px;
   vertical-align: middle;
 }
 
 @keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
+}
+
+/* Skip Button */
+.skip-btn {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  padding: 12px 20px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 79, 166, 0.3);
+}
+
+.skip-btn.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skip-btn:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 79, 166, 0.4);
+}
+
+/* Back Button */
+.back-btn {
+  position: fixed;
+  top: 25px;
+  left: 25px;
+  padding: 10px 15px;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.8rem;
+  z-index: 1000;
+  opacity: 0;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.back-btn.show {
+  opacity: 1;
+}
+
+.back-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* Love Meter */
+.love-meter {
+  width: 200px;
+  height: 20px;
+  background: var(--card-bg);
+  border-radius: 10px;
+  margin: 20px auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.love-fill {
+  position: absolute;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  border-radius: 10px;
+  transition: width 1s ease;
+  width: 0%;
+}
+
+.love-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 20px;
+  color: white;
+  z-index: 2;
+}
+
+/* Memory Counter */
+.memory-counter {
+  position: fixed;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--card-bg);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.memory-counter.show {
+  opacity: 1;
+}
+
+/* Heart Rain */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: heartFall linear infinite;
+  opacity: 0;
+  z-index: 0;
+}
+
+@keyframes heartFall {
+  0% {
+    transform: translateY(-50px) rotate(0deg) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(-30px) rotate(0deg) scale(1);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Date Counter */
+.date-counter {
+  background: var(--card-bg);
+  padding: 20px 30px;
+  border-radius: 20px;
+  text-align: center;
+  margin: 20px 0;
+  backdrop-filter: blur(10px);
+}
+
+.date-counter h3 {
+  color: var(--accent);
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.date-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--glow-color);
+}
+
+.date-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 5px;
 }
 
 /* Music Player */
@@ -453,6 +634,13 @@ body {
     padding: 10px 15px;
     font-size: 0.8rem;
   }
+  
+  .skip-btn {
+    bottom: 80px;
+    right: 20px;
+    padding: 10px 16px;
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -478,6 +666,10 @@ body {
   
   .gallery img.pic2 {
     height: 350px;
+  }
+  
+  .date-number {
+    font-size: 2rem;
   }
 }
 
@@ -509,6 +701,23 @@ body {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* Tap Instruction */
+.tap-instruction {
+  position: absolute;
+  bottom: 30px;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+  animation: pulse 2s infinite;
+  width: 100%;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
 </style>
 </head>
 <body class="night-mode">
@@ -525,6 +734,12 @@ body {
   <div class="dot" data-stage="3"></div>
 </div>
 
+<!-- Back Button -->
+<button class="back-btn" id="backBtn">← Back</button>
+
+<!-- Memory Counter -->
+<div class="memory-counter" id="memoryCounter">Memories: 0/3</div>
+
 <!-- Mood Toggle -->
 <button id="moodToggle" title="Toggle Day/Night Mode">
   <span class="emoji">☀️</span>
@@ -536,10 +751,14 @@ body {
   <button id="musicToggle" title="Toggle Music">🎵</button>
 </div>
 
+<!-- Skip Button -->
+<button class="skip-btn" id="skipBtn">Skip Animation ⏩</button>
+
 <!-- Stage 1: Envelope -->
 <div id="page1" class="stage active">
   <h2>Tap the envelope to begin 💌</h2>
   <img src="envelope.png" id="envelope" alt="Envelope" onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"%23ff4f9a\" d=\"M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z\"/></svg>'">
+  <div class="tap-instruction">Tap anywhere to continue</div>
 </div>
 
 <!-- Stage 2: Tree -->
@@ -548,20 +767,45 @@ body {
     <canvas id="treeCanvas"></canvas>
   </div>
   <img src="cake.jpg" id="cake" alt="Birthday Cake" onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"%23ff4f9a\" d=\"M12 6a2 2 0 002-2c0-.38-.1-.73-.29-1.03L12 0l-1.71 2.97c-.19.3-.29.65-.29 1.03 0 1.1.9 2 2 2zm4.6 9.99l-1.07-1.07-1.08 1.07c-1.3 1.3-3.58 1.31-4.89 0L8.47 14.92 7.4 16c-1.3 1.3-3.58 1.31-4.89 0-.39-.39-.39-1.02 0-1.41l1.07-1.07-1.07-1.07c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l1.07 1.07 1.07-1.07c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-1.07 1.07 1.07 1.07c.39.39.39 1.02 0 1.41zM18 9h-5V7h-2v2H6c-1.66 0-3 1.34-3 3v1.54c0 1.08.88 1.96 1.96 1.96.52 0 1.02-.2 1.38-.57l2.14-2.13 2.13 2.13c.74.74 2.03.74 2.77 0l2.14-2.13 2.13 2.13c.37.37.86.57 1.38.57 1.08 0 1.96-.88 1.96-1.96V12C21 10.34 19.66 9 18 9z\"/></svg>'">
+  <div class="tap-instruction">Tap the cake to continue</div>
 </div>
 
 <!-- Stage 3: Memories & Letter -->
 <div id="finalStage" class="stage">
   <h1>Our Beautiful Memories 💗</h1>
+  
+  <!-- Love Meter -->
+  <div class="love-meter">
+    <div class="love-fill" id="loveFill"></div>
+    <div class="love-text" id="loveText">Love Level: 0%</div>
+  </div>
+  
+  <!-- Date Counter -->
+  <div class="date-counter">
+    <h3>Days Together</h3>
+    <div class="date-number" id="daysCounter">0</div>
+    <div class="date-label">and counting...</div>
+  </div>
+  
   <div class="gallery">
     <img src="pic_one.jpg" class="special" alt="Special Memory" onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"%23ff4f9a\" d=\"M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z\"/></svg>'">
     <img src="pic_two.jpg" class="pic2" alt="Memory Photo" onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"%23ff4f9a\" d=\"M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z\"/></svg>'">
     <img src="pic_three.png" alt="Another Memory" onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"%23ff4f9a\" d=\"M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z\"/></svg>'">
   </div>
-  <div id="letterBox"></div><span class="cursor"></span>
+  
+  <!-- Message with Typewriter -->
+  <div id="letterBox">
+    <div id="typingText" class="typing-text"></div>
+    <span class="cursor"></span>
+  </div>
+  
+  <div class="tap-instruction">Scroll to read the full message</div>
 </div>
 
 <audio id="bgm" src="song.mp3" preload="auto" loop></audio>
+<audio id="typeSound" preload="auto">
+  <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=" type="audio/wav">
+</audio>
 
 <script>
 // --- GLOBAL ELEMENTS ---
@@ -577,7 +821,14 @@ const musicToggle = document.getElementById("musicToggle");
 const loading = document.getElementById("loading");
 const progressDots = document.querySelectorAll('.dot');
 const letterBox = document.getElementById("letterBox");
+const typingText = document.getElementById("typingText");
 const cursor = document.querySelector(".cursor");
+const skipBtn = document.getElementById("skipBtn");
+const backBtn = document.getElementById("backBtn");
+const memoryCounter = document.getElementById("memoryCounter");
+const loveFill = document.getElementById("loveFill");
+const loveText = document.getElementById("loveText");
+const daysCounter = document.getElementById("daysCounter");
 
 // --- CANVAS & TREE ELEMENTS ---
 const canvas = document.getElementById("treeCanvas");
@@ -586,7 +837,7 @@ const leafLayer = document.getElementById("treeContainer");
 let animationFrameId;
 let currentStage = 1;
 
-// --- MESSAGE TEXT ---
+// --- TYPEWRITER VARIABLES ---
 const message = `My sweet Lakshtu 💖,
 
 You make my world brighter just by being in it.
@@ -613,6 +864,11 @@ Always and forever...`;
 
 let typingIndex = 0;
 let isTyping = false;
+let typingTimeout;
+let skipTyping = false;
+
+// --- HEART RAIN ---
+let heartRainInterval;
 
 // --- INITIALIZATION ---
 window.addEventListener('load', () => {
@@ -620,9 +876,61 @@ window.addEventListener('load', () => {
     loading.style.opacity = '0';
     setTimeout(() => {
       loading.style.display = 'none';
+      startHeartRain();
+      updateMemoryCounter(0);
+      calculateDaysTogether();
     }, 500);
   }, 1000);
 });
+
+// --- DAYS COUNTER ---
+function calculateDaysTogether() {
+  // Set your relationship start date (YYYY, MM-1, DD)
+  const startDate = new Date(2023, 0, 1); // January 1, 2023
+  const today = new Date();
+  const diffTime = Math.abs(today - startDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+  daysCounter.textContent = diffDays;
+  
+  // Animate the counter
+  let current = 0;
+  const increment = diffDays / 50;
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= diffDays) {
+      current = diffDays;
+      clearInterval(timer);
+    }
+    daysCounter.textContent = Math.floor(current);
+  }, 20);
+}
+
+// --- HEART RAIN ---
+function startHeartRain() {
+  heartRainInterval = setInterval(() => {
+    if (Math.random() > 0.7) { // 30% chance to create a heart
+      createHeart();
+    }
+  }, 300);
+}
+
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.textContent = '💖';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.color = `hsl(${Math.random() * 30 + 330}, 100%, 70%)`;
+  heart.style.fontSize = (15 + Math.random() * 20) + 'px';
+  heart.style.animationDuration = (3 + Math.random() * 4) + 's';
+  heart.style.animationDelay = (Math.random() * 2) + 's';
+  
+  document.body.appendChild(heart);
+  
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}
 
 // --- CANVAS MANAGEMENT ---
 function resizeCanvas() {
@@ -747,11 +1055,35 @@ function updateProgress(stage) {
   currentStage = stage;
 }
 
+function updateMemoryCounter(count) {
+  memoryCounter.textContent = `Memories: ${count}/3`;
+  memoryCounter.classList.add('show');
+}
+
+// Show skip button on stage 3
+function showSkipButton() {
+  skipBtn.classList.add('show');
+}
+
+function hideSkipButton() {
+  skipBtn.classList.remove('show');
+}
+
+// Show back button on stages 2 and 3
+function showBackButton() {
+  backBtn.classList.add('show');
+}
+
+function hideBackButton() {
+  backBtn.classList.remove('show');
+}
+
 envelope.onclick = () => {
   bgm.play().catch(e => console.log("Autoplay prevented:", e));
   page1.classList.remove("active");
   page2.classList.add("active");
   updateProgress(2);
+  showBackButton();
   
   // Start animations
   setTimeout(() => {
@@ -761,18 +1093,39 @@ envelope.onclick = () => {
   
   // Preload next stage images
   preloadImages(['pic_one.jpg', 'pic_two.jpg', 'pic_three.png']);
+  
+  // Update memory counter as images load
+  let loadedCount = 0;
+  ['pic_one.jpg', 'pic_two.jpg', 'pic_three.png'].forEach((src, index) => {
+    const img = new Image();
+    img.onload = () => {
+      loadedCount++;
+      updateMemoryCounter(loadedCount);
+      
+      // Update love meter based on loaded images
+      const lovePercentage = Math.min(100, loadedCount * 33);
+      loveFill.style.width = `${lovePercentage}%`;
+      loveText.textContent = `Love Level: ${lovePercentage}%`;
+    };
+    img.src = src;
+  });
 }
 
 cake.onclick = () => {
   page2.classList.remove("active");
   finalStage.classList.add("active");
   updateProgress(3);
+  showSkipButton();
+  letterBox.classList.add('show');
   
   if (animationFrameId) {
     cancelAnimationFrame(animationFrameId);
   }
   
-  startTyping();
+  // Start typing after a short delay
+  setTimeout(() => {
+    startTyping();
+  }, 1000);
 }
 
 // --- TYPEWRITER EFFECT ---
@@ -781,41 +1134,87 @@ function startTyping() {
   
   isTyping = true;
   typingIndex = 0;
-  letterBox.textContent = "";
+  typingText.textContent = "";
   cursor.style.display = "inline-block";
+  skipTyping = false;
   
   function typeCharacter() {
+    if (skipTyping) {
+      // Skip to end
+      typingText.textContent = message;
+      cursor.style.display = "none";
+      isTyping = false;
+      letterBox.scrollTop = 0;
+      hideSkipButton();
+      createConfetti();
+      return;
+    }
+    
     if (typingIndex < message.length) {
       // Add current character
-      letterBox.textContent += message.charAt(typingIndex);
+      const char = message.charAt(typingIndex);
+      typingText.textContent += char;
       
       // Scroll to keep cursor in view
-      letterBox.scrollTop = letterBox.scrollHeight;
+      letterBox.scrollTop = typingText.scrollHeight;
       
       typingIndex++;
       
       // Determine speed based on character
-      const char = message.charAt(typingIndex - 1);
-      let speed = 50; // Default speed
+      let speed = 40; // Default speed
       
-      if (char === '\n') speed = 400; // Pause at new lines
-      else if (char === '.' || char === '!') speed = 300; // Pause at punctuation
-      else if (char === ',') speed = 200; // Short pause at commas
-      else if (char.match(/\s/)) speed = 80; // Slight pause at spaces
-      else speed = 30 + Math.random() * 20; // Random typing speed
+      if (char === '\n') speed = 300; // Pause at new lines
+      else if (char === '.' || char === '!' || char === '?') speed = 200; // Pause at punctuation
+      else if (char === ',') speed = 100; // Short pause at commas
+      else if (char.match(/\s/)) speed = 60; // Slight pause at spaces
+      else speed = 20 + Math.random() * 15; // Random typing speed
+      
+      // Create typing sound effect
+      createTypingSound();
       
       // Continue typing
-      setTimeout(typeCharacter, speed);
+      typingTimeout = setTimeout(typeCharacter, speed);
     } else {
       // Typing complete
       cursor.style.display = "none";
       isTyping = false;
+      hideSkipButton();
       createConfetti();
     }
   }
   
-  // Start typing after a short delay
-  setTimeout(typeCharacter, 500);
+  // Start typing
+  typeCharacter();
+}
+
+function skipTypingAnimation() {
+  skipTyping = true;
+  if (typingTimeout) {
+    clearTimeout(typingTimeout);
+  }
+}
+
+function createTypingSound() {
+  // Simple typing sound effect using Web Audio API
+  try {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = 800 + Math.random() * 400;
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.05);
+  } catch (e) {
+    // Audio context not supported, continue silently
+  }
 }
 
 // --- DAY/NIGHT MODE TOGGLE ---
@@ -876,7 +1275,7 @@ function preloadImages(imageUrls) {
 
 // --- CONFETTI EFFECT ---
 function createConfetti() {
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 100; i++) {
     let confetti = document.createElement("div");
     confetti.className = "petals";
     confetti.style.left = Math.random() * window.innerWidth + "px";
@@ -885,6 +1284,7 @@ function createConfetti() {
     confetti.style.animationDelay = (Math.random() * 1) + "s";
     confetti.style.width = "8px";
     confetti.style.height = "8px";
+    confetti.style.borderRadius = "50%";
     document.body.appendChild(confetti);
     
     setTimeout(() => {
@@ -892,6 +1292,35 @@ function createConfetti() {
     }, 3000);
   }
 }
+
+// --- SKIP BUTTON ---
+skipBtn.onclick = () => {
+  if (isTyping) {
+    skipTypingAnimation();
+  }
+};
+
+// --- BACK BUTTON ---
+backBtn.onclick = () => {
+  if (currentStage === 3) {
+    // Go back to tree stage
+    finalStage.classList.remove("active");
+    page2.classList.add("active");
+    updateProgress(2);
+    hideSkipButton();
+    
+    // Restart tree animation
+    setTimeout(() => {
+      initTree();
+    }, 300);
+  } else if (currentStage === 2) {
+    // Go back to envelope stage
+    page2.classList.remove("active");
+    page1.classList.add("active");
+    updateProgress(1);
+    hideBackButton();
+  }
+};
 
 // --- KEYBOARD NAVIGATION ---
 document.addEventListener('keydown', (e) => {
@@ -902,18 +1331,38 @@ document.addEventListener('keydown', (e) => {
       else if (currentStage === 2) cake.click();
       break;
     case 'ArrowLeft':
-      // Go back to previous stage
+      backBtn.click();
       break;
     case 'm':
     case 'M':
       moodToggle.click();
       break;
-    case ' ':
-      if (e.target === body) {
-        musicToggle.click();
+    case 's':
+    case 'S':
+      if (currentStage === 3 && isTyping) {
+        skipTypingAnimation();
       }
       break;
+    case 'Escape':
+      backBtn.click();
+      break;
   }
+});
+
+// --- TOUCH SUPPORT ---
+let lastTap = 0;
+document.addEventListener('touchend', (e) => {
+  const currentTime = new Date().getTime();
+  const tapLength = currentTime - lastTap;
+  
+  if (tapLength < 300 && tapLength > 0) {
+    // Double tap - skip typing
+    if (currentStage === 3 && isTyping) {
+      skipTypingAnimation();
+    }
+  }
+  
+  lastTap = currentTime;
 });
 
 // --- INITIAL SETUP ---
@@ -922,6 +1371,13 @@ updateProgress(1);
 
 // Auto-resize canvas periodically
 setInterval(resizeCanvas, 1000);
+
+// Show tap instruction after delay
+setTimeout(() => {
+  document.querySelectorAll('.tap-instruction').forEach(el => {
+    el.style.opacity = '1';
+  });
+}, 2000);
 </script>
 </body>
 </html>
