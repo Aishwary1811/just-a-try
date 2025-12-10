@@ -1,398 +1,646 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Happy Birthday Lakshtu 💖</title>
 
 <style>
-/* --------------------------------------------------
-                BASE STYLES
--------------------------------------------------- */
+/* ---------- VARIABLES ---------- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 :root{
-  --bg1:#fff6f3;
-  --bg2:#ffeef9;
   --accent:#ff4f9a;
-
   --peach:#ffb88c;
   --muted:#63414a;
+  --bg1:#fff6f3;
+  --bg2:#ffeef9;
 
-  /* NIGHT MODE */
-  --night1:#0f0f1a;
-  --night2:#1a1a2d;
-  --nightText:#ffe7f7;
+  --leaf1:#ff5d98;
+  --leaf2:#ff8bbb;
+  --petal:#ffd6e1;
+
+  --card:#fff7f9;
 }
 
+/* NIGHT */
+body.night{
+  --bg1:#0b0b17;
+  --bg2:#151529;
+  --muted:#f5e8f2;
+  --card:rgba(255,255,255,0.04);
+}
+
+/* ---------- BASE ---------- */
+*{box-sizing:border-box}
+html,body{height:100%}
 body{
   margin:0;
-  font-family:'Poppins',sans-serif;
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
   background:linear-gradient(160deg,var(--bg1),var(--bg2));
-  min-height:100vh;
+  color:var(--muted);
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
+  padding:28px;
+  transition:background 0.6s,color 0.6s;
   overflow-x:hidden;
-  transition:0.6s;
 }
 
-/* NIGHT MODE CLASS */
-body.night{
-  background:linear-gradient(160deg,var(--night1),var(--night2));
-  color:var(--nightText);
-}
-
+/* ---------- LAYOUT CARD ---------- */
 .container{
   width:100%;
-  max-width:900px;
+  max-width:980px;
+  background:var(--card);
+  border-radius:18px;
   padding:20px;
+  box-shadow:0 24px 60px rgba(120,50,80,0.06);
   display:flex;
   flex-direction:column;
+  gap:16px;
+  align-items:center;
+  transition:background 0.6s,box-shadow 0.6s;
+}
+
+/* ---------- TOP CONTROLS ---------- */
+.controls{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
   align-items:center;
   gap:12px;
-  background:rgba(255,255,255,0.96);
-  border-radius:16px;
-  box-shadow:0 30px 80px rgba(120,50,80,0.06);
-  transition:0.6s;
 }
 
-body.night .container{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(8px);
-  box-shadow:0 20px 60px rgba(255,255,255,0.1);
+.title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.title h1{
+  margin:0;
+  font-size:20px;
+  color:var(--accent);
+  letter-spacing:0.2px;
 }
 
+/* small buttons */
 .btn{
-  padding:12px 20px;
-  border-radius:999px;
-  border:none;
+  background:linear-gradient(180deg,var(--peach),var(--accent));
   color:white;
+  border:none;
+  padding:10px 14px;
+  border-radius:999px;
   font-weight:700;
   cursor:pointer;
-  background:linear-gradient(180deg,var(--peach),var(--accent));
-  box-shadow:0 0 14px #ff6fa7;
-  transition:transform .18s, box-shadow .4s;
+  box-shadow:0 10px 28px rgba(255,90,140,0.12);
+  transition:transform .15s,box-shadow .2s;
+}
+.btn:active{transform:translateY(1px)}
+.small{
+  padding:8px 10px;font-size:13px;border-radius:10px;background:#222;color:#fff;opacity:0.9;
+}
+.small:active{transform:translateY(1px)}
+
+/* ---------- SCENE (canvas + overlays) ---------- */
+.scene{
+  width:100%;
+  max-width:900px;
+  height:480px;
+  position:relative; /* important for absolute children */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:14px;
 }
 
-.btn:hover{
-  box-shadow:0 0 20px #ff8ec2;
-}
-
-.stage{display:none;flex-direction:column;align-items:center;gap:12px;}
-.stage.active{display:flex;}
-
-/* PETALS FALLING */
-.petal{
-  position:fixed;
-  width:18px;height:18px;
-  background:pink;
-  border-radius:60% 40% 60% 40%;
-  opacity:0.8;
+/* canvas sits behind */
+#treeCanvas{
+  width:100%;
+  height:100%;
+  display:block;
+  position:absolute;
+  left:0;top:0;
+  z-index:1;
   pointer-events:none;
-  animation:fall 7s linear infinite;
-  filter:blur(0.5px);
 }
 
-@keyframes fall{
-  0%{transform:translateY(-10vh) rotate(0deg);}
-  100%{transform:translateY(110vh) rotate(360deg);}
+/* overlay layer for leaves, final panel, gift, envelope etc. */
+.overlay{
+  position:absolute;
+  left:0;top:0;
+  width:100%;height:100%;
+  z-index:3;
+  pointer-events:none; /* individual clickable elements will have pointer-events:auto */
 }
 
-/* Glow elements */
-.glow{
-  filter:drop-shadow(0 0 12px rgba(255,120,160,0.8));
+/* center column for stage items (envelope/cake/gift) */
+.stage-center{
+  position:absolute;
+  left:50%; top:62%;
+  transform:translate(-50%,-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  z-index:4;
+  pointer-events:none;
 }
 
-/* Envelope */
-#envelope{
+/* envelope/cake/gift images */
+.stage-item{
   width:320px;
-  max-width:86vw;
-  border-radius:12px;
+  max-width:36%;
   cursor:pointer;
-  transition:0.5s;
-  box-shadow:0 0 20px #ff8abf;
+  border-radius:12px;
+  box-shadow:0 26px 68px rgba(0,0,0,0.12);
+  transition:transform .45s,box-shadow .3s;
+  pointer-events:auto;
+  background:white;
 }
-#envelope:hover{transform:translateY(-6px);}
+.stage-item:active{transform:scale(.97)}
+#envelope{box-shadow:0 12px 36px rgba(255,90,150,0.15);}
 
-/* TREE */
-#treeContainer{
-  width:360px;height:360px;
-  position:relative;
+/* small helper label */
+.help{
+  position:absolute;
+  bottom:16px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:6;
+  font-size:13px;
+  color:var(--muted);
+  pointer-events:none;
+  background:transparent;
 }
 
+/* ---------- LEAVES (html divs) ---------- */
 .leaf-heart{
   position:absolute;
-  width:30px;  /* bigger */
-  height:30px; /* bigger */
-  background:radial-gradient(circle,#ff2f7f,#ff8bbb);
-  transform:translate(-50%,-50%) scale(0);
-  opacity:0;
-  transition:0.9s cubic-bezier(.21,1.18,.57,1.01);
+  width:28px;height:28px;
+  background:linear-gradient(135deg,var(--leaf1),var(--leaf2));
   clip-path:polygon(50% 0%,61% 7%,72% 17%,80% 28%,85% 40%,87% 52%,
     86% 63%,82% 72%,75% 81%,66% 88%,56% 93%,50% 95%,44% 93%,
     34% 88%,25% 81%,18% 72%,14% 63%,13% 52%,15% 40%,20% 28%,
     28% 17%,39% 7%);
-  filter:drop-shadow(0 0 10px #ff4f9a);
+  transform:translate(-50%,-50%) scale(0.2) rotate(-10deg);
+  opacity:0;
+  transition:transform 0.9s cubic-bezier(.2,1.1,.5,1),opacity 0.9s;
+  box-shadow:0 6px 18px rgba(255,90,150,0.12), 0 0 14px rgba(255,100,160,0.06);
+  pointer-events:none;
+  z-index:5;
+  filter:drop-shadow(0 0 8px rgba(255,80,150,0.25));
 }
-
 .leaf-heart.bloom{
   opacity:1;
-  transform:translate(-50%,-50%) scale(1.2);
+  transform:translate(-50%,-50%) scale(1) rotate(0deg);
+  pointer-events:auto;
 }
 
-/* CAKE */
-#cakeImg{
-  width:360px;
-  border-radius:16px;
-  cursor:pointer;
-  box-shadow:0 0 20px pink;
-}
+/* make some leaves slightly larger or brighter using data attributes */
+.leaf-heart[data-size="lg"]{ width:36px;height:36px; }
+.leaf-heart[data-glow="1"]{ filter:drop-shadow(0 0 16px rgba(255,90,160,0.35)); }
 
-/* Gift */
-#gift3D{
-  width:240px;height:140px;
-  border-radius:12px;
-  background:linear-gradient(180deg,#fff3e6,#ffd6b3);
-  box-shadow:0 0 20px #ffc0a0;
-  cursor:pointer;
-}
-
-/* NIGHT MODE BUTTON */
-#nightBtn{
+/* ---------- PETALS ---------- */
+.petal{
   position:fixed;
-  top:15px;right:15px;
-  padding:10px 16px;
-  background:#333;
-  color:white;
-  border-radius:999px;
-  border:none;
-  cursor:pointer;
-  font-size:14px;
-  opacity:0.8;
+  width:18px;height:18px;
+  background:var(--petal);
+  border-radius:60% 40% 60% 40%;
+  opacity:0.9;
+  pointer-events:none;
+  z-index:8;
+  transform:rotate(0deg);
+  box-shadow:0 8px 20px rgba(255,130,160,0.12);
+  mix-blend-mode:screen;
+}
+
+/* ---------- FINAL PANEL & TYPING ---------- */
+.final-panel{
+  position:absolute;
+  right:20px;
+  top:30px;
+  width:360px;
+  max-width:40%;
+  background:linear-gradient(180deg,#fff7f9,#fff2f6);
+  border-radius:12px;
+  padding:14px;
+  z-index:7;
+  box-shadow:0 20px 48px rgba(255,150,190,0.08);
+  pointer-events:auto;
+  display:none; /* shown after gift open */
+}
+body.night .final-panel{ background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01)) }
+
+.typewriter{ white-space:pre-wrap; font-weight:500; font-size:15px; color:var(--muted) }
+
+/* gallery (hidden until gift opened) */
+.gallery{
+  margin-top:14px;
+  display:none;
+  gap:12px;
+}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.gallery-grid img{ width:100%;height:100px;object-fit:cover;border-radius:10px; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:820px){
+  .scene{height:520px}
+  .stage-item{max-width:46%}
+  .final-panel{width:85%;left:50%;right:auto;transform:translateX(-50%);top:auto;bottom:12px}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:480px){
+  .scene{height:640px}
+  .title h1{font-size:18px}
+  .final-panel{width:92%}
+  .gallery-grid img{height:90px}
 }
 </style>
 </head>
-
 <body>
 
-<button id="nightBtn">🌙 Night Mode</button>
-
 <div class="container">
+  <div class="controls" style="width:100%">
+    <div class="title">
+      <h1>Happy Birthday Lakshtu 💖</h1>
+      <div style="font-size:13px;color:var(--muted)">— Tap to reveal surprises</div>
+    </div>
 
-<!-- INTRO -->
-<div id="intro" class="stage active">
-  <h2 style="color:var(--accent)">It's your special day!</h2>
-  <div style="color:#7a3b54">Ready to open your surprise?</div>
-  <button id="startBtn" class="btn glow">Start & Play Music 💖</button>
-</div>
-
-<!-- ENVELOPE -->
-<div id="envelopeStage" class="stage">
-  <img id="envelope" class="glow" src="envelope.png">
-  <div style="font-size:13px;color:#7a3b54">Tap the envelope 💌</div>
-</div>
-
-<!-- TREE -->
-<div id="treeStage" class="stage">
-  <div id="treeContainer"><canvas id="treeCanvas"></canvas></div>
-  <div style="font-size:13px;color:#7a3b54">Your blooming heart tree 🌳💖</div>
-</div>
-
-<!-- CAKE -->
-<div id="cakeStage" class="stage">
-  <img id="cakeImg" class="glow" src="cake.jpg">
-  <div style="font-size:13px;color:#7a3b54">Tap the cake 🎂</div>
-</div>
-
-<!-- GIFT -->
-<div id="giftStage" class="stage">
-  <div id="gift3D" class="glow"><div id="giftText">Open Gift</div></div>
-</div>
-
-<!-- FINAL LETTER -->
-<div id="finalStage" class="stage">
-  <div id="finalPanel" style="width:90%;background:#fff0f7;padding:20px;border-radius:14px;box-shadow:0 0 20px pink;">
-    <div id="typed" style="white-space:pre-wrap;font-size:16px;"></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button id="startBtn" class="btn">Start & Play Music 💖</button>
+      <button id="nightBtn" class="small">🌙 Night</button>
+    </div>
   </div>
-</div>
 
-<!-- GALLERY -->
-<section id="gallery" style="display:none;text-align:center;padding:30px">
-  <h2 style="color:#ff5599;font-size:2rem">Our Beautiful Moments 💗</h2>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;width:90%;margin:auto;">
-    <div><img src="pic_three.png" style="width:100%;border-radius:20px;"></div>
-    <div><img src="pic_one.jpg" style="width:100%;border-radius:20px;"></div>
-    <div><img src="pic_two.jpg" style="width:100%;border-radius:20px;"></div>
+  <!-- SCENE: canvas + HTML overlays -->
+  <div class="scene" id="scene">
+    <canvas id="treeCanvas"></canvas>
+
+    <!-- overlays (leaves, final panel, petals, etc.) -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- stage center: envelope -> tree -> cake -> gift -->
+    <div class="stage-center" id="stageCenter" style="pointer-events:none">
+      <img id="envelope" class="stage-item" src="envelope.png" alt="Envelope" style="display:block;pointer-events:auto">
+      <img id="cake" class="stage-item" src="cake.jpg" alt="Cake" style="display:none;pointer-events:auto">
+      <div id="gift" class="stage-item" style="display:none;pointer-events:auto; background:linear-gradient(180deg,#fff3e6,#ffd6b3); display:flex;align-items:center;justify-content:center;font-weight:700;">
+        <div id="giftText">Open Gift</div>
+      </div>
+    </div>
+
+    <div class="help" id="helpLabel">Tap the envelope 💌</div>
+
+    <!-- Final letter (hidden until gift opened) -->
+    <div class="final-panel" id="finalPanel" aria-hidden="true">
+      <div class="typewriter" id="typedText"></div>
+      <div class="gallery" id="gallery">
+        <h3 style="margin:10px 0 8px 0;color:var(--accent)">Our Beautiful Moments 💗</h3>
+        <div class="gallery-grid">
+          <img src="pic_three.png" alt="pic three">
+          <img src="pic_one.jpg" alt="pic one">
+          <img src="pic_two.jpg" alt="pic two">
+        </div>
+      </div>
+    </div>
+
   </div>
-</section>
 
+  <audio id="bgm" src="song.mp3" preload="auto" loop></audio>
 </div>
-
-<audio id="bgm" src="song.mp3" preload="auto" loop></audio>
 
 <script>
-/* -------------------------------------
-        START BUTTON + MUSIC
--------------------------------------- */
-startBtn.onclick = ()=>{
-  bgm.play().catch(()=>{});
-  intro.classList.remove("active");
-  envelopeStage.classList.add("active");
-};
+/* -------------------------
+   Helper & DOM refs
+-------------------------*/
+const startBtn = document.getElementById('startBtn');
+const nightBtn = document.getElementById('nightBtn');
+const envelope = document.getElementById('envelope');
+const cake = document.getElementById('cake');
+const gift = document.getElementById('gift');
+const giftText = document.getElementById('giftText');
+const helpLabel = document.getElementById('helpLabel');
+const overlay = document.getElementById('overlay');
+const finalPanel = document.getElementById('finalPanel');
+const typedText = document.getElementById('typedText');
+const gallery = document.getElementById('gallery');
+const bgm = document.getElementById('bgm');
 
-/* -------------------------------------
-        PETAL FALLING GENERATOR
--------------------------------------- */
-function createPetal(){
-  const petal=document.createElement("div");
-  petal.className="petal";
-  petal.style.left=Math.random()*100+"vw";
-  petal.style.animationDuration=6+Math.random()*4+"s";
-  petal.style.opacity=0.5+Math.random()*0.5;
-  document.body.appendChild(petal);
-  setTimeout(()=>petal.remove(),10000);
-}
-setInterval(createPetal,300);
+const canvas = document.getElementById('treeCanvas');
+const ctx = canvas.getContext('2d');
 
-/* -------------------------------------
-        HEART TREE
--------------------------------------- */
-const canvas=document.getElementById("treeCanvas");
-const ctx=canvas.getContext("2d");
-const leafLayer=document.getElementById("treeContainer");
-
+/* ---------- responsive canvas sizing ---------- */
 function resizeCanvas(){
-  canvas.width=canvas.clientWidth;
-  canvas.height=canvas.clientHeight;
+  const rect = document.getElementById('scene').getBoundingClientRect();
+  canvas.width = Math.max(800, Math.floor(rect.width * devicePixelRatio));
+  canvas.height = Math.max(480, Math.floor(rect.height * devicePixelRatio));
+  canvas.style.width = rect.width + 'px';
+  canvas.style.height = rect.height + 'px';
+  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  drawScene(); // redraw on size change
 }
+window.addEventListener('resize', debounce(resizeCanvas, 120));
 resizeCanvas();
 
-function drawTrunk(){
-  ctx.lineWidth=26;
-  ctx.strokeStyle="#5a3b27";
-  ctx.lineCap="round";
+/* ---------- DRAW TRUNK + BRANCHES (nice smooth) ---------- */
+function drawScene(){
+  // clear
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const W = canvas.width / devicePixelRatio;
+  const H = canvas.height / devicePixelRatio;
 
+  // background subtle vignette
+  const g = ctx.createLinearGradient(0,0,0,H);
+  if(document.body.classList.contains('night')){
+    g.addColorStop(0,'rgba(10,8,18,0.8)');
+    g.addColorStop(1,'rgba(20,18,38,0.6)');
+  }else{
+    g.addColorStop(0,'rgba(255,250,250,0.0)');
+    g.addColorStop(1,'rgba(255,240,245,0.0)');
+  }
+  ctx.fillStyle = g;
+  ctx.fillRect(0,0,W,H);
+
+  // trunk base shadow
+  ctx.save();
+  ctx.translate(W/2, H*0.88);
+
+  // draw several slightly different bezier strokes (gives depth)
+  const trunkColors = ['#5a3b27','#5c3d28','#4b2b1a'];
+  for(let i=0;i<3;i++){
+    ctx.beginPath();
+    ctx.lineWidth = 20 + i*6;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = trunkColors[i];
+    const offset = (i-1)*8;
+    ctx.moveTo(offset, 0);
+    ctx.bezierCurveTo(offset - 20, -H*0.18, offset - 12, -H*0.42, offset - 6, -H*0.62);
+    ctx.stroke();
+  }
+
+  // subtle bark texture (thin lines)
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = 'rgba(0,0,0,0.06)';
+  for(let y=0;y<180;y+=18){
+    ctx.beginPath();
+    ctx.moveTo(-10, -y - 10);
+    ctx.bezierCurveTo(-40 - Math.sin(y/20)*12, -y - 30, 30, -y - 120, 8, -y - 160);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // branches - left and right
+  ctx.lineWidth = 10;
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = '#734b32';
+  // left
   ctx.beginPath();
-  ctx.moveTo(canvas.width/2, canvas.height);
-  ctx.bezierCurveTo(canvas.width/2 -35, canvas.height*0.7,
-    canvas.width/2 -40, canvas.height*0.45,
-    canvas.width/2 -10, canvas.height*0.32);
+  ctx.moveTo(W/2 - 6, H*0.26);
+  ctx.bezierCurveTo(W/2 - 160, H*0.08, W/2 - 80, H*0.04, W/2 - 6, H*0.16);
+  ctx.stroke();
+  // right
+  ctx.beginPath();
+  ctx.moveTo(W/2 + 6, H*0.26);
+  ctx.bezierCurveTo(W/2 + 160, H*0.08, W/2 + 80, H*0.04, W/2 + 6, H*0.16);
   ctx.stroke();
 
+  // soft glow under canopy (canvas-level subtle)
+  const rad = ctx.createRadialGradient(W/2, H*0.18, 40, W/2, H*0.18, 260);
+  rad.addColorStop(0, 'rgba(255,120,170,0.08)');
+  rad.addColorStop(1, 'rgba(255,120,170,0.0)');
+  ctx.fillStyle = rad;
   ctx.beginPath();
-  ctx.moveTo(canvas.width/2, canvas.height);
-  ctx.bezierCurveTo(canvas.width/2 +35, canvas.height*0.7,
-    canvas.width/2 +40, canvas.height*0.45,
-    canvas.width/2 +10, canvas.height*0.32);
-  ctx.stroke();
+  ctx.ellipse(W/2, H*0.18, 260, 180, 0, 0, Math.PI*2);
+  ctx.fill();
 }
 
-function drawBranches(){
-  ctx.lineWidth=12;
-  ctx.strokeStyle="#734b32";
+/* ---------- HEART-SHAPED LEAVES (HTML overlay) ---------- */
+/*
+  Use parametric heart curve mapped to container size, place HTML divs there.
+  Formula (scaled):
+   x = 16 sin^3(t)
+   y = 13 cos(t) - 5 cos(2t) - 2 cos(3t) - cos(4t)
+  We'll randomize t and radius spread for natural look.
+*/
+let leavesCreated = false;
+function createHeartLeaves(count = 170){
+  if(leavesCreated) return;
+  leavesCreated = true;
+  const rect = document.getElementById('scene').getBoundingClientRect();
+  const W = rect.width;
+  const H = rect.height;
 
-  ctx.beginPath();
-  ctx.moveTo(canvas.width/2 -10, canvas.height*0.32);
-  ctx.bezierCurveTo(canvas.width/2 -120, canvas.height*0.1,
-    canvas.width/2 -60, canvas.height*0.05,
-    canvas.width/2, canvas.height*0.17);
-  ctx.stroke();
+  function heartXY(t){
+    // base shape in - scale then map to pixel coordinates
+    const x = 16 * Math.pow(Math.sin(t),3);
+    const y = 13 * Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
+    return [x,y];
+  }
 
-  ctx.beginPath();
-  ctx.moveTo(canvas.width/2 +10, canvas.height*0.32);
-  ctx.bezierCurveTo(canvas.width/2 +120, canvas.height*0.1,
-    canvas.width/2 +60, canvas.height*0.05,
-    canvas.width/2, canvas.height*0.17);
-  ctx.stroke();
-}
+  // compute extents of base heart to normalize
+  const samples = 200;
+  let minX=1e9,maxX=-1e9,minY=1e9,maxY=-1e9;
+  for(let i=0;i<samples;i++){
+    const t = (i/samples)*Math.PI*2;
+    const [x,y] = heartXY(t);
+    minX = Math.min(minX,x); maxX = Math.max(maxX,x);
+    minY = Math.min(minY,y); maxY = Math.max(maxY,y);
+  }
+  const heartW = maxX - minX;
+  const heartH = maxY - minY;
 
-function generateLeaves(){
-  const leafCount=160;
-  const cx=canvas.width/2;
-  const cy=canvas.height*0.18;
-  const size=150;
+  // position heart within top center area of scene
+  const cx = W/2;
+  const cy = H*0.18; // center for canopy
+  const scale = Math.min(W*0.9/heartW, H*0.85/heartH) * 0.95 * 6.5; // tuned scale
 
-  for(let i=0;i<leafCount;i++){
-    const angle=Math.random()*Math.PI*2;
-    const r=size*(0.55+Math.random()*0.45);
+  for(let i=0;i<count;i++){
+    const t = Math.random() * Math.PI*2;
+    const jitter = (Math.random()-0.5) * 0.35; // slight radial jitter
+    const [hx,hy] = heartXY(t);
+    const px = cx + (hx - (minX + heartW/2)) * scale * (0.85 + Math.random()*0.35);
+    const py = cy + (hy - (minY + heartH/2)) * scale * (0.85 + Math.random()*0.35);
 
-    const leaf=document.createElement("div");
-    leaf.className="leaf-heart";
-    leaf.style.left=(cx+r*Math.cos(angle))+"px";
-    leaf.style.top=(cy+r*Math.sin(angle*1.2))+"px";
-    leafLayer.appendChild(leaf);
+    const leaf = document.createElement('div');
+    leaf.className = 'leaf-heart';
+    // randomly vary size & glow
+    if(Math.random() < 0.12) leaf.setAttribute('data-size','lg');
+    if(Math.random() < 0.28) leaf.setAttribute('data-glow','1');
 
-    setTimeout(()=>leaf.classList.add("bloom"),200+i*35);
+    leaf.style.left = px + 'px';
+    leaf.style.top = py + 'px';
+    leaf.style.transform = `translate(-50%,-50%) scale(${0.4 + Math.random()*0.5}) rotate(${(-30 + Math.random()*60)}deg)`;
+    overlay.appendChild(leaf);
+
+    // bloom with stagger
+    setTimeout(()=>{ leaf.classList.add('bloom'); }, 180 + i*18);
   }
 }
 
-function drawHeartTree(){
-  drawTrunk();
-  drawBranches();
-  generateLeaves();
+/* ---------- FALLING PETALS (page level) ---------- */
+let petalTimer = null;
+function startPetals(rateMs = 250){
+  if(petalTimer) return;
+  petalTimer = setInterval(createPetal, rateMs);
 }
+function stopPetals(){
+  if(petalTimer){ clearInterval(petalTimer); petalTimer = null; }
+}
+function createPetal(){
+  const p = document.createElement('div');
+  p.className = 'petal';
+  // start X across the viewport
+  const startX = Math.random() * innerWidth;
+  const size = 12 + Math.random()*18;
+  p.style.width = size + 'px';
+  p.style.height = (size * (0.85 + Math.random()*0.25)) + 'px';
+  p.style.left = startX + 'px';
+  p.style.top = (-50 - Math.random()*80) + 'px';
+  p.style.opacity = 0.6 + Math.random()*0.4;
+  document.body.appendChild(p);
 
-/* Envelope → Tree */
-envelope.onclick=()=>{
-  envelopeStage.classList.remove("active");
-  treeStage.classList.add("active");
-  setTimeout(drawHeartTree,500);
-};
+  // falling animation via JS for natural curve
+  const duration = 5500 + Math.random()*4500;
+  const start = performance.now();
+  const drift = (Math.random()-0.5) * 220;
 
-/* Tree → Cake */
-cakeImg.onclick=()=>{
-  treeStage.classList.remove("active");
-  cakeStage.classList.add("active");
-};
+  function frame(now){
+    const t = (now - start)/duration;
+    if(t >= 1){
+      p.remove();
+      return;
+    }
+    // y progression
+    const y = easeInOutQuad(t) * (innerHeight + 200) - 100;
+    // x moves with a sine wave + drift
+    p.style.top = y + 'px';
+    p.style.left = (startX + Math.sin(t * Math.PI * (1 + Math.random()*2)) * 80 + drift * t) + 'px';
+    p.style.transform = `rotate(${t*720}deg)`;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+function easeInOutQuad(t){ return t<0.5 ? 2*t*t : -1+(4-2*t)*t; }
 
-/* Cake → Gift */
-cakeImg.onclick=()=>{
-  cakeStage.classList.remove("active");
-  giftStage.classList.add("active");
-};
+/* ---------- STAGE FLOW: envelope -> tree -> cake -> gift -> final ---------- */
+startBtn.addEventListener('click', ()=> {
+  bgm.play().catch(()=>{});
+  envelope.style.display = 'block';
+  helpLabel.textContent = "Tap the envelope 💌";
+  // start petals subtly
+  startPetals(420);
+});
 
-/* Gift → Final Letter */
-gift3D.onclick=()=>{
-  giftStage.classList.remove("active");
-  gallery.style.display="block";
-  finalStage.classList.add("active");
-  startTyping();
-};
+// envelope click -> reveal tree (leaves) & show cake
+envelope.addEventListener('click', () => {
+  // animate envelope drop/scale for feedback
+  envelope.animate([{transform:'translateY(0) scale(1)'},{transform:'translateY(-8px) scale(0.98)'}],{duration:220,fill:'forwards',direction:'alternate'});
+  // reveal leaves if not created
+  createHeartLeaves(180);
+  // reveal cake after a short delay and hide envelope
+  setTimeout(()=>{
+    envelope.style.display = 'none';
+    cake.style.display = 'block';
+    helpLabel.textContent = "Tap the cake 🎂";
+    // ensure canvas re-render
+    drawScene();
+  },700);
+});
 
-/* Typewriter Message */
+// cake -> gift
+cake.addEventListener('click', ()=>{
+  cake.animate([{transform:'scale(1)'},{transform:'scale(0.96)'}],{duration:180,fill:'forwards',direction:'alternate'});
+  setTimeout(()=>{
+    cake.style.display = 'none';
+    gift.style.display = 'flex';
+    helpLabel.textContent = "Open the gift 🎁";
+  },200);
+});
+
+// gift -> final letter + gallery + typewriter
+gift.addEventListener('click', ()=>{
+  // quick lid-like motion using scale + rotate
+  gift.animate([{transform:'scale(1)'},{transform:'scale(0.98) rotateX(-8deg)'}],{duration:220,fill:'forwards'});
+  // reveal final panel & gallery
+  setTimeout(()=>{
+    finalPanel.style.display = 'block';
+    typedText.textContent = '';
+    gallery.style.display = 'block';
+    finalPanel.setAttribute('aria-hidden','false');
+    helpLabel.textContent = "Surprise 🎉";
+    startTyping();
+    // stop creating petals to avoid clutter (let existing finish)
+    stopPetals();
+  },420);
+});
+
+/* ---------- TYPEWRITER ---------- */
 const message = `My sweet Lakshtu,
 
-You make my world brighter just by being in it.  
-You are the kindest part of my heart — the calm in my chaos  
+You make my world brighter just by being in it.
+You are the kindest part of my heart — the calm in my chaos,
 and the softest place where my feelings rest.
 
-Thank you for loving me in your own beautiful ways.  
-Thank you for choosing me, supporting me, and making every day special  
-without even trying.
+Thank you for loving me in your own little ways, for supporting me,
+for choosing me, and for making every day feel special without even trying.
 
-On your birthday, I just want you to know —  
-you are precious to me, loved beyond words,  
-and you will always have a place in my heart.
+On your birthday, I just want you to know — you are precious to me,
+you are loved more than words can hold, and you will always, always
+have a place in my heart.
 
 I LOVE YOU, LAKSHTU 💖✨`;
 
-let i=0;
+let idx = 0;
 function startTyping(){
-  typed.textContent="";
-  function type(){
-    if(i<message.length){
-      typed.textContent+=message[i++];
-      setTimeout(type,26+Math.random()*18);
+  idx = 0;
+  typedText.textContent = '';
+  finalPanel.scrollTop = 0;
+  function step(){
+    if(idx < message.length){
+      typedText.textContent += message[idx++];
+      finalPanel.scrollTop = finalPanel.scrollHeight; // keep visible
+      setTimeout(step, 18 + Math.random()*30);
+    } else {
+      // completed: small glow pulse
+      finalPanel.animate([{boxShadow:'0 20px 48px rgba(255,150,190,0.08)'},{boxShadow:'0 30px 68px rgba(255,150,190,0.18)'}],{duration:900,iterations:2});
     }
   }
-  type();
+  step();
 }
 
-/* NIGHT MODE TOGGLE */
-nightBtn.onclick=()=>{
-  document.body.classList.toggle("night");
-};
+/* ---------- NIGHT MODE ---------- */
+nightBtn.addEventListener('click', ()=>{
+  document.body.classList.toggle('night');
+  drawScene(); // redraw backdrop for night mode
+});
+
+/* ---------- UTILITIES ---------- */
+function debounce(func,wait){
+  let t;
+  return function(...args){ clearTimeout(t); t = setTimeout(()=>func.apply(this,args), wait); };
+}
+
+/* ---------- INIT: keep only envelope visible at load ---------- */
+(function init(){
+  // hide cake and gift until reached
+  cake.style.display = 'none';
+  gift.style.display = 'none';
+  finalPanel.style.display = 'none';
+  gallery.style.display = 'none';
+  // envelope visible (in case it was hidden)
+  envelope.style.display = 'block';
+  helpLabel.textContent = "Tap the envelope 💌";
+  // small initial draw
+  drawScene();
+  // create a few initial petals
+  for(let i=0;i<8;i++){ setTimeout(createPetal, i*200 + Math.random()*800); }
+  // start gentle petals
+  startPetals(420);
+})();
 </script>
 </body>
 </html>
