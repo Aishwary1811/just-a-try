@@ -58,6 +58,246 @@ body {
     radial-gradient(circle at 80% 20%, rgba(255, 184, 140, 0.1) 0%, transparent 50%);
 }
 
+/* ==================== ENVELOPE SURPRISE PAGE ==================== */
+#surprisePage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, #1a0033 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  overflow: hidden;
+}
+
+.envelope-container {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.envelope {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: floatEnvelope 3s ease-in-out infinite;
+}
+
+.envelope-front, .envelope-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.envelope-front {
+  background: linear-gradient(45deg, var(--accent), var(--accent-light));
+  transform: rotateY(0deg);
+  box-shadow: 
+    0 15px 35px rgba(255, 79, 166, 0.3),
+    0 0 50px rgba(255, 79, 166, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.envelope-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(45deg, #ffcc00, #ff9900);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  box-shadow: 
+    0 0 30px rgba(255, 204, 0, 0.5),
+    inset 0 0 20px rgba(255, 255, 255, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  animation: pulseSeal 2s ease-in-out infinite;
+}
+
+.envelope-seal::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+}
+
+.envelope-lid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(45deg, var(--accent-light), #ff66cc);
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  transform-origin: top;
+  transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 2;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.envelope.open .envelope-lid {
+  transform: rotateX(-180deg);
+}
+
+.envelope-body {
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 70%;
+  background: linear-gradient(45deg, #ff3366, #ff6699);
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+  z-index: 1;
+}
+
+.letter {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background: white;
+  border-radius: 5px;
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.5s;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+}
+
+.envelope.open .letter {
+  transform: translateY(-20px);
+}
+
+.letter-content {
+  font-family: 'Dancing Script', cursive;
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.letter-content h2 {
+  color: var(--accent);
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  animation: sparkle 1.5s infinite;
+  pointer-events: none;
+}
+
+.instruction {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  opacity: 0;
+  animation: fadeInInstruction 2s ease 1s forwards;
+}
+
+.tap-text {
+  display: inline-block;
+  background: linear-gradient(45deg, var(--accent), var(--accent-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  margin: 0 5px;
+  animation: tapPulse 2s infinite;
+}
+
+.countdown {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: 0;
+  animation: countdownFade 0.5s ease 0.5s forwards;
+}
+
+@keyframes floatEnvelope {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes pulseSeal {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 
+      0 0 30px rgba(255, 204, 0, 0.5),
+      inset 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 
+      0 0 40px rgba(255, 204, 0, 0.8),
+      inset 0 0 30px rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInInstruction {
+  to { opacity: 1; }
+}
+
+@keyframes tapPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes countdownFade {
+  to { opacity: 1; }
+}
+
+@keyframes surpriseReveal {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+    display: none;
+  }
+}
+
 /* Mood Toggle Button */
 #moodToggle {
   position: fixed;
@@ -110,41 +350,6 @@ body {
   display: flex;
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Envelope Stage */
-#page1 h2 {
-  font-size: 1.8rem;
-  margin-bottom: 40px;
-  text-align: center;
-  opacity: 0;
-  animation: fadeInUp 1s ease 0.5s forwards;
-  color: var(--text-primary);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-#envelope {
-  width: 280px;
-  cursor: pointer;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
-  animation: 
-    float 3s ease-in-out infinite,
-    gentleGlow 2.5s ease-in-out infinite alternate;
-  transition: transform 0.3s ease;
-}
-
-#envelope:hover {
-  transform: scale(1.05);
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(1deg); }
-}
-
-@keyframes gentleGlow {
-  0% { filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 15px var(--glow-color)); }
-  100% { filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 25px var(--glow-color)); }
 }
 
 /* Tree Stage */
@@ -600,8 +805,9 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  #envelope {
-    width: 220px;
+  .envelope-container {
+    width: 250px;
+    height: 350px;
   }
   
   #finalStage h1 {
@@ -644,8 +850,23 @@ body {
 }
 
 @media (max-width: 480px) {
-  #page1 h2 {
-    font-size: 1.4rem;
+  .envelope-container {
+    width: 200px;
+    height: 300px;
+  }
+  
+  .envelope-seal {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+  }
+  
+  .letter-content {
+    font-size: 14px;
+  }
+  
+  .letter-content h2 {
+    font-size: 20px;
   }
   
   #finalStage h1 {
@@ -670,6 +891,10 @@ body {
   
   .date-number {
     font-size: 2rem;
+  }
+  
+  .instruction {
+    font-size: 1rem;
   }
 }
 
@@ -701,23 +926,6 @@ body {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-/* Tap Instruction */
-.tap-instruction {
-  position: absolute;
-  bottom: 30px;
-  text-align: center;
-  font-size: 1rem;
-  color: var(--text-secondary);
-  opacity: 0.8;
-  animation: pulse 2s infinite;
-  width: 100%;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
 </style>
 </head>
 <body class="night-mode">
@@ -725,6 +933,29 @@ body {
 <!-- Loading Screen -->
 <div id="loading">
   <div class="loader"></div>
+</div>
+
+<!-- Surprise Envelope Page -->
+<div id="surprisePage">
+  <div class="countdown" id="countdown">3</div>
+  <div class="envelope-container" id="envelopeContainer">
+    <div class="envelope" id="envelope">
+      <div class="envelope-lid"></div>
+      <div class="envelope-body"></div>
+      <div class="envelope-seal">💝</div>
+      <div class="letter">
+        <div class="letter-content">
+          <h2>For Lakshtu 💖</h2>
+          <p>A special surprise awaits you...</p>
+          <p>Are you ready to see what's inside?</p>
+          <p style="margin-top: 20px; font-size: 24px;">🎁✨🎂</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="instruction">
+    <span class="tap-text">TAP</span> the envelope to open your surprise!
+  </div>
 </div>
 
 <!-- Progress Indicator -->
@@ -754,23 +985,16 @@ body {
 <!-- Skip Button -->
 <button class="skip-btn" id="skipBtn">Skip Animation ⏩</button>
 
-<!-- Stage 1: Envelope -->
-<div id="page1" class="stage active">
-  <h2>Tap the envelope to begin 💌</h2>
-  <img src="envelope.png" id="envelope" alt="Envelope" onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"%23ff4f9a\" d=\"M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z\"/></svg>'">
-  <div class="tap-instruction">Tap anywhere to continue</div>
-</div>
-
-<!-- Stage 2: Tree -->
+<!-- Stage 1: Tree -->
 <div id="treeStage" class="stage">
   <div id="treeContainer">
     <canvas id="treeCanvas"></canvas>
   </div>
   <img src="cake.jpg" id="cake" alt="Birthday Cake" onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"%23ff4f9a\" d=\"M12 6a2 2 0 002-2c0-.38-.1-.73-.29-1.03L12 0l-1.71 2.97c-.19.3-.29.65-.29 1.03 0 1.1.9 2 2 2zm4.6 9.99l-1.07-1.07-1.08 1.07c-1.3 1.3-3.58 1.31-4.89 0L8.47 14.92 7.4 16c-1.3 1.3-3.58 1.31-4.89 0-.39-.39-.39-1.02 0-1.41l1.07-1.07-1.07-1.07c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l1.07 1.07 1.07-1.07c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-1.07 1.07 1.07 1.07c.39.39.39 1.02 0 1.41zM18 9h-5V7h-2v2H6c-1.66 0-3 1.34-3 3v1.54c0 1.08.88 1.96 1.96 1.96.52 0 1.02-.2 1.38-.57l2.14-2.13 2.13 2.13c.74.74 2.03.74 2.77 0l2.14-2.13 2.13 2.13c.37.37.86.57 1.38.57 1.08 0 1.96-.88 1.96-1.96V12C21 10.34 19.66 9 18 9z\"/></svg>'">
-  <div class="tap-instruction">Tap the cake to continue</div>
+  <div class="instruction">Tap the cake to continue 🎂</div>
 </div>
 
-<!-- Stage 3: Memories & Letter -->
+<!-- Stage 2: Memories & Letter -->
 <div id="finalStage" class="stage">
   <h1>Our Beautiful Memories 💗</h1>
   
@@ -799,21 +1023,22 @@ body {
     <span class="cursor"></span>
   </div>
   
-  <div class="tap-instruction">Scroll to read the full message</div>
+  <div class="instruction">Scroll to read the full message 📜</div>
 </div>
 
 <audio id="bgm" src="song.mp3" preload="auto" loop></audio>
-<audio id="typeSound" preload="auto">
-  <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=" type="audio/wav">
+<audio id="openSound" preload="auto">
+  <source src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 // --- GLOBAL ELEMENTS ---
 const body = document.body;
-const page1 = document.getElementById("page1");
-const page2 = document.getElementById("treeStage");
+const surprisePage = document.getElementById("surprisePage");
+const treeStage = document.getElementById("treeStage");
 const finalStage = document.getElementById("finalStage");
 const envelope = document.getElementById("envelope");
+const envelopeContainer = document.getElementById("envelopeContainer");
 const bgm = document.getElementById("bgm");
 const cake = document.getElementById("cake");
 const moodToggle = document.getElementById("moodToggle");
@@ -829,6 +1054,7 @@ const memoryCounter = document.getElementById("memoryCounter");
 const loveFill = document.getElementById("loveFill");
 const loveText = document.getElementById("loveText");
 const daysCounter = document.getElementById("daysCounter");
+const countdownEl = document.getElementById("countdown");
 
 // --- CANVAS & TREE ELEMENTS ---
 const canvas = document.getElementById("treeCanvas");
@@ -870,14 +1096,111 @@ let skipTyping = false;
 // --- HEART RAIN ---
 let heartRainInterval;
 
+// --- SURPRISE PAGE FUNCTIONS ---
+function startCountdown() {
+  let count = 3;
+  countdownEl.textContent = count;
+  
+  const countdownInterval = setInterval(() => {
+    count--;
+    if (count > 0) {
+      countdownEl.textContent = count;
+      createSparkle();
+    } else {
+      clearInterval(countdownInterval);
+      countdownEl.textContent = "🎉";
+      setTimeout(() => {
+        countdownEl.style.opacity = "0";
+      }, 1000);
+    }
+  }, 1000);
+}
+
+function createSparkle() {
+  const sparkle = document.createElement('div');
+  sparkle.className = 'sparkle';
+  sparkle.style.left = Math.random() * 100 + 'vw';
+  sparkle.style.top = Math.random() * 100 + 'vh';
+  sparkle.style.width = (5 + Math.random() * 10) + 'px';
+  sparkle.style.height = sparkle.style.width;
+  sparkle.style.background = `hsl(${Math.random() * 60 + 300}, 100%, 70%)`;
+  sparkle.style.animationDuration = (0.5 + Math.random() * 1) + 's';
+  
+  surprisePage.appendChild(sparkle);
+  
+  setTimeout(() => {
+    sparkle.remove();
+  }, 1500);
+}
+
+function openEnvelope() {
+  // Play open sound
+  const openSound = document.getElementById('openSound');
+  openSound.play().catch(e => console.log("Sound play prevented:", e));
+  
+  // Open envelope animation
+  envelope.classList.add('open');
+  
+  // Create more sparkles
+  for (let i = 0; i < 20; i++) {
+    setTimeout(() => createSparkle(), i * 100);
+  }
+  
+  // Show letter
+  setTimeout(() => {
+    // Start heart rain
+    startHeartRain();
+    
+    // Show main content after delay
+    setTimeout(() => {
+      surprisePage.style.animation = 'surpriseReveal 1s ease forwards';
+      
+      // Show main stages
+      setTimeout(() => {
+        surprisePage.style.display = 'none';
+        treeStage.classList.add('active');
+        showBackButton();
+        
+        // Start music
+        bgm.play().catch(e => console.log("Autoplay prevented:", e));
+        
+        // Start tree animation
+        setTimeout(() => {
+          initPetals();
+          initTree();
+        }, 300);
+        
+        // Preload images
+        preloadImages(['pic_one.jpg', 'pic_two.jpg', 'pic_three.png']);
+        
+        // Update memory counter
+        let loadedCount = 0;
+        ['pic_one.jpg', 'pic_two.jpg', 'pic_three.png'].forEach((src, index) => {
+          const img = new Image();
+          img.onload = () => {
+            loadedCount++;
+            updateMemoryCounter(loadedCount);
+            
+            // Update love meter
+            const lovePercentage = Math.min(100, loadedCount * 33);
+            loveFill.style.width = `${lovePercentage}%`;
+            loveText.textContent = `Love Level: ${lovePercentage}%`;
+          };
+          img.src = src;
+        });
+        
+      }, 1000);
+    }, 2000);
+  }, 1000);
+}
+
 // --- INITIALIZATION ---
 window.addEventListener('load', () => {
   setTimeout(() => {
     loading.style.opacity = '0';
     setTimeout(() => {
       loading.style.display = 'none';
-      startHeartRain();
-      updateMemoryCounter(0);
+      startCountdown();
       calculateDaysTogether();
     }, 500);
   }, 1000);
@@ -891,9 +1214,7 @@ function calculateDaysTogether() {
   const diffTime = Math.abs(today - startDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   
-  daysCounter.textContent = diffDays;
-  
-  // Animate the counter
+  // Animate counter
   let current = 0;
   const increment = diffDays / 50;
   const timer = setInterval(() => {
@@ -909,7 +1230,7 @@ function calculateDaysTogether() {
 // --- HEART RAIN ---
 function startHeartRain() {
   heartRainInterval = setInterval(() => {
-    if (Math.random() > 0.7) { // 30% chance to create a heart
+    if (Math.random() > 0.7) {
       createHeart();
     }
   }, 300);
@@ -937,7 +1258,7 @@ function resizeCanvas() {
   if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    if (page2.classList.contains('active')) {
+    if (treeStage.classList.contains('active')) {
       drawTree(true);
     }
   }
@@ -1060,7 +1381,6 @@ function updateMemoryCounter(count) {
   memoryCounter.classList.add('show');
 }
 
-// Show skip button on stage 3
 function showSkipButton() {
   skipBtn.classList.add('show');
 }
@@ -1069,7 +1389,6 @@ function hideSkipButton() {
   skipBtn.classList.remove('show');
 }
 
-// Show back button on stages 2 and 3
 function showBackButton() {
   backBtn.classList.add('show');
 }
@@ -1078,43 +1397,25 @@ function hideBackButton() {
   backBtn.classList.remove('show');
 }
 
-envelope.onclick = () => {
-  bgm.play().catch(e => console.log("Autoplay prevented:", e));
-  page1.classList.remove("active");
-  page2.classList.add("active");
-  updateProgress(2);
-  showBackButton();
-  
-  // Start animations
-  setTimeout(() => {
-    initPetals();
-    initTree();
-  }, 300);
-  
-  // Preload next stage images
-  preloadImages(['pic_one.jpg', 'pic_two.jpg', 'pic_three.png']);
-  
-  // Update memory counter as images load
-  let loadedCount = 0;
-  ['pic_one.jpg', 'pic_two.jpg', 'pic_three.png'].forEach((src, index) => {
-    const img = new Image();
-    img.onload = () => {
-      loadedCount++;
-      updateMemoryCounter(loadedCount);
-      
-      // Update love meter based on loaded images
-      const lovePercentage = Math.min(100, loadedCount * 33);
-      loveFill.style.width = `${lovePercentage}%`;
-      loveText.textContent = `Love Level: ${lovePercentage}%`;
-    };
-    img.src = src;
-  });
-}
+// --- ENVELOPE INTERACTION ---
+envelopeContainer.onclick = openEnvelope;
 
+// Add hover effect for desktop
+envelopeContainer.addEventListener('mouseenter', () => {
+  if (!envelope.classList.contains('open')) {
+    envelope.style.animation = 'floatEnvelope 1s ease-in-out infinite';
+  }
+});
+
+envelopeContainer.addEventListener('mouseleave', () => {
+  envelope.style.animation = '';
+});
+
+// --- CAKE CLICK ---
 cake.onclick = () => {
-  page2.classList.remove("active");
+  treeStage.classList.remove("active");
   finalStage.classList.add("active");
-  updateProgress(3);
+  updateProgress(2);
   showSkipButton();
   letterBox.classList.add('show');
   
@@ -1195,7 +1496,7 @@ function skipTypingAnimation() {
 }
 
 function createTypingSound() {
-  // Simple typing sound effect using Web Audio API
+  // Simple typing sound effect
   try {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const oscillator = audioContext.createOscillator();
@@ -1213,7 +1514,7 @@ function createTypingSound() {
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.05);
   } catch (e) {
-    // Audio context not supported, continue silently
+    // Audio context not supported
   }
 }
 
@@ -1233,7 +1534,7 @@ moodToggle.onclick = () => {
   }
 
   // Update tree colors if on tree stage
-  if (page2.classList.contains('active')) {
+  if (treeStage.classList.contains('active')) {
     drawTree(true);
   }
 };
@@ -1254,8 +1555,8 @@ musicToggle.onclick = () => {
   isMusicPlaying = !isMusicPlaying;
 };
 
-// Auto-play music on first interaction
-document.addEventListener('click', () => {
+// Auto-play music on envelope open
+function playMusic() {
   if (!isMusicPlaying && bgm.paused) {
     bgm.play().then(() => {
       isMusicPlaying = true;
@@ -1263,7 +1564,7 @@ document.addEventListener('click', () => {
       musicToggle.style.borderColor = 'var(--accent)';
     }).catch(e => console.log("Autoplay prevented:", e));
   }
-}, { once: true });
+}
 
 // --- IMAGE PRELOADING ---
 function preloadImages(imageUrls) {
@@ -1302,33 +1603,30 @@ skipBtn.onclick = () => {
 
 // --- BACK BUTTON ---
 backBtn.onclick = () => {
-  if (currentStage === 3) {
+  if (currentStage === 2) {
     // Go back to tree stage
     finalStage.classList.remove("active");
-    page2.classList.add("active");
-    updateProgress(2);
+    treeStage.classList.add("active");
+    updateProgress(1);
     hideSkipButton();
     
     // Restart tree animation
     setTimeout(() => {
       initTree();
     }, 300);
-  } else if (currentStage === 2) {
-    // Go back to envelope stage
-    page2.classList.remove("active");
-    page1.classList.add("active");
-    updateProgress(1);
-    hideBackButton();
   }
 };
 
 // --- KEYBOARD NAVIGATION ---
 document.addEventListener('keydown', (e) => {
   switch(e.key) {
-    case 'ArrowRight':
+    case 'Enter':
     case ' ':
-      if (currentStage === 1) envelope.click();
-      else if (currentStage === 2) cake.click();
+      if (surprisePage.style.display !== 'none') {
+        openEnvelope();
+      } else if (currentStage === 1) {
+        cake.click();
+      }
       break;
     case 'ArrowLeft':
       backBtn.click();
@@ -1339,7 +1637,7 @@ document.addEventListener('keydown', (e) => {
       break;
     case 's':
     case 'S':
-      if (currentStage === 3 && isTyping) {
+      if (currentStage === 2 && isTyping) {
         skipTypingAnimation();
       }
       break;
@@ -1357,7 +1655,7 @@ document.addEventListener('touchend', (e) => {
   
   if (tapLength < 300 && tapLength > 0) {
     // Double tap - skip typing
-    if (currentStage === 3 && isTyping) {
+    if (currentStage === 2 && isTyping) {
       skipTypingAnimation();
     }
   }
@@ -1371,13 +1669,6 @@ updateProgress(1);
 
 // Auto-resize canvas periodically
 setInterval(resizeCanvas, 1000);
-
-// Show tap instruction after delay
-setTimeout(() => {
-  document.querySelectorAll('.tap-instruction').forEach(el => {
-    el.style.opacity = '1';
-  });
-}, 2000);
 </script>
 </body>
 </html>
