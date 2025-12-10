@@ -15,11 +15,12 @@
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:#0d0d0d;
+  background:#0b001a;
   color:white;
   overflow:hidden;
 }
 
+/* STAGES */
 .stage{
   display:none;
   width:100%;
@@ -31,12 +32,9 @@ body{
   flex-direction:column;
   transition: opacity 1s ease;
 }
+.stage.active{ display:flex; opacity:1; }
 
-.stage.active{
-  display:flex;
-  opacity:1;
-}
-
+/* ENVELOPE */
 #envelope{
   width:260px;
   cursor:pointer;
@@ -53,7 +51,7 @@ body{
   100%{filter:drop-shadow(0 0 0px #ff4fa6);}
 }
 
-/* TREE + GALAXY */
+/* TREE */
 #treeStage{
   background:#0b001a;
   display:flex;
@@ -63,7 +61,7 @@ body{
   position:relative;
 }
 #treeContainer{
-  width:460px; height:460px; position:relative;
+  width:500px; height:500px; position:relative;
 }
 #treeCanvas{ 
   width:100%; 
@@ -72,7 +70,7 @@ body{
 }
 .leaf{
   position:absolute;
-  width:28px;height:28px;
+  width:30px;height:30px;
   background:pink;
   transform:translate(-50%,-50%) scale(0);
   clip-path:polygon(50% 0%,61% 7%,72% 17%,80% 28%,85% 40%,87% 52%,86% 63%,82% 72%,75% 81%,66% 88%,56% 93%,50% 95%,44% 93%,34% 88%,25% 81%,18% 72%,14% 63%,13% 52%,15% 40%,20% 28%,28% 17%,39% 7%);
@@ -82,11 +80,11 @@ body{
 .leaf.grow{ transform:translate(-50%,-50%) scale(1); animation: glowPulse 3s infinite alternate;}
 @keyframes glowPulse{
   0%{filter:drop-shadow(0 0 12px hotpink);}
-  50%{filter:drop-shadow(0 0 25px #ff66ff);}
+  50%{filter:drop-shadow(0 0 28px #ff66ff);}
   100%{filter:drop-shadow(0 0 12px hotpink);}
 }
 
-/* Petals */
+/* PETALS */
 .petals{
   position:absolute;
   width:12px;height:12px;
@@ -100,22 +98,23 @@ body{
   100%{transform:translateY(500px) rotate(360deg);}
 }
 
-/* Cake */
+/* CAKE */
 #cake{
-  width:220px;
+  width:240px;
   margin-top:30px;
   transform:scale(0);
   transition:.7s ease;
-  filter:drop-shadow(0 0 18px white);
+  filter:drop-shadow(0 0 25px white);
   cursor:pointer;
 }
 #cake.show{ transform:scale(1); }
 
-/* Final Stage */
+/* FINAL STAGE */
 #finalStage{
   flex-direction:column;
   background:linear-gradient(180deg,#0d0d0d,#1a001a);
   overflow-y:auto;
+  align-items:center;
 }
 #letterBox{
   width:90%;max-width:650px;margin:20px auto;padding:20px;font-size:18px;
@@ -134,11 +133,11 @@ body{
 }
 .gallery img{
   width:260px;height:330px;object-fit:cover;border-radius:16px;
-  box-shadow:0 0 15px rgba(255,50,150,0.4);
+  box-shadow:0 0 20px rgba(255,50,150,0.6);
   animation: glowPulse 3s infinite ease-in-out;
 }
-.gallery img.special{ width:320px;height:380px; box-shadow:0 0 25px #ff66ff; } /* special eye photo */
-.gallery img.pic2{ filter:brightness(1.2) drop-shadow(0 0 20px #ff99ff); }
+.gallery img.special{ width:320px;height:380px; box-shadow:0 0 35px #ff66ff; }
+.gallery img.pic2{ width:360px;height:440px; filter:brightness(1.3) drop-shadow(0 0 30px #ff99ff);}
 </style>
 </head>
 <body>
@@ -179,7 +178,7 @@ const envelope=document.getElementById("envelope");
 const bgm=document.getElementById("bgm");
 const cake=document.getElementById("cake");
 
-// --- PAGE 1: Tap Envelope ---
+// --- PAGE 1 ---
 envelope.onclick=()=>{
   bgm.play().catch(()=>{});
   page1.classList.remove("active");
@@ -187,7 +186,7 @@ envelope.onclick=()=>{
   setTimeout(initTree,500);
 }
 
-// --- TREE SETUP ---
+// --- TREE ---
 const canvas=document.getElementById("treeCanvas");
 const ctx=canvas.getContext("2d");
 function resizeCanvas(){
@@ -201,25 +200,25 @@ const leafLayer=document.getElementById("treeContainer");
 // Draw trunk
 function drawTrunk(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.lineWidth=26;
+  ctx.lineWidth=28;
   ctx.strokeStyle="#ff33cc";
   ctx.beginPath();
   ctx.moveTo(canvas.width/2,canvas.height);
-  ctx.bezierCurveTo(canvas.width/2-40,canvas.height*.7,canvas.width/2-30,canvas.height*.4,canvas.width/2,canvas.height*.2);
+  ctx.bezierCurveTo(canvas.width/2-50,canvas.height*0.7,canvas.width/2-30,canvas.height*0.4,canvas.width/2,canvas.height*0.2);
   ctx.stroke();
 }
 
 // Draw branches
 function drawBranches(){
-  ctx.lineWidth=12;
+  ctx.lineWidth=14;
   ctx.strokeStyle="#ff66ff";
   ctx.beginPath();
-  ctx.moveTo(canvas.width/2,canvas.height*.2);
-  ctx.bezierCurveTo(canvas.width/2-140,canvas.height*.1,canvas.width/2-60,canvas.height*.03,canvas.width/2,canvas.height*.15);
+  ctx.moveTo(canvas.width/2,canvas.height*0.2);
+  ctx.bezierCurveTo(canvas.width/2-180,canvas.height*0.1,canvas.width/2-80,canvas.height*0.02,canvas.width/2,canvas.height*0.15);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(canvas.width/2,canvas.height*.2);
-  ctx.bezierCurveTo(canvas.width/2+140,canvas.height*.1,canvas.width/2+60,canvas.height*.03,canvas.width/2,canvas.height*.15);
+  ctx.moveTo(canvas.width/2,canvas.height*0.2);
+  ctx.bezierCurveTo(canvas.width/2+180,canvas.height*0.1,canvas.width/2+80,canvas.height*0.02,canvas.width/2,canvas.height*0.15);
   ctx.stroke();
 }
 
@@ -227,26 +226,26 @@ function drawBranches(){
 function createLeaves(){
   const colors=["#ff4fa6","#ff8bd5","#ff66cc","#ff99ff"];
   const cx=canvas.width/2;
-  const cy=canvas.height*.15;
-  for(let i=0;i<150;i++){
+  const cy=canvas.height*0.15;
+  for(let i=0;i<200;i++){
     let leaf=document.createElement("div");
     leaf.className="leaf";
     leaf.style.background=colors[Math.floor(Math.random()*colors.length)];
     let angle=Math.random()*Math.PI*2;
-    let r=150*(0.4+Math.random()*0.6);
+    let r=180*(0.4+Math.random()*0.6);
     leaf.style.left=(cx+r*Math.cos(angle))+"px";
-    leaf.style.top=(cy+r*Math.sin(angle))+"px";
+    leaf.style.top=(cy+r*Math.sin(angle*1.1))+"px";
     leafLayer.appendChild(leaf);
-    setTimeout(()=>leaf.classList.add("grow"),200+i*20);
+    setTimeout(()=>leaf.classList.add("grow"),200+i*15);
   }
 }
 
 // Falling petals
-for(let i=0;i<25;i++){
+for(let i=0;i<30;i++){
   let p=document.createElement("div");
   p.className="petals";
   p.style.left=Math.random()*window.innerWidth+"px";
-  p.style.animationDuration=(3+Math.random()*2)+"s";
+  p.style.animationDuration=(3+Math.random()*3)+"s";
   p.style.animationDelay=(Math.random()*5)+"s";
   document.body.appendChild(p);
 }
@@ -255,7 +254,6 @@ function initTree(){
   drawTrunk();
   drawBranches();
   createLeaves();
-  // show cake after tree
   setTimeout(()=>cake.classList.add("show"),2000);
 }
 
