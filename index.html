@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Lakshtu 💖</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #ff4f9a;
+            --secondary: #667eea;
+            --accent: #764ba2;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --success: #38b2ac;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            padding: 20px;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .loading-screen {
+            background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .loader-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 6px solid transparent;
+            border-radius: 50%;
+            animation: loaderSpin 2s linear infinite;
+            border-top-color: var(--light);
+        }
+
+        .loader-circle:nth-child(2) {
+            animation-delay: 0.5s;
+            border-top-color: var(--primary);
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+        }
+
+        .loader-circle:nth-child(3) {
+            animation-delay: 1s;
+            border-top-color: var(--success);
+            width: 50%;
+            height: 50%;
+            top: 25%;
+            left: 25%;
+        }
+
+        @keyframes loaderSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: var(--light);
+            font-size: 1.4rem;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: textPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Stages */
+        .stage {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100%;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .stage.active {
+            display: flex;
+            animation: stageEnter 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes stageEnter {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stage 1: Envelope */
+        .stage-title {
+            color: var(--light);
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: titleEnter 0.8s 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes titleEnter {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .envelope-container {
+            position: relative;
+            width: 400px;
+            height: 280px;
+            cursor: pointer;
+            perspective: 1000px;
+            margin: 30px 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: var(--transition);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .envelope:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope-top {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 140px solid #ff66cc;
+            top: 0;
+            z-index: 3;
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .envelope.open .envelope-top {
+            transform: rotateX(180deg);
+        }
+
+        .envelope-bottom {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #ff4f9a, #ff3399);
+            border-radius: 15px;
+            bottom: 0;
+            z-index: 1;
+            box-shadow: 0 20px 60px rgba(255, 79, 154, 0.4);
+        }
+
+        .letter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 360px;
+            background: linear-gradient(145deg, var(--light), #f8f9fa);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px) scale(0.9);
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 0;
+        }
+
+        .envelope.open .letter {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-200px) scale(1);
+        }
+
+        .letter-content {
+            text-align: center;
+            color: #333;
+        }
+
+        .letter-content h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+
+        .letter-content p {
+            font-size: 1.3rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Stage 2: Tree */
+        .tree-container {
+            width: 400px;
+            height: 500px;
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .tree {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .trunk {
+            width: 30px;
+            height: 200px;
+            background: linear-gradient(to right, #8b4513, #a0522d);
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        .branches {
+            position: absolute;
+            bottom: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(145deg, #228B22, #32CD32);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .leaf {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0;
+            transform: scale(0) rotate(0deg);
+            animation: leafGrow 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        @keyframes leafGrow {
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
+        .cake-container {
+            position: relative;
+            margin-top: 40px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .cake {
+            width: 200px;
+            animation: cakeFloat 3s ease-in-out infinite;
+            transition: var(--transition);
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes cakeFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(2deg); }
+        }
+
+        .cake:hover {
+            transform: scale(1.15) rotate(-5deg);
+            animation-play-state: paused;
+        }
+
+        /* Stage 3: Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .message-box {
+            max-width: 800px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.98));
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
+            margin: 40px 20px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .message-box {
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.95), rgba(40, 40, 60, 0.98));
+            color: var(--light);
+        }
+
+        .message-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .typing-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #333;
+            min-height: 300px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        body.dark-mode .typing-text {
+            color: #e2e8f0;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 4px;
+            height: 1.4em;
+            background: var(--primary);
+            margin-left: 4px;
+            vertical-align: middle;
+            animation: blink 0.8s infinite;
+            border-radius: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: var(--light);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 33.33%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        /* Particle System */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 50%;
+        }
+
+        .heart-particle {
+            font-size: 24px;
+            animation: heartFall linear forwards;
+        }
+
+        @keyframes heartFall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 50px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .dot:hover {
+            transform: scale(1.3);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .dot.active {
+            background: var(--light);
+            transform: scale(1.4);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Instruction Text */
+        .instruction {
+            color: var(--light);
+            font-size: 1.3rem;
+            margin-top: 30px;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            animation: instructionPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes instructionPulse {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 800px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stage-title {
+                font-size: 2.2rem;
+                margin-bottom: 30px;
+            }
+
+            .envelope-container {
+                width: 320px;
+                height: 224px;
+            }
+
+            .envelope-top {
+                border-left: 160px solid transparent;
+                border-right: 160px solid transparent;
+                border-bottom: 112px solid #ff66cc;
+            }
+
+            .letter {
+                width: 300px;
+                padding: 30px;
+            }
+
+            .tree-container {
+                width: 320px;
+                height: 400px;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .message-box {
+                padding: 30px;
+                margin: 20px;
+            }
+
+            .controls {
+                top: 20px;
+                right: 20px;
+            }
+
+            .control-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+
+            .nav-dots {
+                bottom: 20px;
+                padding: 12px 25px;
+            }
+
+            .progress-container {
+                width: 250px;
+                top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stage-title {
+                font-size: 1.8rem;
+            }
+
+            .envelope-container {
+                width: 280px;
+                height: 196px;
+            }
+
+            .envelope-top {
+                border-left: 140px solid transparent;
+                border-right: 140px solid transparent;
+                border-bottom: 98px solid #ff66cc;
+            }
+
+            .letter {
+                width: 260px;
+                padding: 25px;
+            }
+
+            .tree-container {
+                width: 280px;
+                height: 350px;
+            }
+
+            .cake {
+                width: 160px;
+            }
+
+            .gallery-item {
+                height: 300px;
+            }
+
+            .typing-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+        </div>
+        <div class="loading-text">Creating Magic for Lakshtu...</div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button class="control-btn" id="musicToggle" title="Toggle Music (M)">
+            <i class="fas fa-music"></i>
+        </button>
+        <button class="control-btn" id="themeToggle" title="Toggle Theme (T)">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="dot active" data-stage="1" title="Stage 1: Envelope"></div>
+        <div class="dot" data-stage="2" title="Stage 2: Birthday Tree"></div>
+        <div class="dot" data-stage="3" title="Stage 3: Gallery & Message"></div>
+    </div>
+
+    <!-- Stage 1: Envelope -->
+    <div class="stage active" id="stage1">
+        <h1 class="stage-title">Tap the Envelope to Begin Your Journey 💌</h1>
+        <div class="envelope-container" id="envelopeContainer">
+            <div class="envelope" id="envelope">
+                <div class="envelope-top"></div>
+                <div class="envelope-bottom"></div>
+                <div class="letter">
+                    <div class="letter-content">
+                        <h2>For My Dearest Lakshtu 💖</h2>
+                        <p>A magical journey filled with love and surprises awaits you! Are you ready to explore?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="instruction">Click or tap the envelope to open it</div>
+    </div>
+
+    <!-- Stage 2: Tree -->
+    <div class="stage" id="stage2">
+        <h1 class="stage-title">Your Blossoming Birthday Tree 🌸</h1>
+        <div class="tree-container" id="treeContainer">
+            <div class="tree">
+                <div class="trunk"></div>
+                <div class="branches"></div>
+            </div>
+        </div>
+        <div class="cake-container" id="cakeContainer">
+            <img src="cake.jpg" alt="Birthday Cake" class="cake" id="cake">
+        </div>
+        <div class="instruction">Make a wish and blow the candles! 🎂</div>
+    </div>
+
+    <!-- Stage 3: Final -->
+    <div class="stage" id="stage3">
+        <h1 class="stage-title">Happy Birthday Lakshtu! 🎉✨</h1>
+        
+        <div class="gallery" id="gallery">
+            <div class="gallery-item">
+                <img src="pic_one.jpg" alt="Beautiful Memory 1">
+            </div>
+            <div class="gallery-item">
+                <img src="pic_two.jpg" alt="Beautiful Memory 2">
+            </div>
+            <div class="gallery-item">
+                <img src="pic_three.png" alt="Beautiful Memory 3">
+            </div>
+        </div>
+
+        <div class="message-box">
+            <div class="typing-text" id="typingText"></div>
+            <span class="cursor" id="cursor"></span>
+        </div>
+
+        <div class="instruction">Scroll to read the full message • Double tap to skip typing</div>
+    </div>
+
+    <!-- Audio for background music -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const loadingScreen = document.getElementById('loadingScreen');
+            const envelopeContainer = document.getElementById('envelopeContainer');
+            const envelope = document.getElementById('envelope');
+            const cakeContainer = document.getElementById('cakeContainer');
+            const cake = document.getElementById('cake');
+            const typingText = document.getElementById('typingText');
+            const cursor = document.getElementById('cursor');
+            const musicToggle = document.getElementById('musicToggle');
+            const themeToggle = document.getElementById('themeToggle');
+            const bgMusic = document.getElementById('bgMusic');
+            const stages = document.querySelectorAll('.stage');
+            const dots = document.querySelectorAll('.dot');
+            const progressBar = document.getElementById('progressBar');
+            const treeContainer = document.getElementById('treeContainer');
+            
+            // State variables
+            let currentStage = 1;
+            let isMusicPlaying = false;
+            let isDarkMode = false;
+            let isTyping = false;
+
+            // Birthday message
+            const message = `My Dearest Lakshtu,
+
+On this special day that celebrates your existence, I want to pour my heart out and tell you just how extraordinary you are. From the moment you came into my life, everything has been brighter, more beautiful, and filled with meaning.
+
+✨ Your smile is like sunrise after the darkest night - it warms my soul and gives me hope.
+✨ Your laughter is my favorite symphony, a melody that plays on repeat in my heart.
+✨ Your kindness touches everyone around you, leaving traces of love wherever you go.
+✨ Your strength inspires me to be better, to dream bigger, to love deeper.
+
+Every memory with you is a treasure I hold close:
+• The quiet moments of understanding without words
+• The adventures that filled our hearts with joy
+• The challenges we faced together, stronger as one
+• The dreams we've woven into our shared future
+
+Today, as we celebrate YOU, I wish for you:
+🎁 Infinite happiness that grows with each passing day
+🎁 Health that keeps you vibrant and full of life
+🎁 Success in all your endeavors, big and small
+🎁 Love that surrounds you always
+🎁 Dreams that take flight and become your reality
+🎁 Peace that settles deep within your soul
+🎁 Adventure that keeps your spirit young
+🎁 Magic in the ordinary moments
+
+You deserve the universe and more, my love. May this birthday be the beginning of your most incredible year yet - a year where all your hopes blossom, all your plans succeed, and all your heart's desires come true.
+
+Thank you for being you - beautifully, authentically, wonderfully YOU.
+
+Happy Birthday, my darling Lakshtu! 
+May your day be as bright and beautiful as you are.
+
+With all my love, today and always,
+Forever yours... 💖`;
+
+            // Initialize
+            function init() {
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        startHeartAnimation();
+                        updateProgressBar();
+                    }, 800);
+                }, 2000);
+            }
+
+            // Envelope interaction
+            envelopeContainer.addEventListener('click', () => {
+                envelope.classList.add('open');
+                
+                setTimeout(() => {
+                    switchStage(2);
+                    createLeaves();
+                    playMusic();
+                    updateProgressBar();
+                }, 1500);
+            });
+
+            // Cake interaction
+            cakeContainer.addEventListener('click', () => {
+                // Candle blow effect
+                createCandleEffect();
+                
+                setTimeout(() => {
+                    switchStage(3);
+                    startTypingEffect();
+                    updateProgressBar();
+                }, 2000);
+            });
+
+            // Stage switching
+            function switchStage(stageNumber) {
+                // Animate current stage out
+                const currentStageEl = document.getElementById(`stage${currentStage}`);
+                currentStageEl.style.opacity = '0';
+                currentStageEl.style.transform = 'translateY(-30px)';
+                
+                // Update dots
+                dots.forEach((dot, index) => {
+                    if (index + 1 === stageNumber) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+                
+                // Show new stage with animation
+                setTimeout(() => {
+                    stages.forEach(stage => stage.classList.remove('active'));
+                    const newStage = document.getElementById(`stage${stageNumber}`);
+                    newStage.classList.add('active');
+                    
+                    // Reset animation
+                    newStage.style.opacity = '0';
+                    newStage.style.transform = 'translateY(30px)';
+                    
+                    setTimeout(() => {
+                        newStage.style.opacity = '1';
+                        newStage.style.transform = 'translateY(0)';
+                    }, 50);
+                    
+                    currentStage = stageNumber;
+                }, 600);
+            }
+
+            // Typing effect
+            function startTypingEffect() {
+                if (isTyping) return;
+                
+                isTyping = true;
+                let index = 0;
+                typingText.textContent = '';
+                cursor.style.display = 'inline-block';
+                
+                function typeCharacter() {
+                    if (index < message.length) {
+                        const char = message.charAt(index);
+                        typingText.textContent += char;
+                        index++;
+                        
+                        // Scroll to keep cursor visible
+                        typingText.parentElement.scrollTop = typingText.scrollHeight;
+                        
+                        // Variable typing speed
+                        let speed = 30;
+                        if (char === '\n') speed = 150;
+                        if (char === ' ') speed = 20;
+                        if (['.', '!', '?'].includes(char)) speed = 300;
+                        
+                        // Random variation
+                        speed += Math.random() * 40 - 20;
+                        
+                        setTimeout(typeCharacter, speed);
+                    } else {
+                        cursor.style.display = 'none';
+                        isTyping = false;
+                        createConfetti();
+                    }
+                }
+                
+                typeCharacter();
+            }
+
+            // Heart animation
+            function startHeartAnimation() {
+                // Create hearts occasionally
+                setInterval(() => {
+                    if (Math.random() > 0.7) {
+                        createHeart();
+                    }
+                }, 1000);
+            }
+
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.className = 'particle heart-particle';
+                heart.innerHTML = '❤️';
+                
+                // Random position
+                heart.style.left = `${Math.random() * 100}%`;
+                
+                // Random size
+                const size = Math.random() * 20 + 15;
+                heart.style.fontSize = `${size}px`;
+                
+                // Random animation duration
+                const duration = Math.random() * 3 + 2;
+                heart.style.animationDuration = `${duration}s`;
+                
+                // Random color
+                const hue = Math.floor(Math.random() * 30) + 330;
+                heart.style.color = `hsl(${hue}, 100%, 70%)`;
+                
+                document.body.appendChild(heart);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    heart.remove();
+                }, duration * 1000);
+            }
+
+            // Create leaves on tree
+            function createLeaves() {
+                // Remove existing leaves
+                document.querySelectorAll('.leaf').forEach(leaf => leaf.remove());
+                
+                // Create new leaves
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        const leaf = document.createElement('div');
+                        leaf.className = 'leaf';
+                        
+                        // Random position
+                        const angle = Math.random() * Math.PI * 2;
+                        const radius = Math.random() * 120 + 40;
+                        const x = 200 + Math.cos(angle) * radius;
+                        const y = 200 + Math.sin(angle) * radius;
+                        
+                        leaf.style.left = `${x}px`;
+                        leaf.style.top = `${y}px`;
+                        
+                        // Size and rotation
+                        const size = Math.random() * 15 + 25;
+                        leaf.style.width = `${size}px`;
+                        leaf.style.height = `${size}px`;
+                        
+                        // Color variation
+                        const hue = Math.floor(Math.random() * 40) + 320;
+                        leaf.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
+                        
+                        // Individual animation delay
+                        leaf.style.animationDelay = `${Math.random() * 2}s`;
+                        
+                        treeContainer.appendChild(leaf);
+                    }, i * 50);
+                }
+            }
+
+            // Candle blow effect
+            function createCandleEffect() {
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        // Create flame effect
+                        const flame = document.createElement('div');
+                        flame.style.position = 'absolute';
+                        flame.style.width = '10px';
+                        flame.style.height = '20px';
+                        flame.style.background = 'linear-gradient(to top, orange, yellow)';
+                        flame.style.borderRadius = '50% 50% 20% 20%';
+                        flame.style.left = `${Math.random() * 150 + 25}px`;
+                        flame.style.top = '0';
+                        
+                        // Add to cake container
+                        cakeContainer.appendChild(flame);
+                        
+                        // Animate flame out
+                        flame.animate([
+                            { opacity: 1, transform: 'scale(1)' },
+                            { opacity: 0, transform: 'scale(0) translateY(-20px)' }
+                        ], {
+                            duration: 500,
+                            easing: 'ease-out'
+                        });
+                        
+                        // Remove after animation
+                        setTimeout(() => flame.remove(), 500);
+                    }, i * 100);
+                }
+            }
+
+            // Confetti effect
+            function createConfetti() {
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        createHeart();
+                    }, i * 50);
+                }
+            }
+
+            // Update progress bar
+            function updateProgressBar() {
+                const progress = (currentStage / 3) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+
+            // Music control
+            function toggleMusic() {
+                if (isMusicPlaying) {
+                    bgMusic.pause();
+                    musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+                } else {
+                    bgMusic.volume = 0.6;
+                    bgMusic.play().catch(e => {
+                        console.log("Autoplay prevented");
+                    });
+                    musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }
+                isMusicPlaying = !isMusicPlaying;
+            }
+
+            // Theme toggle
+            function toggleTheme() {
+                isDarkMode = !isDarkMode;
+                document.body.classList.toggle('dark-mode');
+                
+                if (isDarkMode) {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            }
+
+            // Play music
+            function playMusic() {
+                if (!isMusicPlaying) {
+                    bgMusic.volume = 0.6;
+                    bgMusic.play().then(() => {
+                        isMusicPlaying = true;
+                        musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    }).catch(e => {
+                        console.log("Autoplay prevented, waiting for user interaction");
+                    });
+                }
+            }
+
+            // Event listeners
+            musicToggle.addEventListener('click', toggleMusic);
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // Navigation dots interaction
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const stage = parseInt(dot.dataset.stage);
+                    if (stage !== currentStage) {
+                        switchStage(stage);
+                        updateProgressBar();
+                    }
+                });
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                switch(e.key.toLowerCase()) {
+                    case 'arrowright':
+                    case ' ':
+                        if (currentStage === 1) envelopeContainer.click();
+                        else if (currentStage === 2) cakeContainer.click();
+                        break;
+                    case 'arrowleft':
+                        if (currentStage > 1) switchStage(currentStage - 1);
+                        break;
+                    case 'm':
+                        toggleMusic();
+                        break;
+                    case 't':
+                        toggleTheme();
+                        break;
+                }
+            });
+
+            // Mobile swipe support
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            document.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            document.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    // Swipe left - go forward
+                    if (currentStage === 1) envelopeContainer.click();
+                    else if (currentStage === 2) cakeContainer.click();
+                }
+                
+                if (touchEndX > touchStartX + swipeThreshold) {
+                    // Swipe right - go back
+                    if (currentStage > 1) switchStage(currentStage - 1);
+                }
+            }
+
+            // Double tap to skip typing
+            let lastTap = 0;
+            document.addEventListener('touchend', (e) => {
+                const currentTime = Date.now();
+                const tapLength = currentTime - lastTap;
+                
+                if (tapLength < 300 && tapLength > 0) {
+                    // Double tap detected
+                    if (currentStage === 3 && isTyping) {
+                        typingText.textContent = message;
+                        cursor.style.display = 'none';
+                        isTyping = false;
+                        createConfetti();
+                    }
+                }
+                
+                lastTap = currentTime;
+            });
+
+            // Auto-play music on first interaction
+            document.addEventListener('click', () => {
+                if (!isMusicPlaying && bgMusic.paused) {
+                    toggleMusic();
+                }
+            }, { once: true });
+
+            // Initialize everything
+            init();
+            
+            // Add initial hearts
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => createHeart(), i * 200);
+            }
+        });
+    </script>
+</body>
+</html>
