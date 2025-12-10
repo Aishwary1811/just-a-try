@@ -1,546 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Happy Birthday Lakshtu 💖</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>For You 💖</title>
 <style>
-  :root{
-    --accent:#ff4f9a;
-    --peach:#ffb88c;
-    --muted:#63414a;
-    --bg1:#fff6f3;
-    --bg2:#ffeef9;
-    --card:#fff7f9;
-    --leaf1:#ff4f9a;
-    --leaf2:#ff8bbb;
-    --petal:#ffd6e1;
-  }
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-    background:linear-gradient(160deg,var(--bg1),var(--bg2));
-    color:var(--muted);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:30px;
-    transition:background 0.6s,color 0.6s;
-  }
-  body.night{
-    background: radial-gradient(circle at 20% 10%, #1f1740 0%, #0b0720 55%, #000010 100%);
-    color:#f0eaf8;
-  }
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Poppins, sans-serif;
+  background: linear-gradient(160deg,#ffe8f4,#fff0fa);
+  transition: .5s ease;
+  text-align: center;
+}
 
-  .container{
-    width:100%;
-    max-width:980px;
-    background:var(--card);
-    border-radius:18px;
-    padding:18px;
-    box-shadow:0 24px 60px rgba(120,50,80,0.06);
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    align-items:center;
-    transition:background 0.6s,box-shadow 0.6s;
-  }
+/* Dark mode background */
+.dark {
+  background: #0d0d0d;
+  color: white;
+}
 
-  .controls{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;}
-  .title{display:flex;align-items:center;gap:10px;}
-  .title h1{margin:0;font-size:20px;color:var(--accent);letter-spacing:0.2px}
-  .btn{background:linear-gradient(180deg,var(--peach),var(--accent));color:white;border:none;padding:10px 14px;border-radius:999px;font-weight:700;cursor:pointer;box-shadow:0 10px 28px rgba(255,90,140,0.12);transition:transform .15s,box-shadow .2s}
-  .btn:active{transform:translateY(1px)}
-  .small{padding:8px 10px;font-size:13px;border-radius:10px;background:#222;color:#fff;opacity:0.9;border:none;cursor:pointer}
-  .small:active{transform:translateY(1px)}
+h1 {
+  color: #ff4f9a;
+  transition: .4s ease;
+}
+.dark h1 {
+  color: #ff87d6;
+}
 
-  /* SCENE */
-  .scene{width:100%;max-width:900px;height:560px;position:relative;display:flex;align-items:center;justify-content:center;border-radius:14px;overflow:hidden}
-  #treeCanvas{position:absolute;left:0;top:0;width:100%;height:100%;z-index:1;pointer-events:none;filter:drop-shadow(0 0 14px rgba(255,180,200,0.35));transition:filter 0.6s}
-  body.night #treeCanvas{filter:drop-shadow(0 0 18px rgba(180,140,255,0.35))}
+/* Night mode button */
+#toggleMode {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ff4f9a;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 0 10px rgba(255,0,100,0.4);
+  transition: .3s ease;
+}
+.dark #toggleMode {
+  background: #ff87d6;
+}
 
-  /* overlays */
-  .overlay{position:absolute;left:0;top:0;width:100%;height:100%;z-index:4;pointer-events:none}
-  #leafLayer,#petalLayer,#starLayer{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:5}
+/* Gallery */
+.gallery {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-  /* stage center items */
-  .stage-center{position:absolute;left:50%;top:62%;transform:translate(-50%,-50%);display:flex;gap:16px;align-items:center;z-index:6;pointer-events:none}
-  .stage-item{width:320px;max-width:40%;border-radius:12px;cursor:pointer;box-shadow:0 26px 68px rgba(0,0,0,0.12);transition:transform .35s;pointer-events:auto;background:#fff;display:flex;align-items:center;justify-content:center}
-  .stage-item img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
-  #envelope{box-shadow:0 12px 36px rgba(255,90,150,0.15)}
-  .help{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:9;font-size:13px;color:var(--muted);pointer-events:none}
+.gallery img {
+  width: 260px;
+  height: 330px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(255,50,150,0.4);
+  animation: glowPulse 3s infinite ease-in-out;
+  transition: .4s ease;
+}
 
-  /* final panel & gallery */
-  .final-panel{position:absolute;right:18px;top:18px;width:360px;max-width:40%;background:linear-gradient(180deg,#fff7f9,#fff2f6);border-radius:12px;padding:14px;z-index:9;box-shadow:0 20px 48px rgba(255,150,190,0.08);pointer-events:auto;display:none}
-  body.night .final-panel{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02))}
-  .typewriter{white-space:pre-wrap;font-weight:500;font-size:15px;color:var(--muted)}
-  .gallery{margin-top:12px;display:none}
-  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-  .gallery-grid img{width:100%;height:82px;object-fit:cover;border-radius:10px}
+/* Dark mode photo glow */
+.dark .gallery img {
+  box-shadow: 0 0 25px hotpink;
+}
 
-  /* leaf hearts */
-  .leaf-heart{position:absolute;width:28px;height:28px;transform:translate(-50%,-50%) scale(0);opacity:0;transition:0.8s cubic-bezier(.21,1.18,.57,1.01);animation:floatUp 4s infinite ease-in-out;filter:drop-shadow(0 0 6px rgba(255,120,180,0.85));pointer-events:none;border-radius:6px}
-  .leaf-heart::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:var(--heartColor);clip-path:polygon(50% 0%,61% 7%,72% 17%,80% 28%,85% 40%,87% 52%,86% 63%,82% 72%,75% 81%,66% 88%,56% 93%,50% 95%,44% 93%,34% 88%,25% 81%,18% 72%,14% 63%,13% 52%,15% 40%,20% 28%,28% 17%,39% 7%);box-shadow:0 0 8px rgba(255,150,190,0.9),0 0 14px rgba(255,130,170,0.8)}
-  .leaf-heart.bloom{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
-  @keyframes floatUp{0%{transform:translate(-50%,-50%) translateY(0) scale(1)}50%{transform:translate(-50%,-50%) translateY(-6px) scale(1)}100%{transform:translate(-50%,-50%) translateY(0) scale(1)}}
+/* Glow animation */
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 12px rgba(255,50,150,0.4); }
+  50% { box-shadow: 0 0 20px rgba(255,50,180,0.7); }
+  100% { box-shadow: 0 0 12px rgba(255,50,150,0.4); }
+}
 
-  /* petals */
-  .petal{position:absolute;width:18px;height:18px;background:var(--petal);opacity:0.85;border-radius:60% 40% 60% 40%;filter:drop-shadow(0 0 8px rgba(255,170,200,0.8));animation:fall linear infinite}
-  @keyframes fall{0%{transform:translateY(-40px) rotate(0deg)}100%{transform:translateY(620px) rotate(360deg)}}
+/* Letter box */
+#letterBox {
+  width: 90%;
+  max-width: 650px;
+  margin: auto;
+  padding: 20px;
+  font-size: 18px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(255,120,160,0.2);
+  margin-top: 20px;
+  white-space: pre-wrap;
+  color: black;
+  transition: .5s ease;
+}
 
-  /* confetti canvas (above overlays) */
-  #confettiCanvas{position:absolute;left:0;top:0;width:100%;height:100%;z-index:12;pointer-events:none}
+/* dark mode box */
+.dark #letterBox {
+  background: #1a1a1a;
+  color: #ffd8f2;
+  box-shadow: 0 0 20px rgba(255,0,150,0.4);
+}
 
-  /* stars (night) */
-  .star{position:absolute;width:3px;height:3px;background:white;border-radius:50%;animation:twinkle 2s infinite ease-in-out;opacity:0.85}
-  @keyframes twinkle{0%{opacity:0.1;transform:scale(0.8)}50%{opacity:1;transform:scale(1.5)}100%{opacity:0.1;transform:scale(0.8)}}
-  #starLayer{display:none}
-  body.night #starLayer{display:block}
+/* Cursor */
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 20px;
+  background: #ff4f9a;
+  animation: blink 1s infinite;
+}
+.dark .cursor {
+  background: #ff87d6;
+}
 
-  /* music control */
-  .music-control{display:flex;gap:8px;align-items:center}
-  .music-control button{padding:8px 10px;border-radius:8px;border:none;background:#fff;color:#222;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
-  body.night .music-control button{background:rgba(255,255,255,0.06);color:#fff}
-
-  /* responsive */
-  @media (max-width:900px){.stage-item{max-width:48%}.final-panel{display:none;right:12px;left:12px;top:auto;bottom:12px;width:calc(100% - 24px)}.gallery-grid img{height:70px}}
-  @media (max-width:520px){.scene{height:760px}.leaf-heart{width:26px;height:26px}.petal{width:14px;height:14px}}
+@keyframes blink {50%{opacity:0;}}
 </style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="controls">
-      <div class="title">
-        <h1>Happy Birthday Lakshtu 💖</h1>
-        <div style="font-size:13px;color:var(--muted)">Tap to reveal surprises</div>
-      </div>
 
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="music-control">
-          <button id="startBtn" class="btn">Start & Play Music</button>
-          <button id="playPause" class="small">⏸️</button>
-        </div>
-        <button id="nightBtn" class="small">🌙</button>
-      </div>
-    </div>
+<button id="toggleMode">Night Mode 🌙</button>
 
-    <!-- SCENE -->
-    <div class="scene" id="scene">
-      <canvas id="treeCanvas"></canvas>
-      <div id="leafLayer"></div>
-      <div id="petalLayer"></div>
-      <div id="starLayer"></div>
+<h1>Our Beautiful Memories 💗</h1>
 
-      <!-- confetti canvas -->
-      <canvas id="confettiCanvas"></canvas>
+<div class="gallery">
+  <img src="pic_one.jpg">
+  <img src="pic_two.jpg">
+  <img src="pic_three.png">
+</div>
 
-      <div class="stage-center" id="stageCenter" style="pointer-events:none">
-        <div id="envelope" class="stage-item" style="pointer-events:auto"><img src="envelope.png" alt="envelope"></div>
-        <div id="cake" class="stage-item" style="display:none;pointer-events:auto"><img src="cake.jpg" alt="cake"></div>
-        <div id="gift" class="stage-item" style="display:none;pointer-events:auto; background:linear-gradient(180deg,#fff3e6,#ffd6b3);font-weight:800;color:#7a3b54">Open Gift</div>
-      </div>
-
-      <div class="help" id="helpLabel">Tap the envelope 💌</div>
-
-      <div class="final-panel" id="finalPanel" aria-hidden="true">
-        <div id="typed" class="typewriter"></div>
-        <div class="gallery" id="gallery">
-          <h3 style="margin:10px 0 8px 0;color:var(--accent)">Our Beautiful Moments 💗</h3>
-          <div class="gallery-grid">
-            <img src="pic_three.png" alt="pic three">
-            <img src="pic_one.jpg" alt="pic one">
-            <img src="pic_two.jpg" alt="pic two">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <audio id="bgm" src="song.mp3" preload="auto" loop></audio>
-  </div>
+<div id="letterBox"></div><span class="cursor"></span>
 
 <script>
-/* ----------------------
-   Refs
----------------------- */
-const startBtn = document.getElementById('startBtn');
-const playPause = document.getElementById('playPause');
-const nightBtn = document.getElementById('nightBtn');
-const envelope = document.getElementById('envelope');
-const cake = document.getElementById('cake');
-const gift = document.getElementById('gift');
-const helpLabel = document.getElementById('helpLabel');
-const leafLayer = document.getElementById('leafLayer');
-const petalLayer = document.getElementById('petalLayer');
-const starLayer = document.getElementById('starLayer');
-const finalPanel = document.getElementById('finalPanel');
-const typed = document.getElementById('typed');
-const gallery = document.getElementById('gallery');
-const bgm = document.getElementById('bgm');
-const confettiCanvas = document.getElementById('confettiCanvas');
-const scene = document.getElementById('scene');
-const canvas = document.getElementById('treeCanvas');
-const ctx = canvas.getContext('2d');
+// Typewriter text
+let msg = `My sweet love,
 
-/* ---------- canvas sizing ---------- */
-function resizeAll(){
-  // tree canvas
-  const rect = scene.getBoundingClientRect();
-  canvas.width = rect.width;
-  canvas.height = rect.height;
-  canvas.style.width = rect.width+'px';
-  canvas.style.height = rect.height+'px';
-  // confetti canvas
-  confettiCanvas.width = rect.width;
-  confettiCanvas.height = rect.height;
-}
-window.addEventListener('resize', debounce(resizeAll, 120));
-resizeAll();
+You make my life brighter just by being in it.
+Your smile, your voice, the way you talk — everything feels magical.
 
-/* ----------------------
-   Draw trunk & branches
----------------------- */
-function drawTrunk(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  const W = canvas.width;
-  const H = canvas.height;
+Thank you for choosing me, caring for me,
+and making my heart feel safe.
 
-  // trunk base (two strokes for depth)
-  ctx.lineCap = 'round';
-  ctx.beginPath();
-  ctx.moveTo(W/2, H);
-  ctx.bezierCurveTo(W/2-40, H*0.7, W/2-35, H*0.45, W/2-10, H*0.30);
-  ctx.lineWidth = Math.max(18, Math.round(W*0.036));
-  ctx.strokeStyle = '#5a3522';
-  ctx.stroke();
+On your special day, I want you to know:
 
-  ctx.beginPath();
-  ctx.moveTo(W/2, H);
-  ctx.bezierCurveTo(W/2+40, H*0.7, W/2+35, H*0.45, W/2+10, H*0.30);
-  ctx.lineWidth = Math.max(18, Math.round(W*0.032));
-  ctx.strokeStyle = '#4b2b1a';
-  ctx.stroke();
+You are precious.
+You are loved.
+You are my favourite person.
 
-  // branches
-  ctx.lineWidth = Math.max(10, Math.round(W*0.02));
-  ctx.strokeStyle = '#734b32';
-  ctx.beginPath();
-  ctx.moveTo(W/2 - 10, H*0.30);
-  ctx.bezierCurveTo(W/2 - 140, H*0.10, W/2 - 60, H*0.02, W/2, H*0.18);
-  ctx.stroke();
+I love you more than words can ever explain. 💖✨`;
 
-  ctx.beginPath();
-  ctx.moveTo(W/2 + 10, H*0.30);
-  ctx.bezierCurveTo(W/2 + 140, H*0.10, W/2 + 60, H*0.02, W/2, H*0.18);
-  ctx.stroke();
-
-  // subtle canopy glow
-  const rad = ctx.createRadialGradient(W/2, H*0.16, 20, W/2, H*0.16, Math.min(W,H)*0.5);
-  rad.addColorStop(0, 'rgba(255,120,170,0.08)');
-  rad.addColorStop(1, 'rgba(255,120,170,0.0)');
-  ctx.fillStyle = rad;
-  ctx.beginPath();
-  ctx.ellipse(W/2,H*0.18, Math.min(W,H)*0.45, Math.min(W,H)*0.3, 0, 0, Math.PI*2);
-  ctx.fill();
-}
-
-/* ----------------------
-   Leaves (parametric-ish placement)
----------------------- */
-let leavesCreated = false;
-function createLeaves(count = 200){
-  if(leavesCreated) return;
-  leavesCreated = true;
-
-  const rect = scene.getBoundingClientRect();
-  const W = rect.width;
-  const H = rect.height;
-
-  const cx = W/2;
-  const cy = H*0.18;
-  const radius = Math.min(W,H)*0.22; // canopy radius
-
-  const colors = ['#ff4f9a','#ff8bbb','#ff6fd8','#ff9adb','#ff7aa5','#ffa07a','#ffd1e8'];
-
-  for(let i=0;i<count;i++){
-    // place using a softened heart formula (random t)
-    const t = Math.random()*Math.PI*2;
-    // parametric heart-ish base
-    const baseX = 16*Math.pow(Math.sin(t),3);
-    const baseY = 13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
-    // normalize by sampling range roughly
-    const scale = radius * (0.8 + Math.random()*0.7);
-    const x = cx + baseX * (scale/8) + (Math.random()-0.5)*radius*0.18;
-    const y = cy + baseY * (scale/12) + (Math.random()-0.5)*radius*0.28;
-
-    const leaf = document.createElement('div');
-    leaf.className = 'leaf-heart';
-    leaf.style.left = x + 'px';
-    leaf.style.top = y + 'px';
-    leaf.style.setProperty('--heartColor', colors[Math.floor(Math.random()*colors.length)]);
-    // occasional bigger leaf
-    if(Math.random() < 0.12) leaf.style.width = leaf.style.height = (32 + Math.random()*10) + 'px';
-    leafLayer.appendChild(leaf);
-
-    setTimeout(()=> leaf.classList.add('bloom'), 200 + i*18);
+let i = 0;
+function type() {
+  if (i < msg.length) {
+    document.getElementById("letterBox").textContent += msg[i];
+    i++;
+    setTimeout(type, 30);
   }
 }
+type();
 
-/* ----------------------
-   Petals (falling)
----------------------- */
-function createPetalLocal(){
-  const rect = scene.getBoundingClientRect();
-  const petal = document.createElement('div');
-  petal.className = 'petal';
-  const startX = Math.random()*rect.width;
-  const size = 10 + Math.random()*20;
-  petal.style.left = startX + 'px';
-  petal.style.width = size + 'px';
-  petal.style.height = (size * (0.85 + Math.random()*0.35)) + 'px';
-  petal.style.opacity = 0.6 + Math.random()*0.4;
-  petal.style.animationDuration = (3 + Math.random()*3) + 's';
-  // attach to petalLayer (which is limited to scene)
-  petalLayer.appendChild(petal);
-  // remove after duration
-  setTimeout(()=> petal.remove(), 7000);
-}
-let petalInterval = null;
-function startPetals(rate=260){ if(!petalInterval) petalInterval = setInterval(createPetalLocal, rate); }
-function stopPetals(){ if(petalInterval){ clearInterval(petalInterval); petalInterval = null; } }
-
-/* ----------------------
-   Stars (night)
----------------------- */
-function generateStars(){
-  starLayer.innerHTML = '';
-  const rect = scene.getBoundingClientRect();
-  for(let i=0;i<60;i++){
-    const s = document.createElement('div');
-    s.className = 'star';
-    s.style.left = Math.random()*rect.width + 'px';
-    s.style.top = Math.random()*rect.height*0.45 + 'px';
-    s.style.animationDelay = (Math.random()*2) + 's';
-    s.style.width = (1 + Math.random()*3) + 'px';
-    s.style.height = s.style.width;
-    starLayer.appendChild(s);
-  }
-}
-
-/* ----------------------
-   Confetti engine (simple)
----------------------- */
-const confettiCtx = confettiCanvas.getContext('2d');
-let confettiPieces = [];
-function resizeConfetti(){ confettiCanvas.width = scene.clientWidth; confettiCanvas.height = scene.clientHeight; }
-window.addEventListener('resize', debounce(resizeConfetti,120));
-resizeConfetti();
-
-function spawnConfetti(xRange){
-  confettiPieces = [];
-  const W = confettiCanvas.width;
-  const H = confettiCanvas.height;
-  const count = 90;
-  for(let i=0;i<count;i++){
-    confettiPieces.push({
-      x: (W/2) + (Math.random()-0.5)*xRange,
-      y: H*0.35 + Math.random()*20,
-      vx: (Math.random()-0.5)*6,
-      vy: - (2 + Math.random()*6),
-      size: 6 + Math.random()*8,
-      color: ['#ff6fa7','#ffd36a','#8ef3ff','#9cffb2'][Math.floor(Math.random()*4)],
-      rot: Math.random()*360,
-      rotSpeed: (Math.random()-0.5)*8,
-      gravity: 0.18 + Math.random()*0.3
-    });
-  }
-  // animate
-  let last = performance.now();
-  function frame(now){
-    const dt = (now - last)/1000;
-    last = now;
-    confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
-    for(let p of confettiPieces){
-      p.vy += p.gravity;
-      p.x += p.vx;
-      p.y += p.vy;
-      p.rot += p.rotSpeed;
-      confettiCtx.save();
-      confettiCtx.translate(p.x,p.y);
-      confettiCtx.rotate(p.rot * Math.PI/180);
-      confettiCtx.fillStyle = p.color;
-      confettiCtx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
-      confettiCtx.restore();
-    }
-    // remove those that fell off bottom
-    confettiPieces = confettiPieces.filter(p => p.y < confettiCanvas.height + 40);
-    if(confettiPieces.length > 0) requestAnimationFrame(frame);
-    else confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
-  }
-  requestAnimationFrame(frame);
-}
-
-/* ----------------------
-   Draw + init
----------------------- */
-function drawEverything(){
-  resizeAll();
-  drawTrunk();
-  createLeaves(210);
-}
-drawEverything();
-
-/* ----------------------
-   Sequence: envelope -> tree -> cake -> gift
----------------------- */
-startBtn.addEventListener('click', ()=>{
-  bgm.play().catch(()=>{});
-  startBtn.style.transform = 'translateY(1px)';
-  // small ripple
-  startBtn.animate([{transform:'scale(1)'},{transform:'scale(0.98)'}],{duration:200,fill:'forwards'});
-  // ensure petals start
-  startPetals(360);
-});
-
-envelope.addEventListener('click', ()=>{
-  // animate envelope press
-  envelope.animate([{transform:'translateY(0)'},{transform:'translateY(-10px)'}],{duration:260,fill:'forwards',direction:'alternate'});
-  // reveal leaves (may already exist)
-  setTimeout(()=>{
-    envelope.style.display = 'none';
-    cake.style.display = 'block';
-    helpLabel.textContent = "Tap the cake 🎂";
-    // ensure leaves present & canvas updated
-    drawTrunk();
-  },600);
-});
-
-cake.addEventListener('click', ()=>{
-  cake.animate([{transform:'scale(1)'},{transform:'scale(.96)'}],{duration:180,fill:'forwards'});
-  setTimeout(()=>{
-    cake.style.display = 'none';
-    gift.style.display = 'flex';
-    helpLabel.textContent = "Open the gift 🎁";
-  },240);
-});
-
-gift.addEventListener('click', ()=>{
-  // gift open effect + confetti + reveal
-  gift.animate([{transform:'scale(1)'},{transform:'scale(.98) rotateX(-8deg)'}],{duration:220,fill:'forwards'});
-  helpLabel.textContent = "Surprise 🎉";
-  // confetti around center
-  spawnConfetti(scene.clientWidth*0.9);
-  // reveal final panel & gallery
-  setTimeout(()=>{
-    finalPanel.style.display = 'block';
-    gallery.style.display = 'block';
-    finalPanel.setAttribute('aria-hidden','false');
-    startTyping();
-    stopPetals(); // let existing petals finish
-  },480);
-});
-
-/* ----------------------
-   Typewriter final letter
----------------------- */
-const message = `My sweet Lakshtu,
-
-You make my world brighter just by being in it.
-You are the kindest part of my heart — the calm in my chaos,
-and the softest place where my feelings rest.
-
-Thank you for loving me in your own little ways, for supporting me,
-for choosing me, and for making every day feel special without even trying.
-
-On your birthday, I just want you to know — you are precious to me,
-you are loved more than words can hold, and you will always, always
-have a place in my heart.
-
-I LOVE YOU, LAKSHTU 💖✨`;
-
-let ti=0;
-function startTyping(){
-  ti = 0;
-  typed.textContent = '';
-  finalPanel.scrollTop = 0;
-  (function type(){
-    if(ti < message.length){
-      typed.textContent += message[ti++];
-      finalPanel.scrollTop = finalPanel.scrollHeight;
-      setTimeout(type, 18 + Math.random()*28);
-    } else {
-      // small glow pulse on completion
-      finalPanel.animate([{boxShadow:'0 20px 48px rgba(255,150,190,0.08)'},{boxShadow:'0 30px 68px rgba(255,150,190,0.18)'}],{duration:900,iterations:2});
-    }
-  })();
-}
-
-/* ----------------------
-   Music control
----------------------- */
-let playing = false;
-playPause.addEventListener('click', ()=>{
-  if(bgm.paused){
-    bgm.play().catch(()=>{});
-    playPause.textContent = '⏸️';
-  } else {
-    bgm.pause();
-    playPause.textContent = '▶️';
-  }
-});
-
-bgm.addEventListener('play', ()=> { playing = true; playPause.textContent = '⏸️'; });
-bgm.addEventListener('pause', ()=> { playing = false; playPause.textContent = '▶️'; });
-
-/* ----------------------
-   Night toggle
----------------------- */
-nightBtn.addEventListener('click', ()=>{
-  document.body.classList.toggle('night');
-  if(document.body.classList.contains('night')){
-    nightBtn.textContent = '☀️';
-    generateStars();
-  } else {
-    nightBtn.textContent = '🌙';
-    starLayer.innerHTML = '';
-  }
-  drawTrunk();
-});
-
-/* ----------------------
-   Utilities & helpers
----------------------- */
-function debounce(fn, wait=80){
-  let t;
-  return function(...a){ clearTimeout(t); t = setTimeout(()=>fn.apply(this,a), wait) };
-}
-
-function resizeAll(){
-  const rect = scene.getBoundingClientRect();
-  canvas.width = rect.width; canvas.height = rect.height;
-  canvas.style.width = rect.width+'px'; canvas.style.height = rect.height+'px';
-  confettiCanvas.width = rect.width; confettiCanvas.height = rect.height;
-}
-window.addEventListener('resize', debounce(()=>{ resizeAll(); drawTrunk(); },120));
-
-/* init petals & leaves */
-(function init(){
-  // ensure only envelope visible to start
-  envelope.style.display = 'block';
-  cake.style.display = 'none';
-  gift.style.display = 'none';
-  finalPanel.style.display = 'none';
-  gallery.style.display = 'none';
-  helpLabel.textContent = "Tap the envelope 💌";
-  // setup sizes
-  resizeAll();
-  drawTrunk();
-  createLeaves(210);
-  // start gentle petals
-  startPetals(360);
-})();
+// Night Mode Toggle
+document.getElementById("toggleMode").onclick = () => {
+  document.body.classList.toggle("dark");
+};
 </script>
+
 </body>
 </html>
