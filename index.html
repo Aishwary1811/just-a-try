@@ -1067,6 +1067,16 @@
             opacity: 1;
         }
 
+        /* Falling Petals */
+        .falling-petal {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            font-size: 25px;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .envelope-wrapper {
@@ -1236,39 +1246,12 @@
                 font-size: 2.5rem;
             }
         }
-
-        /* Petal falling animation */
-        @keyframes fallDown {
-            0% {
-                transform: translateY(0) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(600px) translateX(var(--x-movement)) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes sway {
-            0%, 100% {
-                transform: translateX(-5px);
-            }
-            50% {
-                transform: translateX(5px);
-            }
-        }
     </style>
 </head>
 <body>
     <!-- Background Music - AUTO PLAY -->
-    <audio id="background-music" loop>
-        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
+    <audio id="background-music" loop autoplay>
+        <source src="song.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -1329,7 +1312,7 @@
             <div class="envelope-wrapper">
                 <div class="envelope">
                     <div class="envelope-body">
-                        <img src="https://images.unsplash.com/photo-1596524430615-b46475ddff6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Beautiful Envelope" class="envelope-img">
+                        <img src="envelope.png" alt="Beautiful Envelope for Lakshita" class="envelope-img">
                     </div>
                     <div class="envelope-flap"></div>
                     <div class="envelope-seal">💝</div>
@@ -1379,7 +1362,7 @@
             <h2 class="stage-title">Make a Wish Lakshita! 🎂</h2>
             <div class="cake-wrapper">
                 <div class="cake-container" id="cake-container">
-                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Beautiful Birthday Cake" class="cake-img" id="cake-img">
+                    <img src="cake.jpg" alt="Beautiful Birthday Cake for Lakshita" class="cake-img" id="cake-img">
                     <div class="cake-overlay">
                         <div class="cake-text">Click to Cut the Cake! ✨</div>
                     </div>
@@ -1396,15 +1379,15 @@
             <h2 class="stage-title">Beautiful Memories of Lakshita 📸</h2>
             <div class="gallery">
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Beautiful Memory 1" class="gallery-img">
+                    <img src="pic_one.jpg" alt="Beautiful Memory of Lakshita" class="gallery-img">
                     <div class="gallery-overlay">Lakshita's Moments 💕</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Beautiful Memory 2" class="gallery-img">
+                    <img src="pic_two.jpg" alt="Special Times with Lakshita" class="gallery-img">
                     <div class="gallery-overlay">Special Times with Lakshita ✨</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Beautiful Memory 3" class="gallery-img">
+                    <img src="pic_three.png" alt="Cherished Memories of Lakshita" class="gallery-img">
                     <div class="gallery-overlay">Cherished Memories 🌸</div>
                 </div>
             </div>
@@ -2367,6 +2350,37 @@
                     petalsContainer.appendChild(petal);
                 }
             }
+            
+            // Add falling animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fallDown {
+                    0% {
+                        transform: translateY(0) translateX(0) rotate(0deg);
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 0.8;
+                    }
+                    90% {
+                        opacity: 0.8;
+                    }
+                    100% {
+                        transform: translateY(600px) translateX(var(--x-movement)) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+                
+                @keyframes sway {
+                    0%, 100% {
+                        transform: translateX(-5px);
+                    }
+                    50% {
+                        transform: translateX(5px);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
             
             // Stage 5: Gallery interactions
             const galleryItems = document.querySelectorAll('.gallery-item');
