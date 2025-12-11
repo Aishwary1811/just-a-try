@@ -169,6 +169,137 @@
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
 
+        /* Birthday Countdown */
+        .countdown-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.2);
+            backdrop-filter: blur(10px);
+            margin: 40px 0;
+            border: 3px solid rgba(255, 105, 180, 0.2);
+        }
+
+        body.night-mode .countdown-container {
+            background: rgba(26, 26, 46, 0.9);
+            border-color: rgba(255, 215, 0, 0.2);
+        }
+
+        .countdown-title {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary-pink);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        body.night-mode .countdown-title {
+            color: var(--accent-gold);
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-unit {
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .countdown-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--primary-pink);
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(255, 20, 147, 0.1));
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            display: inline-block;
+            min-width: 90px;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.15);
+            animation: pulse 2s infinite;
+        }
+
+        body.night-mode .countdown-number {
+            color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 170, 0, 0.1));
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.15);
+        }
+
+        .countdown-label {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        body.night-mode .countdown-label {
+            color: var(--text-light);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Fireworks Canvas */
+        .fireworks-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 900;
+        }
+
+        /* Fireworks Controls */
+        .fireworks-controls {
+            position: fixed;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .firework-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink));
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .firework-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
+        }
+
+        .firework-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
         /* Custom Envelope with Your Image */
         .envelope-wrapper {
             position: relative;
@@ -284,7 +415,7 @@
             opacity: 0.8;
         }
 
-        /* IMPROVED HEART EMOJI TREE */
+        /* HEART EMOJI TREE */
         .tree-container {
             position: relative;
             width: 700px;
@@ -759,6 +890,24 @@
             }
         }
 
+        /* Birthday Status */
+        .birthday-status {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--primary-pink);
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        body.night-mode .birthday-status {
+            color: var(--accent-gold);
+            background: rgba(26, 26, 46, 0.8);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .envelope-wrapper {
@@ -797,6 +946,32 @@
             .message-box {
                 padding: 30px;
                 margin: 20px;
+            }
+            
+            .countdown-container {
+                padding: 20px;
+            }
+            
+            .countdown-number {
+                font-size: 2.5rem;
+                min-width: 70px;
+                padding: 10px;
+            }
+            
+            .countdown-unit {
+                min-width: 70px;
+            }
+            
+            .fireworks-controls {
+                bottom: 140px;
+                flex-direction: column;
+                align-items: center;
+                padding: 15px;
+            }
+            
+            .firework-btn {
+                width: 200px;
+                justify-content: center;
             }
             
             .controls, .day-night-toggle {
@@ -865,6 +1040,15 @@
                 padding: 25px 20px;
             }
             
+            .countdown-number {
+                font-size: 2rem;
+                min-width: 60px;
+            }
+            
+            .countdown-unit {
+                min-width: 60px;
+            }
+            
             .birthday-text {
                 font-size: 2.5rem;
             }
@@ -878,6 +1062,9 @@
         Your browser does not support the audio element.
     </audio>
 
+    <!-- Fireworks Canvas -->
+    <canvas id="fireworks-canvas" class="fireworks-canvas"></canvas>
+
     <!-- Animated Background Particles -->
     <div class="particles" id="particles"></div>
 
@@ -888,14 +1075,44 @@
             <div class="loading-progress"></div>
         </div>
         <p style="color: white; margin-top: 20px; font-family: 'Dancing Script', cursive; font-size: 1.2rem;">
-            Loading your special surprise...
+            Preparing your special birthday experience...
         </p>
     </div>
 
     <div class="container">
-        <!-- Stage 1: Envelope -->
+        <!-- Stage 1: Birthday Countdown -->
         <div id="stage-1" class="stage active">
-            <h2 class="stage-title">For Lakshita 💌</h2>
+            <h2 class="stage-title">Birthday Countdown for Lakshita 🎉</h2>
+            
+            <div class="countdown-container">
+                <div class="countdown-title">Counting down to December 18th!</div>
+                <div class="countdown-timer">
+                    <div class="countdown-unit">
+                        <div class="countdown-number" id="days">00</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-unit">
+                        <div class="countdown-number" id="hours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-unit">
+                        <div class="countdown-number" id="minutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    <div class="countdown-unit">
+                        <div class="countdown-number" id="seconds">00</div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
+                </div>
+                <div class="birthday-status" id="birthday-status"></div>
+            </div>
+            
+            <p class="instruction">Get ready to celebrate Lakshita's special day! 🎂</p>
+        </div>
+
+        <!-- Stage 2: Envelope -->
+        <div id="stage-2" class="stage">
+            <h2 class="stage-title">Your Special Invitation 💌</h2>
             <div class="envelope-wrapper">
                 <div class="envelope">
                     <div class="envelope-body">
@@ -915,8 +1132,8 @@
             <p class="instruction">Click the golden seal to open your birthday card</p>
         </div>
 
-        <!-- Stage 2: HEART EMOJI TREE -->
-        <div id="stage-2" class="stage">
+        <!-- Stage 3: HEART EMOJI TREE -->
+        <div id="stage-3" class="stage">
             <h2 class="stage-title">Tree of Hearts for Lakshita 💖</h2>
             <div class="tree-container">
                 <div class="tree-structure">
@@ -941,8 +1158,8 @@
             <p class="instruction">Click on the heart emojis to see special messages!</p>
         </div>
 
-        <!-- Stage 3: Cake Celebration -->
-        <div id="stage-3" class="stage">
+        <!-- Stage 4: Cake Celebration -->
+        <div id="stage-4" class="stage">
             <h2 class="stage-title">Make a Wish Lakshita! 🎂</h2>
             <div class="cake-wrapper">
                 <div class="cake-container">
@@ -957,8 +1174,8 @@
             <p class="instruction">Click on the cake to blow out the candle and make your wish!</p>
         </div>
 
-        <!-- Stage 4: Memory Gallery -->
-        <div id="stage-4" class="stage">
+        <!-- Stage 5: Memory Gallery -->
+        <div id="stage-5" class="stage">
             <h2 class="stage-title">Beautiful Memories of Lakshita 📸</h2>
             <div class="gallery">
                 <div class="gallery-item">
@@ -977,8 +1194,8 @@
             <p class="instruction">Hover over Lakshita's photos to see them come to life!</p>
         </div>
 
-        <!-- Stage 5: Final Message -->
-        <div id="stage-5" class="stage">
+        <!-- Stage 6: Final Message -->
+        <div id="stage-6" class="stage">
             <h2 class="stage-title">For My Dear Lakshita 💝</h2>
             <div class="message-container">
                 <div class="message-box">
@@ -988,6 +1205,22 @@
             </div>
             <p class="instruction">Sit back and enjoy your personalized birthday message Lakshita!</p>
         </div>
+    </div>
+
+    <!-- Fireworks Controls -->
+    <div class="fireworks-controls">
+        <button class="firework-btn" id="single-firework">
+            <i class="fas fa-fire"></i> Single Firework
+        </button>
+        <button class="firework-btn" id="multi-firework">
+            <i class="fas fa-bolt"></i> Multi Fireworks
+        </button>
+        <button class="firework-btn" id="heart-firework">
+            <i class="fas fa-heart"></i> Heart Fireworks
+        </button>
+        <button class="firework-btn" id="clear-fireworks">
+            <i class="fas fa-times"></i> Clear All
+        </button>
     </div>
 
     <!-- Day/Night Toggle -->
@@ -1002,11 +1235,11 @@
         <button class="control-btn active" id="music-toggle">
             <i class="fas fa-volume-up"></i>
         </button>
-        <button class="control-btn" id="fireworks-btn">
-            <i class="fas fa-fire"></i>
+        <button class="control-btn" id="special-effects">
+            <i class="fas fa-magic"></i>
         </button>
-        <button class="control-btn" id="confetti-btn">
-            <i class="fas fa-birthday-cake"></i>
+        <button class="control-btn" id="surprise-btn">
+            <i class="fas fa-gift"></i>
         </button>
     </div>
 
@@ -1017,10 +1250,370 @@
         <div class="dot" data-stage="3"></div>
         <div class="dot" data-stage="4"></div>
         <div class="dot" data-stage="5"></div>
+        <div class="dot" data-stage="6"></div>
     </div>
 
     <script>
+        // FIREWORKS SIMULATOR
+        class FireworksSimulator {
+            constructor() {
+                this.canvas = document.getElementById('fireworks-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.fireworks = [];
+                this.hue = 120;
+                this.limiterTotal = 5;
+                this.limiterTick = 0;
+                this.mouseDown = false;
+                this.mx = 0;
+                this.my = 0;
+                
+                this.resizeCanvas();
+                window.addEventListener('resize', () => this.resizeCanvas());
+                
+                // Mouse events for interactive fireworks
+                this.canvas.addEventListener('mousemove', (e) => {
+                    this.mx = e.clientX;
+                    this.my = e.clientY;
+                });
+                
+                this.canvas.addEventListener('mousedown', () => {
+                    this.mouseDown = true;
+                });
+                
+                this.canvas.addEventListener('mouseup', () => {
+                    this.mouseDown = false;
+                });
+                
+                // Touch events for mobile
+                this.canvas.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    this.mx = e.touches[0].clientX;
+                    this.my = e.touches[0].clientY;
+                });
+                
+                this.canvas.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    this.mouseDown = true;
+                    this.mx = e.touches[0].clientX;
+                    this.my = e.touches[0].clientY;
+                });
+                
+                this.canvas.addEventListener('touchend', () => {
+                    this.mouseDown = false;
+                });
+                
+                this.animate();
+            }
+            
+            resizeCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+            
+            random(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+            
+            calculateDistance(p1x, p1y, p2x, p2y) {
+                const xDistance = p1x - p2x;
+                const yDistance = p1y - p2y;
+                return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+            }
+            
+            createParticle(x, y, color) {
+                this.particles.push({
+                    x: x,
+                    y: y,
+                    coordinates: [],
+                    coordinateCount: 10,
+                    angle: this.random(0, Math.PI * 2),
+                    speed: this.random(1, 10),
+                    friction: 0.95,
+                    gravity: 0.2,
+                    hue: this.hue,
+                    brightness: this.random(50, 80),
+                    alpha: 1,
+                    decay: this.random(0.015, 0.03),
+                    color: color || `hsl(${this.hue}, 100%, 50%)`
+                });
+            }
+            
+            createFirework(sx, sy, tx, ty, color, type = 'normal') {
+                const firework = {
+                    x: sx,
+                    y: sy,
+                    sx: sx,
+                    sy: sy,
+                    tx: tx,
+                    ty: ty,
+                    distanceToTarget: this.calculateDistance(sx, sy, tx, ty),
+                    distanceTraveled: 0,
+                    coordinates: [],
+                    coordinateCount: 3,
+                    angle: Math.atan2(ty - sy, tx - sx),
+                    speed: 2,
+                    acceleration: 1.05,
+                    brightness: this.random(50, 70),
+                    hue: this.hue,
+                    targetRadius: 1,
+                    color: color,
+                    type: type
+                };
+                
+                this.fireworks.push(firework);
+                return firework;
+            }
+            
+            launchFirework(x, y, color = null, type = 'normal') {
+                const startX = this.canvas.width / 2;
+                const startY = this.canvas.height;
+                
+                if (type === 'heart') {
+                    // Heart-shaped firework
+                    const targetX = x || this.random(100, this.canvas.width - 100);
+                    const targetY = y || this.random(100, this.canvas.height / 2);
+                    const firework = this.createFirework(startX, startY, targetX, targetY, color || `hsl(${this.hue}, 100%, 50%)`, 'heart');
+                    firework.speed = 3;
+                    
+                    // Create heart pattern
+                    setTimeout(() => {
+                        if (firework && firework.x && firework.y) {
+                            this.explodeHeart(firework.x, firework.y, color);
+                        }
+                    }, 1000);
+                } else {
+                    const targetX = x || this.random(100, this.canvas.width - 100);
+                    const targetY = y || this.random(100, this.canvas.height / 2);
+                    this.createFirework(startX, startY, targetX, targetY, color || `hsl(${this.hue}, 100%, 50%)`, type);
+                }
+            }
+            
+            explodeFirework(firework) {
+                const particleCount = firework.type === 'heart' ? 100 : 80;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const color = firework.color || `hsl(${this.hue}, 100%, 50%)`;
+                    this.createParticle(firework.x, firework.y, color);
+                }
+                
+                // Sound effect for explosion
+                if (firework.type === 'heart') {
+                    this.explodeHeart(firework.x, firework.y, firework.color);
+                }
+            }
+            
+            explodeHeart(x, y, color) {
+                // Create heart-shaped explosion
+                for (let i = 0; i < Math.PI * 2; i += 0.1) {
+                    const heartX = 16 * Math.pow(Math.sin(i), 3);
+                    const heartY = -(13 * Math.cos(i) - 5 * Math.cos(2*i) - 2 * Math.cos(3*i) - Math.cos(4*i));
+                    
+                    this.createParticle(
+                        x + heartX * 3,
+                        y + heartY * 3,
+                        color || `hsl(${this.hue}, 100%, 50%)`
+                    );
+                }
+            }
+            
+            updateParticles() {
+                for (let i = this.particles.length - 1; i >= 0; i--) {
+                    const p = this.particles[i];
+                    
+                    p.coordinates.unshift([p.x, p.y]);
+                    
+                    if (p.coordinates.length > p.coordinateCount) {
+                        p.coordinates.pop();
+                    }
+                    
+                    p.speed *= p.friction;
+                    p.x += Math.cos(p.angle) * p.speed;
+                    p.y += Math.sin(p.angle) * p.speed + p.gravity;
+                    
+                    p.alpha -= p.decay;
+                    
+                    if (p.alpha <= p.decay) {
+                        this.particles.splice(i, 1);
+                    }
+                }
+            }
+            
+            updateFireworks() {
+                for (let i = this.fireworks.length - 1; i >= 0; i--) {
+                    const f = this.fireworks[i];
+                    
+                    f.coordinates.unshift([f.x, f.y]);
+                    
+                    if (f.coordinates.length > f.coordinateCount) {
+                        f.coordinates.pop();
+                    }
+                    
+                    if (f.targetRadius < 8) {
+                        f.targetRadius += 0.3;
+                    } else {
+                        f.targetRadius = 1;
+                    }
+                    
+                    const angle = Math.atan2(f.ty - f.sy, f.tx - f.sx);
+                    const distance = this.calculateDistance(f.sx, f.sy, f.tx, f.ty);
+                    f.distanceTraveled = this.calculateDistance(f.sx, f.sy, f.x, f.y);
+                    
+                    const currentDistance = f.distanceTraveled / distance;
+                    
+                    if (currentDistance >= 1) {
+                        this.explodeFirework(f);
+                        this.fireworks.splice(i, 1);
+                    } else {
+                        f.speed *= f.acceleration;
+                        const velX = Math.cos(angle) * f.speed;
+                        const velY = Math.sin(angle) * f.speed;
+                        
+                        f.x += velX;
+                        f.y += velY;
+                    }
+                }
+            }
+            
+            drawParticles() {
+                for (let i = 0; i < this.particles.length; i++) {
+                    const p = this.particles[i];
+                    
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(p.coordinates[0][0], p.coordinates[0][1]);
+                    
+                    for (let j = 1; j < p.coordinates.length; j++) {
+                        this.ctx.lineTo(p.coordinates[j][0], p.coordinates[j][1]);
+                    }
+                    
+                    this.ctx.strokeStyle = `rgba(${this.hexToRgb(p.color)}, ${p.alpha})`;
+                    this.ctx.lineWidth = 2;
+                    this.ctx.stroke();
+                    
+                    // Draw glow
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+                    this.ctx.fillStyle = p.color;
+                    this.ctx.fill();
+                    
+                    const glow = this.ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 8);
+                    glow.addColorStop(0, p.color);
+                    glow.addColorStop(1, 'transparent');
+                    
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, 8, 0, Math.PI * 2);
+                    this.ctx.fillStyle = glow;
+                    this.ctx.fill();
+                }
+            }
+            
+            drawFireworks() {
+                for (let i = 0; i < this.fireworks.length; i++) {
+                    const f = this.fireworks[i];
+                    
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(f.coordinates[f.coordinates.length - 1][0], f.coordinates[f.coordinates.length - 1][1]);
+                    this.ctx.lineTo(f.x, f.y);
+                    this.ctx.strokeStyle = f.color;
+                    this.ctx.lineWidth = 2;
+                    this.ctx.stroke();
+                    
+                    this.ctx.beginPath();
+                    this.ctx.arc(f.x, f.y, f.targetRadius, 0, Math.PI * 2);
+                    this.ctx.fillStyle = f.color;
+                    this.ctx.fill();
+                    
+                    const glow = this.ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.targetRadius * 3);
+                    glow.addColorStop(0, f.color);
+                    glow.addColorStop(1, 'transparent');
+                    
+                    this.ctx.beginPath();
+                    this.ctx.arc(f.x, f.y, f.targetRadius * 3, 0, Math.PI * 2);
+                    this.ctx.fillStyle = glow;
+                    this.ctx.fill();
+                }
+            }
+            
+            hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? 
+                    `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : 
+                    '255, 105, 180'; // Default pink
+            }
+            
+            animate() {
+                requestAnimationFrame(() => this.animate());
+                
+                // Create trail effect
+                this.ctx.globalCompositeOperation = 'destination-out';
+                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ctx.globalCompositeOperation = 'lighter';
+                
+                this.hue += 0.5;
+                
+                // Randomly launch fireworks
+                if (this.limiterTick >= this.limiterTotal) {
+                    if (!this.mouseDown) {
+                        this.launchFirework();
+                        this.limiterTick = 0;
+                    }
+                } else {
+                    this.limiterTick++;
+                }
+                
+                // Interactive fireworks on mouse/touch
+                if (this.mouseDown) {
+                    for (let i = 0; i < 5; i++) {
+                        const color = `hsl(${this.hue + i * 10}, 100%, 50%)`;
+                        this.createParticle(this.mx, this.my, color);
+                    }
+                }
+                
+                this.updateFireworks();
+                this.updateParticles();
+                this.drawFireworks();
+                this.drawParticles();
+            }
+            
+            // Public methods
+            launchSingleFirework(color = null) {
+                const x = this.random(100, this.canvas.width - 100);
+                const y = this.random(100, this.canvas.height / 2);
+                this.launchFirework(x, y, color);
+            }
+            
+            launchMultiFireworks(count = 5) {
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        const colors = ['#ff3366', '#ff69b4', '#ffd700', '#87ceeb', '#2ecc71'];
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        this.launchSingleFirework(color);
+                    }, i * 200);
+                }
+            }
+            
+            launchHeartFireworks(count = 3) {
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        const colors = ['#ff3366', '#ff69b4', '#da70d6'];
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        this.launchFirework(null, null, color, 'heart');
+                    }, i * 300);
+                }
+            }
+            
+            clearAll() {
+                this.particles = [];
+                this.fireworks = [];
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Fireworks Simulator
+            const fireworks = new FireworksSimulator();
+            
             // Create animated particles
             createParticles();
             
@@ -1042,7 +1635,6 @@
                         document.getElementById('music-toggle').classList.add('active');
                     }).catch(e => {
                         console.log("Autoplay blocked, will play on first click");
-                        // Music will play on first user interaction
                     });
                     isPageLoaded = true;
                 }
@@ -1076,6 +1668,54 @@
                     createFloatingElement('🎵 Music Playing');
                 }
             });
+            
+            // BIRTHDAY COUNTDOWN
+            function updateCountdown() {
+                const now = new Date();
+                const currentYear = now.getFullYear();
+                
+                // Set birthday to December 18th of current year
+                let birthday = new Date(currentYear, 11, 18); // December 18th (month is 0-indexed)
+                
+                // If birthday has already passed this year, set to next year
+                if (now > birthday) {
+                    birthday = new Date(currentYear + 1, 11, 18);
+                }
+                
+                const diff = birthday - now;
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                
+                // Update birthday status
+                const statusElement = document.getElementById('birthday-status');
+                if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+                    statusElement.textContent = "🎉 HAPPY BIRTHDAY LAKSHITA! 🎉";
+                    statusElement.style.animation = 'heartbeat 1s infinite';
+                    // Launch fireworks automatically on birthday
+                    fireworks.launchMultiFireworks(10);
+                    fireworks.launchHeartFireworks(5);
+                } else if (days === 1) {
+                    statusElement.textContent = "Birthday is tomorrow! Get ready! 🎁";
+                } else if (days < 7) {
+                    statusElement.textContent = `Only ${days} days to go! Exciting! 🥳`;
+                } else if (days < 30) {
+                    statusElement.textContent = `${days} days until the big day! ✨`;
+                } else {
+                    statusElement.textContent = `Counting down to December 18th! 🎂`;
+                }
+            }
+            
+            // Update countdown every second
+            setInterval(updateCountdown, 1000);
+            updateCountdown(); // Initial call
             
             // Hide loading screen after loading
             setTimeout(() => {
@@ -1139,13 +1779,13 @@
                     
                     // Special initialization for each stage
                     switch(stageNumber) {
-                        case 2:
+                        case 3:
                             createHeartEmojiTree();
                             break;
-                        case 3:
+                        case 4:
                             initCakeAnimation();
                             break;
-                        case 5:
+                        case 6:
                             startTypingEffect();
                             break;
                     }
@@ -1162,7 +1802,7 @@
                 });
             });
             
-            // Stage 1: Envelope click
+            // Stage 2: Envelope click (stage 1 is now countdown)
             const envelopeSeal = document.querySelector('.envelope-seal');
             if (envelopeSeal) {
                 envelopeSeal.addEventListener('click', function() {
@@ -1171,19 +1811,76 @@
                         envelope.classList.add('open');
                         createFloatingElement('✨ Happy Birthday Lakshita! ✨');
                         
-                        // Envelope image animation
-                        const envelopeImg = document.querySelector('.envelope-img');
-                        envelopeImg.style.transform = 'scale(1.1)';
+                        // Launch celebration fireworks
+                        fireworks.launchMultiFireworks(3);
                         
                         // Move to next stage after delay
                         setTimeout(() => {
-                            navigateToStage(2);
+                            navigateToStage(3);
                         }, 2500);
                     }
                 });
             }
             
-            // Stage 2: Create Heart Emoji Tree
+            // Fireworks Control Buttons
+            document.getElementById('single-firework').addEventListener('click', function() {
+                fireworks.launchSingleFirework();
+                createFloatingElement('🎆 Single Firework!');
+            });
+            
+            document.getElementById('multi-firework').addEventListener('click', function() {
+                fireworks.launchMultiFireworks(8);
+                createFloatingElement('✨ Multiple Fireworks!');
+            });
+            
+            document.getElementById('heart-firework').addEventListener('click', function() {
+                fireworks.launchHeartFireworks(3);
+                createFloatingElement('💖 Heart Fireworks!');
+            });
+            
+            document.getElementById('clear-fireworks').addEventListener('click', function() {
+                fireworks.clearAll();
+                createFloatingElement('🧹 Cleared Fireworks');
+            });
+            
+            // Special effects button
+            document.getElementById('special-effects').addEventListener('click', function() {
+                fireworks.launchMultiFireworks(5);
+                fireworks.launchHeartFireworks(2);
+                createFloatingElement('✨ Special Effects!');
+            });
+            
+            // Surprise button
+            document.getElementById('surprise-btn').addEventListener('click', function() {
+                // Launch all types of fireworks
+                fireworks.launchMultiFireworks(10);
+                setTimeout(() => fireworks.launchHeartFireworks(5), 500);
+                setTimeout(() => {
+                    for (let i = 0; i < 20; i++) {
+                        setTimeout(() => {
+                            fireworks.launchSingleFirework();
+                        }, i * 100);
+                    }
+                }, 1000);
+                
+                createFloatingElement('🎁 Birthday Surprise!');
+            });
+            
+            // Auto navigation every 30 seconds
+            let currentStage = 1;
+            const autoNav = setInterval(() => {
+                if (currentStage < 6) {
+                    currentStage++;
+                    navigateToStage(currentStage);
+                } else {
+                    clearInterval(autoNav);
+                }
+            }, 30000);
+            
+            // Initialize first stage
+            createFloatingElements();
+            
+            // Stage 3: Create Heart Emoji Tree
             function createHeartEmojiTree() {
                 const heartEmojis = ['💖', '💕', '💗', '💓', '💞', '💝', '💘', '❤️', '🧡', '💛', '💚', '💙', '💜', '🤎', '🖤', '🤍'];
                 const heartClasses = ['heart-red', 'heart-pink', 'heart-purple', 'heart-blue', 'heart-gold', 'heart-orange', 'heart-green', 'heart-teal'];
@@ -1239,6 +1936,9 @@
                                 const msgIndex = Math.floor(Math.random() * messages.length);
                                 createFloatingElement(messages[msgIndex]);
                                 
+                                // Launch mini firework
+                                fireworks.launchSingleFirework(heartSpan.style.color);
+                                
                                 // Animation
                                 this.style.transform = 'scale(1.8) rotate(30deg)';
                                 this.style.filter = 'drop-shadow(0 0 25px currentColor)';
@@ -1290,7 +1990,7 @@
                 }
             }
             
-            // Stage 3: Cake animation
+            // Stage 4: Cake animation
             function initCakeAnimation() {
                 const cakeContainer = document.querySelector('.cake-container');
                 if (!cakeContainer) return;
@@ -1301,7 +2001,8 @@
                     flame.style.opacity = '0';
                     
                     createFloatingElement('🎉 Your Wish Will Come True Lakshita! 🎉');
-                    createConfetti();
+                    fireworks.launchMultiFireworks(5);
+                    fireworks.launchHeartFireworks(2);
                     
                     // Cake image animation
                     const cakeImg = document.querySelector('.cake-img');
@@ -1313,12 +2014,12 @@
                     
                     // Move to next stage after delay
                     setTimeout(() => {
-                        navigateToStage(4);
+                        navigateToStage(5);
                     }, 2000);
                 });
             }
             
-            // Stage 4: Gallery interactions
+            // Stage 5: Gallery interactions
             const galleryItems = document.querySelectorAll('.gallery-item');
             galleryItems.forEach((item, index) => {
                 item.addEventListener('click', function() {
@@ -1328,6 +2029,7 @@
                         "Lakshita makes every moment special! ✨"
                     ];
                     createFloatingElement(messages[index % messages.length]);
+                    fireworks.launchSingleFirework();
                     
                     // Image zoom effect
                     const img = this.querySelector('.gallery-img');
@@ -1338,7 +2040,7 @@
                 });
             });
             
-            // Stage 5: Typing effect
+            // Stage 6: Typing effect
             function startTypingEffect() {
                 const typingText = document.getElementById('typing-text');
                 if (!typingText) return;
@@ -1382,6 +2084,12 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
                         typingText.textContent += message.charAt(i);
                         i++;
                         setTimeout(typeWriter, 20);
+                    } else {
+                        // Launch final celebration fireworks
+                        setTimeout(() => {
+                            fireworks.launchMultiFireworks(15);
+                            fireworks.launchHeartFireworks(8);
+                        }, 500);
                     }
                 }
                 
@@ -1415,15 +2123,6 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
                 }
             }
             
-            function createConfetti() {
-                const symbols = ['🎉', '✨', '🎊', '💫', '🌟', '🎈', '💖', '🌸', '🥳', '🎂'];
-                for (let i = 0; i < 20; i++) {
-                    setTimeout(() => {
-                        createFloatingElement(symbols[Math.floor(Math.random() * symbols.length)]);
-                    }, i * 50);
-                }
-            }
-            
             function getRandomColor() {
                 const colors = ['#ff3366', '#ff69b4', '#da70d6', '#87ceeb', '#ffd700', '#ff9900'];
                 return colors[Math.floor(Math.random() * colors.length)];
@@ -1451,35 +2150,6 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
                     }
                 });
             }
-            
-            // Control buttons
-            document.getElementById('fireworks-btn').addEventListener('click', function() {
-                createConfetti();
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(() => {
-                        createFloatingElement('🎆');
-                    }, i * 200);
-                }
-            });
-            
-            document.getElementById('confetti-btn').addEventListener('click', function() {
-                createConfetti();
-                createFloatingElement('🥳 Party Time Lakshita! 🥳');
-            });
-            
-            // Auto navigation every 25 seconds
-            let currentStage = 1;
-            const autoNav = setInterval(() => {
-                if (currentStage < 5) {
-                    currentStage++;
-                    navigateToStage(currentStage);
-                } else {
-                    clearInterval(autoNav);
-                }
-            }, 25000);
-            
-            // Initialize first stage
-            createFloatingElements();
         });
     </script>
 </body>
