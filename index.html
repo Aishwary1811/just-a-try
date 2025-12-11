@@ -33,10 +33,21 @@
             overflow-x: hidden;
             position: relative;
             transition: all 0.8s ease;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
         body.night-mode {
             background: var(--dark-bg);
+        }
+
+        /* Smooth Transitions */
+        .smooth-transition {
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Animated Background Particles */
@@ -55,7 +66,7 @@
             background: var(--primary-pink);
             border-radius: 50%;
             animation: float 15s infinite linear;
-            opacity: 0.3;
+            opacity: 0.2;
         }
 
         @keyframes float {
@@ -132,8 +143,8 @@
             min-height: 100vh;
             width: 100%;
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .stage.active {
@@ -151,6 +162,12 @@
             text-align: center;
             position: relative;
             padding-bottom: 20px;
+            animation: titleFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .stage-title::after {
@@ -162,6 +179,12 @@
             width: 100px;
             height: 3px;
             background: linear-gradient(90deg, transparent, var(--primary-pink), transparent);
+            animation: lineWidth 3s ease-in-out infinite;
+        }
+
+        @keyframes lineWidth {
+            0%, 100% { width: 100px; }
+            50% { width: 150px; }
         }
 
         body.night-mode .stage-title {
@@ -178,6 +201,12 @@
             backdrop-filter: blur(10px);
             margin: 40px 0;
             border: 3px solid rgba(255, 105, 180, 0.2);
+            animation: containerFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes containerFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         body.night-mode .countdown-container {
@@ -220,13 +249,35 @@
             display: inline-block;
             min-width: 90px;
             box-shadow: 0 10px 20px rgba(255, 105, 180, 0.15);
-            animation: pulse 2s infinite;
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 10px 20px rgba(255, 105, 180, 0.15);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 15px 30px rgba(255, 105, 180, 0.3);
+            }
         }
 
         body.night-mode .countdown-number {
             color: var(--accent-gold);
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 170, 0, 0.1));
-            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.15);
+            animation: pulseGlowNight 2s infinite;
+        }
+
+        @keyframes pulseGlowNight {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 10px 20px rgba(255, 215, 0, 0.15);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
+            }
         }
 
         .countdown-label {
@@ -241,11 +292,6 @@
             color: var(--text-light);
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
         /* Fireworks Canvas */
         .fireworks-canvas {
             position: fixed;
@@ -255,6 +301,12 @@
             height: 100%;
             pointer-events: none;
             z-index: 900;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .fireworks-canvas.active {
+            opacity: 1;
         }
 
         /* Fireworks Controls */
@@ -272,6 +324,13 @@
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fireworks-controls.hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(50px);
+            pointer-events: none;
         }
 
         .firework-btn {
@@ -284,7 +343,7 @@
             font-weight: 500;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -292,15 +351,15 @@
         }
 
         .firework-btn:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-3px) scale(1.05);
             box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
         }
 
         .firework-btn:active {
-            transform: translateY(-2px) scale(1.02);
+            transform: translateY(-1px) scale(1.02);
         }
 
-        /* Custom Envelope with Your Image */
+        /* Custom Envelope */
         .envelope-wrapper {
             position: relative;
             width: 400px;
@@ -309,6 +368,11 @@
             perspective: 1500px;
             margin: 40px 0;
             filter: drop-shadow(0 20px 40px rgba(255, 105, 180, 0.3));
+            transition: transform 0.5s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.02);
         }
 
         .envelope {
@@ -316,7 +380,7 @@
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
-            transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .envelope-body {
@@ -343,7 +407,7 @@
             background: linear-gradient(135deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
             clip-path: polygon(0 0, 50% 50%, 100% 0);
             transform-origin: top;
-            transition: transform 1.2s ease;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 20px 20px 0 0;
             box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
             z-index: 2;
@@ -373,8 +437,14 @@
         }
 
         @keyframes sealGlow {
-            from { box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4); }
-            to { box-shadow: 0 10px 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3); }
+            from { 
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+            }
+            to { 
+                transform: translate(-50%, -50%) scale(1.1);
+                box-shadow: 0 10px 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3);
+            }
         }
 
         .envelope-content {
@@ -388,7 +458,7 @@
             padding: 30px;
             opacity: 0;
             transform: translateY(200px) scale(0.8);
-            transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.5s;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
             z-index: 1;
             backdrop-filter: blur(10px);
@@ -470,7 +540,7 @@
             margin: 2px;
             animation: heartFloat 3s infinite ease-in-out;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -510,12 +580,18 @@
         .branch-side-2 { width: 180px; height: 100px; bottom: 180px; right: 120px; transform: rotate(8deg); }
         .branch-side-3 { width: 160px; height: 80px; bottom: 140px; right: 140px; transform: rotate(-12deg); }
 
-        /* Custom Cake with Your Image */
+        /* Cake with Automatic Cutting */
         .cake-wrapper {
             position: relative;
             margin: 50px 0;
             cursor: pointer;
             animation: gentleFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(1deg); }
+            66% { transform: translateY(-5px) rotate(-1deg); }
         }
 
         .cake-container {
@@ -526,18 +602,19 @@
             overflow: hidden;
             box-shadow: 0 30px 60px rgba(255, 105, 180, 0.3);
             border: 3px solid rgba(255, 255, 255, 0.6);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cake-container:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
+            box-shadow: 0 40px 80px rgba(255, 105, 180, 0.4);
         }
 
         .cake-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.8s ease;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cake-overlay {
@@ -552,7 +629,7 @@
             justify-content: center;
             padding: 30px;
             opacity: 0;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cake-container:hover .cake-overlay {
@@ -565,7 +642,7 @@
             font-size: 2rem;
             text-align: center;
             transform: translateY(20px);
-            transition: transform 0.6s ease;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cake-container:hover .cake-text {
@@ -597,12 +674,7 @@
             animation: flicker 0.5s infinite alternate;
             box-shadow: 0 0 35px rgba(255, 69, 0, 0.8);
             z-index: 3;
-        }
-
-        @keyframes gentleFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            33% { transform: translateY(-15px) rotate(1deg); }
-            66% { transform: translateY(-5px) rotate(-1deg); }
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @keyframes flicker {
@@ -610,7 +682,34 @@
             50% { transform: translateX(-50%) scale(1.1); opacity: 0.9; }
         }
 
-        /* Custom Gallery with Your Photos */
+        /* Cake Cutting Animation */
+        .cake-cut {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 4;
+            opacity: 0;
+        }
+
+        .cake-cut.active {
+            animation: cutAnimation 2s forwards;
+        }
+
+        @keyframes cutAnimation {
+            0% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(100px);
+            }
+        }
+
+        /* Custom Gallery */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -641,7 +740,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.8s ease;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .gallery-item:hover .gallery-img {
@@ -657,7 +756,7 @@
             color: white;
             padding: 30px 20px 20px;
             transform: translateY(100%);
-            transition: transform 0.6s ease;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
             font-family: 'Dancing Script', cursive;
             font-size: 1.8rem;
@@ -748,7 +847,7 @@
             color: var(--primary-pink);
             font-size: 1.3rem;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -784,6 +883,7 @@
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .dot {
@@ -792,7 +892,7 @@
             border-radius: 50%;
             background: rgba(255, 105, 180, 0.3);
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 2px solid transparent;
         }
 
@@ -825,7 +925,7 @@
             color: var(--primary-pink);
             font-size: 1.3rem;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -901,11 +1001,30 @@
             background: rgba(255, 255, 255, 0.8);
             border-radius: 20px;
             display: inline-block;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body.night-mode .birthday-status {
             color: var(--accent-gold);
             background: rgba(26, 26, 46, 0.8);
+        }
+
+        /* Final Celebration */
+        .final-celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 105, 180, 0.2), transparent);
+            z-index: 800;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .final-celebration.active {
+            opacity: 1;
         }
 
         /* Responsive Design */
@@ -1065,6 +1184,9 @@
     <!-- Fireworks Canvas -->
     <canvas id="fireworks-canvas" class="fireworks-canvas"></canvas>
 
+    <!-- Final Celebration Overlay -->
+    <div class="final-celebration" id="final-celebration"></div>
+
     <!-- Animated Background Particles -->
     <div class="particles" id="particles"></div>
 
@@ -1158,20 +1280,21 @@
             <p class="instruction">Click on the heart emojis to see special messages!</p>
         </div>
 
-        <!-- Stage 4: Cake Celebration -->
+        <!-- Stage 4: Cake Celebration with Automatic Cutting -->
         <div id="stage-4" class="stage">
             <h2 class="stage-title">Make a Wish Lakshita! 🎂</h2>
             <div class="cake-wrapper">
-                <div class="cake-container">
-                    <img src="cake.jpg" alt="Beautiful Birthday Cake" class="cake-img">
+                <div class="cake-container" id="cake-container">
+                    <img src="cake.jpg" alt="Beautiful Birthday Cake" class="cake-img" id="cake-img">
                     <div class="cake-overlay">
-                        <div class="cake-text">Blow the Candle Lakshita! ✨</div>
+                        <div class="cake-text">Click to Cut the Cake! ✨</div>
                     </div>
-                    <div class="candle"></div>
-                    <div class="flame"></div>
+                    <div class="candle" id="candle"></div>
+                    <div class="flame" id="flame"></div>
+                    <div class="cake-cut" id="cake-cut"></div>
                 </div>
             </div>
-            <p class="instruction">Click on the cake to blow out the candle and make your wish!</p>
+            <p class="instruction">Click on the cake to cut it and celebrate! The fireworks controls will appear!</p>
         </div>
 
         <!-- Stage 5: Memory Gallery -->
@@ -1194,7 +1317,7 @@
             <p class="instruction">Hover over Lakshita's photos to see them come to life!</p>
         </div>
 
-        <!-- Stage 6: Final Message -->
+        <!-- Stage 6: Final Message with Automatic Celebration -->
         <div id="stage-6" class="stage">
             <h2 class="stage-title">For My Dear Lakshita 💝</h2>
             <div class="message-container">
@@ -1203,12 +1326,12 @@
                     <div class="cursor"></div>
                 </div>
             </div>
-            <p class="instruction">Sit back and enjoy your personalized birthday message Lakshita!</p>
+            <p class="instruction">Enjoy the final celebration! 🎉</p>
         </div>
     </div>
 
-    <!-- Fireworks Controls -->
-    <div class="fireworks-controls">
+    <!-- Fireworks Controls (Initially Hidden) -->
+    <div class="fireworks-controls hidden" id="fireworks-controls">
         <button class="firework-btn" id="single-firework">
             <i class="fas fa-fire"></i> Single Firework
         </button>
@@ -1254,8 +1377,8 @@
     </div>
 
     <script>
-        // FIREWORKS SIMULATOR
-        class FireworksSimulator {
+        // SMOOTH FIREWORKS SIMULATOR
+        class SmoothFireworksSimulator {
             constructor() {
                 this.canvas = document.getElementById('fireworks-canvas');
                 this.ctx = this.canvas.getContext('2d');
@@ -1267,41 +1390,10 @@
                 this.mouseDown = false;
                 this.mx = 0;
                 this.my = 0;
+                this.isActive = false;
                 
                 this.resizeCanvas();
                 window.addEventListener('resize', () => this.resizeCanvas());
-                
-                // Mouse events for interactive fireworks
-                this.canvas.addEventListener('mousemove', (e) => {
-                    this.mx = e.clientX;
-                    this.my = e.clientY;
-                });
-                
-                this.canvas.addEventListener('mousedown', () => {
-                    this.mouseDown = true;
-                });
-                
-                this.canvas.addEventListener('mouseup', () => {
-                    this.mouseDown = false;
-                });
-                
-                // Touch events for mobile
-                this.canvas.addEventListener('touchmove', (e) => {
-                    e.preventDefault();
-                    this.mx = e.touches[0].clientX;
-                    this.my = e.touches[0].clientY;
-                });
-                
-                this.canvas.addEventListener('touchstart', (e) => {
-                    e.preventDefault();
-                    this.mouseDown = true;
-                    this.mx = e.touches[0].clientX;
-                    this.my = e.touches[0].clientY;
-                });
-                
-                this.canvas.addEventListener('touchend', () => {
-                    this.mouseDown = false;
-                });
                 
                 this.animate();
             }
@@ -1366,17 +1458,17 @@
             }
             
             launchFirework(x, y, color = null, type = 'normal') {
+                if (!this.isActive) return;
+                
                 const startX = this.canvas.width / 2;
                 const startY = this.canvas.height;
                 
                 if (type === 'heart') {
-                    // Heart-shaped firework
                     const targetX = x || this.random(100, this.canvas.width - 100);
                     const targetY = y || this.random(100, this.canvas.height / 2);
                     const firework = this.createFirework(startX, startY, targetX, targetY, color || `hsl(${this.hue}, 100%, 50%)`, 'heart');
                     firework.speed = 3;
                     
-                    // Create heart pattern
                     setTimeout(() => {
                         if (firework && firework.x && firework.y) {
                             this.explodeHeart(firework.x, firework.y, color);
@@ -1397,14 +1489,12 @@
                     this.createParticle(firework.x, firework.y, color);
                 }
                 
-                // Sound effect for explosion
                 if (firework.type === 'heart') {
                     this.explodeHeart(firework.x, firework.y, firework.color);
                 }
             }
             
             explodeHeart(x, y, color) {
-                // Create heart-shaped explosion
                 for (let i = 0; i < Math.PI * 2; i += 0.1) {
                     const heartX = 16 * Math.pow(Math.sin(i), 3);
                     const heartY = -(13 * Math.cos(i) - 5 * Math.cos(2*i) - 2 * Math.cos(3*i) - Math.cos(4*i));
@@ -1490,7 +1580,6 @@
                     this.ctx.lineWidth = 2;
                     this.ctx.stroke();
                     
-                    // Draw glow
                     this.ctx.beginPath();
                     this.ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
                     this.ctx.fillStyle = p.color;
@@ -1538,13 +1627,12 @@
                 const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
                 return result ? 
                     `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : 
-                    '255, 105, 180'; // Default pink
+                    '255, 105, 180';
             }
             
             animate() {
                 requestAnimationFrame(() => this.animate());
                 
-                // Create trail effect
                 this.ctx.globalCompositeOperation = 'destination-out';
                 this.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
                 this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -1552,22 +1640,13 @@
                 
                 this.hue += 0.5;
                 
-                // Randomly launch fireworks
-                if (this.limiterTick >= this.limiterTotal) {
+                if (this.isActive && this.limiterTick >= this.limiterTotal) {
                     if (!this.mouseDown) {
                         this.launchFirework();
                         this.limiterTick = 0;
                     }
                 } else {
                     this.limiterTick++;
-                }
-                
-                // Interactive fireworks on mouse/touch
-                if (this.mouseDown) {
-                    for (let i = 0; i < 5; i++) {
-                        const color = `hsl(${this.hue + i * 10}, 100%, 50%)`;
-                        this.createParticle(this.mx, this.my, color);
-                    }
                 }
                 
                 this.updateFireworks();
@@ -1577,6 +1656,16 @@
             }
             
             // Public methods
+            activate() {
+                this.isActive = true;
+                document.querySelector('.fireworks-canvas').classList.add('active');
+            }
+            
+            deactivate() {
+                this.isActive = false;
+                document.querySelector('.fireworks-canvas').classList.remove('active');
+            }
+            
             launchSingleFirework(color = null) {
                 const x = this.random(100, this.canvas.width - 100);
                 const y = this.random(100, this.canvas.height / 2);
@@ -1608,11 +1697,46 @@
                 this.fireworks = [];
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             }
+            
+            grandFinale() {
+                // First wave: Multi fireworks
+                this.launchMultiFireworks(10);
+                
+                // Second wave: Heart fireworks
+                setTimeout(() => {
+                    this.launchHeartFireworks(5);
+                }, 1500);
+                
+                // Third wave: Continuous single fireworks
+                setTimeout(() => {
+                    for (let i = 0; i < 15; i++) {
+                        setTimeout(() => {
+                            const colors = ['#ff3366', '#ff69b4', '#ffd700', '#87ceeb', '#2ecc71', '#da70d6'];
+                            const color = colors[Math.floor(Math.random() * colors.length)];
+                            this.launchFirework(
+                                this.random(100, this.canvas.width - 100),
+                                this.random(100, this.canvas.height / 2),
+                                color,
+                                i % 3 === 0 ? 'heart' : 'normal'
+                            );
+                        }, i * 200);
+                    }
+                }, 3000);
+                
+                // Fourth wave: Final burst
+                setTimeout(() => {
+                    for (let i = 0; i < 20; i++) {
+                        setTimeout(() => {
+                            this.launchSingleFirework();
+                        }, i * 100);
+                    }
+                }, 6000);
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Fireworks Simulator
-            const fireworks = new FireworksSimulator();
+            // Initialize Smooth Fireworks Simulator
+            const fireworks = new SmoothFireworksSimulator();
             
             // Create animated particles
             createParticles();
@@ -1675,7 +1799,7 @@
                 const currentYear = now.getFullYear();
                 
                 // Set birthday to December 18th of current year
-                let birthday = new Date(currentYear, 11, 18); // December 18th (month is 0-indexed)
+                let birthday = new Date(currentYear, 11, 18); // December 18th
                 
                 // If birthday has already passed this year, set to next year
                 if (now > birthday) {
@@ -1699,9 +1823,8 @@
                 if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
                     statusElement.textContent = "🎉 HAPPY BIRTHDAY LAKSHITA! 🎉";
                     statusElement.style.animation = 'heartbeat 1s infinite';
-                    // Launch fireworks automatically on birthday
-                    fireworks.launchMultiFireworks(10);
-                    fireworks.launchHeartFireworks(5);
+                    // Launch automatic celebration
+                    startAutomaticCelebration();
                 } else if (days === 1) {
                     statusElement.textContent = "Birthday is tomorrow! Get ready! 🎁";
                 } else if (days < 7) {
@@ -1723,7 +1846,7 @@
                 loadingScreen.style.opacity = '0';
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
-                    createFloatingElement('🎉 Happy Birthday Lakshita! 🎉');
+                    createFloatingElement('🎉 Welcome to Lakshita\'s Birthday! 🎉');
                 }, 800);
             }, 3000);
             
@@ -1744,11 +1867,11 @@
             
             function getRandomParticleColor() {
                 const colors = [
-                    'rgba(255, 105, 180, 0.3)',
-                    'rgba(255, 20, 147, 0.3)',
-                    'rgba(218, 112, 214, 0.3)',
-                    'rgba(135, 206, 235, 0.3)',
-                    'rgba(255, 215, 0, 0.3)'
+                    'rgba(255, 105, 180, 0.2)',
+                    'rgba(255, 20, 147, 0.2)',
+                    'rgba(218, 112, 214, 0.2)',
+                    'rgba(135, 206, 235, 0.2)',
+                    'rgba(255, 215, 0, 0.2)'
                 ];
                 return colors[Math.floor(Math.random() * colors.length)];
             }
@@ -1756,43 +1879,58 @@
             // Stage Navigation
             const stages = document.querySelectorAll('.stage');
             const dots = document.querySelectorAll('.dot');
+            let currentStage = 1;
             
             function navigateToStage(stageNumber) {
-                // Hide all stages
+                // Smooth transition out
                 stages.forEach(stage => {
-                    stage.classList.remove('active');
+                    if (stage.classList.contains('active')) {
+                        stage.style.opacity = '0';
+                        stage.style.transform = 'translateY(-20px)';
+                        setTimeout(() => {
+                            stage.classList.remove('active');
+                        }, 300);
+                    }
                 });
                 
-                // Show target stage
-                const targetStage = document.getElementById(`stage-${stageNumber}`);
-                if (targetStage) {
-                    targetStage.classList.add('active');
-                    
-                    // Update navigation dots
-                    dots.forEach((dot, index) => {
-                        if (index === stageNumber - 1) {
-                            dot.classList.add('active');
-                        } else {
-                            dot.classList.remove('active');
+                // Smooth transition in
+                setTimeout(() => {
+                    const targetStage = document.getElementById(`stage-${stageNumber}`);
+                    if (targetStage) {
+                        targetStage.classList.add('active');
+                        setTimeout(() => {
+                            targetStage.style.opacity = '1';
+                            targetStage.style.transform = 'translateY(0)';
+                        }, 50);
+                        
+                        // Update navigation dots
+                        dots.forEach((dot, index) => {
+                            if (index === stageNumber - 1) {
+                                dot.classList.add('active');
+                            } else {
+                                dot.classList.remove('active');
+                            }
+                        });
+                        
+                        currentStage = stageNumber;
+                        
+                        // Special initialization for each stage
+                        switch(stageNumber) {
+                            case 3:
+                                createHeartEmojiTree();
+                                break;
+                            case 4:
+                                initCakeStage();
+                                break;
+                            case 6:
+                                startFinalCelebration();
+                                break;
                         }
-                    });
-                    
-                    // Special initialization for each stage
-                    switch(stageNumber) {
-                        case 3:
-                            createHeartEmojiTree();
-                            break;
-                        case 4:
-                            initCakeAnimation();
-                            break;
-                        case 6:
-                            startTypingEffect();
-                            break;
+                        
+                        // Create floating elements
+                        createFloatingElements();
                     }
-                    
-                    // Create floating elements
-                    createFloatingElements();
-                }
+                }, 350);
             }
             
             // Navigation dots click
@@ -1802,7 +1940,7 @@
                 });
             });
             
-            // Stage 2: Envelope click (stage 1 is now countdown)
+            // Stage 2: Envelope click
             const envelopeSeal = document.querySelector('.envelope-seal');
             if (envelopeSeal) {
                 envelopeSeal.addEventListener('click', function() {
@@ -1811,15 +1949,76 @@
                         envelope.classList.add('open');
                         createFloatingElement('✨ Happy Birthday Lakshita! ✨');
                         
-                        // Launch celebration fireworks
-                        fireworks.launchMultiFireworks(3);
-                        
-                        // Move to next stage after delay
+                        // Smooth transition to next stage
                         setTimeout(() => {
                             navigateToStage(3);
-                        }, 2500);
+                        }, 2000);
                     }
                 });
+            }
+            
+            // Stage 4: Cake Stage with Automatic Cutting
+            let cakeCut = false;
+            
+            function initCakeStage() {
+                const cakeContainer = document.getElementById('cake-container');
+                const cakeImg = document.getElementById('cake-img');
+                const flame = document.getElementById('flame');
+                const cakeCutElement = document.getElementById('cake-cut');
+                
+                // Reset cake state
+                cakeCut = false;
+                cakeContainer.style.transform = 'scale(1)';
+                cakeImg.style.transform = 'scale(1)';
+                flame.style.animation = 'flicker 0.5s infinite alternate';
+                flame.style.opacity = '1';
+                cakeCutElement.classList.remove('active');
+                
+                // Cake click event
+                cakeContainer.addEventListener('click', function() {
+                    if (!cakeCut) {
+                        cutCake();
+                        cakeCut = true;
+                    }
+                });
+            }
+            
+            function cutCake() {
+                const cakeContainer = document.getElementById('cake-container');
+                const cakeImg = document.getElementById('cake-img');
+                const flame = document.getElementById('flame');
+                const cakeCutElement = document.getElementById('cake-cut');
+                
+                // Blow out candle
+                flame.style.animation = 'none';
+                flame.style.opacity = '0';
+                flame.style.transform = 'translateX(-50%) scale(0.5)';
+                
+                // Cake cutting animation
+                cakeCutElement.classList.add('active');
+                
+                // Cake image animation
+                cakeImg.style.transform = 'scale(1.1) rotate(5deg)';
+                cakeContainer.style.transform = 'scale(1.05)';
+                
+                // Show fireworks controls
+                setTimeout(() => {
+                    const fireworksControls = document.getElementById('fireworks-controls');
+                    fireworksControls.classList.remove('hidden');
+                    createFloatingElement('🎆 Fireworks Controls Activated!');
+                    
+                    // Activate fireworks
+                    fireworks.activate();
+                    
+                    // Launch celebration fireworks
+                    fireworks.launchMultiFireworks(5);
+                    fireworks.launchHeartFireworks(2);
+                }, 1000);
+                
+                // Move to next stage after delay
+                setTimeout(() => {
+                    navigateToStage(5);
+                }, 4000);
             }
             
             // Fireworks Control Buttons
@@ -1852,33 +2051,62 @@
             
             // Surprise button
             document.getElementById('surprise-btn').addEventListener('click', function() {
-                // Launch all types of fireworks
-                fireworks.launchMultiFireworks(10);
-                setTimeout(() => fireworks.launchHeartFireworks(5), 500);
-                setTimeout(() => {
-                    for (let i = 0; i < 20; i++) {
-                        setTimeout(() => {
-                            fireworks.launchSingleFirework();
-                        }, i * 100);
-                    }
-                }, 1000);
-                
+                fireworks.grandFinale();
                 createFloatingElement('🎁 Birthday Surprise!');
             });
             
-            // Auto navigation every 30 seconds
-            let currentStage = 1;
+            // Stage 6: Final Celebration
+            function startFinalCelebration() {
+                // Hide fireworks controls
+                const fireworksControls = document.getElementById('fireworks-controls');
+                fireworksControls.classList.add('hidden');
+                
+                // Start typing effect
+                startTypingEffect();
+                
+                // Start grand finale after typing
+                setTimeout(() => {
+                    startAutomaticCelebration();
+                }, 5000);
+            }
+            
+            function startAutomaticCelebration() {
+                // Show final celebration overlay
+                const finalCelebration = document.getElementById('final-celebration');
+                finalCelebration.classList.add('active');
+                
+                // Activate fireworks
+                fireworks.activate();
+                
+                // Start grand finale
+                fireworks.grandFinale();
+                
+                // Create floating elements
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        createFloatingElement('🎉');
+                    }, i * 300);
+                }
+                
+                // Update birthday status if it's the birthday
+                const statusElement = document.getElementById('birthday-status');
+                statusElement.textContent = "🎉 HAPPY BIRTHDAY LAKSHITA! 🎉";
+                statusElement.style.animation = 'heartbeat 1s infinite';
+                
+                // Auto-navigate to countdown stage after finale
+                setTimeout(() => {
+                    navigateToStage(1);
+                }, 12000);
+            }
+            
+            // Auto navigation every 30 seconds (smooth)
             const autoNav = setInterval(() => {
                 if (currentStage < 6) {
-                    currentStage++;
-                    navigateToStage(currentStage);
+                    navigateToStage(currentStage + 1);
                 } else {
                     clearInterval(autoNav);
                 }
             }, 30000);
-            
-            // Initialize first stage
-            createFloatingElements();
             
             // Stage 3: Create Heart Emoji Tree
             function createHeartEmojiTree() {
@@ -1936,9 +2164,6 @@
                                 const msgIndex = Math.floor(Math.random() * messages.length);
                                 createFloatingElement(messages[msgIndex]);
                                 
-                                // Launch mini firework
-                                fireworks.launchSingleFirework(heartSpan.style.color);
-                                
                                 // Animation
                                 this.style.transform = 'scale(1.8) rotate(30deg)';
                                 this.style.filter = 'drop-shadow(0 0 25px currentColor)';
@@ -1990,35 +2215,6 @@
                 }
             }
             
-            // Stage 4: Cake animation
-            function initCakeAnimation() {
-                const cakeContainer = document.querySelector('.cake-container');
-                if (!cakeContainer) return;
-                
-                cakeContainer.addEventListener('click', function() {
-                    const flame = document.querySelector('.flame');
-                    flame.style.animation = 'none';
-                    flame.style.opacity = '0';
-                    
-                    createFloatingElement('🎉 Your Wish Will Come True Lakshita! 🎉');
-                    fireworks.launchMultiFireworks(5);
-                    fireworks.launchHeartFireworks(2);
-                    
-                    // Cake image animation
-                    const cakeImg = document.querySelector('.cake-img');
-                    cakeImg.style.transform = 'scale(1.15) rotate(5deg)';
-                    
-                    setTimeout(() => {
-                        cakeImg.style.transform = 'scale(1) rotate(0deg)';
-                    }, 500);
-                    
-                    // Move to next stage after delay
-                    setTimeout(() => {
-                        navigateToStage(5);
-                    }, 2000);
-                });
-            }
-            
             // Stage 5: Gallery interactions
             const galleryItems = document.querySelectorAll('.gallery-item');
             galleryItems.forEach((item, index) => {
@@ -2029,7 +2225,6 @@
                         "Lakshita makes every moment special! ✨"
                     ];
                     createFloatingElement(messages[index % messages.length]);
-                    fireworks.launchSingleFirework();
                     
                     // Image zoom effect
                     const img = this.querySelector('.gallery-img');
@@ -2040,7 +2235,7 @@
                 });
             });
             
-            // Stage 6: Typing effect
+            // Typing effect
             function startTypingEffect() {
                 const typingText = document.getElementById('typing-text');
                 if (!typingText) return;
@@ -2049,33 +2244,12 @@
 
 Happy Birthday to the most wonderful person I know! 🎉🎂
 
-On this very special day, I want to tell you how incredibly amazing you are. 
-Your kindness, your smile, and your beautiful spirit light up every room you enter.
+Today is all about celebrating YOU and the incredible person you are. 
+May this year bring you endless joy, love, and all your heart desires.
 
-🌟 You are a beacon of light in the lives of those around you.
-🌟 Your kindness touches hearts in ways you may never know.
-🌟 Your smile has the power to brighten the darkest of days.
-🌟 Your spirit is a beautiful melody in life's symphony.
+With love and best wishes,
+💖`;
 
-Today, I wish for you:
-💖 A year filled with love and laughter
-💖 Success in all your endeavors
-💖 Health and happiness that never fades
-💖 Dreams that blossom into reality
-💖 Moments that turn into cherished memories
-
-May this birthday be the beginning of your most wonderful year yet. 
-May you continue to grow, shine, and inspire everyone around you.
-
-Remember that you are loved, you are valued, and you are capable of achieving anything you set your heart on.
-
-Happy Birthday, beautiful Lakshita! May your day be as magical as you are.
-
-With all my love and warmest wishes,
-Someone who cares about you 💝
-
-P.S. Keep being your amazing self – the world needs more people like you!`;
-                
                 typingText.textContent = '';
                 let i = 0;
                 
@@ -2083,13 +2257,7 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
                     if (i < message.length) {
                         typingText.textContent += message.charAt(i);
                         i++;
-                        setTimeout(typeWriter, 20);
-                    } else {
-                        // Launch final celebration fireworks
-                        setTimeout(() => {
-                            fireworks.launchMultiFireworks(15);
-                            fireworks.launchHeartFireworks(8);
-                        }, 500);
+                        setTimeout(typeWriter, 30);
                     }
                 }
                 
@@ -2150,6 +2318,9 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
                     }
                 });
             }
+            
+            // Initialize first stage
+            createFloatingElements();
         });
     </script>
 </body>
