@@ -169,15 +169,15 @@
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
 
-        /* Luxurious Envelope */
+        /* Custom Envelope with Your Image */
         .envelope-wrapper {
             position: relative;
-            width: 350px;
-            height: 250px;
+            width: 400px;
+            height: 280px;
             cursor: pointer;
             perspective: 1500px;
             margin: 40px 0;
-            filter: drop-shadow(0 20px 40px rgba(255, 105, 180, 0.2));
+            filter: drop-shadow(0 20px 40px rgba(255, 105, 180, 0.3));
         }
 
         .envelope {
@@ -192,22 +192,30 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink));
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink));
+        }
+
+        .envelope-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+            transition: transform 1s ease;
         }
 
         .envelope-flap {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--secondary-pink), #ff66cc);
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
             clip-path: polygon(0 0, 50% 50%, 100% 0);
             transform-origin: top;
             transition: transform 1.2s ease;
             border-radius: 20px 20px 0 0;
-            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 2;
         }
 
         .envelope.open .envelope-flap {
@@ -219,17 +227,18 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, var(--accent-gold), #ffaa00);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 36px;
             z-index: 10;
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
             animation: sealGlow 2s infinite alternate;
+            cursor: pointer;
         }
 
         @keyframes sealGlow {
@@ -241,7 +250,7 @@
             position: absolute;
             width: 90%;
             height: 85%;
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             top: 7.5%;
             left: 5%;
@@ -249,13 +258,14 @@
             opacity: 0;
             transform: translateY(200px) scale(0.8);
             transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.5s;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-            z-index: 5;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            backdrop-filter: blur(10px);
         }
 
         .envelope.open .envelope-content {
             opacity: 1;
-            transform: translateY(-220px) scale(1.05);
+            transform: translateY(-250px) scale(1.05);
         }
 
         .envelope-content h2 {
@@ -274,11 +284,11 @@
             opacity: 0.8;
         }
 
-        /* Magical Tree */
+        /* Enhanced Heart Tree with Multiple Branches */
         .tree-container {
             position: relative;
-            width: 400px;
-            height: 500px;
+            width: 600px;
+            height: 600px;
             margin: 40px 0;
         }
 
@@ -291,75 +301,98 @@
         }
 
         .tree-trunk {
-            width: 50px;
-            height: 200px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 250px;
             background: linear-gradient(45deg, #8b4513 0%, #a0522d 50%, #8b4513 100%);
-            margin: 0 auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            z-index: 1;
         }
 
-        .tree-trunk::after {
-            content: '';
+        .main-branch {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-            animation: trunkShine 4s infinite linear;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            border-radius: 20px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 0;
+        }
+
+        .branch-1 {
+            width: 400px;
+            height: 150px;
+            top: 150px;
+            left: 100px;
+            transform: rotate(-5deg);
+            clip-path: polygon(0% 50%, 100% 0%, 100% 100%, 0% 100%);
+        }
+
+        .branch-2 {
+            width: 380px;
+            height: 140px;
+            top: 120px;
+            left: 110px;
+            transform: rotate(5deg);
+            clip-path: polygon(0% 0%, 100% 50%, 100% 100%, 0% 100%);
+        }
+
+        .branch-3 {
+            width: 350px;
+            height: 130px;
+            top: 80px;
+            left: 125px;
+            transform: rotate(-8deg);
+            clip-path: polygon(0% 30%, 100% 0%, 100% 100%, 0% 100%);
+        }
+
+        .branch-4 {
+            width: 320px;
+            height: 120px;
+            top: 50px;
+            left: 140px;
+            transform: rotate(10deg);
+            clip-path: polygon(0% 0%, 100% 20%, 100% 100%, 0% 100%);
+        }
+
+        .branch-5 {
+            width: 280px;
+            height: 100px;
+            top: 20px;
+            left: 160px;
+            transform: rotate(-12deg);
+            clip-path: polygon(0% 20%, 100% 0%, 100% 100%, 0% 100%);
         }
 
         .tree-branches {
             position: absolute;
-            bottom: 180px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 350px;
-            height: 350px;
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            border-radius: 50% 50% 0 0;
-            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
-        }
-
-        .tree-branches::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            background: linear-gradient(135deg, #27ae60, #219653);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            border-radius: 50% 50% 0 0;
-        }
-
-        @keyframes trunkShine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
+            width: 500px;
+            height: 400px;
+            bottom: 200px;
+            left: 50px;
+            z-index: 0;
         }
 
         .heart-leaf {
             position: absolute;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             background: var(--heart-color, var(--primary-pink));
             clip-path: polygon(50% 15%, 100% 40%, 85% 100%, 50% 80%, 15% 100%, 0% 40%);
             opacity: 0;
             transform: scale(0) rotate(0deg);
             animation: heartBloom 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             z-index: 3;
         }
 
         .heart-leaf:hover {
-            transform: scale(1.4) rotate(15deg) !important;
-            filter: drop-shadow(0 0 25px currentColor);
+            transform: scale(1.5) rotate(15deg) !important;
+            filter: drop-shadow(0 0 30px currentColor);
             z-index: 10;
         }
 
@@ -370,7 +403,7 @@
             }
         }
 
-        /* Elegant Cake */
+        /* Custom Cake with Your Image */
         .cake-wrapper {
             position: relative;
             margin: 50px 0;
@@ -378,56 +411,85 @@
             animation: gentleFloat 6s ease-in-out infinite;
         }
 
-        .cake {
-            width: 300px;
-            height: 300px;
+        .cake-container {
+            width: 350px;
+            height: 350px;
             position: relative;
             border-radius: 20px;
-            background: linear-gradient(135deg, #ffccd5, #fff0f3);
-            box-shadow: 0 30px 60px rgba(255, 105, 180, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.5);
             overflow: hidden;
+            box-shadow: 0 30px 60px rgba(255, 105, 180, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.6);
             transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
-        .cake:hover {
-            transform: scale(1.08);
+        .cake-container:hover {
+            transform: scale(1.1);
         }
 
-        .cake-layer {
-            position: absolute;
+        .cake-img {
             width: 100%;
-            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-            border-radius: 15px;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
         }
 
-        .cake-layer-1 { height: 100px; bottom: 0; }
-        .cake-layer-2 { height: 90px; bottom: 100px; background: linear-gradient(135deg, #ff69b4, #da70d6); }
-        .cake-layer-3 { height: 80px; bottom: 190px; background: linear-gradient(135deg, #da70d6, #9370db); }
+        .cake-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 100%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .cake-container:hover .cake-overlay {
+            opacity: 1;
+        }
+
+        .cake-text {
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.6s ease;
+        }
+
+        .cake-container:hover .cake-text {
+            transform: translateY(0);
+        }
 
         .candle {
             position: absolute;
-            width: 20px;
-            height: 60px;
+            width: 25px;
+            height: 70px;
             background: linear-gradient(180deg, #ffd700, #ffaa00);
-            top: -60px;
+            top: -70px;
             left: 50%;
             transform: translateX(-50%);
-            border-radius: 10px 10px 0 0;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+            z-index: 2;
         }
 
         .flame {
             position: absolute;
-            width: 15px;
-            height: 25px;
+            width: 18px;
+            height: 30px;
             background: linear-gradient(180deg, #ffff00, #ff4500);
-            top: -85px;
+            top: -100px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 50% 50% 20% 20%;
             animation: flicker 0.5s infinite alternate;
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.7);
+            box-shadow: 0 0 35px rgba(255, 69, 0, 0.8);
+            z-index: 3;
         }
 
         @keyframes gentleFloat {
@@ -441,10 +503,10 @@
             50% { transform: translateX(-50%) scale(1.1); opacity: 0.9; }
         }
 
-        /* Elegant Gallery */
+        /* Custom Gallery with Your Photos */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
             margin: 50px 0;
             max-width: 1000px;
@@ -459,7 +521,7 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: pointer;
-            aspect-ratio: 4/5;
+            aspect-ratio: 3/4;
             background: var(--soft-white);
         }
 
@@ -468,14 +530,14 @@
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.25);
         }
 
-        .gallery-item img {
+        .gallery-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.8s ease;
         }
 
-        .gallery-item:hover img {
+        .gallery-item:hover .gallery-img {
             transform: scale(1.1);
         }
 
@@ -491,7 +553,7 @@
             transition: transform 0.6s ease;
             text-align: center;
             font-family: 'Dancing Script', cursive;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
 
         .gallery-item:hover .gallery-overlay {
@@ -715,26 +777,42 @@
             }
         }
 
+        /* Background Music */
+        #background-music {
+            display: none;
+        }
+
+        /* Heart Leaves Container */
+        .heart-leaves {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 5;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .envelope-wrapper {
-                width: 280px;
-                height: 200px;
+                width: 320px;
+                height: 220px;
             }
             
             .tree-container {
-                width: 320px;
-                height: 400px;
+                width: 400px;
+                height: 450px;
             }
             
-            .tree-branches {
+            .branch-1 { width: 280px; height: 110px; top: 120px; left: 60px; }
+            .branch-2 { width: 260px; height: 100px; top: 90px; left: 70px; }
+            .branch-3 { width: 240px; height: 90px; top: 60px; left: 80px; }
+            .branch-4 { width: 220px; height: 80px; top: 30px; left: 90px; }
+            .branch-5 { width: 200px; height: 70px; top: 10px; left: 100px; }
+            
+            .cake-container {
                 width: 280px;
                 height: 280px;
-            }
-            
-            .cake {
-                width: 250px;
-                height: 250px;
             }
             
             .gallery {
@@ -778,23 +856,24 @@
             }
             
             .envelope-wrapper {
-                width: 240px;
-                height: 170px;
+                width: 280px;
+                height: 190px;
             }
             
             .tree-container {
-                width: 280px;
-                height: 350px;
+                width: 320px;
+                height: 380px;
             }
             
-            .tree-branches {
+            .branch-1 { width: 220px; height: 90px; top: 100px; left: 50px; }
+            .branch-2 { width: 200px; height: 80px; top: 70px; left: 60px; }
+            .branch-3 { width: 180px; height: 70px; top: 50px; left: 70px; }
+            .branch-4 { width: 160px; height: 60px; top: 30px; left: 80px; }
+            .branch-5 { width: 140px; height: 50px; top: 15px; left: 90px; }
+            
+            .cake-container {
                 width: 240px;
                 height: 240px;
-            }
-            
-            .cake {
-                width: 200px;
-                height: 200px;
             }
             
             .gallery {
@@ -812,6 +891,11 @@
     </style>
 </head>
 <body>
+    <!-- Background Music -->
+    <audio id="background-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Animated Background Particles -->
     <div class="particles" id="particles"></div>
 
@@ -829,67 +913,78 @@
     <div class="container">
         <!-- Stage 1: Envelope -->
         <div id="stage-1" class="stage active">
-            <h2 class="stage-title">A Special Invitation 💌</h2>
+            <h2 class="stage-title">Your Special Invitation 💌</h2>
             <div class="envelope-wrapper">
                 <div class="envelope">
-                    <div class="envelope-body"></div>
+                    <div class="envelope-body">
+                        <img src="envelope.png" alt="Beautiful Envelope" class="envelope-img">
+                    </div>
                     <div class="envelope-flap"></div>
                     <div class="envelope-seal">💝</div>
                     <div class="envelope-content">
-                        <h2>Dearest Lakshmi</h2>
-                        <p>On this beautiful day, I've prepared something special just for you. Open this envelope to begin your birthday journey filled with love, joy, and beautiful surprises!</p>
+                        <h2>My Dearest Lakshmi</h2>
+                        <p>On this beautiful day, I've prepared something very special just for you. Every moment has been crafted with love and care.</p>
                         <p style="margin-top: 15px; font-style: italic; color: var(--primary-pink);">
-                            With all my love 💖
+                            Open your heart to receive all the love I've prepared for you today! 💖
                         </p>
                     </div>
                 </div>
             </div>
-            <p class="instruction">Tap the envelope to open your birthday surprise</p>
+            <p class="instruction">Click the golden seal to open your birthday surprise</p>
         </div>
 
         <!-- Stage 2: Heart Tree -->
         <div id="stage-2" class="stage">
-            <h2 class="stage-title">Tree of Wishes 🌸</h2>
+            <h2 class="stage-title">Tree of Wishes & Hearts 🌸</h2>
             <div class="tree-container">
+                <div class="tree-branches">
+                    <div class="main-branch branch-1"></div>
+                    <div class="main-branch branch-2"></div>
+                    <div class="main-branch branch-3"></div>
+                    <div class="main-branch branch-4"></div>
+                    <div class="main-branch branch-5"></div>
+                </div>
                 <div class="tree">
-                    <div class="tree-branches"></div>
                     <div class="tree-trunk"></div>
                 </div>
-                <!-- Hearts will be added dynamically -->
+                <div class="heart-leaves" id="heart-leaves">
+                    <!-- Hearts will be added here -->
+                </div>
             </div>
-            <p class="instruction">Click on the hearts to reveal birthday wishes</p>
+            <p class="instruction">Click on the colorful hearts to reveal special messages!</p>
         </div>
 
         <!-- Stage 3: Cake Celebration -->
         <div id="stage-3" class="stage">
-            <h2 class="stage-title">Make Your Wish 🎂</h2>
+            <h2 class="stage-title">Make Your Birthday Wish 🎂</h2>
             <div class="cake-wrapper">
-                <div class="cake">
-                    <div class="cake-layer cake-layer-3"></div>
-                    <div class="cake-layer cake-layer-2"></div>
-                    <div class="cake-layer cake-layer-1"></div>
+                <div class="cake-container">
+                    <img src="cake.jpg" alt="Beautiful Birthday Cake" class="cake-img">
+                    <div class="cake-overlay">
+                        <div class="cake-text">Make a Wish! ✨</div>
+                    </div>
                     <div class="candle"></div>
                     <div class="flame"></div>
                 </div>
             </div>
-            <p class="instruction">Blow out the candle and make a special wish!</p>
+            <p class="instruction">Click on the cake to blow out the candle and make your wish!</p>
         </div>
 
         <!-- Stage 4: Memory Gallery -->
         <div id="stage-4" class="stage">
-            <h2 class="stage-title">Precious Memories 📸</h2>
+            <h2 class="stage-title">Precious Memories Gallery 📸</h2>
             <div class="gallery">
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Beautiful Moments">
-                    <div class="gallery-overlay">Joyful Times</div>
+                    <img src="pic_one.jpg" alt="Beautiful Memory 1" class="gallery-img">
+                    <div class="gallery-overlay">Beautiful Moments</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Happy Memories">
-                    <div class="gallery-overlay">Beautiful Smiles</div>
+                    <img src="pic_two.jpg" alt="Beautiful Memory 2" class="gallery-img">
+                    <div class="gallery-overlay">Special Times</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Special Moments">
-                    <div class="gallery-overlay">Cherished Moments</div>
+                    <img src="pic_three.png" alt="Beautiful Memory 3" class="gallery-img">
+                    <div class="gallery-overlay">Cherished Memories</div>
                 </div>
             </div>
             <p class="instruction">Hover over the photos to see them come to life</p>
@@ -897,7 +992,7 @@
 
         <!-- Stage 5: Final Message -->
         <div id="stage-5" class="stage">
-            <h2 class="stage-title">My Heartfelt Message 💝</h2>
+            <h2 class="stage-title">My Heartfelt Message For You 💝</h2>
             <div class="message-container">
                 <div class="message-box">
                     <div class="typing-text" id="typing-text"></div>
@@ -917,7 +1012,7 @@
 
     <!-- Controls -->
     <div class="controls">
-        <button class="control-btn" id="music-btn">
+        <button class="control-btn" id="music-toggle">
             <i class="fas fa-music"></i>
         </button>
         <button class="control-btn" id="fireworks-btn">
@@ -942,14 +1037,45 @@
             // Create animated particles
             createParticles();
             
+            // Background Music
+            const backgroundMusic = document.getElementById('background-music');
+            let isMusicPlaying = false;
+            
+            // Initialize music button
+            const musicBtn = document.getElementById('music-toggle');
+            musicBtn.addEventListener('click', function() {
+                if (!isMusicPlaying) {
+                    backgroundMusic.play().then(() => {
+                        isMusicPlaying = true;
+                        musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                        createFloatingElement('🎵 Music On! 🎵');
+                    }).catch(e => {
+                        console.log("Audio playback failed:", e);
+                    });
+                } else {
+                    backgroundMusic.pause();
+                    isMusicPlaying = false;
+                    musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+                    createFloatingElement('🔇 Music Off');
+                }
+            });
+            
             // Hide loading screen after loading
             setTimeout(() => {
                 const loadingScreen = document.getElementById('loading-screen');
                 loadingScreen.style.opacity = '0';
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
-                    // Start the experience
-                    playBackgroundMusic();
+                    // Auto-play music gently
+                    setTimeout(() => {
+                        if (!isMusicPlaying) {
+                            backgroundMusic.volume = 0.3;
+                            backgroundMusic.play().then(() => {
+                                isMusicPlaying = true;
+                                musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                            });
+                        }
+                    }, 1000);
                 }, 800);
             }, 3000);
             
@@ -977,36 +1103,6 @@
                     'rgba(255, 215, 0, 0.3)'
                 ];
                 return colors[Math.floor(Math.random() * colors.length)];
-            }
-            
-            function playBackgroundMusic() {
-                // Create a subtle background sound
-                try {
-                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    createWindChimeSound(audioContext);
-                } catch (e) {
-                    console.log("Audio not supported");
-                }
-            }
-            
-            function createWindChimeSound(audioContext) {
-                // Create wind chime-like sounds
-                setInterval(() => {
-                    const oscillator = audioContext.createOscillator();
-                    const gainNode = audioContext.createGain();
-                    
-                    oscillator.connect(gainNode);
-                    gainNode.connect(audioContext.destination);
-                    
-                    oscillator.frequency.setValueAtTime(440 * Math.pow(2, Math.random() * 2 - 1), audioContext.currentTime);
-                    oscillator.type = 'sine';
-                    
-                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 2);
-                    
-                    oscillator.start();
-                    oscillator.stop(audioContext.currentTime + 2);
-                }, 5000);
             }
             
             // Stage Navigation
@@ -1059,13 +1155,17 @@
             });
             
             // Stage 1: Envelope click
-            const envelopeWrapper = document.querySelector('.envelope-wrapper');
-            if (envelopeWrapper) {
-                envelopeWrapper.addEventListener('click', function() {
+            const envelopeSeal = document.querySelector('.envelope-seal');
+            if (envelopeSeal) {
+                envelopeSeal.addEventListener('click', function() {
                     const envelope = document.querySelector('.envelope');
                     if (!envelope.classList.contains('open')) {
                         envelope.classList.add('open');
                         createFloatingElement('✨ Happy Birthday! ✨');
+                        
+                        // Envelope image animation
+                        const envelopeImg = document.querySelector('.envelope-img');
+                        envelopeImg.style.transform = 'scale(1.1)';
                         
                         // Move to next stage after delay
                         setTimeout(() => {
@@ -1077,83 +1177,142 @@
             
             // Stage 2: Create heart tree
             function createHeartTree() {
-                const treeContainer = document.querySelector('.tree-container');
-                if (!treeContainer) return;
+                const heartLeaves = document.getElementById('heart-leaves');
+                if (!heartLeaves) return;
                 
                 // Clear existing hearts
-                const existingHearts = treeContainer.querySelectorAll('.heart-leaf');
-                existingHearts.forEach(heart => heart.remove());
+                heartLeaves.innerHTML = '';
                 
                 // Heart colors and messages
-                const heartColors = ['#ff69b4', '#ff1493', '#da70d6', '#87ceeb', '#ffd700', '#ffa500'];
+                const heartColors = [
+                    '#ff69b4', '#ff1493', '#da70d6', '#87ceeb', 
+                    '#ffd700', '#ffa500', '#ff3366', '#ff66cc',
+                    '#ff99cc', '#ffccff', '#cc99ff', '#99ccff',
+                    '#66ffcc', '#99ff99', '#ffff66'
+                ];
+                
                 const heartMessages = [
-                    "You shine brighter than stars! ✨",
-                    "May all your dreams come true! 🌟",
-                    "You're one of a kind! 💖",
+                    "You're amazing! 🌟",
                     "Stay blessed always! 🙏",
                     "Keep smiling! 😊",
                     "Wish you endless joy! 🎉",
-                    "You're amazing! 🌈",
+                    "You're one of a kind! 💖",
+                    "Stay beautiful! 🌸",
+                    "Many happy returns! 🎂",
+                    "Enjoy your day! 🥳",
+                    "You're special! ✨",
                     "Stay awesome! 💫",
-                    "Happy Birthday beautiful! 🎂"
+                    "Wish you love! 💕",
+                    "Stay happy! 😄",
+                    "You're wonderful! 🌈",
+                    "Stay magical! 🔮",
+                    "You're incredible! 🚀"
                 ];
                 
-                // Create 20 hearts
-                for (let i = 0; i < 20; i++) {
+                // Create 60 hearts for full coverage
+                for (let i = 0; i < 60; i++) {
                     setTimeout(() => {
                         const heart = document.createElement('div');
                         heart.className = 'heart-leaf';
                         
-                        // Position hearts around the tree
-                        const angle = (i / 20) * Math.PI * 2;
-                        const radius = 120 + Math.random() * 80;
+                        // Position hearts on branches
+                        let x, y;
                         
-                        const x = Math.cos(angle) * radius;
-                        const y = Math.sin(angle) * radius * 0.7 + 40;
+                        // Distribute hearts across different branches
+                        const branch = Math.floor(i / 12) + 1;
+                        const positionInBranch = i % 12;
                         
-                        heart.style.left = `calc(50% + ${x}px)`;
-                        heart.style.top = `calc(50% + ${y}px)`;
+                        switch(branch) {
+                            case 1: // Bottom branch
+                                x = 50 + (positionInBranch * 30);
+                                y = 350 + Math.sin(positionInBranch) * 20;
+                                break;
+                            case 2:
+                                x = 100 + (positionInBranch * 25);
+                                y = 300 + Math.cos(positionInBranch) * 25;
+                                break;
+                            case 3:
+                                x = 150 + (positionInBranch * 20);
+                                y = 250 + Math.sin(positionInBranch * 1.5) * 30;
+                                break;
+                            case 4:
+                                x = 200 + (positionInBranch * 15);
+                                y = 200 + Math.cos(positionInBranch * 2) * 35;
+                                break;
+                            case 5: // Top branch
+                                x = 250 + (positionInBranch * 10);
+                                y = 150 + Math.sin(positionInBranch * 2.5) * 40;
+                                break;
+                            default:
+                                x = 100 + (i * 5);
+                                y = 400 - (i * 4);
+                        }
                         
-                        // Random color and rotation
+                        heart.style.left = `${x}px`;
+                        heart.style.top = `${y}px`;
+                        
+                        // Random color from bright palette
                         const colorIndex = Math.floor(Math.random() * heartColors.length);
                         heart.style.setProperty('--heart-color', heartColors[colorIndex]);
-                        heart.style.setProperty('--rotate-angle', `${Math.random() * 360}deg`);
+                        
+                        // Random rotation and size variation
+                        const rotation = Math.random() * 360;
+                        const size = 0.8 + Math.random() * 0.4;
+                        heart.style.setProperty('--rotate-angle', `${rotation}deg`);
+                        heart.style.transform = `scale(${size})`;
                         
                         // Animation delay for staggered effect
-                        heart.style.animationDelay = `${i * 0.15}s`;
+                        heart.style.animationDelay = `${i * 0.05}s`;
                         
                         // Click event
-                        heart.addEventListener('click', function() {
+                        heart.addEventListener('click', function(e) {
+                            e.stopPropagation();
                             const msgIndex = Math.floor(Math.random() * heartMessages.length);
                             createFloatingElement(heartMessages[msgIndex]);
                             
                             // Heart animation
-                            this.style.transform = 'scale(1.5) rotate(45deg)';
-                            this.style.filter = 'drop-shadow(0 0 30px currentColor)';
+                            this.style.transform = `scale(${size * 1.5}) rotate(${rotation + 45}deg)`;
+                            this.style.filter = 'drop-shadow(0 0 30px currentColor) brightness(1.3)';
                             
                             setTimeout(() => {
-                                this.style.transform = 'scale(1)';
-                                this.style.filter = 'drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2))';
+                                this.style.transform = `scale(${size}) rotate(${rotation}deg)`;
+                                this.style.filter = 'drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3))';
                             }, 500);
                         });
                         
-                        treeContainer.appendChild(heart);
-                    }, i * 100);
+                        heartLeaves.appendChild(heart);
+                    }, i * 30);
                 }
+                
+                // Make the tree interactive
+                const treeContainer = document.querySelector('.tree-container');
+                treeContainer.addEventListener('click', function(e) {
+                    if (!e.target.classList.contains('heart-leaf')) {
+                        createFloatingElement('🌸 Beautiful Tree of Hearts 🌸');
+                    }
+                });
             }
             
             // Stage 3: Cake animation
             function initCakeAnimation() {
-                const cake = document.querySelector('.cake');
-                if (!cake) return;
+                const cakeContainer = document.querySelector('.cake-container');
+                if (!cakeContainer) return;
                 
-                cake.addEventListener('click', function() {
+                cakeContainer.addEventListener('click', function() {
                     const flame = document.querySelector('.flame');
                     flame.style.animation = 'none';
                     flame.style.opacity = '0';
                     
-                    createFloatingElement('🎉 Wish Granted! 🎉');
+                    createFloatingElement('🎉 Your Wish Will Come True! 🎉');
                     createConfetti();
+                    
+                    // Cake image animation
+                    const cakeImg = document.querySelector('.cake-img');
+                    cakeImg.style.transform = 'scale(1.15) rotate(5deg)';
+                    
+                    setTimeout(() => {
+                        cakeImg.style.transform = 'scale(1) rotate(0deg)';
+                    }, 500);
                     
                     // Move to next stage after delay
                     setTimeout(() => {
@@ -1172,6 +1331,13 @@
                         "You make every moment special! ✨"
                     ];
                     createFloatingElement(messages[index % messages.length]);
+                    
+                    // Image zoom effect
+                    const img = this.querySelector('.gallery-img');
+                    img.style.transform = 'scale(1.15)';
+                    setTimeout(() => {
+                        img.style.transform = 'scale(1.1)';
+                    }, 300);
                 });
             });
             
@@ -1182,7 +1348,8 @@
                 
                 const message = `My Dearest Lakshmi,
 
-On this special day, I want to take a moment to tell you just how incredible you are. Your presence in this world makes it a brighter, more beautiful place.
+On this very special day, I want to take a moment to tell you just how incredible you are. 
+Your presence in this world makes it a brighter, more beautiful place.
 
 🌟 You are a beacon of light in the lives of those around you.
 🌟 Your kindness touches hearts in ways you may never know.
@@ -1196,7 +1363,8 @@ Today, I wish for you:
 💖 Dreams that blossom into reality
 💖 Moments that turn into cherished memories
 
-May this birthday be the beginning of your most wonderful year yet. May you continue to grow, shine, and inspire everyone around you.
+May this birthday be the beginning of your most wonderful year yet. 
+May you continue to grow, shine, and inspire everyone around you.
 
 Remember that you are loved, you are valued, and you are capable of achieving anything you set your heart on.
 
@@ -1214,7 +1382,7 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
                     if (i < message.length) {
                         typingText.textContent += message.charAt(i);
                         i++;
-                        setTimeout(typeWriter, 20); // Faster typing speed
+                        setTimeout(typeWriter, 20);
                     }
                 }
                 
@@ -1240,7 +1408,7 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
             }
             
             function createFloatingElements() {
-                const symbols = ['💖', '✨', '🌟', '🎉', '🎂', '🌸', '🎁', '💫', '🎈'];
+                const symbols = ['💖', '✨', '🌟', '🎉', '🎂', '🌸', '🎁', '💫', '🎈', '🥳'];
                 for (let i = 0; i < 3; i++) {
                     setTimeout(() => {
                         createFloatingElement(symbols[Math.floor(Math.random() * symbols.length)]);
@@ -1249,7 +1417,7 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
             }
             
             function createConfetti() {
-                const symbols = ['🎉', '✨', '🎊', '💫', '🌟', '🎈', '💖', '🌸'];
+                const symbols = ['🎉', '✨', '🎊', '💫', '🌟', '🎈', '💖', '🌸', '🥳', '🎂'];
                 for (let i = 0; i < 20; i++) {
                     setTimeout(() => {
                         createFloatingElement(symbols[Math.floor(Math.random() * symbols.length)]);
@@ -1258,7 +1426,7 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
             }
             
             function getRandomColor() {
-                const colors = ['#ff69b4', '#ff1493', '#da70d6', '#87ceeb', '#ffd700', '#ffa500'];
+                const colors = ['#ff69b4', '#ff1493', '#da70d6', '#87ceeb', '#ffd700', '#ffa500', '#ff3366'];
                 return colors[Math.floor(Math.random() * colors.length)];
             }
             
@@ -1286,11 +1454,6 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
             }
             
             // Control buttons
-            document.getElementById('music-btn').addEventListener('click', function() {
-                createFloatingElement('🎵 Magical Music 🎵');
-                this.classList.toggle('active');
-            });
-            
             document.getElementById('fireworks-btn').addEventListener('click', function() {
                 createConfetti();
                 for (let i = 0; i < 5; i++) {
@@ -1305,7 +1468,7 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
                 createFloatingElement('🥳 Party Time! 🥳');
             });
             
-            // Auto navigation every 20 seconds
+            // Auto navigation every 25 seconds
             let currentStage = 1;
             const autoNav = setInterval(() => {
                 if (currentStage < 5) {
@@ -1314,7 +1477,7 @@ P.S. Keep being your amazing self – the world needs more people like you!`;
                 } else {
                     clearInterval(autoNav);
                 }
-            }, 20000);
+            }, 25000);
             
             // Initialize first stage
             createFloatingElements();
