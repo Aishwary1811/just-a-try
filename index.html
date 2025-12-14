@@ -24,6 +24,7 @@
             --dark-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             --text-dark: #4a4a4a;
             --text-light: #f5f5f5;
+            --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
@@ -32,9 +33,9 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            transition: all 0.8s ease;
+            transition: var(--transition-smooth);
             opacity: 0;
-            animation: fadeIn 1s ease forwards;
+            animation: fadeIn 1.2s ease forwards;
         }
 
         @keyframes fadeIn {
@@ -45,9 +46,14 @@
             background: var(--dark-bg);
         }
 
-        /* Smooth Transitions */
-        .smooth-transition {
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Elegant Cursor */
+        body {
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23ff69b4' d='M16 3C8.83 3 3 8.83 3 16s5.83 13 13 13 13-5.83 13-13S23.17 3 16 3zm0 2c6.08 0 11 4.92 11 11s-4.92 11-11 11S5 22.08 5 16 9.92 5 16 5z'/%3E%3Cpath fill='%23ff69b4' d='M16 8c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 2c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6z'/%3E%3C/svg%3E") 16 16, auto;
         }
 
         /* Animated Background Particles */
@@ -65,13 +71,28 @@
             position: absolute;
             background: var(--primary-pink);
             border-radius: 50%;
-            animation: float 15s infinite linear;
-            opacity: 0.2;
+            animation: float 20s infinite linear;
+            opacity: 0.15;
+            filter: blur(1px);
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-100px) rotate(180deg); }
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 0.1;
+            }
+            25% { 
+                transform: translateY(-100px) rotate(90deg) scale(1.2);
+                opacity: 0.2;
+            }
+            50% { 
+                transform: translateY(-200px) rotate(180deg) scale(1);
+                opacity: 0.1;
+            }
+            75% { 
+                transform: translateY(-100px) rotate(270deg) scale(0.8);
+                opacity: 0.2;
+            }
         }
 
         /* Loading Screen */
@@ -87,37 +108,45 @@
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            transition: opacity 0.8s ease-out;
+            transition: opacity 1s ease-out, transform 1s ease-out;
         }
 
         .birthday-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 4rem;
+            font-size: 4.5rem;
             color: white;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-            animation: heartbeat 2s infinite;
+            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+            animation: heartbeat 1.8s infinite;
+            background: linear-gradient(45deg, #ffffff, #ffd6e7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            25% { transform: scale(1.05); }
+            50% { transform: scale(1.03); }
+            75% { transform: scale(1.07); }
         }
 
         .loading-bar {
-            width: 300px;
-            height: 4px;
+            width: 400px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .loading-progress {
             width: 0%;
             height: 100%;
-            background: white;
+            background: linear-gradient(90deg, #ffffff, #ffd6e7);
             border-radius: 10px;
-            animation: loading 3s ease-out forwards;
+            animation: loading 2.5s ease-out forwards;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
         @keyframes loading {
@@ -143,8 +172,8 @@
             min-height: 100vh;
             width: 100%;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(30px);
+            transition: var(--transition-smooth);
         }
 
         .stage.active {
@@ -157,17 +186,17 @@
         .stage-title {
             font-family: 'Dancing Script', cursive;
             color: var(--primary-pink);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 40px;
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            margin-bottom: 50px;
             text-align: center;
             position: relative;
-            padding-bottom: 20px;
-            animation: titleFloat 6s ease-in-out infinite;
+            padding-bottom: 25px;
+            animation: titleFloat 8s ease-in-out infinite;
         }
 
         @keyframes titleFloat {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
         }
 
         .stage-title::after {
@@ -176,50 +205,71 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
+            width: 150px;
+            height: 4px;
             background: linear-gradient(90deg, transparent, var(--primary-pink), transparent);
-            animation: lineWidth 3s ease-in-out infinite;
+            animation: lineWidth 4s ease-in-out infinite;
         }
 
         @keyframes lineWidth {
-            0%, 100% { width: 100px; }
-            50% { width: 150px; }
+            0%, 100% { width: 150px; opacity: 1; }
+            50% { width: 200px; opacity: 0.8; }
         }
 
         body.night-mode .stage-title {
             color: var(--accent-gold);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
         }
 
         /* Birthday Countdown */
         .countdown-container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px 40px;
-            border-radius: 25px;
-            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.2);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.92);
+            padding: 40px 50px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(255, 105, 180, 0.25);
+            backdrop-filter: blur(15px);
             margin: 40px 0;
-            border: 3px solid rgba(255, 105, 180, 0.2);
-            animation: containerFloat 4s ease-in-out infinite;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            animation: containerFloat 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 105, 180, 0.1), transparent);
+            animation: shine 8s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         @keyframes containerFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(1deg); }
+            66% { transform: translateY(-5px) rotate(-1deg); }
         }
 
         body.night-mode .countdown-container {
-            background: rgba(26, 26, 46, 0.9);
-            border-color: rgba(255, 215, 0, 0.2);
+            background: rgba(26, 26, 46, 0.92);
+            border-color: rgba(255, 215, 0, 0.25);
         }
 
         .countdown-title {
             font-family: 'Dancing Script', cursive;
             color: var(--primary-pink);
-            font-size: 2.5rem;
+            font-size: 3rem;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
         }
 
         body.night-mode .countdown-title {
@@ -229,63 +279,90 @@
         .countdown-timer {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
 
         .countdown-unit {
             text-align: center;
-            min-width: 100px;
+            min-width: 120px;
+            perspective: 1000px;
         }
 
         .countdown-number {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: bold;
             color: var(--primary-pink);
-            background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(255, 20, 147, 0.1));
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 10px;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.15), rgba(255, 20, 147, 0.15));
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 15px;
             display: inline-block;
-            min-width: 90px;
-            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.15);
-            animation: pulseGlow 2s infinite;
+            min-width: 110px;
+            box-shadow: 
+                0 15px 30px rgba(255, 105, 180, 0.2),
+                inset 0 5px 15px rgba(255, 255, 255, 0.8);
+            animation: pulseGlow 3s infinite;
+            transition: var(--transition-smooth);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-number::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: numberShine 4s infinite linear;
+        }
+
+        @keyframes numberShine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
         }
 
         @keyframes pulseGlow {
             0%, 100% { 
-                transform: scale(1);
-                box-shadow: 0 10px 20px rgba(255, 105, 180, 0.15);
+                transform: scale(1) rotateX(0deg);
+                box-shadow: 0 15px 30px rgba(255, 105, 180, 0.2);
             }
             50% { 
-                transform: scale(1.05);
-                box-shadow: 0 15px 30px rgba(255, 105, 180, 0.3);
+                transform: scale(1.05) rotateX(5deg);
+                box-shadow: 0 20px 40px rgba(255, 105, 180, 0.4), 0 0 60px rgba(255, 105, 180, 0.3);
             }
         }
 
         body.night-mode .countdown-number {
             color: var(--accent-gold);
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 170, 0, 0.1));
-            animation: pulseGlowNight 2s infinite;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 170, 0, 0.15));
+            animation: pulseGlowNight 3s infinite;
         }
 
         @keyframes pulseGlowNight {
             0%, 100% { 
-                transform: scale(1);
-                box-shadow: 0 10px 20px rgba(255, 215, 0, 0.15);
+                transform: scale(1) rotateX(0deg);
+                box-shadow: 0 15px 30px rgba(255, 215, 0, 0.2);
             }
             50% { 
-                transform: scale(1.05);
-                box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
+                transform: scale(1.05) rotateX(5deg);
+                box-shadow: 0 20px 40px rgba(255, 215, 0, 0.4), 0 0 60px rgba(255, 215, 0, 0.3);
             }
         }
 
         .countdown-label {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--text-dark);
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            opacity: 0.9;
         }
 
         body.night-mode .countdown-label {
@@ -302,7 +379,7 @@
             pointer-events: none;
             z-index: 900;
             opacity: 0;
-            transition: opacity 1s ease;
+            transition: opacity 1.5s ease;
         }
 
         .fireworks-canvas.active {
@@ -316,63 +393,86 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 15px;
+            gap: 20px;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px 30px;
             border-radius: 50px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fireworks-controls.hidden {
             opacity: 0;
-            transform: translateX(-50%) translateY(50px);
+            transform: translateX(-50%) translateY(50px) scale(0.9);
             pointer-events: none;
         }
 
         .firework-btn {
-            padding: 12px 25px;
+            padding: 15px 30px;
             background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink));
             border: none;
-            border-radius: 25px;
+            border-radius: 30px;
             color: white;
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
-            font-size: 1rem;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--transition-smooth);
             display: flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+            gap: 10px;
+            box-shadow: 
+                0 8px 20px rgba(255, 105, 180, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .firework-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .firework-btn:hover::before {
+            left: 100%;
         }
 
         .firework-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 30px rgba(255, 105, 180, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
         .firework-btn:active {
-            transform: translateY(-1px) scale(1.02);
+            transform: translateY(-2px) scale(1.02);
         }
 
         /* Custom Envelope */
         .envelope-wrapper {
             position: relative;
-            width: 400px;
-            height: 280px;
+            width: 450px;
+            height: 320px;
             cursor: pointer;
-            perspective: 1500px;
-            margin: 40px 0;
-            filter: drop-shadow(0 20px 40px rgba(255, 105, 180, 0.3));
-            transition: transform 0.5s ease;
+            perspective: 1800px;
+            margin: 50px 0;
+            filter: drop-shadow(0 25px 50px rgba(255, 105, 180, 0.4));
+            transition: transform 0.8s ease;
         }
 
         .envelope-wrapper:hover {
-            transform: scale(1.02);
+            transform: scale(1.03) rotateY(5deg);
         }
 
         .envelope {
@@ -380,36 +480,40 @@
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
-            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .envelope-body {
             position: absolute;
             width: 100%;
             height: 100%;
-            border-radius: 20px;
+            border-radius: 25px;
             overflow: hidden;
             background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink));
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
         }
 
         .envelope-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.9;
-            transition: transform 1s ease;
+            opacity: 0.95;
+            transition: transform 1.2s ease;
+            filter: brightness(1.1) contrast(1.1);
         }
 
         .envelope-flap {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.95), rgba(255, 20, 147, 0.95));
             clip-path: polygon(0 0, 50% 50%, 100% 0);
             transform-origin: top;
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 20px 20px 0 0;
-            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 25px 25px 0 0;
+            box-shadow: 
+                0 -15px 40px rgba(0, 0, 0, 0.3),
+                inset 0 5px 15px rgba(255, 255, 255, 0.4);
             z-index: 2;
         }
 
@@ -422,75 +526,114 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             background: linear-gradient(135deg, var(--accent-gold), #ffaa00);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
+            font-size: 40px;
             z-index: 10;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
-            animation: sealGlow 2s infinite alternate;
+            box-shadow: 
+                0 15px 40px rgba(255, 215, 0, 0.5),
+                inset 0 5px 15px rgba(255, 255, 255, 0.4);
+            animation: sealGlow 2.5s infinite alternate;
             cursor: pointer;
+            transition: var(--transition-smooth);
+            overflow: hidden;
+        }
+
+        .envelope-seal::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: sealShine 3s infinite linear;
+        }
+
+        @keyframes sealShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         @keyframes sealGlow {
             from { 
                 transform: translate(-50%, -50%) scale(1);
-                box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+                box-shadow: 
+                    0 15px 40px rgba(255, 215, 0, 0.5),
+                    inset 0 5px 15px rgba(255, 255, 255, 0.4);
             }
             to { 
-                transform: translate(-50%, -50%) scale(1.1);
-                box-shadow: 0 10px 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3);
+                transform: translate(-50%, -50%) scale(1.15);
+                box-shadow: 
+                    0 20px 50px rgba(255, 215, 0, 0.7),
+                    0 0 80px rgba(255, 215, 0, 0.4),
+                    inset 0 5px 15px rgba(255, 255, 255, 0.4);
             }
         }
 
         .envelope-content {
             position: absolute;
-            width: 90%;
-            height: 85%;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            top: 7.5%;
-            left: 5%;
-            padding: 30px;
+            width: 92%;
+            height: 88%;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            top: 6%;
+            left: 4%;
+            padding: 40px;
             opacity: 0;
-            transform: translateY(200px) scale(0.8);
-            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            transform: translateY(250px) scale(0.85);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
             z-index: 1;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+        }
+
+        .envelope-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-pink), var(--accent-purple), var(--accent-blue));
         }
 
         .envelope.open .envelope-content {
             opacity: 1;
-            transform: translateY(-250px) scale(1.05);
+            transform: translateY(-280px) scale(1.08);
         }
 
         .envelope-content h2 {
             font-family: 'Dancing Script', cursive;
             color: var(--primary-pink);
             text-align: center;
-            margin-bottom: 15px;
-            font-size: 2.2rem;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
         }
 
         .envelope-content p {
             text-align: center;
             color: var(--text-dark);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            opacity: 0.8;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            opacity: 0.9;
+            margin-bottom: 15px;
         }
 
-        /* HEART LEAVES TREE */
+        /* HEART LEAVES TREE - Enhanced */
         .tree-container {
             position: relative;
-            width: 700px;
-            height: 700px;
-            margin: 40px 0;
+            width: 750px;
+            height: 750px;
+            margin: 50px 0;
         }
 
         .tree-structure {
@@ -502,13 +645,16 @@
         }
 
         .tree-trunk {
-            width: 80px;
-            height: 280px;
+            width: 90px;
+            height: 320px;
             background: linear-gradient(45deg, #8b4513 0%, #a0522d 50%, #8b4513 100%);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-radius: 25px;
+            box-shadow: 
+                0 20px 45px rgba(0, 0, 0, 0.5),
+                inset 0 5px 15px rgba(255, 255, 255, 0.2);
             position: relative;
             z-index: 2;
+            overflow: hidden;
         }
 
         .tree-trunk::after {
@@ -518,8 +664,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-            animation: trunkShine 4s infinite linear;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: trunkShine 6s infinite linear;
         }
 
         @keyframes trunkShine {
@@ -530,131 +676,208 @@
         /* Heart Leaves Container */
         .heart-leaves {
             position: absolute;
-            width: 600px;
-            height: 550px;
-            bottom: 250px;
+            width: 650px;
+            height: 600px;
+            bottom: 280px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
         }
 
-        /* Individual Heart Leaf */
+        /* Individual Heart Leaf - Enhanced */
         .heart-leaf {
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: var(--heart-color);
             clip-path: polygon(50% 15%, 80% 0%, 100% 35%, 50% 100%, 0% 35%, 20% 0%);
             transform-origin: center bottom;
-            animation: leafFloat 4s infinite ease-in-out;
+            animation: leafFloat 5s infinite ease-in-out;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+            transition: var(--transition-smooth);
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25));
+            transform-style: preserve-3d;
+        }
+
+        .heart-leaf::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
+            clip-path: polygon(50% 15%, 80% 0%, 100% 35%, 50% 100%, 0% 35%, 20% 0%);
         }
 
         .heart-leaf:hover {
-            transform: scale(1.3) rotate(15deg);
-            filter: drop-shadow(0 0 25px currentColor);
-            animation: heartPulse 0.8s infinite alternate;
+            transform: scale(1.4) rotate(20deg) translateZ(20px);
+            filter: 
+                drop-shadow(0 0 30px currentColor)
+                brightness(1.2);
+            animation: heartPulse 1s infinite alternate;
             z-index: 10;
         }
 
         @keyframes leafFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(5deg); }
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% { 
+                transform: translateY(-12px) rotate(3deg) scale(1.05);
+            }
+            50% { 
+                transform: translateY(-8px) rotate(-2deg) scale(0.95);
+            }
+            75% { 
+                transform: translateY(-15px) rotate(5deg) scale(1.1);
+            }
         }
 
         @keyframes heartPulse {
-            0% { transform: scale(1.2); }
-            100% { transform: scale(1.4); }
+            0% { transform: scale(1.3) rotate(20deg); }
+            100% { transform: scale(1.5) rotate(25deg); }
         }
 
-        /* Heart Leaf Colors */
-        .heart-leaf-red { --heart-color: #ff3366; animation-delay: 0s; }
-        .heart-leaf-pink { --heart-color: #ff69b4; animation-delay: 0.5s; }
-        .heart-leaf-purple { --heart-color: #da70d6; animation-delay: 1s; }
-        .heart-leaf-blue { --heart-color: #87ceeb; animation-delay: 1.5s; }
-        .heart-leaf-gold { --heart-color: #ffd700; animation-delay: 2s; }
-        .heart-leaf-orange { --heart-color: #ff9900; animation-delay: 2.5s; }
-        .heart-leaf-green { --heart-color: #2ecc71; animation-delay: 3s; }
-        .heart-leaf-teal { --heart-color: #1abc9c; animation-delay: 3.5s; }
+        /* Heart Leaf Colors - Enhanced */
+        .heart-leaf-red { 
+            --heart-color: linear-gradient(135deg, #ff3366, #ff6699); 
+            animation-delay: 0s; 
+        }
+        .heart-leaf-pink { 
+            --heart-color: linear-gradient(135deg, #ff69b4, #ff99cc); 
+            animation-delay: 0.5s; 
+        }
+        .heart-leaf-purple { 
+            --heart-color: linear-gradient(135deg, #da70d6, #e6a0e6); 
+            animation-delay: 1s; 
+        }
+        .heart-leaf-blue { 
+            --heart-color: linear-gradient(135deg, #87ceeb, #b3e0ff); 
+            animation-delay: 1.5s; 
+        }
+        .heart-leaf-gold { 
+            --heart-color: linear-gradient(135deg, #ffd700, #ffed99); 
+            animation-delay: 2s; 
+        }
+        .heart-leaf-orange { 
+            --heart-color: linear-gradient(135deg, #ff9900, #ffcc66); 
+            animation-delay: 2.5s; 
+        }
+        .heart-leaf-green { 
+            --heart-color: linear-gradient(135deg, #2ecc71, #85e0a3); 
+            animation-delay: 3s; 
+        }
+        .heart-leaf-teal { 
+            --heart-color: linear-gradient(135deg, #1abc9c, #7fd9c7); 
+            animation-delay: 3.5s; 
+        }
 
-        /* Branches */
+        /* Branches - Enhanced */
         .branch {
             position: absolute;
             background: linear-gradient(45deg, #8b4513 0%, #a0522d 100%);
-            border-radius: 10px;
+            border-radius: 12px;
             transform-origin: bottom center;
             z-index: 2;
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.3),
+                inset 0 3px 10px rgba(255, 255, 255, 0.2);
         }
 
-        .branch-1 { width: 300px; height: 15px; bottom: 250px; left: 150px; transform: rotate(-20deg); }
-        .branch-2 { width: 280px; height: 15px; bottom: 250px; right: 150px; transform: rotate(20deg); }
-        .branch-3 { width: 250px; height: 12px; bottom: 350px; left: 180px; transform: rotate(-40deg); }
-        .branch-4 { width: 250px; height: 12px; bottom: 350px; right: 180px; transform: rotate(40deg); }
-        .branch-5 { width: 200px; height: 10px; bottom: 450px; left: 220px; transform: rotate(-60deg); }
-        .branch-6 { width: 200px; height: 10px; bottom: 450px; right: 220px; transform: rotate(60deg); }
-        .branch-7 { width: 150px; height: 8px; bottom: 520px; left: 250px; transform: rotate(-80deg); }
-        .branch-8 { width: 150px; height: 8px; bottom: 520px; right: 250px; transform: rotate(80deg); }
+        .branch-1 { width: 320px; height: 18px; bottom: 280px; left: 160px; transform: rotate(-20deg); }
+        .branch-2 { width: 300px; height: 18px; bottom: 280px; right: 160px; transform: rotate(20deg); }
+        .branch-3 { width: 270px; height: 15px; bottom: 380px; left: 190px; transform: rotate(-40deg); }
+        .branch-4 { width: 270px; height: 15px; bottom: 380px; right: 190px; transform: rotate(40deg); }
+        .branch-5 { width: 220px; height: 12px; bottom: 480px; left: 230px; transform: rotate(-60deg); }
+        .branch-6 { width: 220px; height: 12px; bottom: 480px; right: 230px; transform: rotate(60deg); }
+        .branch-7 { width: 170px; height: 10px; bottom: 560px; left: 260px; transform: rotate(-80deg); }
+        .branch-8 { width: 170px; height: 10px; bottom: 560px; right: 260px; transform: rotate(80deg); }
 
-        /* Tree Title */
+        /* Tree Title - Enhanced */
         .tree-title {
             position: absolute;
-            top: -60px;
+            top: -70px;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Dancing Script', cursive;
             color: var(--primary-pink);
-            font-size: 2.5rem;
+            font-size: 3rem;
             text-align: center;
             white-space: nowrap;
-            animation: titleFloat 4s infinite ease-in-out;
+            animation: titleFloat 6s infinite ease-in-out;
+            text-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(255, 105, 180, 0.4);
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 105, 180, 0.2);
+            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.2);
         }
 
         body.night-mode .tree-title {
             color: var(--accent-gold);
+            background: rgba(26, 26, 46, 0.9);
+            border-color: rgba(255, 215, 0, 0.2);
+            text-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(255, 215, 0, 0.4);
         }
 
-        @keyframes titleFloat {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
-        }
-
-        /* Cake with Automatic Cutting */
+        /* Cake with Automatic Cutting - Enhanced */
         .cake-wrapper {
             position: relative;
-            margin: 50px 0;
+            margin: 60px 0;
             cursor: pointer;
-            animation: gentleFloat 6s ease-in-out infinite;
+            animation: gentleFloat 8s ease-in-out infinite;
+            perspective: 1000px;
         }
 
         @keyframes gentleFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            33% { transform: translateY(-15px) rotate(1deg); }
-            66% { transform: translateY(-5px) rotate(-1deg); }
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% { 
+                transform: translateY(-20px) rotate(2deg) scale(1.02);
+            }
+            50% { 
+                transform: translateY(-10px) rotate(-1deg) scale(0.98);
+            }
+            75% { 
+                transform: translateY(-25px) rotate(3deg) scale(1.03);
+            }
         }
 
         .cake-container {
-            width: 350px;
-            height: 350px;
+            width: 380px;
+            height: 380px;
             position: relative;
-            border-radius: 20px;
+            border-radius: 25px;
             overflow: hidden;
-            box-shadow: 0 30px 60px rgba(255, 105, 180, 0.3);
-            border: 3px solid rgba(255, 255, 255, 0.6);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 35px 70px rgba(255, 105, 180, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border: 4px solid rgba(255, 255, 255, 0.7);
+            transition: var(--transition-smooth);
+            transform-style: preserve-3d;
         }
 
         .cake-container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 40px 80px rgba(255, 105, 180, 0.4);
+            transform: scale(1.08) rotateY(5deg);
+            box-shadow: 
+                0 50px 100px rgba(255, 105, 180, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
         }
 
         .cake-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(1.1) saturate(1.2);
         }
 
         .cake-overlay {
@@ -663,13 +886,13 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 100%);
+            background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            padding: 30px;
+            padding: 40px;
             opacity: 0;
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cake-container:hover .cake-overlay {
@@ -679,10 +902,13 @@
         .cake-text {
             color: white;
             font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
+            font-size: 2.2rem;
             text-align: center;
-            transform: translateY(20px);
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(30px);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            text-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(255, 105, 180, 0.5);
         }
 
         .cake-container:hover .cake-text {
@@ -691,35 +917,68 @@
 
         .candle {
             position: absolute;
-            width: 25px;
-            height: 70px;
+            width: 30px;
+            height: 80px;
             background: linear-gradient(180deg, #ffd700, #ffaa00);
-            top: -70px;
+            top: -80px;
             left: 50%;
             transform: translateX(-50%);
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+            border-radius: 15px 15px 0 0;
+            box-shadow: 
+                0 0 30px rgba(255, 215, 0, 0.8),
+                inset 0 5px 15px rgba(255, 255, 255, 0.4);
             z-index: 2;
+            animation: candleGlow 2s infinite alternate;
+        }
+
+        @keyframes candleGlow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 30px rgba(255, 215, 0, 0.8),
+                    inset 0 5px 15px rgba(255, 255, 255, 0.4);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 45px rgba(255, 215, 0, 1),
+                    inset 0 5px 15px rgba(255, 255, 255, 0.6);
+            }
         }
 
         .flame {
             position: absolute;
-            width: 18px;
-            height: 30px;
+            width: 22px;
+            height: 35px;
             background: linear-gradient(180deg, #ffff00, #ff4500);
-            top: -100px;
+            top: -120px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 50% 50% 20% 20%;
-            animation: flicker 0.5s infinite alternate;
-            box-shadow: 0 0 35px rgba(255, 69, 0, 0.8);
+            animation: flicker 0.4s infinite alternate;
+            box-shadow: 
+                0 0 40px rgba(255, 69, 0, 0.9),
+                0 0 80px rgba(255, 140, 0, 0.5);
             z-index: 3;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--transition-smooth);
+            filter: blur(1px);
         }
 
         @keyframes flicker {
-            0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
-            50% { transform: translateX(-50%) scale(1.1); opacity: 0.9; }
+            0%, 100% { 
+                transform: translateX(-50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            25% { 
+                transform: translateX(-50%) scale(1.1) rotate(2deg);
+                opacity: 0.9;
+            }
+            50% { 
+                transform: translateX(-50%) scale(0.95) rotate(-2deg);
+                opacity: 1;
+            }
+            75% { 
+                transform: translateX(-50%) scale(1.05) rotate(1deg);
+                opacity: 0.95;
+            }
         }
 
         /* Cake Cutting Animation */
@@ -732,291 +991,17 @@
             pointer-events: none;
             z-index: 4;
             opacity: 0;
+            background: linear-gradient(90deg, transparent 45%, rgba(255, 255, 255, 0.8) 50%, transparent 55%);
         }
 
         .cake-cut.active {
-            animation: cutAnimation 2s forwards;
+            animation: cutAnimation 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes cutAnimation {
             0% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(100px);
-            }
-        }
-
-        /* Custom Gallery */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 50px 0;
-            max-width: 1000px;
-            padding: 0 20px;
-            width: 100%;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: pointer;
-            aspect-ratio: 3/4;
-            background: var(--soft-white);
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-20px) scale(1.03);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.25);
-        }
-
-        .gallery-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .gallery-item:hover .gallery-img {
-            transform: scale(1.1);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-            color: white;
-            padding: 30px 20px 20px;
-            transform: translateY(100%);
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: center;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.8rem;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-
-        /* Message Box */
-        .message-container {
-            max-width: 800px;
-            margin: 40px auto;
-            position: relative;
-        }
-
-        .message-box {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 245, 0.95));
-            padding: 50px;
-            border-radius: 30px;
-            box-shadow: 0 30px 60px rgba(255, 105, 180, 0.15);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        body.night-mode .message-box {
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(30, 30, 60, 0.95));
-            border-color: rgba(255, 215, 0, 0.2);
-        }
-
-        .message-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary-pink), var(--accent-purple), var(--accent-blue));
-        }
-
-        .typing-text {
-            font-family: 'Georgia', serif;
-            font-size: 1.3rem;
-            line-height: 1.8;
-            min-height: 300px;
-            color: var(--text-dark);
-            white-space: pre-wrap;
-            overflow-wrap: break-word;
-        }
-
-        body.night-mode .typing-text {
-            color: var(--text-light);
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 3px;
-            height: 1.4em;
-            background: var(--primary-pink);
-            margin-left: 3px;
-            animation: blink 0.8s infinite;
-            vertical-align: middle;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        /* Controls */
-        .controls {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            display: flex;
-            gap: 15px;
-            z-index: 1000;
-        }
-
-        .control-btn {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: var(--primary-pink);
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .control-btn:hover {
-            background: white;
-            transform: scale(1.15) rotate(15deg);
-            box-shadow: 0 15px 30px rgba(255, 105, 180, 0.3);
-            color: var(--secondary-pink);
-        }
-
-        .control-btn.active {
-            background: white;
-            color: var(--secondary-pink);
-            transform: scale(1.1);
-        }
-
-        /* Navigation Dots */
-        .nav-dots {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px 35px;
-            border-radius: 50px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 105, 180, 0.3);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-        }
-
-        .dot:hover {
-            transform: scale(1.5);
-            background: var(--primary-pink);
-        }
-
-        .dot.active {
-            background: var(--primary-pink);
-            transform: scale(1.6);
-            box-shadow: 0 0 20px var(--primary-pink);
-            border-color: white;
-        }
-
-        /* Day/Night Toggle */
-        .day-night-toggle {
-            position: fixed;
-            top: 30px;
-            left: 30px;
-            z-index: 1000;
-        }
-
-        .toggle-btn {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: var(--primary-pink);
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .toggle-btn:hover {
-            background: white;
-            transform: scale(1.15) rotate(15deg);
-            box-shadow: 0 15px 30px rgba(255, 105, 180, 0.3);
-            color: var(--secondary-pink);
-        }
-
-        /* Instruction Text */
-        .instruction {
-            color: var(--primary-pink);
-            font-size: 1.1rem;
-            margin-top: 25px;
-            text-align: center;
-            max-width: 500px;
-            padding: 0 20px;
-            font-weight: 500;
-            opacity: 0.9;
-            animation: gentlePulse 3s infinite;
-        }
-
-        body.night-mode .instruction {
-            color: var(--accent-gold);
-        }
-
-        @keyframes gentlePulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
-        }
-
-        /* Floating Elements */
-        .floating-element {
-            position: fixed;
-            pointer-events: none;
-            z-index: 900;
-            animation: floatUp 6s linear forwards;
-            font-size: 28px;
-            opacity: 0;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
                 opacity: 0;
+                transform: translateX(0);
             }
             10% {
                 opacity: 1;
@@ -1025,225 +1010,805 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+                transform: translateX(120px);
+            }
+        }
+
+        /* Custom Gallery - Enhanced */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+            max-width: 1100px;
+            padding: 0 30px;
+            width: 100%;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            aspect-ratio: 3/4;
+            background: var(--soft-white);
+            transform-style: preserve-3d;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-25px) scale(1.05) rotateY(5deg);
+            box-shadow: 
+                0 50px 100px rgba(0, 0, 0, 0.3),
+                0 0 50px rgba(255, 105, 180, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.15);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+            color: white;
+            padding: 35px 25px 25px;
+            transform: translateY(100%);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Message Box - Enhanced */
+        .message-container {
+            max-width: 900px;
+            margin: 50px auto;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .message-box {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 240, 245, 0.98));
+            padding: 60px;
+            border-radius: 35px;
+            box-shadow: 
+                0 35px 70px rgba(255, 105, 180, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: var(--transition-smooth);
+        }
+
+        .message-box:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 
+                0 50px 100px rgba(255, 105, 180, 0.3),
+                0 0 60px rgba(255, 105, 180, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        body.night-mode .message-box {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.98), rgba(30, 30, 60, 0.98));
+            border-color: rgba(255, 215, 0, 0.25);
+        }
+
+        .message-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-pink), var(--accent-purple), var(--accent-blue), var(--primary-pink));
+            background-size: 200% 100%;
+            animation: gradientFlow 4s linear infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .typing-text {
+            font-family: 'Georgia', serif;
+            font-size: 1.4rem;
+            line-height: 1.9;
+            min-height: 350px;
+            color: var(--text-dark);
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            opacity: 0.95;
+        }
+
+        body.night-mode .typing-text {
+            color: var(--text-light);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 4px;
+            height: 1.5em;
+            background: linear-gradient(180deg, var(--primary-pink), var(--secondary-pink));
+            margin-left: 3px;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+            border-radius: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; transform: scaleY(1); }
+            51%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+        }
+
+        /* Controls - Enhanced */
+        .controls {
+            position: fixed;
+            top: 35px;
+            right: 35px;
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            color: var(--primary-pink);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .control-btn:hover::before {
+            left: 100%;
+        }
+
+        .control-btn:hover {
+            background: white;
+            transform: scale(1.2) rotate(15deg);
+            box-shadow: 
+                0 20px 40px rgba(255, 105, 180, 0.4),
+                0 0 30px rgba(255, 105, 180, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            color: var(--secondary-pink);
+        }
+
+        .control-btn.active {
+            background: white;
+            color: var(--secondary-pink);
+            transform: scale(1.15);
+            animation: controlPulse 2s infinite;
+        }
+
+        @keyframes controlPulse {
+            0%, 100% { transform: scale(1.15); }
+            50% { transform: scale(1.25); }
+        }
+
+        /* Navigation Dots - Enhanced */
+        .nav-dots {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 25px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px 45px;
+            border-radius: 60px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: var(--transition-smooth);
+        }
+
+        .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(255, 105, 180, 0.35);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dot::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-pink), var(--secondary-pink));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dot:hover {
+            transform: scale(1.8);
+            background: var(--primary-pink);
+        }
+
+        .dot.active {
+            background: var(--primary-pink);
+            transform: scale(1.8);
+            box-shadow: 
+                0 0 25px var(--primary-pink),
+                0 0 50px rgba(255, 105, 180, 0.5);
+            border-color: white;
+        }
+
+        .dot.active::before {
+            opacity: 1;
+            animation: dotPulse 2s infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        /* Day/Night Toggle - Enhanced */
+        .day-night-toggle {
+            position: fixed;
+            top: 35px;
+            left: 35px;
+            z-index: 1000;
+        }
+
+        .toggle-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            color: var(--primary-pink);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toggle-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: toggleShine 6s infinite linear;
+        }
+
+        @keyframes toggleShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .toggle-btn:hover {
+            background: white;
+            transform: scale(1.2) rotate(15deg);
+            box-shadow: 
+                0 20px 40px rgba(255, 105, 180, 0.4),
+                0 0 30px rgba(255, 105, 180, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            color: var(--secondary-pink);
+        }
+
+        /* Instruction Text - Enhanced */
+        .instruction {
+            color: var(--primary-pink);
+            font-size: 1.2rem;
+            margin-top: 35px;
+            text-align: center;
+            max-width: 600px;
+            padding: 0 30px;
+            font-weight: 500;
+            opacity: 0.9;
+            animation: gentlePulse 4s infinite;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 105, 180, 0.2);
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.1);
+        }
+
+        body.night-mode .instruction {
+            color: var(--accent-gold);
+            background: rgba(26, 26, 46, 0.9);
+            border-color: rgba(255, 215, 0, 0.2);
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { 
+                opacity: 0.85;
+                transform: translateY(0);
+            }
+            50% { 
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Floating Elements - Enhanced */
+        .floating-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: 900;
+            animation: floatUp 8s ease-out forwards;
+            font-size: 32px;
+            opacity: 0;
+            filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.3));
+            text-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.3),
+                0 0 20px currentColor;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(80vh) rotate(90deg) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(-100px) rotate(360deg) scale(1);
+            }
+            100% {
+                transform: translateY(-150px) rotate(450deg) scale(0.5);
                 opacity: 0;
             }
         }
 
-        /* Birthday Status */
+        /* Birthday Status - Enhanced */
         .birthday-status {
             font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--primary-pink);
             text-align: center;
-            margin-top: 20px;
-            padding: 10px 30px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
+            margin-top: 25px;
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
             display: inline-block;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--transition-smooth);
+            box-shadow: 
+                0 15px 35px rgba(255, 105, 180, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 105, 180, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .birthday-status::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: statusShine 8s infinite linear;
+        }
+
+        @keyframes statusShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         body.night-mode .birthday-status {
             color: var(--accent-gold);
-            background: rgba(26, 26, 46, 0.8);
+            background: rgba(26, 26, 46, 0.9);
+            border-color: rgba(255, 215, 0, 0.2);
         }
 
-        /* Final Celebration */
+        /* Final Celebration - Enhanced */
         .final-celebration {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, rgba(255, 105, 180, 0.2), transparent);
+            background: radial-gradient(circle at 30% 30%, rgba(255, 105, 180, 0.3), transparent),
+                      radial-gradient(circle at 70% 70%, rgba(255, 20, 147, 0.2), transparent),
+                      radial-gradient(circle at 50% 50%, rgba(218, 112, 214, 0.2), transparent);
             z-index: 800;
             pointer-events: none;
             opacity: 0;
-            transition: opacity 2s ease;
+            transition: opacity 2.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .final-celebration.active {
             opacity: 1;
+            animation: celebrationPulse 4s infinite alternate;
         }
 
-        /* Falling Petals */
+        @keyframes celebrationPulse {
+            0% { 
+                background-size: 100% 100%, 100% 100%, 100% 100%;
+                opacity: 0.8;
+            }
+            100% { 
+                background-size: 150% 150%, 150% 150%, 150% 150%;
+                opacity: 1;
+            }
+        }
+
+        /* Falling Petals - Enhanced */
         .falling-petal {
             position: absolute;
             pointer-events: none;
             z-index: 0;
             opacity: 0;
-            font-size: 25px;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+            font-size: 28px;
+            filter: 
+                drop-shadow(0 8px 25px rgba(0, 0, 0, 0.3))
+                blur(0.5px);
+            text-shadow: 
+                0 5px 15px currentColor,
+                0 0 20px currentColor;
+            transform-style: preserve-3d;
+        }
+
+        /* Heart Confetti */
+        .heart-confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 700;
+        }
+
+        .confetti-heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: confettiFall 8s linear forwards;
+            text-shadow: 0 2px 10px currentColor;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) translateX(var(--start-x)) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(0) translateX(var(--start-x)) rotate(180deg) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(calc(100vh - 50px)) translateX(var(--end-x)) rotate(720deg) scale(1);
+            }
+            100% {
+                transform: translateY(calc(100vh + 50px)) translateX(var(--end-x)) rotate(900deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Progress Bar for Stages */
+        .stage-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-pink), var(--accent-purple), var(--accent-blue));
+            z-index: 1001;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+        }
+
+        /* Magic Sparkles */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            animation: sparklePop 1s ease-out forwards;
+            box-shadow: 0 0 10px white, 0 0 20px white;
+        }
+
+        @keyframes sparklePop {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .tree-container {
+                width: 600px;
+                height: 600px;
+            }
+            
+            .heart-leaves {
+                width: 520px;
+                height: 480px;
+                bottom: 220px;
+            }
+            
+            .heart-leaf {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .branch-1 { width: 250px; height: 15px; bottom: 220px; left: 125px; }
+            .branch-2 { width: 250px; height: 15px; bottom: 220px; right: 125px; }
+            .branch-3 { width: 220px; height: 13px; bottom: 320px; left: 150px; }
+            .branch-4 { width: 220px; height: 13px; bottom: 320px; right: 150px; }
+            .branch-5 { width: 180px; height: 11px; bottom: 400px; left: 180px; }
+            .branch-6 { width: 180px; height: 11px; bottom: 400px; right: 180px; }
+            .branch-7 { width: 140px; height: 9px; bottom: 460px; left: 210px; }
+            .branch-8 { width: 140px; height: 9px; bottom: 460px; right: 210px; }
+        }
+
         @media (max-width: 768px) {
+            .birthday-text {
+                font-size: 3.5rem;
+            }
+            
+            .loading-bar {
+                width: 300px;
+            }
+            
             .envelope-wrapper {
-                width: 320px;
-                height: 220px;
+                width: 350px;
+                height: 250px;
             }
             
             .tree-container {
-                width: 500px;
+                width: 450px;
                 height: 500px;
             }
             
             .heart-leaves {
-                width: 450px;
-                height: 400px;
-                bottom: 200px;
+                width: 400px;
+                height: 350px;
+                bottom: 180px;
             }
             
             .heart-leaf {
-                width: 30px;
-                height: 30px;
+                width: 28px;
+                height: 28px;
             }
             
-            .branch-1 { width: 200px; height: 12px; bottom: 200px; left: 100px; }
-            .branch-2 { width: 200px; height: 12px; bottom: 200px; right: 100px; }
-            .branch-3 { width: 180px; height: 10px; bottom: 280px; left: 120px; }
-            .branch-4 { width: 180px; height: 10px; bottom: 280px; right: 120px; }
-            .branch-5 { width: 150px; height: 8px; bottom: 350px; left: 150px; }
-            .branch-6 { width: 150px; height: 8px; bottom: 350px; right: 150px; }
-            .branch-7 { width: 120px; height: 6px; bottom: 400px; left: 180px; }
-            .branch-8 { width: 120px; height: 6px; bottom: 400px; right: 180px; }
+            .branch-1 { width: 180px; height: 12px; bottom: 180px; left: 95px; }
+            .branch-2 { width: 180px; height: 12px; bottom: 180px; right: 95px; }
+            .branch-3 { width: 160px; height: 10px; bottom: 260px; left: 115px; }
+            .branch-4 { width: 160px; height: 10px; bottom: 260px; right: 115px; }
+            .branch-5 { width: 130px; height: 8px; bottom: 320px; left: 140px; }
+            .branch-6 { width: 130px; height: 8px; bottom: 320px; right: 140px; }
+            .branch-7 { width: 100px; height: 6px; bottom: 370px; left: 165px; }
+            .branch-8 { width: 100px; height: 6px; bottom: 370px; right: 165px; }
             
             .tree-title {
-                font-size: 2rem;
+                font-size: 2.2rem;
                 top: -50px;
+                padding: 12px 30px;
             }
             
             .cake-container {
-                width: 280px;
-                height: 280px;
+                width: 300px;
+                height: 300px;
             }
             
             .gallery {
                 grid-template-columns: 1fr;
-                max-width: 350px;
+                max-width: 400px;
             }
             
             .message-box {
-                padding: 30px;
-                margin: 20px;
+                padding: 40px 30px;
+                margin: 30px 20px;
             }
             
             .countdown-container {
-                padding: 20px;
+                padding: 30px;
             }
             
             .countdown-number {
-                font-size: 2.5rem;
-                min-width: 70px;
-                padding: 10px;
-            }
-            
-            .countdown-unit {
-                min-width: 70px;
-            }
-            
-            .fireworks-controls {
-                bottom: 140px;
-                flex-direction: column;
-                align-items: center;
+                font-size: 3rem;
+                min-width: 90px;
                 padding: 15px;
             }
             
+            .countdown-unit {
+                min-width: 90px;
+            }
+            
+            .fireworks-controls {
+                bottom: 150px;
+                flex-direction: column;
+                align-items: center;
+                padding: 15px 20px;
+            }
+            
             .firework-btn {
-                width: 200px;
+                width: 220px;
                 justify-content: center;
             }
             
             .controls, .day-night-toggle {
-                top: 20px;
-                right: 20px;
+                top: 25px;
+                right: 25px;
             }
             
             .day-night-toggle {
-                left: 20px;
+                left: 25px;
             }
             
             .nav-dots {
-                bottom: 25px;
-                padding: 12px 25px;
-            }
-            
-            .birthday-text {
-                font-size: 3rem;
+                bottom: 30px;
+                padding: 15px 30px;
+                gap: 20px;
             }
             
             .control-btn, .toggle-btn {
-                width: 50px;
-                height: 50px;
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
             }
         }
 
         @media (max-width: 480px) {
             .stage-title {
-                font-size: 2.2rem;
-                margin-bottom: 30px;
+                font-size: 2.5rem;
+                margin-bottom: 40px;
+            }
+            
+            .birthday-text {
+                font-size: 2.8rem;
             }
             
             .envelope-wrapper {
-                width: 280px;
-                height: 190px;
+                width: 300px;
+                height: 210px;
             }
             
             .tree-container {
-                width: 350px;
+                width: 320px;
                 height: 400px;
             }
             
             .heart-leaves {
-                width: 300px;
-                height: 300px;
-                bottom: 150px;
+                width: 280px;
+                height: 280px;
+                bottom: 140px;
             }
             
             .heart-leaf {
-                width: 25px;
-                height: 25px;
+                width: 22px;
+                height: 22px;
             }
             
-            .branch-1 { width: 140px; height: 10px; bottom: 150px; left: 70px; }
-            .branch-2 { width: 140px; height: 10px; bottom: 150px; right: 70px; }
-            .branch-3 { width: 120px; height: 8px; bottom: 220px; left: 90px; }
-            .branch-4 { width: 120px; height: 8px; bottom: 220px; right: 90px; }
-            .branch-5 { width: 100px; height: 6px; bottom: 270px; left: 110px; }
-            .branch-6 { width: 100px; height: 6px; bottom: 270px; right: 110px; }
-            .branch-7 { width: 80px; height: 5px; bottom: 310px; left: 130px; }
-            .branch-8 { width: 80px; height: 5px; bottom: 310px; right: 130px; }
+            .branch-1 { width: 120px; height: 10px; bottom: 140px; left: 65px; }
+            .branch-2 { width: 120px; height: 10px; bottom: 140px; right: 65px; }
+            .branch-3 { width: 100px; height: 8px; bottom: 200px; left: 80px; }
+            .branch-4 { width: 100px; height: 8px; bottom: 200px; right: 80px; }
+            .branch-5 { width: 80px; height: 6px; bottom: 250px; left: 100px; }
+            .branch-6 { width: 80px; height: 6px; bottom: 250px; right: 100px; }
+            .branch-7 { width: 60px; height: 5px; bottom: 290px; left: 120px; }
+            .branch-8 { width: 60px; height: 5px; bottom: 290px; right: 120px; }
             
             .tree-title {
                 font-size: 1.8rem;
                 top: -40px;
+                padding: 10px 25px;
             }
             
             .cake-container {
-                width: 240px;
-                height: 240px;
+                width: 260px;
+                height: 260px;
             }
             
             .gallery {
-                gap: 15px;
+                gap: 20px;
             }
             
             .message-box {
-                padding: 25px 20px;
+                padding: 30px 20px;
             }
             
             .countdown-number {
-                font-size: 2rem;
-                min-width: 60px;
+                font-size: 2.5rem;
+                min-width: 70px;
+                padding: 12px;
             }
             
             .countdown-unit {
-                min-width: 60px;
+                min-width: 70px;
             }
             
-            .birthday-text {
-                font-size: 2.5rem;
+            .birthday-status {
+                font-size: 1.8rem;
+                padding: 12px 25px;
+            }
+            
+            .instruction {
+                font-size: 1.1rem;
+                padding: 12px 20px;
             }
         }
     </style>
@@ -1261,17 +1826,23 @@
     <!-- Final Celebration Overlay -->
     <div class="final-celebration" id="final-celebration"></div>
 
+    <!-- Heart Confetti Container -->
+    <div class="heart-confetti" id="heart-confetti"></div>
+
+    <!-- Stage Progress Bar -->
+    <div class="stage-progress" id="stage-progress"></div>
+
     <!-- Animated Background Particles -->
     <div class="particles" id="particles"></div>
 
     <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
-        <div class="birthday-text">Happy Birthday Lakshita!</div>
+        <div class="birthday-text">Happy Birthday Lakshita! 💖</div>
         <div class="loading-bar">
             <div class="loading-progress"></div>
         </div>
-        <p style="color: white; margin-top: 20px; font-family: 'Dancing Script', cursive; font-size: 1.2rem;">
-            Preparing your special birthday experience...
+        <p style="color: white; margin-top: 30px; font-family: 'Dancing Script', cursive; font-size: 1.4rem; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">
+            Creating magical moments just for you...
         </p>
     </div>
 
@@ -1357,7 +1928,7 @@
             <p class="instruction">Click on the heart leaves to discover special birthday messages! 💕</p>
         </div>
 
-        <!-- Stage 4: Cake Celebration with Automatic Cutting -->
+        <!-- Stage 4: Cake Celebration -->
         <div id="stage-4" class="stage">
             <h2 class="stage-title">Make a Wish! 🎂</h2>
             <div class="cake-wrapper">
@@ -1394,7 +1965,7 @@
             <p class="instruction">Hover over the photos to see them come to life!</p>
         </div>
 
-        <!-- Stage 6: Final Message with Automatic Celebration -->
+        <!-- Stage 6: Final Message -->
         <div id="stage-6" class="stage">
             <h2 class="stage-title">For My Dear Lakshita 💝</h2>
             <div class="message-container">
@@ -1407,7 +1978,7 @@
         </div>
     </div>
 
-    <!-- Fireworks Controls (Initially Hidden) -->
+    <!-- Fireworks Controls -->
     <div class="fireworks-controls hidden" id="fireworks-controls">
         <button class="firework-btn" id="single-firework">
             <i class="fas fa-fire"></i> Single Firework
@@ -1454,8 +2025,8 @@
     </div>
 
     <script>
-        // SMOOTH FIREWORKS SIMULATOR
-        class SmoothFireworksSimulator {
+        // Enhanced Fireworks Simulator
+        class EnhancedFireworksSimulator {
             constructor() {
                 this.canvas = document.getElementById('fireworks-canvas');
                 this.ctx = this.canvas.getContext('2d');
@@ -1495,16 +2066,17 @@
                     x: x,
                     y: y,
                     coordinates: [],
-                    coordinateCount: 10,
+                    coordinateCount: 12,
                     angle: this.random(0, Math.PI * 2),
-                    speed: this.random(1, 10),
-                    friction: 0.95,
-                    gravity: 0.2,
+                    speed: this.random(1, 12),
+                    friction: 0.96,
+                    gravity: 0.15,
                     hue: this.hue,
-                    brightness: this.random(50, 80),
+                    brightness: this.random(60, 90),
                     alpha: 1,
-                    decay: this.random(0.015, 0.03),
-                    color: color || `hsl(${this.hue}, 100%, 50%)`
+                    decay: this.random(0.01, 0.025),
+                    color: color || `hsl(${this.hue}, 100%, 60%)`,
+                    size: this.random(2, 4)
                 });
             }
             
@@ -1519,15 +2091,16 @@
                     distanceToTarget: this.calculateDistance(sx, sy, tx, ty),
                     distanceTraveled: 0,
                     coordinates: [],
-                    coordinateCount: 3,
+                    coordinateCount: 5,
                     angle: Math.atan2(ty - sy, tx - sx),
-                    speed: 2,
-                    acceleration: 1.05,
-                    brightness: this.random(50, 70),
+                    speed: 3,
+                    acceleration: 1.08,
+                    brightness: this.random(60, 80),
                     hue: this.hue,
-                    targetRadius: 1,
+                    targetRadius: 2,
                     color: color,
-                    type: type
+                    type: type,
+                    trailLength: 20
                 };
                 
                 this.fireworks.push(firework);
@@ -1541,28 +2114,28 @@
                 const startY = this.canvas.height;
                 
                 if (type === 'heart') {
-                    const targetX = x || this.random(100, this.canvas.width - 100);
-                    const targetY = y || this.random(100, this.canvas.height / 2);
-                    const firework = this.createFirework(startX, startY, targetX, targetY, color || `hsl(${this.hue}, 100%, 50%)`, 'heart');
-                    firework.speed = 3;
+                    const targetX = x || this.random(150, this.canvas.width - 150);
+                    const targetY = y || this.random(150, this.canvas.height / 2);
+                    const firework = this.createFirework(startX, startY, targetX, targetY, color || `hsl(${this.hue}, 100%, 60%)`, 'heart');
+                    firework.speed = 4;
                     
                     setTimeout(() => {
                         if (firework && firework.x && firework.y) {
                             this.explodeHeart(firework.x, firework.y, color);
                         }
-                    }, 1000);
+                    }, 1200);
                 } else {
-                    const targetX = x || this.random(100, this.canvas.width - 100);
-                    const targetY = y || this.random(100, this.canvas.height / 2);
-                    this.createFirework(startX, startY, targetX, targetY, color || `hsl(${this.hue}, 100%, 50%)`, type);
+                    const targetX = x || this.random(150, this.canvas.width - 150);
+                    const targetY = y || this.random(150, this.canvas.height / 2);
+                    this.createFirework(startX, startY, targetX, targetY, color || `hsl(${this.hue}, 100%, 60%)`, type);
                 }
             }
             
             explodeFirework(firework) {
-                const particleCount = firework.type === 'heart' ? 100 : 80;
+                const particleCount = firework.type === 'heart' ? 150 : 120;
                 
                 for (let i = 0; i < particleCount; i++) {
-                    const color = firework.color || `hsl(${this.hue}, 100%, 50%)`;
+                    const color = firework.color || `hsl(${this.hue}, 100%, 60%)`;
                     this.createParticle(firework.x, firework.y, color);
                 }
                 
@@ -1572,14 +2145,16 @@
             }
             
             explodeHeart(x, y, color) {
-                for (let i = 0; i < Math.PI * 2; i += 0.1) {
-                    const heartX = 16 * Math.pow(Math.sin(i), 3);
-                    const heartY = -(13 * Math.cos(i) - 5 * Math.cos(2*i) - 2 * Math.cos(3*i) - Math.cos(4*i));
+                const heartPoints = 50;
+                for (let i = 0; i < heartPoints; i++) {
+                    const t = (i / heartPoints) * Math.PI * 2;
+                    const heartX = 16 * Math.pow(Math.sin(t), 3);
+                    const heartY = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
                     
                     this.createParticle(
-                        x + heartX * 3,
-                        y + heartY * 3,
-                        color || `hsl(${this.hue}, 100%, 50%)`
+                        x + heartX * 4,
+                        y + heartY * 4,
+                        color || `hsl(${this.hue}, 100%, 60%)`
                     );
                 }
             }
@@ -1616,10 +2191,10 @@
                         f.coordinates.pop();
                     }
                     
-                    if (f.targetRadius < 8) {
-                        f.targetRadius += 0.3;
+                    if (f.targetRadius < 10) {
+                        f.targetRadius += 0.4;
                     } else {
-                        f.targetRadius = 1;
+                        f.targetRadius = 2;
                     }
                     
                     const angle = Math.atan2(f.ty - f.sy, f.tx - f.sx);
@@ -1646,6 +2221,7 @@
                 for (let i = 0; i < this.particles.length; i++) {
                     const p = this.particles[i];
                     
+                    // Draw trail
                     this.ctx.beginPath();
                     this.ctx.moveTo(p.coordinates[0][0], p.coordinates[0][1]);
                     
@@ -1653,21 +2229,25 @@
                         this.ctx.lineTo(p.coordinates[j][0], p.coordinates[j][1]);
                     }
                     
-                    this.ctx.strokeStyle = `rgba(${this.hexToRgb(p.color)}, ${p.alpha})`;
-                    this.ctx.lineWidth = 2;
+                    this.ctx.strokeStyle = `rgba(${this.hexToRgb(p.color)}, ${p.alpha * 0.5})`;
+                    this.ctx.lineWidth = p.size * 0.8;
+                    this.ctx.lineCap = 'round';
+                    this.ctx.lineJoin = 'round';
                     this.ctx.stroke();
                     
+                    // Draw particle
                     this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-                    this.ctx.fillStyle = p.color;
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(${this.hexToRgb(p.color)}, ${p.alpha})`;
                     this.ctx.fill();
                     
-                    const glow = this.ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 8);
-                    glow.addColorStop(0, p.color);
+                    // Draw glow
+                    const glow = this.ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4);
+                    glow.addColorStop(0, `rgba(${this.hexToRgb(p.color)}, ${p.alpha * 0.8})`);
                     glow.addColorStop(1, 'transparent');
                     
                     this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, 8, 0, Math.PI * 2);
+                    this.ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
                     this.ctx.fillStyle = glow;
                     this.ctx.fill();
                 }
@@ -1677,24 +2257,28 @@
                 for (let i = 0; i < this.fireworks.length; i++) {
                     const f = this.fireworks[i];
                     
+                    // Draw trail
                     this.ctx.beginPath();
                     this.ctx.moveTo(f.coordinates[f.coordinates.length - 1][0], f.coordinates[f.coordinates.length - 1][1]);
                     this.ctx.lineTo(f.x, f.y);
-                    this.ctx.strokeStyle = f.color;
-                    this.ctx.lineWidth = 2;
+                    this.ctx.strokeStyle = `rgba(${this.hexToRgb(f.color)}, 0.7)`;
+                    this.ctx.lineWidth = 3;
+                    this.ctx.lineCap = 'round';
                     this.ctx.stroke();
                     
+                    // Draw firework
                     this.ctx.beginPath();
                     this.ctx.arc(f.x, f.y, f.targetRadius, 0, Math.PI * 2);
                     this.ctx.fillStyle = f.color;
                     this.ctx.fill();
                     
-                    const glow = this.ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.targetRadius * 3);
+                    // Draw glow
+                    const glow = this.ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.targetRadius * 5);
                     glow.addColorStop(0, f.color);
                     glow.addColorStop(1, 'transparent');
                     
                     this.ctx.beginPath();
-                    this.ctx.arc(f.x, f.y, f.targetRadius * 3, 0, Math.PI * 2);
+                    this.ctx.arc(f.x, f.y, f.targetRadius * 5, 0, Math.PI * 2);
                     this.ctx.fillStyle = glow;
                     this.ctx.fill();
                 }
@@ -1710,12 +2294,13 @@
             animate() {
                 requestAnimationFrame(() => this.animate());
                 
+                // Clear with fade effect
                 this.ctx.globalCompositeOperation = 'destination-out';
-                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
                 this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 this.ctx.globalCompositeOperation = 'lighter';
                 
-                this.hue += 0.5;
+                this.hue += 0.7;
                 
                 if (this.isActive && this.limiterTick >= this.limiterTotal) {
                     if (!this.mouseDown) {
@@ -1744,28 +2329,28 @@
             }
             
             launchSingleFirework(color = null) {
-                const x = this.random(100, this.canvas.width - 100);
-                const y = this.random(100, this.canvas.height / 2);
+                const x = this.random(150, this.canvas.width - 150);
+                const y = this.random(150, this.canvas.height / 2);
                 this.launchFirework(x, y, color);
             }
             
-            launchMultiFireworks(count = 5) {
+            launchMultiFireworks(count = 8) {
                 for (let i = 0; i < count; i++) {
                     setTimeout(() => {
-                        const colors = ['#ff3366', '#ff69b4', '#ffd700', '#87ceeb', '#2ecc71'];
+                        const colors = ['#ff3366', '#ff69b4', '#ffd700', '#87ceeb', '#2ecc71', '#da70d6', '#ff9900'];
                         const color = colors[Math.floor(Math.random() * colors.length)];
                         this.launchSingleFirework(color);
-                    }, i * 200);
+                    }, i * 150);
                 }
             }
             
-            launchHeartFireworks(count = 3) {
+            launchHeartFireworks(count = 4) {
                 for (let i = 0; i < count; i++) {
                     setTimeout(() => {
                         const colors = ['#ff3366', '#ff69b4', '#da70d6'];
                         const color = colors[Math.floor(Math.random() * colors.length)];
                         this.launchFirework(null, null, color, 'heart');
-                    }, i * 300);
+                    }, i * 250);
                 }
             }
             
@@ -1777,53 +2362,56 @@
             
             grandFinale() {
                 // First wave: Multi fireworks
-                this.launchMultiFireworks(10);
+                this.launchMultiFireworks(15);
                 
                 // Second wave: Heart fireworks
                 setTimeout(() => {
-                    this.launchHeartFireworks(5);
-                }, 1500);
+                    this.launchHeartFireworks(8);
+                }, 1800);
                 
                 // Third wave: Continuous single fireworks
                 setTimeout(() => {
-                    for (let i = 0; i < 15; i++) {
+                    for (let i = 0; i < 25; i++) {
                         setTimeout(() => {
-                            const colors = ['#ff3366', '#ff69b4', '#ffd700', '#87ceeb', '#2ecc71', '#da70d6'];
+                            const colors = ['#ff3366', '#ff69b4', '#ffd700', '#87ceeb', '#2ecc71', '#da70d6', '#ff9900'];
                             const color = colors[Math.floor(Math.random() * colors.length)];
                             this.launchFirework(
-                                this.random(100, this.canvas.width - 100),
-                                this.random(100, this.canvas.height / 2),
+                                this.random(150, this.canvas.width - 150),
+                                this.random(150, this.canvas.height / 2),
                                 color,
-                                i % 3 === 0 ? 'heart' : 'normal'
+                                i % 4 === 0 ? 'heart' : 'normal'
                             );
-                        }, i * 200);
+                        }, i * 120);
                     }
-                }, 3000);
+                }, 3500);
                 
                 // Fourth wave: Final burst
                 setTimeout(() => {
-                    for (let i = 0; i < 20; i++) {
+                    for (let i = 0; i < 30; i++) {
                         setTimeout(() => {
                             this.launchSingleFirework();
-                        }, i * 100);
+                        }, i * 60);
                     }
-                }, 6000);
+                }, 7000);
             }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Smooth Fireworks Simulator
-            const fireworks = new SmoothFireworksSimulator();
+            // Initialize Enhanced Fireworks Simulator
+            const fireworks = new EnhancedFireworksSimulator();
             
             // Create animated particles
             createParticles();
+            
+            // Add sparkle effects on clicks
+            document.addEventListener('click', createSparkles);
             
             // Background Music - AUTO PLAY
             const backgroundMusic = document.getElementById('background-music');
             let isMusicPlaying = true;
             
             // Set initial volume
-            backgroundMusic.volume = 0.4;
+            backgroundMusic.volume = 0.5;
             
             // Handle autoplay with user interaction
             let isPageLoaded = false;
@@ -1876,7 +2464,7 @@
                 const currentYear = now.getFullYear();
                 
                 // Set birthday to December 18th of current year
-                let birthday = new Date(currentYear, 11, 18); // December 18th
+                let birthday = new Date(currentYear, 11, 18);
                 
                 // If birthday has already passed this year, set to next year
                 if (now > birthday) {
@@ -1900,7 +2488,7 @@
                 if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
                     statusElement.textContent = "🎉 HAPPY BIRTHDAY LAKSHITA! 🎉";
                     statusElement.style.animation = 'heartbeat 1s infinite';
-                    // Launch automatic celebration
+                    createHeartConfetti();
                     startAutomaticCelebration();
                 } else if (days === 1) {
                     statusElement.textContent = "Birthday is tomorrow! Get ready! 🎁";
@@ -1915,58 +2503,114 @@
             
             // Update countdown every second
             setInterval(updateCountdown, 1000);
-            updateCountdown(); // Initial call
+            updateCountdown();
             
             // Hide loading screen after loading
             setTimeout(() => {
                 const loadingScreen = document.getElementById('loading-screen');
                 loadingScreen.style.opacity = '0';
+                loadingScreen.style.transform = 'scale(1.1)';
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
                     createFloatingElement('🎉 Welcome to Lakshita\'s Birthday! 🎉');
-                }, 800);
-            }, 3000);
+                    createHeartConfetti();
+                }, 1000);
+            }, 3500);
             
             function createParticles() {
                 const particlesContainer = document.getElementById('particles');
-                for (let i = 0; i < 30; i++) {
+                for (let i = 0; i < 40; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
-                    particle.style.width = particle.style.height = (Math.random() * 20 + 10) + 'px';
+                    particle.style.width = particle.style.height = (Math.random() * 25 + 15) + 'px';
                     particle.style.left = Math.random() * 100 + 'vw';
                     particle.style.top = Math.random() * 100 + 'vh';
                     particle.style.background = getRandomParticleColor();
-                    particle.style.animationDelay = Math.random() * 5 + 's';
-                    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    particle.style.animationDelay = Math.random() * 8 + 's';
+                    particle.style.animationDuration = (Math.random() * 15 + 20) + 's';
                     particlesContainer.appendChild(particle);
                 }
             }
             
             function getRandomParticleColor() {
                 const colors = [
-                    'rgba(255, 105, 180, 0.2)',
-                    'rgba(255, 20, 147, 0.2)',
-                    'rgba(218, 112, 214, 0.2)',
-                    'rgba(135, 206, 235, 0.2)',
-                    'rgba(255, 215, 0, 0.2)'
+                    'rgba(255, 105, 180, 0.25)',
+                    'rgba(255, 20, 147, 0.25)',
+                    'rgba(218, 112, 214, 0.25)',
+                    'rgba(135, 206, 235, 0.25)',
+                    'rgba(255, 215, 0, 0.25)',
+                    'rgba(255, 99, 71, 0.25)'
                 ];
                 return colors[Math.floor(Math.random() * colors.length)];
             }
             
-            // Stage Navigation
+            // Create sparkle effects
+            function createSparkles(e) {
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const sparkle = document.createElement('div');
+                        sparkle.className = 'sparkle';
+                        sparkle.style.left = (e.pageX + (Math.random() - 0.5) * 50) + 'px';
+                        sparkle.style.top = (e.pageY + (Math.random() - 0.5) * 50) + 'px';
+                        document.body.appendChild(sparkle);
+                        
+                        setTimeout(() => {
+                            sparkle.remove();
+                        }, 1000);
+                    }, i * 50);
+                }
+            }
+            
+            // Create heart confetti
+            function createHeartConfetti(count = 30) {
+                const container = document.getElementById('heart-confetti');
+                const hearts = ['💖', '💕', '💗', '💓', '💞', '💝', '💘', '❤️', '🧡', '💛', '💚', '💙', '💜'];
+                
+                for (let i = 0; i < count; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'confetti-heart';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    
+                    const startX = Math.random() * 100;
+                    const endX = startX + (Math.random() - 0.5) * 50;
+                    
+                    heart.style.setProperty('--start-x', `${startX}vw`);
+                    heart.style.setProperty('--end-x', `${endX}vw`);
+                    
+                    const colors = ['#ff3366', '#ff69b4', '#da70d6', '#87ceeb', '#ffd700', '#2ecc71'];
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    heart.style.fontSize = (Math.random() * 10 + 20) + 'px';
+                    heart.style.animationDelay = Math.random() * 3 + 's';
+                    
+                    container.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 9000);
+                }
+            }
+            
+            // Stage Navigation with smooth transitions
             const stages = document.querySelectorAll('.stage');
             const dots = document.querySelectorAll('.dot');
             let currentStage = 1;
             
             function navigateToStage(stageNumber) {
+                if (stageNumber === currentStage) return;
+                
+                // Update progress bar
+                const progress = (stageNumber - 1) * 20;
+                document.getElementById('stage-progress').style.width = `${progress}%`;
+                
                 // Smooth transition out
                 stages.forEach(stage => {
                     if (stage.classList.contains('active')) {
                         stage.style.opacity = '0';
-                        stage.style.transform = 'translateY(-20px)';
+                        stage.style.transform = 'translateY(30px) scale(0.95)';
                         setTimeout(() => {
                             stage.classList.remove('active');
-                        }, 300);
+                        }, 400);
                     }
                 });
                 
@@ -1977,7 +2621,7 @@
                         targetStage.classList.add('active');
                         setTimeout(() => {
                             targetStage.style.opacity = '1';
-                            targetStage.style.transform = 'translateY(0)';
+                            targetStage.style.transform = 'translateY(0) scale(1)';
                         }, 50);
                         
                         // Update navigation dots
@@ -2006,13 +2650,17 @@
                         
                         // Create floating elements
                         createFloatingElements();
+                        
+                        // Create sparkles
+                        createSparkles({ pageX: window.innerWidth / 2, pageY: window.innerHeight / 2 });
                     }
-                }, 350);
+                }, 450);
             }
             
             // Navigation dots click
             dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
+                dot.addEventListener('click', (e) => {
+                    createSparkles(e);
                     navigateToStage(index + 1);
                 });
             });
@@ -2020,16 +2668,18 @@
             // Stage 2: Envelope click
             const envelopeSeal = document.querySelector('.envelope-seal');
             if (envelopeSeal) {
-                envelopeSeal.addEventListener('click', function() {
+                envelopeSeal.addEventListener('click', function(e) {
+                    createSparkles(e);
                     const envelope = document.querySelector('.envelope');
                     if (!envelope.classList.contains('open')) {
                         envelope.classList.add('open');
                         createFloatingElement('✨ Happy Birthday Lakshita! ✨');
+                        createHeartConfetti(15);
                         
                         // Smooth transition to next stage
                         setTimeout(() => {
                             navigateToStage(3);
-                        }, 2000);
+                        }, 2500);
                     }
                 });
             }
@@ -2047,13 +2697,14 @@
                 cakeCut = false;
                 cakeContainer.style.transform = 'scale(1)';
                 cakeImg.style.transform = 'scale(1)';
-                flame.style.animation = 'flicker 0.5s infinite alternate';
+                flame.style.animation = 'flicker 0.4s infinite alternate';
                 flame.style.opacity = '1';
                 cakeCutElement.classList.remove('active');
                 
                 // Cake click event
-                cakeContainer.addEventListener('click', function() {
+                cakeContainer.addEventListener('click', function(e) {
                     if (!cakeCut) {
+                        createSparkles(e);
                         cutCake();
                         cakeCut = true;
                     }
@@ -2069,66 +2720,75 @@
                 // Blow out candle
                 flame.style.animation = 'none';
                 flame.style.opacity = '0';
-                flame.style.transform = 'translateX(-50%) scale(0.5)';
+                flame.style.transform = 'translateX(-50%) scale(0.3)';
                 
                 // Cake cutting animation
                 cakeCutElement.classList.add('active');
                 
                 // Cake image animation
-                cakeImg.style.transform = 'scale(1.1) rotate(5deg)';
-                cakeContainer.style.transform = 'scale(1.05)';
+                cakeImg.style.transform = 'scale(1.15) rotate(8deg)';
+                cakeContainer.style.transform = 'scale(1.08)';
                 
                 // Show fireworks controls
                 setTimeout(() => {
                     const fireworksControls = document.getElementById('fireworks-controls');
                     fireworksControls.classList.remove('hidden');
                     createFloatingElement('🎆 Fireworks Controls Activated!');
+                    createHeartConfetti(20);
                     
                     // Activate fireworks
                     fireworks.activate();
                     
                     // Launch celebration fireworks
-                    fireworks.launchMultiFireworks(5);
-                    fireworks.launchHeartFireworks(2);
-                }, 1000);
+                    fireworks.launchMultiFireworks(8);
+                    fireworks.launchHeartFireworks(3);
+                }, 1200);
                 
                 // Move to next stage after delay
                 setTimeout(() => {
                     navigateToStage(5);
-                }, 4000);
+                }, 4500);
             }
             
             // Fireworks Control Buttons
-            document.getElementById('single-firework').addEventListener('click', function() {
+            document.getElementById('single-firework').addEventListener('click', function(e) {
+                createSparkles(e);
                 fireworks.launchSingleFirework();
                 createFloatingElement('🎆 Single Firework!');
             });
             
-            document.getElementById('multi-firework').addEventListener('click', function() {
-                fireworks.launchMultiFireworks(8);
+            document.getElementById('multi-firework').addEventListener('click', function(e) {
+                createSparkles(e);
+                fireworks.launchMultiFireworks(12);
                 createFloatingElement('✨ Multiple Fireworks!');
             });
             
-            document.getElementById('heart-firework').addEventListener('click', function() {
-                fireworks.launchHeartFireworks(3);
+            document.getElementById('heart-firework').addEventListener('click', function(e) {
+                createSparkles(e);
+                fireworks.launchHeartFireworks(5);
                 createFloatingElement('💖 Heart Fireworks!');
             });
             
-            document.getElementById('clear-fireworks').addEventListener('click', function() {
+            document.getElementById('clear-fireworks').addEventListener('click', function(e) {
+                createSparkles(e);
                 fireworks.clearAll();
                 createFloatingElement('🧹 Cleared Fireworks');
             });
             
             // Special effects button
-            document.getElementById('special-effects').addEventListener('click', function() {
-                fireworks.launchMultiFireworks(5);
-                fireworks.launchHeartFireworks(2);
+            document.getElementById('special-effects').addEventListener('click', function(e) {
+                createSparkles(e);
+                fireworks.launchMultiFireworks(8);
+                fireworks.launchHeartFireworks(3);
+                createHeartConfetti(25);
                 createFloatingElement('✨ Special Effects!');
             });
             
             // Surprise button
-            document.getElementById('surprise-btn').addEventListener('click', function() {
+            document.getElementById('surprise-btn').addEventListener('click', function(e) {
+                createSparkles(e);
                 fireworks.grandFinale();
+                createHeartConfetti(50);
                 createFloatingElement('🎁 Birthday Surprise!');
             });
             
@@ -2144,7 +2804,7 @@
                 // Start grand finale after typing
                 setTimeout(() => {
                     startAutomaticCelebration();
-                }, 5000);
+                }, 6000);
             }
             
             function startAutomaticCelebration() {
@@ -2159,11 +2819,14 @@
                 fireworks.grandFinale();
                 
                 // Create floating elements
-                for (let i = 0; i < 20; i++) {
+                for (let i = 0; i < 25; i++) {
                     setTimeout(() => {
                         createFloatingElement('🎉');
-                    }, i * 300);
+                    }, i * 200);
                 }
+                
+                // Create heart confetti
+                createHeartConfetti(100);
                 
                 // Update birthday status if it's the birthday
                 const statusElement = document.getElementById('birthday-status');
@@ -2173,19 +2836,19 @@
                 // Auto-navigate to countdown stage after finale
                 setTimeout(() => {
                     navigateToStage(1);
-                }, 12000);
+                }, 15000);
             }
             
-            // Auto navigation every 30 seconds (smooth)
+            // Auto navigation every 40 seconds
             const autoNav = setInterval(() => {
                 if (currentStage < 6) {
                     navigateToStage(currentStage + 1);
                 } else {
                     clearInterval(autoNav);
                 }
-            }, 30000);
+            }, 40000);
             
-            // Stage 3: Create Heart Leaves Tree
+            // Stage 3: Create Enhanced Heart Leaves Tree
             function createHeartLeavesTree() {
                 const heartLeavesContainer = document.getElementById('heart-leaves');
                 if (!heartLeavesContainer) return;
@@ -2222,7 +2885,7 @@
                 ];
                 
                 // Create heart leaves in a tree pattern
-                const totalLeaves = 120;
+                const totalLeaves = 150;
                 
                 for (let i = 0; i < totalLeaves; i++) {
                     setTimeout(() => {
@@ -2235,7 +2898,7 @@
                         
                         // Random position within the tree shape
                         const angle = Math.random() * Math.PI * 2;
-                        const distance = Math.random() * 200 + 50;
+                        const distance = Math.random() * 250 + 60;
                         const x = Math.cos(angle) * distance;
                         const y = Math.sin(angle) * distance * 0.8;
                         
@@ -2250,39 +2913,39 @@
                         leaf.style.transform = `rotate(${rotation}deg)`;
                         
                         // Random animation delay
-                        leaf.style.animationDelay = `${Math.random() * 4}s`;
+                        leaf.style.animationDelay = `${Math.random() * 5}s`;
                         
                         // Random size variation
-                        const size = 0.8 + Math.random() * 0.6;
-                        leaf.style.width = `${40 * size}px`;
-                        leaf.style.height = `${40 * size}px`;
+                        const size = 0.7 + Math.random() * 0.8;
+                        leaf.style.width = `${45 * size}px`;
+                        leaf.style.height = `${45 * size}px`;
                         
                         // Click event
                         leaf.addEventListener('click', function(e) {
-                            e.stopPropagation();
+                            createSparkles(e);
                             const msgIndex = Math.floor(Math.random() * messages.length);
                             createFloatingElement(messages[msgIndex]);
                             
                             // Animation on click
-                            this.style.transform = `scale(1.5) rotate(${rotation + 45}deg)`;
-                            this.style.filter = 'drop-shadow(0 0 30px currentColor)';
+                            this.style.transform = `scale(1.6) rotate(${rotation + 60}deg) translateZ(30px)`;
+                            this.style.filter = 'drop-shadow(0 0 40px currentColor) brightness(1.3)';
                             this.style.zIndex = '100';
                             
                             // Launch a small firework
                             setTimeout(() => {
                                 fireworks.launchSingleFirework(getHeartColor(colorClass));
-                            }, 200);
+                            }, 300);
                             
                             setTimeout(() => {
                                 this.style.transform = `rotate(${rotation}deg) scale(${size})`;
-                                this.style.filter = 'drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2))';
+                                this.style.filter = 'drop-shadow(0 8px 25px rgba(0, 0, 0, 0.3))';
                                 this.style.zIndex = '1';
-                            }, 800);
+                            }, 1000);
                         });
                         
                         // Hover effect
                         leaf.addEventListener('mouseenter', function() {
-                            this.style.transform = `rotate(${rotation + 10}deg) scale(${size * 1.2})`;
+                            this.style.transform = `rotate(${rotation + 15}deg) scale(${size * 1.3}) translateZ(15px)`;
                         });
                         
                         leaf.addEventListener('mouseleave', function() {
@@ -2290,7 +2953,7 @@
                         });
                         
                         heartLeavesContainer.appendChild(leaf);
-                    }, i * 30);
+                    }, i * 20);
                 }
                 
                 // Create falling petals effect
@@ -2317,33 +2980,33 @@
                 
                 petalsContainer.innerHTML = '';
                 
-                const petalSymbols = ['💖', '💕', '💗', '🌸', '✨', '🌟', '💫', '🥳', '🎉'];
+                const petalSymbols = ['💖', '💕', '💗', '🌸', '✨', '🌟', '💫', '🥳', '🎉', '🎀', '💝'];
                 
-                // Create 20 falling petals
-                for (let i = 0; i < 20; i++) {
+                // Create 30 falling petals
+                for (let i = 0; i < 30; i++) {
                     const petal = document.createElement('div');
                     petal.className = 'falling-petal';
                     petal.textContent = petalSymbols[Math.floor(Math.random() * petalSymbols.length)];
                     petal.style.position = 'absolute';
                     petal.style.left = `${Math.random() * 100}%`;
-                    petal.style.top = '-50px';
-                    petal.style.fontSize = '25px';
-                    petal.style.opacity = '0.8';
+                    petal.style.top = '-100px';
+                    petal.style.fontSize = '28px';
+                    petal.style.opacity = '0.9';
                     petal.style.zIndex = '0';
                     petal.style.pointerEvents = 'none';
                     
                     // Random color
-                    const colors = ['#ff3366', '#ff69b4', '#da70d6', '#87ceeb', '#ffd700', '#2ecc71'];
+                    const colors = ['#ff3366', '#ff69b4', '#da70d6', '#87ceeb', '#ffd700', '#2ecc71', '#ff9900'];
                     petal.style.color = colors[Math.floor(Math.random() * colors.length)];
                     
                     // Animation
-                    const duration = 5 + Math.random() * 5;
+                    const duration = 8 + Math.random() * 8;
                     const delay = Math.random() * 5;
-                    const xMovement = (Math.random() - 0.5) * 200;
+                    const xMovement = (Math.random() - 0.5) * 300;
                     
                     petal.style.setProperty('--x-movement', `${xMovement}px`);
                     petal.style.animation = `
-                        fallDown ${duration}s linear ${delay}s infinite,
+                        fallDown ${duration}s ease-in ${delay}s infinite,
                         sway ${duration / 2}s ease-in-out ${delay}s infinite alternate
                     `;
                     
@@ -2356,27 +3019,29 @@
             style.textContent = `
                 @keyframes fallDown {
                     0% {
-                        transform: translateY(0) translateX(0) rotate(0deg);
+                        transform: translateY(0) translateX(0) rotate(0deg) scale(0.5);
                         opacity: 0;
                     }
                     10% {
-                        opacity: 0.8;
+                        opacity: 0.9;
+                        transform: translateY(100px) translateX(var(--x-movement)) rotate(180deg) scale(1.2);
                     }
                     90% {
-                        opacity: 0.8;
+                        opacity: 0.9;
+                        transform: translateY(calc(100vh - 100px)) translateX(calc(var(--x-movement) * 2)) rotate(720deg) scale(1);
                     }
                     100% {
-                        transform: translateY(600px) translateX(var(--x-movement)) rotate(360deg);
+                        transform: translateY(calc(100vh + 100px)) translateX(calc(var(--x-movement) * 2)) rotate(900deg) scale(0.5);
                         opacity: 0;
                     }
                 }
                 
                 @keyframes sway {
                     0%, 100% {
-                        transform: translateX(-5px);
+                        transform: translateX(-10px);
                     }
                     50% {
-                        transform: translateX(5px);
+                        transform: translateX(10px);
                     }
                 }
             `;
@@ -2385,24 +3050,28 @@
             // Stage 5: Gallery interactions
             const galleryItems = document.querySelectorAll('.gallery-item');
             galleryItems.forEach((item, index) => {
-                item.addEventListener('click', function() {
+                item.addEventListener('click', function(e) {
+                    createSparkles(e);
                     const messages = [
                         "Beautiful memory of Lakshita! 💕",
                         "Precious moment captured forever! 📸",
-                        "Lakshita makes every moment special! ✨"
+                        "Lakshita makes every moment special! ✨",
+                        "A memory to cherish forever! 🌟",
+                        "Forever in my heart! 💖",
+                        "Beautiful smile! 😊"
                     ];
                     createFloatingElement(messages[index % messages.length]);
                     
                     // Image zoom effect
                     const img = this.querySelector('.gallery-img');
-                    img.style.transform = 'scale(1.15)';
+                    img.style.transform = 'scale(1.2)';
                     setTimeout(() => {
-                        img.style.transform = 'scale(1.1)';
-                    }, 300);
+                        img.style.transform = 'scale(1.15)';
+                    }, 400);
                 });
             });
             
-            // Typing effect
+            // Typing effect with enhanced message
             function startTypingEffect() {
                 const typingText = document.getElementById('typing-text');
                 if (!typingText) return;
@@ -2436,70 +3105,75 @@ Your Secret Admirer 💝`;
                     if (i < message.length) {
                         typingText.textContent += message.charAt(i);
                         i++;
-                        setTimeout(typeWriter, 30);
+                        setTimeout(typeWriter, 25);
                     }
                 }
                 
                 // Start typing after a brief pause
-                setTimeout(typeWriter, 500);
+                setTimeout(typeWriter, 800);
             }
             
-            // Floating elements
+            // Enhanced Floating elements
             function createFloatingElement(text) {
                 const element = document.createElement('div');
                 element.className = 'floating-element';
                 element.textContent = text;
-                element.style.left = Math.random() * 80 + 10 + 'vw';
+                element.style.left = Math.random() * 75 + 12.5 + 'vw';
                 element.style.color = getRandomColor();
-                element.style.fontSize = (Math.random() * 10 + 20) + 'px';
+                element.style.fontSize = (Math.random() * 12 + 24) + 'px';
                 element.style.fontFamily = Math.random() > 0.5 ? '"Dancing Script", cursive' : '"Poppins", sans-serif';
+                element.style.zIndex = Math.floor(Math.random() * 100) + 800;
                 
                 document.body.appendChild(element);
                 
                 setTimeout(() => {
                     element.remove();
-                }, 6000);
+                }, 8000);
             }
             
             function createFloatingElements() {
-                const symbols = ['💖', '✨', '🌟', '🎉', '🎂', '🌸', '🎁', '💫', '🎈', '🥳'];
-                for (let i = 0; i < 3; i++) {
+                const symbols = ['💖', '✨', '🌟', '🎉', '🎂', '🌸', '🎁', '💫', '🎈', '🥳', '💕', '💗', '💓', '💞', '💝'];
+                for (let i = 0; i < 5; i++) {
                     setTimeout(() => {
                         createFloatingElement(symbols[Math.floor(Math.random() * symbols.length)]);
-                    }, i * 300);
+                    }, i * 400);
                 }
             }
             
             function getRandomColor() {
-                const colors = ['#ff3366', '#ff69b4', '#da70d6', '#87ceeb', '#ffd700', '#ff9900'];
+                const colors = ['#ff3366', '#ff69b4', '#da70d6', '#87ceeb', '#ffd700', '#ff9900', '#2ecc71', '#1abc9c'];
                 return colors[Math.floor(Math.random() * colors.length)];
             }
             
             // Day/Night mode toggle
             const toggleBtn = document.querySelector('.toggle-btn');
             if (toggleBtn) {
-                toggleBtn.addEventListener('click', function() {
+                toggleBtn.addEventListener('click', function(e) {
+                    createSparkles(e);
                     document.body.classList.toggle('night-mode');
                     const icon = this.querySelector('i');
                     if (document.body.classList.contains('night-mode')) {
                         icon.className = 'fas fa-sun';
                         icon.style.color = '#ffd700';
+                        createFloatingElement('🌙 Night Mode');
                     } else {
                         icon.className = 'fas fa-moon';
                         icon.style.color = '#ff69b4';
+                        createFloatingElement('☀️ Day Mode');
                     }
                     
                     // Create magical transition effect
-                    for (let i = 0; i < 10; i++) {
+                    for (let i = 0; i < 15; i++) {
                         setTimeout(() => {
                             createFloatingElement('✨');
-                        }, i * 100);
+                        }, i * 80);
                     }
                 });
             }
             
             // Initialize first stage
             createFloatingElements();
+            createHeartConfetti(20);
         });
     </script>
 </body>
