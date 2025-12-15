@@ -56,8 +56,8 @@
             cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23ff69b4' d='M16 3C8.83 3 3 8.83 3 16s5.83 13 13 13 13-5.83 13-13S23.17 3 16 3zm0 2c6.08 0 11 4.92 11 11s-4.92 11-11 11S5 22.08 5 16 9.92 5 16 5z'/%3E%3Cpath fill='%23ff69b4' d='M16 8c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 2c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6z'/%3E%3C/svg%3E") 16 16, auto;
         }
 
-        /* Animated Background Particles */
-        .particles {
+        /* Subtle Background Fireworks */
+        .subtle-fireworks {
             position: fixed;
             top: 0;
             left: 0;
@@ -65,33 +65,33 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
+            opacity: 0.6;
         }
 
-        .particle {
+        .subtle-sparkle {
             position: absolute;
-            background: var(--primary-pink);
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 105, 180, 0.3);
             border-radius: 50%;
-            animation: float 20s infinite linear;
-            opacity: 0.15;
-            filter: blur(1px);
+            animation: gentleFloat 15s infinite linear;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
         }
 
-        @keyframes float {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg) scale(1);
-                opacity: 0.1;
+        @keyframes gentleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.3);
+                opacity: 0;
             }
-            25% { 
-                transform: translateY(-100px) rotate(90deg) scale(1.2);
-                opacity: 0.2;
+            10% {
+                opacity: 0.5;
             }
-            50% { 
-                transform: translateY(-200px) rotate(180deg) scale(1);
-                opacity: 0.1;
+            90% {
+                opacity: 0.5;
             }
-            75% { 
-                transform: translateY(-100px) rotate(270deg) scale(0.8);
-                opacity: 0.2;
+            100% {
+                transform: translateY(-100px) rotate(360deg) scale(0.3);
+                opacity: 0;
             }
         }
 
@@ -235,22 +235,6 @@
             overflow: hidden;
         }
 
-        .countdown-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 105, 180, 0.1), transparent);
-            animation: shine 8s infinite linear;
-        }
-
-        @keyframes shine {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         @keyframes containerFloat {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             33% { transform: translateY(-15px) rotate(1deg); }
@@ -311,22 +295,6 @@
             overflow: hidden;
         }
 
-        .countdown-number::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: numberShine 4s infinite linear;
-        }
-
-        @keyframes numberShine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-
         @keyframes pulseGlow {
             0%, 100% { 
                 transform: scale(1) rotateX(0deg);
@@ -369,94 +337,29 @@
             color: var(--text-light);
         }
 
-        /* Fireworks Canvas */
-        .fireworks-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 900;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-        }
-
-        .fireworks-canvas.active {
-            opacity: 1;
-        }
-
-        /* Fireworks Controls */
-        .fireworks-controls {
-            position: fixed;
-            bottom: 120px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 20px 30px;
-            border-radius: 50px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fireworks-controls.hidden {
-            opacity: 0;
-            transform: translateX(-50%) translateY(50px) scale(0.9);
-            pointer-events: none;
-        }
-
-        .firework-btn {
-            padding: 15px 30px;
-            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink));
-            border: none;
-            border-radius: 30px;
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            font-size: 1.1rem;
-            cursor: pointer;
+        /* Birthday Status */
+        .birthday-status {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--primary-pink);
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            display: inline-block;
             transition: var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            gap: 10px;
             box-shadow: 
-                0 8px 20px rgba(255, 105, 180, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
+                0 15px 35px rgba(255, 105, 180, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 105, 180, 0.2);
         }
 
-        .firework-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .firework-btn:hover::before {
-            left: 100%;
-        }
-
-        .firework-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 
-                0 15px 30px rgba(255, 105, 180, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        }
-
-        .firework-btn:active {
-            transform: translateY(-2px) scale(1.02);
+        body.night-mode .birthday-status {
+            color: var(--accent-gold);
+            background: rgba(26, 26, 46, 0.9);
+            border-color: rgba(255, 215, 0, 0.2);
         }
 
         /* Custom Envelope */
@@ -544,22 +447,6 @@
             overflow: hidden;
         }
 
-        .envelope-seal::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.6), transparent);
-            animation: sealShine 3s infinite linear;
-        }
-
-        @keyframes sealShine {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         @keyframes sealGlow {
             from { 
                 transform: translate(-50%, -50%) scale(1);
@@ -596,16 +483,6 @@
             overflow: hidden;
         }
 
-        .envelope-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 8px;
-            background: linear-gradient(90deg, var(--primary-pink), var(--accent-purple), var(--accent-blue));
-        }
-
         .envelope.open .envelope-content {
             opacity: 1;
             transform: translateY(-280px) scale(1.08);
@@ -628,7 +505,7 @@
             margin-bottom: 15px;
         }
 
-        /* HEART LEAVES TREE - Enhanced */
+        /* HEART LEAVES TREE */
         .tree-container {
             position: relative;
             width: 750px;
@@ -654,26 +531,8 @@
                 inset 0 5px 15px rgba(255, 255, 255, 0.2);
             position: relative;
             z-index: 2;
-            overflow: hidden;
         }
 
-        .tree-trunk::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            animation: trunkShine 6s infinite linear;
-        }
-
-        @keyframes trunkShine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-
-        /* Heart Leaves Container */
         .heart-leaves {
             position: absolute;
             width: 650px;
@@ -685,7 +544,6 @@
             filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
         }
 
-        /* Individual Heart Leaf - Enhanced */
         .heart-leaf {
             position: absolute;
             width: 45px;
@@ -697,27 +555,6 @@
             cursor: pointer;
             transition: var(--transition-smooth);
             filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25));
-            transform-style: preserve-3d;
-        }
-
-        .heart-leaf::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
-            clip-path: polygon(50% 15%, 80% 0%, 100% 35%, 50% 100%, 0% 35%, 20% 0%);
-        }
-
-        .heart-leaf:hover {
-            transform: scale(1.4) rotate(20deg) translateZ(20px);
-            filter: 
-                drop-shadow(0 0 30px currentColor)
-                brightness(1.2);
-            animation: heartPulse 1s infinite alternate;
-            z-index: 10;
         }
 
         @keyframes leafFloat {
@@ -735,12 +572,20 @@
             }
         }
 
+        .heart-leaf:hover {
+            transform: scale(1.4) rotate(20deg);
+            filter: 
+                drop-shadow(0 0 30px currentColor)
+                brightness(1.2);
+            animation: heartPulse 1s infinite alternate;
+            z-index: 10;
+        }
+
         @keyframes heartPulse {
             0% { transform: scale(1.3) rotate(20deg); }
             100% { transform: scale(1.5) rotate(25deg); }
         }
 
-        /* Heart Leaf Colors - Enhanced */
         .heart-leaf-red { 
             --heart-color: linear-gradient(135deg, #ff3366, #ff6699); 
             animation-delay: 0s; 
@@ -774,7 +619,7 @@
             animation-delay: 3.5s; 
         }
 
-        /* Branches - Enhanced */
+        /* Branches */
         .branch {
             position: absolute;
             background: linear-gradient(45deg, #8b4513 0%, #a0522d 100%);
@@ -795,7 +640,6 @@
         .branch-7 { width: 170px; height: 10px; bottom: 560px; left: 260px; transform: rotate(-80deg); }
         .branch-8 { width: 170px; height: 10px; bottom: 560px; right: 260px; transform: rotate(80deg); }
 
-        /* Tree Title - Enhanced */
         .tree-title {
             position: absolute;
             top: -70px;
@@ -822,18 +666,14 @@
             color: var(--accent-gold);
             background: rgba(26, 26, 46, 0.9);
             border-color: rgba(255, 215, 0, 0.2);
-            text-shadow: 
-                0 5px 15px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(255, 215, 0, 0.4);
         }
 
-        /* Cake with Automatic Cutting - Enhanced */
+        /* Cake with Automatic Cutting */
         .cake-wrapper {
             position: relative;
             margin: 60px 0;
             cursor: pointer;
             animation: gentleFloat 8s ease-in-out infinite;
-            perspective: 1000px;
         }
 
         @keyframes gentleFloat {
@@ -862,11 +702,10 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.6);
             border: 4px solid rgba(255, 255, 255, 0.7);
             transition: var(--transition-smooth);
-            transform-style: preserve-3d;
         }
 
         .cake-container:hover {
-            transform: scale(1.08) rotateY(5deg);
+            transform: scale(1.08);
             box-shadow: 
                 0 50px 100px rgba(255, 105, 180, 0.5),
                 inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -1015,7 +854,7 @@
             }
         }
 
-        /* Custom Gallery - Enhanced */
+        /* Custom Gallery */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -1037,11 +876,10 @@
             cursor: pointer;
             aspect-ratio: 3/4;
             background: var(--soft-white);
-            transform-style: preserve-3d;
         }
 
         .gallery-item:hover {
-            transform: translateY(-25px) scale(1.05) rotateY(5deg);
+            transform: translateY(-25px) scale(1.05);
             box-shadow: 
                 0 50px 100px rgba(0, 0, 0, 0.3),
                 0 0 50px rgba(255, 105, 180, 0.3),
@@ -1080,12 +918,11 @@
             transform: translateY(0);
         }
 
-        /* Message Box - Enhanced */
+        /* Message Box */
         .message-container {
             max-width: 900px;
             margin: 50px auto;
             position: relative;
-            perspective: 1000px;
         }
 
         .message-box {
@@ -1099,12 +936,11 @@
             border: 3px solid rgba(255, 255, 255, 0.6);
             position: relative;
             overflow: hidden;
-            transform-style: preserve-3d;
             transition: var(--transition-smooth);
         }
 
         .message-box:hover {
-            transform: translateY(-10px) rotateX(2deg);
+            transform: translateY(-10px);
             box-shadow: 
                 0 50px 100px rgba(255, 105, 180, 0.3),
                 0 0 60px rgba(255, 105, 180, 0.2),
@@ -1164,7 +1000,7 @@
             51%, 100% { opacity: 0.3; transform: scaleY(0.5); }
         }
 
-        /* Controls - Enhanced */
+        /* Controls */
         .controls {
             position: fixed;
             top: 35px;
@@ -1191,28 +1027,11 @@
             box-shadow: 
                 0 15px 30px rgba(0, 0, 0, 0.15),
                 inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .control-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-            transition: left 0.8s ease;
-        }
-
-        .control-btn:hover::before {
-            left: 100%;
         }
 
         .control-btn:hover {
             background: white;
-            transform: scale(1.2) rotate(15deg);
+            transform: scale(1.2);
             box-shadow: 
                 0 20px 40px rgba(255, 105, 180, 0.4),
                 0 0 30px rgba(255, 105, 180, 0.3),
@@ -1232,7 +1051,7 @@
             50% { transform: scale(1.25); }
         }
 
-        /* Navigation Dots - Enhanced */
+        /* Navigation Dots */
         .nav-dots {
             position: fixed;
             bottom: 50px;
@@ -1249,7 +1068,6 @@
             box-shadow: 
                 0 15px 35px rgba(0, 0, 0, 0.15),
                 inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            transition: var(--transition-smooth);
         }
 
         .dot {
@@ -1260,21 +1078,6 @@
             cursor: pointer;
             transition: var(--transition-smooth);
             border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dot::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-pink), var(--secondary-pink));
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
         .dot:hover {
@@ -1291,17 +1094,7 @@
             border-color: white;
         }
 
-        .dot.active::before {
-            opacity: 1;
-            animation: dotPulse 2s infinite;
-        }
-
-        @keyframes dotPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-        }
-
-        /* Day/Night Toggle - Enhanced */
+        /* Day/Night Toggle */
         .day-night-toggle {
             position: fixed;
             top: 35px;
@@ -1326,29 +1119,11 @@
             box-shadow: 
                 0 15px 30px rgba(0, 0, 0, 0.15),
                 inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .toggle-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: toggleShine 6s infinite linear;
-        }
-
-        @keyframes toggleShine {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         .toggle-btn:hover {
             background: white;
-            transform: scale(1.2) rotate(15deg);
+            transform: scale(1.2);
             box-shadow: 
                 0 20px 40px rgba(255, 105, 180, 0.4),
                 0 0 30px rgba(255, 105, 180, 0.3),
@@ -1356,7 +1131,7 @@
             color: var(--secondary-pink);
         }
 
-        /* Instruction Text - Enhanced */
+        /* Instruction Text */
         .instruction {
             color: var(--primary-pink);
             font-size: 1.2rem;
@@ -1390,131 +1165,6 @@
                 opacity: 1;
                 transform: translateY(-5px);
             }
-        }
-
-        /* Floating Elements - Enhanced */
-        .floating-element {
-            position: fixed;
-            pointer-events: none;
-            z-index: 900;
-            animation: floatUp 8s ease-out forwards;
-            font-size: 32px;
-            opacity: 0;
-            filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.3));
-            text-shadow: 
-                0 5px 15px rgba(0, 0, 0, 0.3),
-                0 0 20px currentColor;
-            transform-style: preserve-3d;
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) rotate(0deg) scale(0.5);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-                transform: translateY(80vh) rotate(90deg) scale(1);
-            }
-            90% {
-                opacity: 1;
-                transform: translateY(-100px) rotate(360deg) scale(1);
-            }
-            100% {
-                transform: translateY(-150px) rotate(450deg) scale(0.5);
-                opacity: 0;
-            }
-        }
-
-        /* Birthday Status - Enhanced */
-        .birthday-status {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
-            color: var(--primary-pink);
-            text-align: center;
-            margin-top: 25px;
-            padding: 15px 40px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 25px;
-            display: inline-block;
-            transition: var(--transition-smooth);
-            box-shadow: 
-                0 15px 35px rgba(255, 105, 180, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 105, 180, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .birthday-status::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: statusShine 8s infinite linear;
-        }
-
-        @keyframes statusShine {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        body.night-mode .birthday-status {
-            color: var(--accent-gold);
-            background: rgba(26, 26, 46, 0.9);
-            border-color: rgba(255, 215, 0, 0.2);
-        }
-
-        /* Final Celebration - Enhanced */
-        .final-celebration {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 105, 180, 0.3), transparent),
-                      radial-gradient(circle at 70% 70%, rgba(255, 20, 147, 0.2), transparent),
-                      radial-gradient(circle at 50% 50%, rgba(218, 112, 214, 0.2), transparent);
-            z-index: 800;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 2.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .final-celebration.active {
-            opacity: 1;
-            animation: celebrationPulse 4s infinite alternate;
-        }
-
-        @keyframes celebrationPulse {
-            0% { 
-                background-size: 100% 100%, 100% 100%, 100% 100%;
-                opacity: 0.8;
-            }
-            100% { 
-                background-size: 150% 150%, 150% 150%, 150% 150%;
-                opacity: 1;
-            }
-        }
-
-        /* Falling Petals - Enhanced */
-        .falling-petal {
-            position: absolute;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0;
-            font-size: 28px;
-            filter: 
-                drop-shadow(0 8px 25px rgba(0, 0, 0, 0.3))
-                blur(0.5px);
-            text-shadow: 
-                0 5px 15px currentColor,
-                0 0 20px currentColor;
-            transform-style: preserve-3d;
         }
 
         /* Heart Confetti */
@@ -1551,47 +1201,6 @@
             }
             100% {
                 transform: translateY(calc(100vh + 50px)) translateX(var(--end-x)) rotate(900deg) scale(0);
-                opacity: 0;
-            }
-        }
-
-        /* Progress Bar for Stages */
-        .stage-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-pink), var(--accent-purple), var(--accent-blue));
-            z-index: 1001;
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
-        }
-
-        /* Magic Sparkles */
-        .sparkle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: white;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 999;
-            animation: sparklePop 1s ease-out forwards;
-            box-shadow: 0 0 10px white, 0 0 20px white;
-        }
-
-        @keyframes sparklePop {
-            0% {
-                transform: scale(0) rotate(0deg);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1) rotate(180deg);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(0) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -1696,18 +1305,6 @@
             
             .countdown-unit {
                 min-width: 90px;
-            }
-            
-            .fireworks-controls {
-                bottom: 150px;
-                flex-direction: column;
-                align-items: center;
-                padding: 15px 20px;
-            }
-            
-            .firework-btn {
-                width: 220px;
-                justify-content: center;
             }
             
             .controls, .day-night-toggle {
@@ -1820,20 +1417,11 @@
         Your browser does not support the audio element.
     </audio>
 
-    <!-- Fireworks Canvas -->
-    <canvas id="fireworks-canvas" class="fireworks-canvas"></canvas>
-
-    <!-- Final Celebration Overlay -->
-    <div class="final-celebration" id="final-celebration"></div>
+    <!-- Subtle Background Fireworks -->
+    <div class="subtle-fireworks" id="subtle-fireworks"></div>
 
     <!-- Heart Confetti Container -->
     <div class="heart-confetti" id="heart-confetti"></div>
-
-    <!-- Stage Progress Bar -->
-    <div class="stage-progress" id="stage-progress"></div>
-
-    <!-- Animated Background Particles -->
-    <div class="particles" id="particles"></div>
 
     <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
@@ -1921,9 +1509,6 @@
                 
                 <!-- Heart Leaves Container -->
                 <div class="heart-leaves" id="heart-leaves"></div>
-                
-                <!-- Falling petals container -->
-                <div id="falling-petals"></div>
             </div>
             <p class="instruction">Click on the heart leaves to discover special birthday messages! 💕</p>
         </div>
@@ -1942,7 +1527,7 @@
                     <div class="cake-cut" id="cake-cut"></div>
                 </div>
             </div>
-            <p class="instruction">Click on the cake to cut it and celebrate! Fireworks controls will appear!</p>
+            <p class="instruction">Click on the cake to cut it and celebrate!</p>
         </div>
 
         <!-- Stage 5: Memory Gallery -->
@@ -1978,22 +1563,6 @@
         </div>
     </div>
 
-    <!-- Fireworks Controls -->
-    <div class="fireworks-controls hidden" id="fireworks-controls">
-        <button class="firework-btn" id="single-firework">
-            <i class="fas fa-fire"></i> Single Firework
-        </button>
-        <button class="firework-btn" id="multi-firework">
-            <i class="fas fa-bolt"></i> Multi Fireworks
-        </button>
-        <button class="firework-btn" id="heart-firework">
-            <i class="fas fa-heart"></i> Heart Fireworks
-        </button>
-        <button class="firework-btn" id="clear-fireworks">
-            <i class="fas fa-times"></i> Clear All
-        </button>
-    </div>
-
     <!-- Day/Night Toggle -->
     <div class="day-night-toggle">
         <button class="toggle-btn">
@@ -2006,11 +1575,8 @@
         <button class="control-btn active" id="music-toggle">
             <i class="fas fa-volume-up"></i>
         </button>
-        <button class="control-btn" id="special-effects">
-            <i class="fas fa-magic"></i>
-        </button>
-        <button class="control-btn" id="surprise-btn">
-            <i class="fas fa-gift"></i>
+        <button class="control-btn" id="heart-confetti-btn">
+            <i class="fas fa-heart"></i>
         </button>
     </div>
 
@@ -2025,386 +1591,69 @@
     </div>
 
     <script>
-        // Enhanced Fireworks Simulator
-        class EnhancedFireworksSimulator {
-            constructor() {
-                this.canvas = document.getElementById('fireworks-canvas');
-                this.ctx = this.canvas.getContext('2d');
-                this.particles = [];
-                this.fireworks = [];
-                this.hue = 120;
-                this.limiterTotal = 5;
-                this.limiterTick = 0;
-                this.mouseDown = false;
-                this.mx = 0;
-                this.my = 0;
-                this.isActive = false;
-                
-                this.resizeCanvas();
-                window.addEventListener('resize', () => this.resizeCanvas());
-                
-                this.animate();
-            }
-            
-            resizeCanvas() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-            }
-            
-            random(min, max) {
-                return Math.random() * (max - min) + min;
-            }
-            
-            calculateDistance(p1x, p1y, p2x, p2y) {
-                const xDistance = p1x - p2x;
-                const yDistance = p1y - p2y;
-                return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
-            }
-            
-            createParticle(x, y, color) {
-                this.particles.push({
-                    x: x,
-                    y: y,
-                    coordinates: [],
-                    coordinateCount: 12,
-                    angle: this.random(0, Math.PI * 2),
-                    speed: this.random(1, 12),
-                    friction: 0.96,
-                    gravity: 0.15,
-                    hue: this.hue,
-                    brightness: this.random(60, 90),
-                    alpha: 1,
-                    decay: this.random(0.01, 0.025),
-                    color: color || `hsl(${this.hue}, 100%, 60%)`,
-                    size: this.random(2, 4)
-                });
-            }
-            
-            createFirework(sx, sy, tx, ty, color, type = 'normal') {
-                const firework = {
-                    x: sx,
-                    y: sy,
-                    sx: sx,
-                    sy: sy,
-                    tx: tx,
-                    ty: ty,
-                    distanceToTarget: this.calculateDistance(sx, sy, tx, ty),
-                    distanceTraveled: 0,
-                    coordinates: [],
-                    coordinateCount: 5,
-                    angle: Math.atan2(ty - sy, tx - sx),
-                    speed: 3,
-                    acceleration: 1.08,
-                    brightness: this.random(60, 80),
-                    hue: this.hue,
-                    targetRadius: 2,
-                    color: color,
-                    type: type,
-                    trailLength: 20
-                };
-                
-                this.fireworks.push(firework);
-                return firework;
-            }
-            
-            launchFirework(x, y, color = null, type = 'normal') {
-                if (!this.isActive) return;
-                
-                const startX = this.canvas.width / 2;
-                const startY = this.canvas.height;
-                
-                if (type === 'heart') {
-                    const targetX = x || this.random(150, this.canvas.width - 150);
-                    const targetY = y || this.random(150, this.canvas.height / 2);
-                    const firework = this.createFirework(startX, startY, targetX, targetY, color || `hsl(${this.hue}, 100%, 60%)`, 'heart');
-                    firework.speed = 4;
-                    
-                    setTimeout(() => {
-                        if (firework && firework.x && firework.y) {
-                            this.explodeHeart(firework.x, firework.y, color);
-                        }
-                    }, 1200);
-                } else {
-                    const targetX = x || this.random(150, this.canvas.width - 150);
-                    const targetY = y || this.random(150, this.canvas.height / 2);
-                    this.createFirework(startX, startY, targetX, targetY, color || `hsl(${this.hue}, 100%, 60%)`, type);
-                }
-            }
-            
-            explodeFirework(firework) {
-                const particleCount = firework.type === 'heart' ? 150 : 120;
-                
-                for (let i = 0; i < particleCount; i++) {
-                    const color = firework.color || `hsl(${this.hue}, 100%, 60%)`;
-                    this.createParticle(firework.x, firework.y, color);
-                }
-                
-                if (firework.type === 'heart') {
-                    this.explodeHeart(firework.x, firework.y, firework.color);
-                }
-            }
-            
-            explodeHeart(x, y, color) {
-                const heartPoints = 50;
-                for (let i = 0; i < heartPoints; i++) {
-                    const t = (i / heartPoints) * Math.PI * 2;
-                    const heartX = 16 * Math.pow(Math.sin(t), 3);
-                    const heartY = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-                    
-                    this.createParticle(
-                        x + heartX * 4,
-                        y + heartY * 4,
-                        color || `hsl(${this.hue}, 100%, 60%)`
-                    );
-                }
-            }
-            
-            updateParticles() {
-                for (let i = this.particles.length - 1; i >= 0; i--) {
-                    const p = this.particles[i];
-                    
-                    p.coordinates.unshift([p.x, p.y]);
-                    
-                    if (p.coordinates.length > p.coordinateCount) {
-                        p.coordinates.pop();
-                    }
-                    
-                    p.speed *= p.friction;
-                    p.x += Math.cos(p.angle) * p.speed;
-                    p.y += Math.sin(p.angle) * p.speed + p.gravity;
-                    
-                    p.alpha -= p.decay;
-                    
-                    if (p.alpha <= p.decay) {
-                        this.particles.splice(i, 1);
-                    }
-                }
-            }
-            
-            updateFireworks() {
-                for (let i = this.fireworks.length - 1; i >= 0; i--) {
-                    const f = this.fireworks[i];
-                    
-                    f.coordinates.unshift([f.x, f.y]);
-                    
-                    if (f.coordinates.length > f.coordinateCount) {
-                        f.coordinates.pop();
-                    }
-                    
-                    if (f.targetRadius < 10) {
-                        f.targetRadius += 0.4;
-                    } else {
-                        f.targetRadius = 2;
-                    }
-                    
-                    const angle = Math.atan2(f.ty - f.sy, f.tx - f.sx);
-                    const distance = this.calculateDistance(f.sx, f.sy, f.tx, f.ty);
-                    f.distanceTraveled = this.calculateDistance(f.sx, f.sy, f.x, f.y);
-                    
-                    const currentDistance = f.distanceTraveled / distance;
-                    
-                    if (currentDistance >= 1) {
-                        this.explodeFirework(f);
-                        this.fireworks.splice(i, 1);
-                    } else {
-                        f.speed *= f.acceleration;
-                        const velX = Math.cos(angle) * f.speed;
-                        const velY = Math.sin(angle) * f.speed;
-                        
-                        f.x += velX;
-                        f.y += velY;
-                    }
-                }
-            }
-            
-            drawParticles() {
-                for (let i = 0; i < this.particles.length; i++) {
-                    const p = this.particles[i];
-                    
-                    // Draw trail
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(p.coordinates[0][0], p.coordinates[0][1]);
-                    
-                    for (let j = 1; j < p.coordinates.length; j++) {
-                        this.ctx.lineTo(p.coordinates[j][0], p.coordinates[j][1]);
-                    }
-                    
-                    this.ctx.strokeStyle = `rgba(${this.hexToRgb(p.color)}, ${p.alpha * 0.5})`;
-                    this.ctx.lineWidth = p.size * 0.8;
-                    this.ctx.lineCap = 'round';
-                    this.ctx.lineJoin = 'round';
-                    this.ctx.stroke();
-                    
-                    // Draw particle
-                    this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    this.ctx.fillStyle = `rgba(${this.hexToRgb(p.color)}, ${p.alpha})`;
-                    this.ctx.fill();
-                    
-                    // Draw glow
-                    const glow = this.ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4);
-                    glow.addColorStop(0, `rgba(${this.hexToRgb(p.color)}, ${p.alpha * 0.8})`);
-                    glow.addColorStop(1, 'transparent');
-                    
-                    this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
-                    this.ctx.fillStyle = glow;
-                    this.ctx.fill();
-                }
-            }
-            
-            drawFireworks() {
-                for (let i = 0; i < this.fireworks.length; i++) {
-                    const f = this.fireworks[i];
-                    
-                    // Draw trail
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(f.coordinates[f.coordinates.length - 1][0], f.coordinates[f.coordinates.length - 1][1]);
-                    this.ctx.lineTo(f.x, f.y);
-                    this.ctx.strokeStyle = `rgba(${this.hexToRgb(f.color)}, 0.7)`;
-                    this.ctx.lineWidth = 3;
-                    this.ctx.lineCap = 'round';
-                    this.ctx.stroke();
-                    
-                    // Draw firework
-                    this.ctx.beginPath();
-                    this.ctx.arc(f.x, f.y, f.targetRadius, 0, Math.PI * 2);
-                    this.ctx.fillStyle = f.color;
-                    this.ctx.fill();
-                    
-                    // Draw glow
-                    const glow = this.ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.targetRadius * 5);
-                    glow.addColorStop(0, f.color);
-                    glow.addColorStop(1, 'transparent');
-                    
-                    this.ctx.beginPath();
-                    this.ctx.arc(f.x, f.y, f.targetRadius * 5, 0, Math.PI * 2);
-                    this.ctx.fillStyle = glow;
-                    this.ctx.fill();
-                }
-            }
-            
-            hexToRgb(hex) {
-                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-                return result ? 
-                    `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : 
-                    '255, 105, 180';
-            }
-            
-            animate() {
-                requestAnimationFrame(() => this.animate());
-                
-                // Clear with fade effect
-                this.ctx.globalCompositeOperation = 'destination-out';
-                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-                this.ctx.globalCompositeOperation = 'lighter';
-                
-                this.hue += 0.7;
-                
-                if (this.isActive && this.limiterTick >= this.limiterTotal) {
-                    if (!this.mouseDown) {
-                        this.launchFirework();
-                        this.limiterTick = 0;
-                    }
-                } else {
-                    this.limiterTick++;
-                }
-                
-                this.updateFireworks();
-                this.updateParticles();
-                this.drawFireworks();
-                this.drawParticles();
-            }
-            
-            // Public methods
-            activate() {
-                this.isActive = true;
-                document.querySelector('.fireworks-canvas').classList.add('active');
-            }
-            
-            deactivate() {
-                this.isActive = false;
-                document.querySelector('.fireworks-canvas').classList.remove('active');
-            }
-            
-            launchSingleFirework(color = null) {
-                const x = this.random(150, this.canvas.width - 150);
-                const y = this.random(150, this.canvas.height / 2);
-                this.launchFirework(x, y, color);
-            }
-            
-            launchMultiFireworks(count = 8) {
-                for (let i = 0; i < count; i++) {
-                    setTimeout(() => {
-                        const colors = ['#ff3366', '#ff69b4', '#ffd700', '#87ceeb', '#2ecc71', '#da70d6', '#ff9900'];
-                        const color = colors[Math.floor(Math.random() * colors.length)];
-                        this.launchSingleFirework(color);
-                    }, i * 150);
-                }
-            }
-            
-            launchHeartFireworks(count = 4) {
-                for (let i = 0; i < count; i++) {
-                    setTimeout(() => {
-                        const colors = ['#ff3366', '#ff69b4', '#da70d6'];
-                        const color = colors[Math.floor(Math.random() * colors.length)];
-                        this.launchFirework(null, null, color, 'heart');
-                    }, i * 250);
-                }
-            }
-            
-            clearAll() {
-                this.particles = [];
-                this.fireworks = [];
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            }
-            
-            grandFinale() {
-                // First wave: Multi fireworks
-                this.launchMultiFireworks(15);
-                
-                // Second wave: Heart fireworks
-                setTimeout(() => {
-                    this.launchHeartFireworks(8);
-                }, 1800);
-                
-                // Third wave: Continuous single fireworks
-                setTimeout(() => {
-                    for (let i = 0; i < 25; i++) {
-                        setTimeout(() => {
-                            const colors = ['#ff3366', '#ff69b4', '#ffd700', '#87ceeb', '#2ecc71', '#da70d6', '#ff9900'];
-                            const color = colors[Math.floor(Math.random() * colors.length)];
-                            this.launchFirework(
-                                this.random(150, this.canvas.width - 150),
-                                this.random(150, this.canvas.height / 2),
-                                color,
-                                i % 4 === 0 ? 'heart' : 'normal'
-                            );
-                        }, i * 120);
-                    }
-                }, 3500);
-                
-                // Fourth wave: Final burst
-                setTimeout(() => {
-                    for (let i = 0; i < 30; i++) {
-                        setTimeout(() => {
-                            this.launchSingleFirework();
-                        }, i * 60);
-                    }
-                }, 7000);
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Enhanced Fireworks Simulator
-            const fireworks = new EnhancedFireworksSimulator();
+            // Create subtle background sparkles
+            function createSubtleSparkles() {
+                const container = document.getElementById('subtle-fireworks');
+                if (!container) return;
+                
+                container.innerHTML = '';
+                
+                // Create 30 subtle sparkles
+                for (let i = 0; i < 30; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'subtle-sparkle';
+                    sparkle.style.left = `${Math.random() * 100}%`;
+                    sparkle.style.top = `${Math.random() * 100}%`;
+                    sparkle.style.opacity = '0';
+                    sparkle.style.animationDelay = `${Math.random() * 15}s`;
+                    
+                    // Random color
+                    const colors = [
+                        'rgba(255, 105, 180, 0.4)',
+                        'rgba(255, 20, 147, 0.3)',
+                        'rgba(218, 112, 214, 0.3)',
+                        'rgba(135, 206, 235, 0.3)',
+                        'rgba(255, 215, 0, 0.3)'
+                    ];
+                    sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    sparkle.style.boxShadow = `0 0 10px ${colors[Math.floor(Math.random() * colors.length)]}`;
+                    
+                    container.appendChild(sparkle);
+                }
+            }
             
-            // Create animated particles
-            createParticles();
-            
-            // Add sparkle effects on clicks
-            document.addEventListener('click', createSparkles);
+            // Create heart confetti
+            function createHeartConfetti(count = 20) {
+                const container = document.getElementById('heart-confetti');
+                if (!container) return;
+                
+                const hearts = ['💖', '💕', '💗', '💓', '💞', '💝', '💘', '❤️'];
+                
+                for (let i = 0; i < count; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'confetti-heart';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    
+                    const startX = Math.random() * 100;
+                    const endX = startX + (Math.random() - 0.5) * 50;
+                    
+                    heart.style.setProperty('--start-x', `${startX}vw`);
+                    heart.style.setProperty('--end-x', `${endX}vw`);
+                    
+                    const colors = ['#ff3366', '#ff69b4', '#da70d6', '#87ceeb', '#ffd700'];
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    heart.style.fontSize = (Math.random() * 10 + 20) + 'px';
+                    heart.style.animationDelay = Math.random() * 3 + 's';
+                    
+                    container.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 9000);
+                }
+            }
             
             // Background Music - AUTO PLAY
             const backgroundMusic = document.getElementById('background-music');
@@ -2420,7 +1669,6 @@
                 if (!isPageLoaded) {
                     backgroundMusic.play().then(() => {
                         isMusicPlaying = true;
-                        document.getElementById('music-toggle').innerHTML = '<i class="fas fa-volume-up"></i>';
                         document.getElementById('music-toggle').classList.add('active');
                     }).catch(e => {
                         console.log("Autoplay blocked, will play on first click");
@@ -2448,14 +1696,17 @@
                     isMusicPlaying = false;
                     this.innerHTML = '<i class="fas fa-volume-mute"></i>';
                     this.classList.remove('active');
-                    createFloatingElement('🔇 Music Paused');
                 } else {
                     backgroundMusic.play();
                     isMusicPlaying = true;
                     this.innerHTML = '<i class="fas fa-volume-up"></i>';
                     this.classList.add('active');
-                    createFloatingElement('🎵 Music Playing');
                 }
+            });
+            
+            // Heart confetti button
+            document.getElementById('heart-confetti-btn').addEventListener('click', function() {
+                createHeartConfetti(25);
             });
             
             // BIRTHDAY COUNTDOWN
@@ -2488,8 +1739,8 @@
                 if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
                     statusElement.textContent = "🎉 HAPPY BIRTHDAY LAKSHITA! 🎉";
                     statusElement.style.animation = 'heartbeat 1s infinite';
-                    createHeartConfetti();
-                    startAutomaticCelebration();
+                    createHeartConfetti(50);
+                    createSubtleSparkles();
                 } else if (days === 1) {
                     statusElement.textContent = "Birthday is tomorrow! Get ready! 🎁";
                 } else if (days < 7) {
@@ -2512,84 +1763,10 @@
                 loadingScreen.style.transform = 'scale(1.1)';
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
-                    createFloatingElement('🎉 Welcome to Lakshita\'s Birthday! 🎉');
-                    createHeartConfetti();
+                    createHeartConfetti(20);
+                    createSubtleSparkles();
                 }, 1000);
             }, 3500);
-            
-            function createParticles() {
-                const particlesContainer = document.getElementById('particles');
-                for (let i = 0; i < 40; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.width = particle.style.height = (Math.random() * 25 + 15) + 'px';
-                    particle.style.left = Math.random() * 100 + 'vw';
-                    particle.style.top = Math.random() * 100 + 'vh';
-                    particle.style.background = getRandomParticleColor();
-                    particle.style.animationDelay = Math.random() * 8 + 's';
-                    particle.style.animationDuration = (Math.random() * 15 + 20) + 's';
-                    particlesContainer.appendChild(particle);
-                }
-            }
-            
-            function getRandomParticleColor() {
-                const colors = [
-                    'rgba(255, 105, 180, 0.25)',
-                    'rgba(255, 20, 147, 0.25)',
-                    'rgba(218, 112, 214, 0.25)',
-                    'rgba(135, 206, 235, 0.25)',
-                    'rgba(255, 215, 0, 0.25)',
-                    'rgba(255, 99, 71, 0.25)'
-                ];
-                return colors[Math.floor(Math.random() * colors.length)];
-            }
-            
-            // Create sparkle effects
-            function createSparkles(e) {
-                for (let i = 0; i < 8; i++) {
-                    setTimeout(() => {
-                        const sparkle = document.createElement('div');
-                        sparkle.className = 'sparkle';
-                        sparkle.style.left = (e.pageX + (Math.random() - 0.5) * 50) + 'px';
-                        sparkle.style.top = (e.pageY + (Math.random() - 0.5) * 50) + 'px';
-                        document.body.appendChild(sparkle);
-                        
-                        setTimeout(() => {
-                            sparkle.remove();
-                        }, 1000);
-                    }, i * 50);
-                }
-            }
-            
-            // Create heart confetti
-            function createHeartConfetti(count = 30) {
-                const container = document.getElementById('heart-confetti');
-                const hearts = ['💖', '💕', '💗', '💓', '💞', '💝', '💘', '❤️', '🧡', '💛', '💚', '💙', '💜'];
-                
-                for (let i = 0; i < count; i++) {
-                    const heart = document.createElement('div');
-                    heart.className = 'confetti-heart';
-                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                    
-                    const startX = Math.random() * 100;
-                    const endX = startX + (Math.random() - 0.5) * 50;
-                    
-                    heart.style.setProperty('--start-x', `${startX}vw`);
-                    heart.style.setProperty('--end-x', `${endX}vw`);
-                    
-                    const colors = ['#ff3366', '#ff69b4', '#da70d6', '#87ceeb', '#ffd700', '#2ecc71'];
-                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-                    
-                    heart.style.fontSize = (Math.random() * 10 + 20) + 'px';
-                    heart.style.animationDelay = Math.random() * 3 + 's';
-                    
-                    container.appendChild(heart);
-                    
-                    setTimeout(() => {
-                        heart.remove();
-                    }, 9000);
-                }
-            }
             
             // Stage Navigation with smooth transitions
             const stages = document.querySelectorAll('.stage');
@@ -2598,10 +1775,6 @@
             
             function navigateToStage(stageNumber) {
                 if (stageNumber === currentStage) return;
-                
-                // Update progress bar
-                const progress = (stageNumber - 1) * 20;
-                document.getElementById('stage-progress').style.width = `${progress}%`;
                 
                 // Smooth transition out
                 stages.forEach(stage => {
@@ -2647,12 +1820,6 @@
                                 startFinalCelebration();
                                 break;
                         }
-                        
-                        // Create floating elements
-                        createFloatingElements();
-                        
-                        // Create sparkles
-                        createSparkles({ pageX: window.innerWidth / 2, pageY: window.innerHeight / 2 });
                     }
                 }, 450);
             }
@@ -2660,7 +1827,6 @@
             // Navigation dots click
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', (e) => {
-                    createSparkles(e);
                     navigateToStage(index + 1);
                 });
             });
@@ -2668,12 +1834,10 @@
             // Stage 2: Envelope click
             const envelopeSeal = document.querySelector('.envelope-seal');
             if (envelopeSeal) {
-                envelopeSeal.addEventListener('click', function(e) {
-                    createSparkles(e);
+                envelopeSeal.addEventListener('click', function() {
                     const envelope = document.querySelector('.envelope');
                     if (!envelope.classList.contains('open')) {
                         envelope.classList.add('open');
-                        createFloatingElement('✨ Happy Birthday Lakshita! ✨');
                         createHeartConfetti(15);
                         
                         // Smooth transition to next stage
@@ -2702,9 +1866,8 @@
                 cakeCutElement.classList.remove('active');
                 
                 // Cake click event
-                cakeContainer.addEventListener('click', function(e) {
+                cakeContainer.addEventListener('click', function() {
                     if (!cakeCut) {
-                        createSparkles(e);
                         cutCake();
                         cakeCut = true;
                     }
@@ -2729,114 +1892,35 @@
                 cakeImg.style.transform = 'scale(1.15) rotate(8deg)';
                 cakeContainer.style.transform = 'scale(1.08)';
                 
-                // Show fireworks controls
-                setTimeout(() => {
-                    const fireworksControls = document.getElementById('fireworks-controls');
-                    fireworksControls.classList.remove('hidden');
-                    createFloatingElement('🎆 Fireworks Controls Activated!');
-                    createHeartConfetti(20);
-                    
-                    // Activate fireworks
-                    fireworks.activate();
-                    
-                    // Launch celebration fireworks
-                    fireworks.launchMultiFireworks(8);
-                    fireworks.launchHeartFireworks(3);
-                }, 1200);
+                createHeartConfetti(20);
+                createSubtleSparkles();
                 
                 // Move to next stage after delay
                 setTimeout(() => {
                     navigateToStage(5);
-                }, 4500);
+                }, 2500);
             }
-            
-            // Fireworks Control Buttons
-            document.getElementById('single-firework').addEventListener('click', function(e) {
-                createSparkles(e);
-                fireworks.launchSingleFirework();
-                createFloatingElement('🎆 Single Firework!');
-            });
-            
-            document.getElementById('multi-firework').addEventListener('click', function(e) {
-                createSparkles(e);
-                fireworks.launchMultiFireworks(12);
-                createFloatingElement('✨ Multiple Fireworks!');
-            });
-            
-            document.getElementById('heart-firework').addEventListener('click', function(e) {
-                createSparkles(e);
-                fireworks.launchHeartFireworks(5);
-                createFloatingElement('💖 Heart Fireworks!');
-            });
-            
-            document.getElementById('clear-fireworks').addEventListener('click', function(e) {
-                createSparkles(e);
-                fireworks.clearAll();
-                createFloatingElement('🧹 Cleared Fireworks');
-            });
-            
-            // Special effects button
-            document.getElementById('special-effects').addEventListener('click', function(e) {
-                createSparkles(e);
-                fireworks.launchMultiFireworks(8);
-                fireworks.launchHeartFireworks(3);
-                createHeartConfetti(25);
-                createFloatingElement('✨ Special Effects!');
-            });
-            
-            // Surprise button
-            document.getElementById('surprise-btn').addEventListener('click', function(e) {
-                createSparkles(e);
-                fireworks.grandFinale();
-                createHeartConfetti(50);
-                createFloatingElement('🎁 Birthday Surprise!');
-            });
             
             // Stage 6: Final Celebration
             function startFinalCelebration() {
-                // Hide fireworks controls
-                const fireworksControls = document.getElementById('fireworks-controls');
-                fireworksControls.classList.add('hidden');
-                
                 // Start typing effect
                 startTypingEffect();
                 
-                // Start grand finale after typing
+                // Start celebration after typing
                 setTimeout(() => {
-                    startAutomaticCelebration();
-                }, 6000);
-            }
-            
-            function startAutomaticCelebration() {
-                // Show final celebration overlay
-                const finalCelebration = document.getElementById('final-celebration');
-                finalCelebration.classList.add('active');
-                
-                // Activate fireworks
-                fireworks.activate();
-                
-                // Start grand finale
-                fireworks.grandFinale();
-                
-                // Create floating elements
-                for (let i = 0; i < 25; i++) {
+                    createHeartConfetti(50);
+                    createSubtleSparkles();
+                    
+                    // Update birthday status
+                    const statusElement = document.getElementById('birthday-status');
+                    statusElement.textContent = "🎉 HAPPY BIRTHDAY LAKSHITA! 🎉";
+                    statusElement.style.animation = 'heartbeat 1s infinite';
+                    
+                    // Auto-navigate to countdown stage
                     setTimeout(() => {
-                        createFloatingElement('🎉');
-                    }, i * 200);
-                }
-                
-                // Create heart confetti
-                createHeartConfetti(100);
-                
-                // Update birthday status if it's the birthday
-                const statusElement = document.getElementById('birthday-status');
-                statusElement.textContent = "🎉 HAPPY BIRTHDAY LAKSHITA! 🎉";
-                statusElement.style.animation = 'heartbeat 1s infinite';
-                
-                // Auto-navigate to countdown stage after finale
-                setTimeout(() => {
-                    navigateToStage(1);
-                }, 15000);
+                        navigateToStage(1);
+                    }, 8000);
+                }, 6000);
             }
             
             // Auto navigation every 40 seconds
@@ -2871,196 +1955,76 @@
                     "Many happy returns! 🎂",
                     "Enjoy your special day! 🥳",
                     "You're so special! ✨",
-                    "Stay amazing! 💫",
-                    "Sending you love! 💕",
-                    "Stay happy always! 😄",
-                    "You're wonderful! 🌈",
-                    "Stay magical! 🔮",
-                    "You're incredible! 🚀",
-                    "My heart beats for you! 💓",
-                    "You complete me! 💞",
-                    "Forever yours! 💘",
-                    "My love for you grows! 💗",
-                    "You're my everything! ❤️"
+                    "Stay amazing! 💫"
                 ];
                 
                 // Create heart leaves in a tree pattern
-                const totalLeaves = 150;
+                const totalLeaves = 120;
                 
                 for (let i = 0; i < totalLeaves; i++) {
-                    setTimeout(() => {
-                        const leaf = document.createElement('div');
-                        leaf.className = 'heart-leaf';
+                    const leaf = document.createElement('div');
+                    leaf.className = 'heart-leaf';
+                    
+                    // Random color class
+                    const colorClass = leafClasses[Math.floor(Math.random() * leafClasses.length)];
+                    leaf.classList.add(colorClass);
+                    
+                    // Random position within the tree shape
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 250 + 60;
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance * 0.8;
+                    
+                    // Adjust for tree shape (more leaves at top)
+                    const adjustedY = y - Math.abs(x) * 0.3;
+                    
+                    leaf.style.left = `calc(50% + ${x}px)`;
+                    leaf.style.top = `calc(50% + ${adjustedY}px)`;
+                    
+                    // Random rotation
+                    const rotation = Math.random() * 360;
+                    leaf.style.transform = `rotate(${rotation}deg)`;
+                    
+                    // Random animation delay
+                    leaf.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    // Random size variation
+                    const size = 0.7 + Math.random() * 0.8;
+                    leaf.style.width = `${45 * size}px`;
+                    leaf.style.height = `${45 * size}px`;
+                    
+                    // Click event
+                    leaf.addEventListener('click', function() {
+                        const msgIndex = Math.floor(Math.random() * messages.length);
+                        alert(messages[msgIndex]);
                         
-                        // Random color class
-                        const colorClass = leafClasses[Math.floor(Math.random() * leafClasses.length)];
-                        leaf.classList.add(colorClass);
+                        // Animation on click
+                        this.style.transform = `scale(1.6) rotate(${rotation + 60}deg)`;
+                        this.style.filter = 'drop-shadow(0 0 40px currentColor) brightness(1.3)';
+                        this.style.zIndex = '100';
                         
-                        // Random position within the tree shape
-                        const angle = Math.random() * Math.PI * 2;
-                        const distance = Math.random() * 250 + 60;
-                        const x = Math.cos(angle) * distance;
-                        const y = Math.sin(angle) * distance * 0.8;
-                        
-                        // Adjust for tree shape (more leaves at top)
-                        const adjustedY = y - Math.abs(x) * 0.3;
-                        
-                        leaf.style.left = `calc(50% + ${x}px)`;
-                        leaf.style.top = `calc(50% + ${adjustedY}px)`;
-                        
-                        // Random rotation
-                        const rotation = Math.random() * 360;
-                        leaf.style.transform = `rotate(${rotation}deg)`;
-                        
-                        // Random animation delay
-                        leaf.style.animationDelay = `${Math.random() * 5}s`;
-                        
-                        // Random size variation
-                        const size = 0.7 + Math.random() * 0.8;
-                        leaf.style.width = `${45 * size}px`;
-                        leaf.style.height = `${45 * size}px`;
-                        
-                        // Click event
-                        leaf.addEventListener('click', function(e) {
-                            createSparkles(e);
-                            const msgIndex = Math.floor(Math.random() * messages.length);
-                            createFloatingElement(messages[msgIndex]);
-                            
-                            // Animation on click
-                            this.style.transform = `scale(1.6) rotate(${rotation + 60}deg) translateZ(30px)`;
-                            this.style.filter = 'drop-shadow(0 0 40px currentColor) brightness(1.3)';
-                            this.style.zIndex = '100';
-                            
-                            // Launch a small firework
-                            setTimeout(() => {
-                                fireworks.launchSingleFirework(getHeartColor(colorClass));
-                            }, 300);
-                            
-                            setTimeout(() => {
-                                this.style.transform = `rotate(${rotation}deg) scale(${size})`;
-                                this.style.filter = 'drop-shadow(0 8px 25px rgba(0, 0, 0, 0.3))';
-                                this.style.zIndex = '1';
-                            }, 1000);
-                        });
-                        
-                        // Hover effect
-                        leaf.addEventListener('mouseenter', function() {
-                            this.style.transform = `rotate(${rotation + 15}deg) scale(${size * 1.3}) translateZ(15px)`;
-                        });
-                        
-                        leaf.addEventListener('mouseleave', function() {
+                        setTimeout(() => {
                             this.style.transform = `rotate(${rotation}deg) scale(${size})`;
-                        });
-                        
-                        heartLeavesContainer.appendChild(leaf);
-                    }, i * 20);
-                }
-                
-                // Create falling petals effect
-                createFallingPetals();
-            }
-            
-            function getHeartColor(colorClass) {
-                const colorMap = {
-                    'heart-leaf-red': '#ff3366',
-                    'heart-leaf-pink': '#ff69b4',
-                    'heart-leaf-purple': '#da70d6',
-                    'heart-leaf-blue': '#87ceeb',
-                    'heart-leaf-gold': '#ffd700',
-                    'heart-leaf-orange': '#ff9900',
-                    'heart-leaf-green': '#2ecc71',
-                    'heart-leaf-teal': '#1abc9c'
-                };
-                return colorMap[colorClass] || '#ff69b4';
-            }
-            
-            function createFallingPetals() {
-                const petalsContainer = document.getElementById('falling-petals');
-                if (!petalsContainer) return;
-                
-                petalsContainer.innerHTML = '';
-                
-                const petalSymbols = ['💖', '💕', '💗', '🌸', '✨', '🌟', '💫', '🥳', '🎉', '🎀', '💝'];
-                
-                // Create 30 falling petals
-                for (let i = 0; i < 30; i++) {
-                    const petal = document.createElement('div');
-                    petal.className = 'falling-petal';
-                    petal.textContent = petalSymbols[Math.floor(Math.random() * petalSymbols.length)];
-                    petal.style.position = 'absolute';
-                    petal.style.left = `${Math.random() * 100}%`;
-                    petal.style.top = '-100px';
-                    petal.style.fontSize = '28px';
-                    petal.style.opacity = '0.9';
-                    petal.style.zIndex = '0';
-                    petal.style.pointerEvents = 'none';
+                            this.style.filter = 'drop-shadow(0 8px 25px rgba(0, 0, 0, 0.3))';
+                            this.style.zIndex = '1';
+                        }, 1000);
+                    });
                     
-                    // Random color
-                    const colors = ['#ff3366', '#ff69b4', '#da70d6', '#87ceeb', '#ffd700', '#2ecc71', '#ff9900'];
-                    petal.style.color = colors[Math.floor(Math.random() * colors.length)];
-                    
-                    // Animation
-                    const duration = 8 + Math.random() * 8;
-                    const delay = Math.random() * 5;
-                    const xMovement = (Math.random() - 0.5) * 300;
-                    
-                    petal.style.setProperty('--x-movement', `${xMovement}px`);
-                    petal.style.animation = `
-                        fallDown ${duration}s ease-in ${delay}s infinite,
-                        sway ${duration / 2}s ease-in-out ${delay}s infinite alternate
-                    `;
-                    
-                    petalsContainer.appendChild(petal);
+                    heartLeavesContainer.appendChild(leaf);
                 }
             }
-            
-            // Add falling animation styles
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes fallDown {
-                    0% {
-                        transform: translateY(0) translateX(0) rotate(0deg) scale(0.5);
-                        opacity: 0;
-                    }
-                    10% {
-                        opacity: 0.9;
-                        transform: translateY(100px) translateX(var(--x-movement)) rotate(180deg) scale(1.2);
-                    }
-                    90% {
-                        opacity: 0.9;
-                        transform: translateY(calc(100vh - 100px)) translateX(calc(var(--x-movement) * 2)) rotate(720deg) scale(1);
-                    }
-                    100% {
-                        transform: translateY(calc(100vh + 100px)) translateX(calc(var(--x-movement) * 2)) rotate(900deg) scale(0.5);
-                        opacity: 0;
-                    }
-                }
-                
-                @keyframes sway {
-                    0%, 100% {
-                        transform: translateX(-10px);
-                    }
-                    50% {
-                        transform: translateX(10px);
-                    }
-                }
-            `;
-            document.head.appendChild(style);
             
             // Stage 5: Gallery interactions
             const galleryItems = document.querySelectorAll('.gallery-item');
             galleryItems.forEach((item, index) => {
-                item.addEventListener('click', function(e) {
-                    createSparkles(e);
+                item.addEventListener('click', function() {
                     const messages = [
                         "Beautiful memory of Lakshita! 💕",
                         "Precious moment captured forever! 📸",
                         "Lakshita makes every moment special! ✨",
-                        "A memory to cherish forever! 🌟",
-                        "Forever in my heart! 💖",
-                        "Beautiful smile! 😊"
+                        "A memory to cherish forever! 🌟"
                     ];
-                    createFloatingElement(messages[index % messages.length]);
+                    alert(messages[index % messages.length]);
                     
                     // Image zoom effect
                     const img = this.querySelector('.gallery-img');
@@ -3105,7 +2069,7 @@ Your Secret Admirer 💝`;
                     if (i < message.length) {
                         typingText.textContent += message.charAt(i);
                         i++;
-                        setTimeout(typeWriter, 25);
+                        setTimeout(typeWriter, 30);
                     }
                 }
                 
@@ -3113,67 +2077,24 @@ Your Secret Admirer 💝`;
                 setTimeout(typeWriter, 800);
             }
             
-            // Enhanced Floating elements
-            function createFloatingElement(text) {
-                const element = document.createElement('div');
-                element.className = 'floating-element';
-                element.textContent = text;
-                element.style.left = Math.random() * 75 + 12.5 + 'vw';
-                element.style.color = getRandomColor();
-                element.style.fontSize = (Math.random() * 12 + 24) + 'px';
-                element.style.fontFamily = Math.random() > 0.5 ? '"Dancing Script", cursive' : '"Poppins", sans-serif';
-                element.style.zIndex = Math.floor(Math.random() * 100) + 800;
-                
-                document.body.appendChild(element);
-                
-                setTimeout(() => {
-                    element.remove();
-                }, 8000);
-            }
-            
-            function createFloatingElements() {
-                const symbols = ['💖', '✨', '🌟', '🎉', '🎂', '🌸', '🎁', '💫', '🎈', '🥳', '💕', '💗', '💓', '💞', '💝'];
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(() => {
-                        createFloatingElement(symbols[Math.floor(Math.random() * symbols.length)]);
-                    }, i * 400);
-                }
-            }
-            
-            function getRandomColor() {
-                const colors = ['#ff3366', '#ff69b4', '#da70d6', '#87ceeb', '#ffd700', '#ff9900', '#2ecc71', '#1abc9c'];
-                return colors[Math.floor(Math.random() * colors.length)];
-            }
-            
             // Day/Night mode toggle
             const toggleBtn = document.querySelector('.toggle-btn');
             if (toggleBtn) {
-                toggleBtn.addEventListener('click', function(e) {
-                    createSparkles(e);
+                toggleBtn.addEventListener('click', function() {
                     document.body.classList.toggle('night-mode');
                     const icon = this.querySelector('i');
                     if (document.body.classList.contains('night-mode')) {
                         icon.className = 'fas fa-sun';
                         icon.style.color = '#ffd700';
-                        createFloatingElement('🌙 Night Mode');
                     } else {
                         icon.className = 'fas fa-moon';
                         icon.style.color = '#ff69b4';
-                        createFloatingElement('☀️ Day Mode');
-                    }
-                    
-                    // Create magical transition effect
-                    for (let i = 0; i < 15; i++) {
-                        setTimeout(() => {
-                            createFloatingElement('✨');
-                        }, i * 80);
                     }
                 });
             }
             
-            // Initialize first stage
-            createFloatingElements();
-            createHeartConfetti(20);
+            // Initialize
+            createSubtleSparkles();
         });
     </script>
 </body>
