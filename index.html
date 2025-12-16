@@ -343,79 +343,6 @@
             opacity: 1;
         }
 
-        /* Fireworks Controls */
-        .fireworks-controls {
-            position: fixed;
-            bottom: 120px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 20px 30px;
-            border-radius: 50px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fireworks-controls.hidden {
-            opacity: 0;
-            transform: translateX(-50%) translateY(50px) scale(0.9);
-            pointer-events: none;
-        }
-
-        .firework-btn {
-            padding: 15px 30px;
-            background: linear-gradient(135deg, var(--dark-pink), var(--secondary-pink));
-            border: none;
-            border-radius: 30px;
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 
-                0 8px 20px rgba(214, 51, 132, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .firework-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .firework-btn:hover::before {
-            left: 100%;
-        }
-
-        .firework-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 
-                0 15px 30px rgba(214, 51, 132, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        }
-
-        .firework-btn:active {
-            transform: translateY(-2px) scale(1.02);
-        }
-
         /* Custom Envelope */
         .envelope-wrapper {
             position: relative;
@@ -1617,18 +1544,6 @@
                 line-height: 1.8;
             }
             
-            .fireworks-controls {
-                bottom: 150px;
-                flex-direction: column;
-                align-items: center;
-                padding: 15px 20px;
-            }
-            
-            .firework-btn {
-                width: 220px;
-                justify-content: center;
-            }
-            
             .controls, .day-night-toggle {
                 top: 25px;
                 right: 25px;
@@ -1851,7 +1766,7 @@
                     <div class="cake-cut" id="cake-cut"></div>
                 </div>
             </div>
-            <p class="instruction">Click on the cake to cut it and celebrate! Fireworks controls will appear!</p>
+            <p class="instruction">Click on the cake to cut it and celebrate! Fireworks will automatically start!</p>
         </div>
 
         <!-- Stage 5: Memory Gallery -->
@@ -1889,22 +1804,6 @@
     <div class="back-to-start" id="back-to-start">
         <button class="back-btn" id="back-btn">
             <i class="fas fa-star"></i> Back to Start
-        </button>
-    </div>
-
-    <!-- Fireworks Controls -->
-    <div class="fireworks-controls hidden" id="fireworks-controls">
-        <button class="firework-btn" id="single-firework">
-            <i class="fas fa-fire"></i> Single Firework
-        </button>
-        <button class="firework-btn" id="multi-firework">
-            <i class="fas fa-bolt"></i> Multi Fireworks
-        </button>
-        <button class="firework-btn" id="heart-firework">
-            <i class="fas fa-heart"></i> Heart Fireworks
-        </button>
-        <button class="firework-btn" id="clear-fireworks">
-            <i class="fas fa-times"></i> Clear All
         </button>
     </div>
 
@@ -2592,9 +2491,6 @@
                 dots.forEach(dot => dot.classList.remove('active'));
                 dots[5].classList.add('active');
                 
-                // Hide fireworks controls
-                document.getElementById('fireworks-controls').classList.add('hidden');
-                
                 // Hide back button initially
                 document.getElementById('back-to-start').style.display = 'none';
                 
@@ -2713,17 +2609,15 @@
                 cakeImg.style.transform = 'scale(1.15) rotate(8deg)';
                 cakeContainer.style.transform = 'scale(1.08)';
                 
-                // Show fireworks controls
+                // Activate fireworks automatically
                 setTimeout(() => {
-                    const fireworksControls = document.getElementById('fireworks-controls');
-                    fireworksControls.classList.remove('hidden');
-                    createFloatingElement('🎆 Fireworks Controls Activated!');
+                    createFloatingElement('🎆 Automatic Fireworks Started!');
                     createHeartConfetti(20);
                     
                     // Activate fireworks
                     fireworks.activate();
                     
-                    // Launch celebration fireworks
+                    // Launch celebration fireworks automatically
                     fireworks.launchMultiFireworks(8);
                     fireworks.launchHeartFireworks(3);
                 }, 1200);
@@ -2734,43 +2628,20 @@
                 }, 4500);
             }
             
-            // Fireworks Control Buttons
-            document.getElementById('single-firework').addEventListener('click', function(e) {
-                createSparkles(e);
-                fireworks.launchSingleFirework();
-                createFloatingElement('🎆 Single Firework!');
-            });
-            
-            document.getElementById('multi-firework').addEventListener('click', function(e) {
-                createSparkles(e);
-                fireworks.launchMultiFireworks(12);
-                createFloatingElement('✨ Multiple Fireworks!');
-            });
-            
-            document.getElementById('heart-firework').addEventListener('click', function(e) {
-                createSparkles(e);
-                fireworks.launchHeartFireworks(5);
-                createFloatingElement('💖 Heart Fireworks!');
-            });
-            
-            document.getElementById('clear-fireworks').addEventListener('click', function(e) {
-                createSparkles(e);
-                fireworks.clearAll();
-                createFloatingElement('🧹 Cleared Fireworks');
-            });
-            
-            // Special effects button
+            // Special effects button - launches fireworks and confetti
             document.getElementById('special-effects').addEventListener('click', function(e) {
                 createSparkles(e);
+                fireworks.activate();
                 fireworks.launchMultiFireworks(8);
                 fireworks.launchHeartFireworks(3);
                 createHeartConfetti(25);
                 createFloatingElement('✨ Special Effects!');
             });
             
-            // Surprise button
+            // Surprise button - grand finale
             document.getElementById('surprise-btn').addEventListener('click', function(e) {
                 createSparkles(e);
+                fireworks.activate();
                 fireworks.grandFinale();
                 createHeartConfetti(50);
                 createFloatingElement('🎁 Birthday Surprise!');
@@ -2861,6 +2732,7 @@
                             
                             // Launch a small firework
                             setTimeout(() => {
+                                fireworks.activate();
                                 fireworks.launchSingleFirework(getHeartColor(colorClass));
                             }, 300);
                             
