@@ -327,6 +327,433 @@
             opacity: 0.9;
         }
 
+        /* BEAUTIFUL HEART TREE - Enhanced */
+        .tree-container {
+            position: relative;
+            width: 800px;
+            height: 800px;
+            margin: 50px 0;
+        }
+
+        .tree-structure {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        /* Realistic Tree Trunk */
+        .tree-trunk {
+            width: 100px;
+            height: 350px;
+            background: linear-gradient(45deg, 
+                #8b4513 0%, 
+                #a0522d 20%, 
+                #8b4513 40%, 
+                #a0522d 60%, 
+                #8b4513 80%, 
+                #a0522d 100%);
+            border-radius: 25px 25px 15px 15px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 5px 20px rgba(255, 255, 255, 0.1),
+                0 0 30px rgba(139, 69, 19, 0.3);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .tree-trunk::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
+            animation: barkPattern 20s infinite linear;
+        }
+
+        @keyframes barkPattern {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(20px); }
+        }
+
+        /* Heart Leaves Container */
+        .heart-leaves {
+            position: absolute;
+            width: 700px;
+            height: 650px;
+            bottom: 300px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Realistic Heart Leaves */
+        .heart-leaf {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--heart-color);
+            clip-path: path('M 25 10 C 35 5, 45 10, 50 20 C 50 30, 40 40, 25 50 C 10 40, 0 30, 0 20 C 0 10, 15 5, 25 10');
+            transform-origin: center bottom;
+            animation: leafFloat 6s infinite ease-in-out;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            filter: 
+                drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3))
+                brightness(1.1);
+            transform-style: preserve-3d;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .heart-leaf::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), transparent);
+            clip-path: path('M 25 10 C 35 5, 45 10, 50 20 C 50 30, 40 40, 25 50 C 10 40, 0 30, 0 20 C 0 10, 15 5, 25 10');
+            filter: blur(1px);
+        }
+
+        .heart-leaf::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), transparent 70%);
+            clip-path: path('M 25 10 C 35 5, 45 10, 50 20 C 50 30, 40 40, 25 50 C 10 40, 0 30, 0 20 C 0 10, 15 5, 25 10');
+            opacity: 0.3;
+        }
+
+        .heart-leaf:hover {
+            transform: scale(1.4) rotate(15deg) translateZ(20px);
+            filter: 
+                drop-shadow(0 0 30px currentColor)
+                brightness(1.3);
+            animation: heartPulse 1s infinite alternate;
+            z-index: 10;
+        }
+
+        @keyframes leafFloat {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% { 
+                transform: translateY(-8px) rotate(2deg) scale(1.05);
+            }
+            50% { 
+                transform: translateY(-5px) rotate(-1deg) scale(0.98);
+            }
+            75% { 
+                transform: translateY(-12px) rotate(3deg) scale(1.08);
+            }
+        }
+
+        @keyframes heartPulse {
+            0% { transform: scale(1.3) rotate(15deg); }
+            100% { transform: scale(1.5) rotate(20deg); }
+        }
+
+        /* Colorful Heart Leaf Colors */
+        .heart-leaf-1 { 
+            --heart-color: linear-gradient(135deg, #ff3366, #ff6699, #ff99cc); 
+            animation-delay: 0s; 
+        }
+        .heart-leaf-2 { 
+            --heart-color: linear-gradient(135deg, #ff1493, #ff69b4, #ff99cc); 
+            animation-delay: 0.2s; 
+        }
+        .heart-leaf-3 { 
+            --heart-color: linear-gradient(135deg, #da70d6, #dda0dd, #e6e6fa); 
+            animation-delay: 0.4s; 
+        }
+        .heart-leaf-4 { 
+            --heart-color: linear-gradient(135deg, #87ceeb, #b3e0ff, #e6f7ff); 
+            animation-delay: 0.6s; 
+        }
+        .heart-leaf-5 { 
+            --heart-color: linear-gradient(135deg, #ffd700, #ffed99, #fffacd); 
+            animation-delay: 0.8s; 
+        }
+        .heart-leaf-6 { 
+            --heart-color: linear-gradient(135deg, #ff9900, #ffcc66, #ffe6b3); 
+            animation-delay: 1s; 
+        }
+        .heart-leaf-7 { 
+            --heart-color: linear-gradient(135deg, #2ecc71, #85e0a3, #c8f7c5); 
+            animation-delay: 1.2s; 
+        }
+        .heart-leaf-8 { 
+            --heart-color: linear-gradient(135deg, #1abc9c, #7fd9c7, #c1f0e6); 
+            animation-delay: 1.4s; 
+        }
+        .heart-leaf-9 { 
+            --heart-color: linear-gradient(135deg, #9b59b6, #c39bd3, #e8daef); 
+            animation-delay: 1.6s; 
+        }
+        .heart-leaf-10 { 
+            --heart-color: linear-gradient(135deg, #3498db, #85c1e9, #d6eaf8); 
+            animation-delay: 1.8s; 
+        }
+
+        /* Realistic Branches */
+        .branch {
+            position: absolute;
+            background: linear-gradient(45deg, #8b4513 0%, #a0522d 30%, #8b4513 70%, #a0522d 100%);
+            border-radius: 12px;
+            transform-origin: bottom center;
+            z-index: 2;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.3),
+                inset 0 2px 8px rgba(255, 255, 255, 0.2),
+                0 0 20px rgba(139, 69, 19, 0.2);
+        }
+
+        .branch::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 5px,
+                rgba(255, 255, 255, 0.1) 5px,
+                rgba(255, 255, 255, 0.1) 10px
+            );
+            border-radius: 12px;
+        }
+
+        .branch-1 { width: 350px; height: 20px; bottom: 300px; left: 140px; transform: rotate(-25deg); }
+        .branch-2 { width: 320px; height: 20px; bottom: 300px; right: 140px; transform: rotate(25deg); }
+        .branch-3 { width: 290px; height: 18px; bottom: 400px; left: 180px; transform: rotate(-45deg); }
+        .branch-4 { width: 290px; height: 18px; bottom: 400px; right: 180px; transform: rotate(45deg); }
+        .branch-5 { width: 240px; height: 15px; bottom: 500px; left: 220px; transform: rotate(-65deg); }
+        .branch-6 { width: 240px; height: 15px; bottom: 500px; right: 220px; transform: rotate(65deg); }
+        .branch-7 { width: 190px; height: 12px; bottom: 580px; left: 250px; transform: rotate(-85deg); }
+        .branch-8 { width: 190px; height: 12px; bottom: 580px; right: 250px; transform: rotate(85deg); }
+
+        /* Tree Title */
+        .tree-title {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            color: var(--accent-gold);
+            font-size: 3.2rem;
+            text-align: center;
+            white-space: nowrap;
+            animation: titleFloat 8s infinite ease-in-out;
+            text-shadow: 
+                0 3px 10px rgba(0, 0, 0, 0.25),
+                0 0 30px rgba(255, 215, 0, 0.4);
+            padding: 20px 50px;
+            background: rgba(26, 26, 46, 0.9);
+            border-radius: 60px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 
+                0 20px 40px rgba(255, 215, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        /* Tree Ground */
+        .tree-ground {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 100px;
+            background: linear-gradient(to top, #2d5016, #3a5f1d);
+            border-radius: 50% 50% 0 0;
+            box-shadow: 
+                0 -10px 30px rgba(0, 0, 0, 0.4),
+                inset 0 -10px 20px rgba(255, 255, 255, 0.1);
+            z-index: 0;
+        }
+
+        .tree-ground::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(to top, transparent, rgba(255, 255, 255, 0.1));
+            border-radius: 50% 50% 0 0;
+        }
+
+        /* BIRTHDAY CONSTELLATION STYLES */
+        .constellation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 950;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 3s ease;
+        }
+        
+        .constellation-container.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .constellation-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, 
+                rgba(26, 26, 46, 0) 0%,
+                rgba(26, 26, 46, 0.4) 40%,
+                rgba(26, 26, 46, 0.8) 70%,
+                rgba(26, 26, 46, 0.95) 100%);
+            backdrop-filter: blur(2px);
+        }
+        
+        .constellation-star {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 15px rgba(255, 255, 255, 0.8),
+                0 0 30px rgba(255, 215, 0, 0.6),
+                0 0 45px rgba(255, 215, 0, 0.3);
+            transform: scale(0);
+            transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                      box-shadow 1.5s ease;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .constellation-star.active {
+            transform: scale(1);
+            animation: starTwinkle 3s infinite alternate;
+        }
+        
+        .constellation-star:hover {
+            transform: scale(2) !important;
+            box-shadow: 
+                0 0 25px rgba(255, 255, 255, 1),
+                0 0 50px rgba(255, 215, 0, 0.9),
+                0 0 75px rgba(255, 215, 0, 0.6);
+            z-index: 10;
+        }
+        
+        .constellation-connection {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                rgba(255, 215, 0, 0) 0%, 
+                rgba(255, 215, 0, 0.8) 50%, 
+                rgba(255, 215, 0, 0) 100%);
+            transform-origin: 0 0;
+            transform: scaleX(0);
+            transition: transform 2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s;
+            z-index: 1;
+        }
+        
+        .constellation-connection.active {
+            transform: scaleX(1);
+        }
+        
+        .constellation-message {
+            position: absolute;
+            background: rgba(26, 26, 46, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            max-width: 300px;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(255, 215, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(15px);
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            z-index: 20;
+            pointer-events: none;
+        }
+        
+        .constellation-message.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+        
+        .constellation-message h3 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .constellation-message p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+        
+        .constellation-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            padding: 5px;
+        }
+        
+        .constellation-close:hover {
+            transform: scale(1.2);
+        }
+        
+        @keyframes starTwinkle {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 15px rgba(255, 255, 255, 0.8),
+                    0 0 30px rgba(255, 215, 0, 0.6),
+                    0 0 45px rgba(255, 215, 0, 0.3);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 20px rgba(255, 255, 255, 1),
+                    0 0 40px rgba(255, 215, 0, 0.8),
+                    0 0 60px rgba(255, 215, 0, 0.5);
+            }
+        }
+
         /* Fireworks Canvas - Subtle Background */
         .fireworks-canvas {
             position: fixed;
@@ -344,667 +771,7 @@
             opacity: 0.5;
         }
 
-        /* Custom Envelope */
-        .envelope-wrapper {
-            position: relative;
-            width: 450px;
-            height: 320px;
-            cursor: pointer;
-            perspective: 1800px;
-            margin: 50px 0;
-            filter: drop-shadow(0 20px 40px rgba(214, 51, 132, 0.3));
-            transition: transform 1s ease;
-        }
-
-        .envelope-wrapper:hover {
-            transform: scale(1.02) rotateY(3deg);
-        }
-
-        .envelope {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 2.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .envelope-body {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 25px;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--dark-pink), var(--secondary-pink));
-            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
-        }
-
-        .envelope-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.95;
-            transition: transform 1.5s ease;
-            filter: brightness(1.1) contrast(1.1);
-        }
-
-        .envelope-flap {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(214, 51, 132, 0.95), rgba(255, 20, 147, 0.95));
-            clip-path: polygon(0 0, 50% 50%, 100% 0);
-            transform-origin: top;
-            transition: transform 2s cubic-bezier(0.2, 0.8, 0.2, 1);
-            border-radius: 25px 25px 0 0;
-            box-shadow: 
-                0 -10px 30px rgba(0, 0, 0, 0.2),
-                inset 0 5px 15px rgba(255, 255, 255, 0.4);
-            z-index: 2;
-        }
-
-        .envelope.open .envelope-flap {
-            transform: rotateX(-180deg);
-        }
-
-        .envelope-seal {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(135deg, var(--accent-gold), #ffaa00);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            z-index: 10;
-            box-shadow: 
-                0 10px 30px rgba(255, 215, 0, 0.4),
-                inset 0 3px 10px rgba(255, 255, 255, 0.3);
-            animation: sealGlow 3s infinite alternate;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            overflow: hidden;
-        }
-
-        .envelope-seal::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-            animation: sealShine 4s infinite linear;
-        }
-
-        @keyframes sealShine {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes sealGlow {
-            from { 
-                transform: translate(-50%, -50%) scale(1);
-                box-shadow: 
-                    0 10px 30px rgba(255, 215, 0, 0.4),
-                    inset 0 3px 10px rgba(255, 255, 255, 0.3);
-            }
-            to { 
-                transform: translate(-50%, -50%) scale(1.1);
-                box-shadow: 
-                    0 15px 40px rgba(255, 215, 0, 0.6),
-                    0 0 60px rgba(255, 215, 0, 0.3),
-                    inset 0 3px 10px rgba(255, 255, 255, 0.3);
-            }
-        }
-
-        .envelope-content {
-            position: absolute;
-            width: 92%;
-            height: 88%;
-            background: rgba(26, 26, 46, 0.98);
-            border-radius: 20px;
-            top: 6%;
-            left: 4%;
-            padding: 40px;
-            opacity: 0;
-            transform: translateY(250px) scale(0.85);
-            transition: all 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s;
-            box-shadow: 
-                0 20px 50px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            z-index: 1;
-            backdrop-filter: blur(15px);
-            overflow: hidden;
-        }
-
-        .envelope-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--dark-pink), var(--accent-purple), var(--accent-blue));
-        }
-
-        .envelope.open .envelope-content {
-            opacity: 1;
-            transform: translateY(-280px) scale(1.05);
-        }
-
-        .envelope-content h2 {
-            font-family: 'Dancing Script', cursive;
-            color: var(--accent-gold);
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-        }
-
-        .envelope-content p {
-            text-align: center;
-            color: var(--text-light);
-            font-size: 1.15rem;
-            line-height: 1.7;
-            opacity: 0.9;
-            margin-bottom: 15px;
-        }
-
-        /* HEART LEAVES TREE - Smoother */
-        .tree-container {
-            position: relative;
-            width: 750px;
-            height: 750px;
-            margin: 50px 0;
-        }
-
-        .tree-structure {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
-        }
-
-        .tree-trunk {
-            width: 90px;
-            height: 320px;
-            background: linear-gradient(45deg, #8b4513 0%, #a0522d 50%, #8b4513 100%);
-            border-radius: 25px;
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.4),
-                inset 0 3px 10px rgba(255, 255, 255, 0.2);
-            position: relative;
-            z-index: 2;
-            overflow: hidden;
-        }
-
-        .tree-trunk::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            animation: trunkShine 8s infinite linear;
-        }
-
-        @keyframes trunkShine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-
-        /* Heart Leaves Container */
-        .heart-leaves {
-            position: absolute;
-            width: 650px;
-            height: 600px;
-            bottom: 280px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
-            filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.15));
-        }
-
-        /* Individual Heart Leaf - Smoother */
-        .heart-leaf {
-            position: absolute;
-            width: 45px;
-            height: 45px;
-            background: var(--heart-color);
-            clip-path: polygon(50% 15%, 80% 0%, 100% 35%, 50% 100%, 0% 35%, 20% 0%);
-            transform-origin: center bottom;
-            animation: leafFloat 6s infinite ease-in-out;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
-            transform-style: preserve-3d;
-        }
-
-        .heart-leaf::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
-            clip-path: polygon(50% 15%, 80% 0%, 100% 35%, 50% 100%, 0% 35%, 20% 0%);
-        }
-
-        .heart-leaf:hover {
-            transform: scale(1.3) rotate(15deg) translateZ(15px);
-            filter: 
-                drop-shadow(0 0 20px currentColor)
-                brightness(1.1);
-            animation: heartPulse 1.2s infinite alternate;
-            z-index: 10;
-        }
-
-        @keyframes leafFloat {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg) scale(1);
-            }
-            25% { 
-                transform: translateY(-8px) rotate(2deg) scale(1.03);
-            }
-            50% { 
-                transform: translateY(-5px) rotate(-1deg) scale(0.98);
-            }
-            75% { 
-                transform: translateY(-10px) rotate(3deg) scale(1.05);
-            }
-        }
-
-        @keyframes heartPulse {
-            0% { transform: scale(1.2) rotate(15deg); }
-            100% { transform: scale(1.35) rotate(20deg); }
-        }
-
-        /* Heart Leaf Colors */
-        .heart-leaf-red { 
-            --heart-color: linear-gradient(135deg, #ff3366, #ff6699); 
-            animation-delay: 0s; 
-        }
-        .heart-leaf-pink { 
-            --heart-color: linear-gradient(135deg, #ff69b4, #ff99cc); 
-            animation-delay: 0.5s; 
-        }
-        .heart-leaf-purple { 
-            --heart-color: linear-gradient(135deg, #da70d6, #e6a0e6); 
-            animation-delay: 1s; 
-        }
-        .heart-leaf-blue { 
-            --heart-color: linear-gradient(135deg, #87ceeb, #b3e0ff); 
-            animation-delay: 1.5s; 
-        }
-        .heart-leaf-gold { 
-            --heart-color: linear-gradient(135deg, #ffd700, #ffed99); 
-            animation-delay: 2s; 
-        }
-        .heart-leaf-orange { 
-            --heart-color: linear-gradient(135deg, #ff9900, #ffcc66); 
-            animation-delay: 2.5s; 
-        }
-        .heart-leaf-green { 
-            --heart-color: linear-gradient(135deg, #2ecc71, #85e0a3); 
-            animation-delay: 3s; 
-        }
-        .heart-leaf-teal { 
-            --heart-color: linear-gradient(135deg, #1abc9c, #7fd9c7); 
-            animation-delay: 3.5s; 
-        }
-
-        /* Branches */
-        .branch {
-            position: absolute;
-            background: linear-gradient(45deg, #8b4513 0%, #a0522d 100%);
-            border-radius: 12px;
-            transform-origin: bottom center;
-            z-index: 2;
-            box-shadow: 
-                0 8px 20px rgba(0, 0, 0, 0.25),
-                inset 0 2px 8px rgba(255, 255, 255, 0.2);
-        }
-
-        .branch-1 { width: 320px; height: 18px; bottom: 280px; left: 160px; transform: rotate(-20deg); }
-        .branch-2 { width: 300px; height: 18px; bottom: 280px; right: 160px; transform: rotate(20deg); }
-        .branch-3 { width: 270px; height: 15px; bottom: 380px; left: 190px; transform: rotate(-40deg); }
-        .branch-4 { width: 270px; height: 15px; bottom: 380px; right: 190px; transform: rotate(40deg); }
-        .branch-5 { width: 220px; height: 12px; bottom: 480px; left: 230px; transform: rotate(-60deg); }
-        .branch-6 { width: 220px; height: 12px; bottom: 480px; right: 230px; transform: rotate(60deg); }
-        .branch-7 { width: 170px; height: 10px; bottom: 560px; left: 260px; transform: rotate(-80deg); }
-        .branch-8 { width: 170px; height: 10px; bottom: 560px; right: 260px; transform: rotate(80deg); }
-
-        /* Tree Title */
-        .tree-title {
-            position: absolute;
-            top: -70px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Dancing Script', cursive;
-            color: var(--accent-gold);
-            font-size: 3rem;
-            text-align: center;
-            white-space: nowrap;
-            animation: titleFloat 8s infinite ease-in-out;
-            text-shadow: 
-                0 3px 10px rgba(0, 0, 0, 0.25),
-                0 0 25px rgba(255, 215, 0, 0.3);
-            padding: 15px 40px;
-            background: rgba(26, 26, 46, 0.9);
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 215, 0, 0.15);
-            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.15);
-        }
-
-        /* Cake with Automatic Cutting */
-        .cake-wrapper {
-            position: relative;
-            margin: 60px 0;
-            cursor: pointer;
-            animation: gentleFloat 10s ease-in-out infinite;
-            perspective: 1000px;
-        }
-
-        @keyframes gentleFloat {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg) scale(1);
-            }
-            25% { 
-                transform: translateY(-15px) rotate(1deg) scale(1.01);
-            }
-            50% { 
-                transform: translateY(-8px) rotate(-0.5deg) scale(0.99);
-            }
-            75% { 
-                transform: translateY(-20px) rotate(1.5deg) scale(1.02);
-            }
-        }
-
-        .cake-container {
-            width: 380px;
-            height: 380px;
-            position: relative;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 
-                0 25px 50px rgba(214, 51, 132, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            border: 3px solid rgba(255, 255, 255, 0.6);
-            transition: var(--transition-smooth);
-            transform-style: preserve-3d;
-        }
-
-        .cake-container:hover {
-            transform: scale(1.05) rotateY(3deg);
-            box-shadow: 
-                0 35px 70px rgba(214, 51, 132, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        }
-
-        .cake-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-            filter: brightness(1.1) saturate(1.2);
-        }
-
-        .cake-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.5) 100%);
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding: 40px;
-            opacity: 0;
-            transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .cake-container:hover .cake-overlay {
-            opacity: 1;
-        }
-
-        .cake-text {
-            color: white;
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
-            text-align: center;
-            transform: translateY(30px);
-            transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-            text-shadow: 
-                0 3px 10px rgba(0, 0, 0, 0.4),
-                0 0 15px rgba(214, 51, 132, 0.4);
-        }
-
-        .cake-container:hover .cake-text {
-            transform: translateY(0);
-        }
-
-        .candle {
-            position: absolute;
-            width: 30px;
-            height: 80px;
-            background: linear-gradient(180deg, #ffd700, #ffaa00);
-            top: -80px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 15px 15px 0 0;
-            box-shadow: 
-                0 0 25px rgba(255, 215, 0, 0.6),
-                inset 0 3px 10px rgba(255, 255, 255, 0.3);
-            z-index: 2;
-            animation: candleGlow 2.5s infinite alternate;
-        }
-
-        @keyframes candleGlow {
-            0%, 100% { 
-                box-shadow: 
-                    0 0 25px rgba(255, 215, 0, 0.6),
-                    inset 0 3px 10px rgba(255, 255, 255, 0.3);
-            }
-            50% { 
-                box-shadow: 
-                    0 0 35px rgba(255, 215, 0, 0.8),
-                    inset 0 3px 10px rgba(255, 255, 255, 0.4);
-            }
-        }
-
-        .flame {
-            position: absolute;
-            width: 22px;
-            height: 35px;
-            background: linear-gradient(180deg, #ffff00, #ff4500);
-            top: -120px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 50% 50% 20% 20%;
-            animation: flicker 0.6s infinite alternate;
-            box-shadow: 
-                0 0 30px rgba(255, 69, 0, 0.8),
-                0 0 60px rgba(255, 140, 0, 0.4);
-            z-index: 3;
-            transition: var(--transition-smooth);
-            filter: blur(1px);
-        }
-
-        @keyframes flicker {
-            0%, 100% { 
-                transform: translateX(-50%) scale(1) rotate(0deg);
-                opacity: 1;
-            }
-            25% { 
-                transform: translateX(-50%) scale(1.08) rotate(1.5deg);
-                opacity: 0.9;
-            }
-            50% { 
-                transform: translateX(-50%) scale(0.96) rotate(-1.5deg);
-                opacity: 1;
-            }
-            75% { 
-                transform: translateX(-50%) scale(1.04) rotate(1deg);
-                opacity: 0.95;
-            }
-        }
-
-        /* Cake Cutting Animation */
-        .cake-cut {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 4;
-            opacity: 0;
-            background: linear-gradient(90deg, transparent 45%, rgba(255, 255, 255, 0.6) 50%, transparent 55%);
-        }
-
-        .cake-cut.active {
-            animation: cutAnimation 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        @keyframes cutAnimation {
-            0% {
-                opacity: 0;
-                transform: translateX(0);
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translateX(120px);
-            }
-        }
-
-        /* Custom Gallery */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin: 60px 0;
-            max-width: 1100px;
-            padding: 0 30px;
-            width: 100%;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            transition: var(--transition-smooth);
-            cursor: pointer;
-            aspect-ratio: 3/4;
-            background: rgba(26, 26, 46, 0.5);
-            transform-style: preserve-3d;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-15px) scale(1.03) rotateY(3deg);
-            box-shadow: 
-                0 35px 70px rgba(0, 0, 0, 0.2),
-                0 0 35px rgba(214, 51, 132, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5);
-        }
-
-        .gallery-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .gallery-item:hover .gallery-img {
-            transform: scale(1.1);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            color: white;
-            padding: 30px 20px 20px;
-            transform: translateY(100%);
-            transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-            text-align: center;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.8rem;
-            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-
-        /* Message Box */
-        .message-container {
-            max-width: 900px;
-            margin: 50px auto;
-            position: relative;
-            perspective: 1000px;
-        }
-
-        .message-box {
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.98), rgba(30, 30, 60, 0.98));
-            padding: 60px;
-            border-radius: 35px;
-            box-shadow: 
-                0 25px 50px rgba(214, 51, 132, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 215, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transition: var(--transition-smooth);
-        }
-
-        .message-box:hover {
-            transform: translateY(-8px) rotateX(1.5deg);
-            box-shadow: 
-                0 35px 70px rgba(214, 51, 132, 0.25),
-                0 0 45px rgba(214, 51, 132, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        }
-
-        .message-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--dark-pink), var(--accent-purple), var(--accent-blue), var(--dark-pink));
-            background-size: 200% 100%;
-            animation: gradientFlow 6s linear infinite;
-        }
-
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        /* Final Page - Dark Pink Background with New Font */
+        /* Final Page - Movable/Scrollable */
         .final-page {
             position: fixed;
             top: 0;
@@ -1014,10 +781,12 @@
             z-index: 9000;
             display: none;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Changed from center to flex-start */
             opacity: 0;
             transition: opacity 2s ease;
             background: var(--final-bg);
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding: 40px 20px;
         }
 
         .final-page.active {
@@ -1031,6 +800,8 @@
             padding: 40px;
             position: relative;
             z-index: 2;
+            margin-top: 40px; /* Space from top */
+            margin-bottom: 100px; /* Space for scrolling */
         }
 
         .final-message-box {
@@ -1069,7 +840,7 @@
             100% { background-position: 300% 50%; }
         }
 
-        /* Updated Final Page Font */
+        /* Updated Final Page Font - Scrollable */
         .final-typing-text {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
@@ -1083,6 +854,24 @@
             text-align: center;
             font-weight: 400;
             letter-spacing: 0.5px;
+            max-height: 70vh; /* Limit height for scrolling */
+            overflow-y: auto; /* Enable scrolling within text if needed */
+            padding-right: 20px; /* Space for scrollbar */
+        }
+
+        /* Custom scrollbar for final page */
+        .final-typing-text::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .final-typing-text::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .final-typing-text::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--dark-pink), var(--accent-purple));
+            border-radius: 10px;
         }
 
         .final-cursor {
@@ -1102,6 +891,33 @@
         @keyframes blink {
             0%, 50% { opacity: 1; transform: scaleY(1); }
             51%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+        }
+
+        /* Scroll indicator for final page */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: rgba(26, 26, 46, 0.8);
+            padding: 10px 30px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            display: none;
+        }
+
+        .scroll-indicator.active {
+            display: block;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
         }
 
         /* Back to Start Button */
@@ -1450,22 +1266,195 @@
             }
         }
 
+        /* Custom Envelope */
+        .envelope-wrapper {
+            position: relative;
+            width: 450px;
+            height: 320px;
+            cursor: pointer;
+            perspective: 1800px;
+            margin: 50px 0;
+            filter: drop-shadow(0 20px 40px rgba(214, 51, 132, 0.3));
+            transition: transform 1s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.02) rotateY(3deg);
+        }
+
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 2.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .envelope-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 25px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--dark-pink), var(--secondary-pink));
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .envelope-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.95;
+            transition: transform 1.5s ease;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(214, 51, 132, 0.95), rgba(255, 20, 147, 0.95));
+            clip-path: polygon(0 0, 50% 50%, 100% 0);
+            transform-origin: top;
+            transition: transform 2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border-radius: 25px 25px 0 0;
+            box-shadow: 
+                0 -10px 30px rgba(0, 0, 0, 0.2),
+                inset 0 5px 15px rgba(255, 255, 255, 0.4);
+            z-index: 2;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(-180deg);
+        }
+
+        .envelope-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--accent-gold), #ffaa00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            z-index: 10;
+            box-shadow: 
+                0 10px 30px rgba(255, 215, 0, 0.4),
+                inset 0 3px 10px rgba(255, 255, 255, 0.3);
+            animation: sealGlow 3s infinite alternate;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            overflow: hidden;
+        }
+
+        .envelope-seal::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: sealShine 4s infinite linear;
+        }
+
+        @keyframes sealShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes sealGlow {
+            from { 
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 
+                    0 10px 30px rgba(255, 215, 0, 0.4),
+                    inset 0 3px 10px rgba(255, 255, 255, 0.3);
+            }
+            to { 
+                transform: translate(-50%, -50%) scale(1.1);
+                box-shadow: 
+                    0 15px 40px rgba(255, 215, 0, 0.6),
+                    0 0 60px rgba(255, 215, 0, 0.3),
+                    inset 0 3px 10px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .envelope-content {
+            position: absolute;
+            width: 92%;
+            height: 88%;
+            background: rgba(26, 26, 46, 0.98);
+            border-radius: 20px;
+            top: 6%;
+            left: 4%;
+            padding: 40px;
+            opacity: 0;
+            transform: translateY(250px) scale(0.85);
+            transition: all 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            z-index: 1;
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+        }
+
+        .envelope-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--dark-pink), var(--accent-purple), var(--accent-blue));
+        }
+
+        .envelope.open .envelope-content {
+            opacity: 1;
+            transform: translateY(-280px) scale(1.05);
+        }
+
+        .envelope-content h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--accent-gold);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .envelope-content p {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.15rem;
+            line-height: 1.7;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .tree-container {
-                width: 600px;
-                height: 600px;
+                width: 650px;
+                height: 650px;
             }
             
             .heart-leaves {
-                width: 520px;
-                height: 480px;
-                bottom: 220px;
+                width: 580px;
+                height: 550px;
+                bottom: 250px;
             }
             
             .heart-leaf {
-                width: 35px;
-                height: 35px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            .tree-ground {
+                width: 500px;
             }
         }
 
@@ -1484,35 +1473,29 @@
             }
             
             .tree-container {
-                width: 450px;
-                height: 500px;
+                width: 500px;
+                height: 550px;
             }
             
             .heart-leaves {
-                width: 400px;
-                height: 350px;
-                bottom: 200px;
+                width: 450px;
+                height: 400px;
+                bottom: 220px;
             }
             
             .heart-leaf {
-                width: 28px;
-                height: 28px;
+                width: 32px;
+                height: 32px;
             }
             
             .tree-title {
                 font-size: 2.2rem;
-                top: -50px;
-                padding: 12px 30px;
+                top: -60px;
+                padding: 15px 35px;
             }
             
-            .cake-container {
-                width: 300px;
-                height: 300px;
-            }
-            
-            .gallery {
-                grid-template-columns: 1fr;
-                max-width: 400px;
+            .tree-ground {
+                width: 400px;
             }
             
             .final-container {
@@ -1527,6 +1510,7 @@
             .final-typing-text {
                 font-size: 1.4rem;
                 line-height: 1.8;
+                max-height: 60vh;
             }
             
             .controls, .day-night-toggle {
@@ -1567,28 +1551,30 @@
             }
             
             .tree-container {
-                width: 320px;
-                height: 400px;
+                width: 350px;
+                height: 450px;
             }
             
             .heart-leaves {
-                width: 280px;
-                height: 280px;
-                bottom: 160px;
+                width: 320px;
+                height: 320px;
+                bottom: 180px;
             }
             
             .heart-leaf {
-                width: 22px;
-                height: 22px;
+                width: 25px;
+                height: 25px;
             }
             
-            .cake-container {
-                width: 260px;
-                height: 260px;
+            .tree-title {
+                font-size: 1.8rem;
+                top: -50px;
+                padding: 12px 25px;
             }
             
-            .gallery {
-                gap: 20px;
+            .tree-ground {
+                width: 300px;
+                height: 80px;
             }
             
             .final-message-box {
@@ -1598,6 +1584,7 @@
             .final-typing-text {
                 font-size: 1.2rem;
                 line-height: 1.6;
+                max-height: 50vh;
             }
             
             .countdown-number {
@@ -1629,6 +1616,9 @@
         Your browser does not support the audio element.
     </audio>
 
+    <!-- Birthday Constellation (Hidden by default) -->
+    <div id="constellation-container" class="constellation-container"></div>
+
     <!-- Fireworks Canvas - Subtle Background -->
     <canvas id="fireworks-canvas" class="fireworks-canvas"></canvas>
 
@@ -1640,6 +1630,11 @@
 
     <!-- Stage Progress Bar -->
     <div class="stage-progress" id="stage-progress"></div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scroll-indicator">
+        <i class="fas fa-chevron-down"></i> Scroll to read
+    </div>
 
     <!-- Animated Background Particles -->
     <div class="particles" id="particles"></div>
@@ -1708,11 +1703,14 @@
             <p class="instruction">Click the golden seal to open your birthday invitation</p>
         </div>
 
-        <!-- Stage 3: HEART LEAVES TREE -->
+        <!-- Stage 3: BEAUTIFUL HEART TREE -->
         <div id="stage-3" class="stage">
             <h2 class="stage-title">Your Sakura HeartTree 💖</h2>
             <div class="tree-container">
                 <div class="tree-title">"Your Sakura HeartTree is blooming..."</div>
+                
+                <!-- Tree Ground -->
+                <div class="tree-ground"></div>
                 
                 <!-- Branches -->
                 <div class="branch branch-1"></div>
@@ -1731,7 +1729,7 @@
                 <!-- Heart Leaves Container -->
                 <div class="heart-leaves" id="heart-leaves"></div>
             </div>
-            <p class="instruction">Click on the heart leaves to discover special birthday messages! 💕</p>
+            <p class="instruction">Click on the colorful heart leaves to discover special birthday messages! 💕</p>
         </div>
 
         <!-- Stage 4: Cake Celebration -->
@@ -1772,7 +1770,7 @@
         </div>
     </div>
 
-    <!-- Final Message Page -->
+    <!-- Final Message Page - Movable/Scrollable -->
     <div id="final-page" class="final-page">
         <div class="final-container">
             <div class="final-message-box">
@@ -1825,10 +1823,9 @@
                 this.particles = [];
                 this.fireworks = [];
                 this.hue = 120;
-                this.limiterTotal = 15; // Less frequent fireworks
+                this.limiterTotal = 15;
                 this.limiterTick = 0;
                 this.isActive = false;
-                this.subtleMode = true; // Subtle mode enabled
                 
                 this.resizeCanvas();
                 window.addEventListener('resize', () => this.resizeCanvas());
@@ -1856,17 +1853,17 @@
                     x: x,
                     y: y,
                     coordinates: [],
-                    coordinateCount: 8, // Fewer coordinates for subtlety
+                    coordinateCount: 8,
                     angle: this.random(0, Math.PI * 2),
-                    speed: this.random(0.5, 6), // Slower speed
+                    speed: this.random(0.5, 6),
                     friction: 0.96,
-                    gravity: 0.1, // Less gravity
+                    gravity: 0.1,
                     hue: this.hue,
-                    brightness: this.random(50, 70), // Less bright
-                    alpha: 0.7, // More transparent
-                    decay: this.random(0.005, 0.015), // Slower decay
+                    brightness: this.random(50, 70),
+                    alpha: 0.7,
+                    decay: this.random(0.005, 0.015),
                     color: color || `hsla(${this.hue}, 100%, 60%, 0.7)`,
-                    size: this.random(1, 2.5) // Smaller particles
+                    size: this.random(1, 2.5)
                 });
             }
             
@@ -1881,13 +1878,13 @@
                     distanceToTarget: this.calculateDistance(sx, sy, tx, ty),
                     distanceTraveled: 0,
                     coordinates: [],
-                    coordinateCount: 3, // Fewer coordinates
+                    coordinateCount: 3,
                     angle: Math.atan2(ty - sy, tx - sx),
-                    speed: 2, // Slower speed
-                    acceleration: 1.05, // Less acceleration
-                    brightness: this.random(50, 65), // Less bright
+                    speed: 2,
+                    acceleration: 1.05,
+                    brightness: this.random(50, 65),
                     hue: this.hue,
-                    targetRadius: 1.5, // Smaller
+                    targetRadius: 1.5,
                     color: color || `hsla(${this.hue}, 100%, 60%, 0.7)`,
                     type: 'subtle',
                     trailLength: 15
@@ -1912,7 +1909,7 @@
             }
             
             explodeSubtleFirework(firework) {
-                const particleCount = 40; // Fewer particles
+                const particleCount = 40;
                 
                 for (let i = 0; i < particleCount; i++) {
                     const color = firework.color || `hsla(${this.hue}, 100%, 60%, 0.7)`;
@@ -1982,7 +1979,6 @@
                 for (let i = 0; i < this.particles.length; i++) {
                     const p = this.particles[i];
                     
-                    // Draw particle
                     this.ctx.beginPath();
                     this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                     this.ctx.fillStyle = p.color.replace('0.7', p.alpha.toString());
@@ -1994,7 +1990,6 @@
                 for (let i = 0; i < this.fireworks.length; i++) {
                     const f = this.fireworks[i];
                     
-                    // Draw firework
                     this.ctx.beginPath();
                     this.ctx.arc(f.x, f.y, f.targetRadius, 0, Math.PI * 2);
                     this.ctx.fillStyle = f.color;
@@ -2005,15 +2000,13 @@
             animate() {
                 requestAnimationFrame(() => this.animate());
                 
-                // Clear with very subtle fade effect
                 this.ctx.globalCompositeOperation = 'destination-out';
                 this.ctx.fillStyle = 'rgba(0, 0, 0, 0.03)';
                 this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 this.ctx.globalCompositeOperation = 'lighter';
                 
-                this.hue += 0.3; // Slower hue change
+                this.hue += 0.3;
                 
-                // Launch subtle fireworks less frequently
                 if (this.isActive && this.limiterTick >= this.limiterTotal) {
                     this.launchSubtleFirework();
                     this.limiterTick = 0;
@@ -2027,7 +2020,6 @@
                 this.drawParticles();
             }
             
-            // Public methods
             activate() {
                 this.isActive = true;
                 this.canvas.style.opacity = '0.5';
@@ -2069,7 +2061,7 @@
             let isMusicPlaying = true;
             
             // Set initial volume
-            backgroundMusic.volume = 0.4; // Lower volume
+            backgroundMusic.volume = 0.4;
             
             // Handle autoplay with user interaction
             let isPageLoaded = false;
@@ -2116,7 +2108,7 @@
                 }
             });
             
-            // BIRTHDAY COUNTDOWN
+            // BIRTHDAY COUNTDOWN with CONSTELLATION
             function updateCountdown() {
                 const now = new Date();
                 const currentYear = now.getFullYear();
@@ -2147,7 +2139,29 @@
                     statusElement.textContent = "🎉 HAPPY BIRTHDAY LAKSHITA! 🎉";
                     statusElement.style.animation = 'heartbeat 1.5s infinite';
                     createHeartConfetti();
-                    startSubtleCelebration();
+                    
+                    // CREATE THE BIRTHDAY CONSTELLATION!
+                    setTimeout(() => {
+                        createBirthdayConstellation();
+                        
+                        createFloatingElement('✨ Click on the stars to reveal birthday wishes! ✨');
+                        
+                        // Auto-close constellation after 30 seconds
+                        setTimeout(() => {
+                            const constellation = document.getElementById('constellation-container');
+                            if (constellation && constellation.classList.contains('active')) {
+                                constellation.style.animation = 'fadeOutConstellation 3s forwards';
+                                setTimeout(() => {
+                                    constellation.classList.remove('active');
+                                    constellation.innerHTML = '';
+                                    constellation.style.animation = '';
+                                    createFloatingElement('✨ Birthday wishes are written in the stars forever! ✨');
+                                }, 3000);
+                            }
+                        }, 30000);
+                        
+                    }, 1500);
+                    
                 } else if (days === 1) {
                     statusElement.textContent = "Birthday is tomorrow! Get ready! 🎁";
                 } else if (days < 7) {
@@ -2180,7 +2194,7 @@
             
             function createParticles() {
                 const particlesContainer = document.getElementById('particles');
-                for (let i = 0; i < 30; i++) { // Fewer particles
+                for (let i = 0; i < 30; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
                     particle.style.width = particle.style.height = (Math.random() * 20 + 10) + 'px';
@@ -2188,7 +2202,7 @@
                     particle.style.top = Math.random() * 100 + 'vh';
                     particle.style.background = getRandomParticleColor();
                     particle.style.animationDelay = Math.random() * 10 + 's';
-                    particle.style.animationDuration = (Math.random() * 20 + 25) + 's'; // Slower
+                    particle.style.animationDuration = (Math.random() * 20 + 25) + 's';
                     particlesContainer.appendChild(particle);
                 }
             }
@@ -2205,7 +2219,7 @@
             
             // Create sparkle effects
             function createSparkles(e) {
-                for (let i = 0; i < 5; i++) { // Fewer sparkles
+                for (let i = 0; i < 5; i++) {
                     setTimeout(() => {
                         const sparkle = document.createElement('div');
                         sparkle.className = 'sparkle';
@@ -2239,8 +2253,8 @@
                     const colors = ['#ff3366', '#d63384', '#da70d6', '#87ceeb'];
                     heart.style.color = colors[Math.floor(Math.random() * colors.length)];
                     
-                    heart.style.fontSize = (Math.random() * 8 + 16) + 'px'; // Smaller
-                    heart.style.animationDelay = Math.random() * 4 + 's'; // Slower
+                    heart.style.fontSize = (Math.random() * 8 + 16) + 'px';
+                    heart.style.animationDelay = Math.random() * 4 + 's';
                     
                     container.appendChild(heart);
                     
@@ -2305,7 +2319,7 @@
                         // Special initialization for each stage
                         switch(stageNumber) {
                             case 3:
-                                createHeartLeavesTree();
+                                createBeautifulHeartTree();
                                 break;
                             case 4:
                                 initCakeStage();
@@ -2338,6 +2352,9 @@
                 // Hide back button initially
                 document.getElementById('back-to-start').style.display = 'none';
                 
+                // Show scroll indicator
+                document.getElementById('scroll-indicator').classList.add('active');
+                
                 // Show final page
                 const finalPage = document.getElementById('final-page');
                 finalPage.classList.add('active');
@@ -2358,11 +2375,18 @@
                     statusElement.style.animation = 'heartbeat 1.5s infinite';
                     
                     // Show back button
-                    document.getElementById('back-to-start').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('back-to-start').style.display = 'block';
+                    }, 2000);
                     
                     // Start final celebration
                     startSubtleCelebration();
                 }, 7000);
+                
+                // Hide scroll indicator when user scrolls
+                finalPage.addEventListener('scroll', () => {
+                    document.getElementById('scroll-indicator').classList.remove('active');
+                });
             }
             
             // Navigation dots click
@@ -2384,6 +2408,7 @@
                 // Hide final page
                 document.getElementById('final-page').classList.remove('active');
                 document.getElementById('back-to-start').style.display = 'none';
+                document.getElementById('scroll-indicator').classList.remove('active');
                 
                 // Navigate to stage 1
                 navigateToStage(1);
@@ -2468,7 +2493,7 @@
                 }, 5000);
             }
             
-            // Special effects button - launches subtle fireworks
+            // Special effects button
             document.getElementById('special-effects').addEventListener('click', function(e) {
                 createSparkles(e);
                 fireworks.launchSubtleBurst(3);
@@ -2476,16 +2501,17 @@
                 createFloatingElement('✨ Subtle Magic!');
             });
             
-            // Stage 3: Create Heart Leaves Tree
-            function createHeartLeavesTree() {
+            // Stage 3: Create Beautiful Heart Tree
+            function createBeautifulHeartTree() {
                 const heartLeavesContainer = document.getElementById('heart-leaves');
                 if (!heartLeavesContainer) return;
                 
                 heartLeavesContainer.innerHTML = '';
                 
                 const leafClasses = [
-                    'heart-leaf-red', 'heart-leaf-pink', 'heart-leaf-purple', 
-                    'heart-leaf-blue', 'heart-leaf-gold', 'heart-leaf-orange'
+                    'heart-leaf-1', 'heart-leaf-2', 'heart-leaf-3', 
+                    'heart-leaf-4', 'heart-leaf-5', 'heart-leaf-6',
+                    'heart-leaf-7', 'heart-leaf-8', 'heart-leaf-9', 'heart-leaf-10'
                 ];
                 
                 const messages = [
@@ -2498,11 +2524,21 @@
                     "Many happy returns! 🎂",
                     "Enjoy your special day! 🥳",
                     "You're so special! ✨",
-                    "Stay amazing! 💫"
+                    "Stay amazing! 💫",
+                    "Sending you love! 💕",
+                    "Stay happy always! 😄",
+                    "You're wonderful! 🌈",
+                    "Stay magical! 🔮",
+                    "You're incredible! 🚀",
+                    "My heart beats for you! 💓",
+                    "You complete me! 💞",
+                    "Forever yours! 💘",
+                    "My love for you grows! 💗",
+                    "You're my everything! ❤️"
                 ];
                 
-                // Create heart leaves in a tree pattern
-                const totalLeaves = 100; // Fewer leaves
+                // Create heart leaves in a beautiful tree pattern
+                const totalLeaves = 180;
                 
                 for (let i = 0; i < totalLeaves; i++) {
                     setTimeout(() => {
@@ -2513,17 +2549,16 @@
                         const colorClass = leafClasses[Math.floor(Math.random() * leafClasses.length)];
                         leaf.classList.add(colorClass);
                         
-                        // Random position within the tree shape
+                        // Create realistic tree shape (denser at top, sparse at bottom)
+                        const layer = Math.floor(Math.random() * 5);
                         const angle = Math.random() * Math.PI * 2;
-                        const distance = Math.random() * 200 + 60;
+                        const baseDistance = [80, 120, 160, 200, 240];
+                        const distance = baseDistance[layer] + Math.random() * 40;
                         const x = Math.cos(angle) * distance;
-                        const y = Math.sin(angle) * distance * 0.8;
-                        
-                        // Adjust for tree shape (more leaves at top)
-                        const adjustedY = y - Math.abs(x) * 0.3;
+                        const y = Math.sin(angle) * distance * 0.7 - (layer * 60);
                         
                         leaf.style.left = `calc(50% + ${x}px)`;
-                        leaf.style.top = `calc(50% + ${adjustedY}px)`;
+                        leaf.style.top = `calc(50% + ${y}px)`;
                         
                         // Random rotation
                         const rotation = Math.random() * 360;
@@ -2532,10 +2567,22 @@
                         // Random animation delay
                         leaf.style.animationDelay = `${Math.random() * 6}s`;
                         
-                        // Random size variation
-                        const size = 0.7 + Math.random() * 0.6;
-                        leaf.style.width = `${45 * size}px`;
-                        leaf.style.height = `${45 * size}px`;
+                        // Random size variation (smaller at top, larger at bottom)
+                        const size = 0.6 + (layer * 0.1) + Math.random() * 0.3;
+                        leaf.style.width = `${50 * size}px`;
+                        leaf.style.height = `${50 * size}px`;
+                        
+                        // Add realistic leaf stem
+                        const stem = document.createElement('div');
+                        stem.style.position = 'absolute';
+                        stem.style.width = '2px';
+                        stem.style.height = '15px';
+                        stem.style.background = 'linear-gradient(to bottom, #8b4513, #a0522d)';
+                        stem.style.top = '100%';
+                        stem.style.left = '50%';
+                        stem.style.transform = 'translateX(-50%)';
+                        stem.style.borderRadius = '1px';
+                        leaf.appendChild(stem);
                         
                         // Click event
                         leaf.addEventListener('click', function(e) {
@@ -2545,7 +2592,7 @@
                             
                             // Animation on click
                             this.style.transform = `scale(1.4) rotate(${rotation + 45}deg) translateZ(20px)`;
-                            this.style.filter = 'drop-shadow(0 0 30px currentColor) brightness(1.2)';
+                            this.style.filter = 'drop-shadow(0 0 30px currentColor) brightness(1.3)';
                             this.style.zIndex = '100';
                             
                             // Launch a subtle firework
@@ -2555,7 +2602,7 @@
                             
                             setTimeout(() => {
                                 this.style.transform = `rotate(${rotation}deg) scale(${size})`;
-                                this.style.filter = 'drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2))';
+                                this.style.filter = 'drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3)) brightness(1.1)';
                                 this.style.zIndex = '1';
                             }, 1200);
                         });
@@ -2570,33 +2617,291 @@
                         });
                         
                         heartLeavesContainer.appendChild(leaf);
-                    }, i * 30); // Faster creation
+                    }, i * 25);
                 }
+                
+                // Create falling leaves animation
+                createFallingLeaves();
             }
             
-            // Stage 5: Gallery interactions
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            galleryItems.forEach((item, index) => {
-                item.addEventListener('click', function(e) {
-                    createSparkles(e);
-                    const messages = [
-                        "Beautiful memory of Lakshita! 💕",
-                        "Precious moment captured forever! 📸",
-                        "Lakshita makes every moment special! ✨",
-                        "A memory to cherish forever! 🌟"
-                    ];
-                    createFloatingElement(messages[index % messages.length]);
+            function createFallingLeaves() {
+                const container = document.querySelector('.tree-container');
+                if (!container) return;
+                
+                for (let i = 0; i < 15; i++) {
+                    const leaf = document.createElement('div');
+                    leaf.className = 'heart-leaf';
+                    leaf.classList.add(`heart-leaf-${Math.floor(Math.random() * 10) + 1}`);
                     
-                    // Image zoom effect
-                    const img = this.querySelector('.gallery-img');
-                    img.style.transform = 'scale(1.15)';
+                    leaf.style.position = 'absolute';
+                    leaf.style.width = '30px';
+                    leaf.style.height = '30px';
+                    leaf.style.left = Math.random() * 100 + '%';
+                    leaf.style.top = '-50px';
+                    leaf.style.zIndex = '0';
+                    leaf.style.pointerEvents = 'none';
+                    leaf.style.animation = `fallingLeaf ${15 + Math.random() * 10}s linear infinite`;
+                    leaf.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    container.appendChild(leaf);
+                }
+                
+                // Add falling leaves animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fallingLeaf {
+                        0% {
+                            transform: translateY(0) rotate(0deg) translateX(0);
+                            opacity: 0;
+                        }
+                        10% {
+                            opacity: 1;
+                        }
+                        90% {
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translateY(calc(100vh + 100px)) rotate(720deg) translateX(${Math.random() * 200 - 100}px);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Create Birthday Constellation
+            function createBirthdayConstellation() {
+                console.log("Creating birthday constellation...");
+                
+                const container = document.getElementById('constellation-container');
+                if (!container) return;
+                
+                container.innerHTML = '<div class="constellation-overlay"></div>';
+                
+                // Define star positions to spell "LAKSHITA" in elegant cursive
+                const starPositions = [
+                    // L
+                    {x: 20, y: 30, message: "May your year be filled with laughter and joy! 😊"},
+                    {x: 20, y: 45, message: "Wishing you endless happiness! ✨"},
+                    {x: 25, y: 60, message: "Stay blessed always! 🌟"},
+                    
+                    // A (first part)
+                    {x: 35, y: 55, message: "Your smile lights up the world! 💫"},
+                    {x: 40, y: 40, message: "May all your dreams come true! 🌈"},
+                    {x: 45, y: 55, message: "You deserve the very best! 💖"},
+                    
+                    // K
+                    {x: 55, y: 30, message: "Stay as amazing as you are! 🎉"},
+                    {x: 55, y: 45, message: "Wishing you love and prosperity! 💕"},
+                    {x: 60, y: 60, message: "May success follow you everywhere! 🚀"},
+                    
+                    // S
+                    {x: 70, y: 35, message: "Your kindness inspires everyone! 🌸"},
+                    {x: 65, y: 50, message: "Stay healthy and strong! 💪"},
+                    {x: 75, y: 65, message: "May peace always be with you! 🕊️"},
+                    
+                    // H
+                    {x: 85, y: 30, message: "Your beauty shines from within! ✨"},
+                    {x: 85, y: 45, message: "Wishing you adventurous moments! 🌍"},
+                    {x: 85, y: 60, message: "Stay confident and bold! 💫"},
+                    
+                    // I
+                    {x: 95, y: 40, message: "May creativity flow in your life! 🎨"},
+                    {x: 95, y: 50, message: "Wishing you wonderful memories! 📸"},
+                    
+                    // T
+                    {x: 65, y: 75, message: "Stay true to yourself always! 💎"},
+                    {x: 70, y: 85, message: "May luck be on your side! 🍀"},
+                    
+                    // A (second part)
+                    {x: 75, y: 80, message: "Your future is bright and beautiful! 🌟"},
+                    {x: 80, y: 75, message: "Stay magical every day! 🔮"},
+                    {x: 85, y: 80, message: "Wishing you eternal happiness! 💖"},
+                    
+                    // Decorative stars
+                    {x: 15, y: 20, message: "You are one of a kind! 💫"},
+                    {x: 30, y: 25, message: "Stay positive and optimistic! 🌞"},
+                    {x: 90, y: 20, message: "Your spirit is unstoppable! ⚡"},
+                    {x: 80, y: 25, message: "May love surround you always! 💘"}
+                ];
+                
+                // Create stars
+                const stars = [];
+                starPositions.forEach((pos, index) => {
+                    const star = document.createElement('div');
+                    star.className = 'constellation-star';
+                    star.dataset.index = index;
+                    star.dataset.message = pos.message;
+                    star.style.left = `${pos.x}%`;
+                    star.style.top = `${pos.y}%`;
+                    
+                    const size = 6 + Math.random() * 4;
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    
+                    star.style.animationDelay = `${Math.random() * 2}s`;
+                    
+                    star.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        showStarMessage(pos.x, pos.y, pos.message, star);
+                    });
+                    
+                    container.appendChild(star);
+                    stars.push(star);
+                });
+                
+                // Define connections
+                const connections = [
+                    // L connections
+                    {from: 0, to: 1}, {from: 1, to: 2},
+                    
+                    // A (first) connections
+                    {from: 3, to: 4}, {from: 4, to: 5}, {from: 3, to: 5},
+                    
+                    // K connections
+                    {from: 6, to: 7}, {from: 7, to: 8},
+                    
+                    // S connections
+                    {from: 9, to: 10}, {from: 10, to: 11},
+                    
+                    // H connections
+                    {from: 12, to: 13}, {from: 13, to: 14},
+                    {from: 15, to: 16},
+                    
+                    // I connections
+                    {from: 16, to: 17},
+                    
+                    // T connections
+                    {from: 18, to: 19},
+                    
+                    // A (second) connections
+                    {from: 20, to: 21}, {from: 21, to: 22}, {from: 20, to: 22},
+                    
+                    // Decorative connections
+                    {from: 23, to: 0},
+                    {from: 24, to: 3},
+                    {from: 25, to: 22},
+                    {from: 26, to: 11}
+                ];
+                
+                // Create connections
+                connections.forEach(conn => {
+                    const fromStar = starPositions[conn.from];
+                    const toStar = starPositions[conn.to];
+                    
+                    if (!fromStar || !toStar) return;
+                    
+                    const dx = toStar.x - fromStar.x;
+                    const dy = toStar.y - fromStar.y;
+                    const length = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+                    
+                    const connection = document.createElement('div');
+                    connection.className = 'constellation-connection';
+                    connection.style.left = `${fromStar.x}%`;
+                    connection.style.top = `${fromStar.y}%`;
+                    connection.style.width = `${length}%`;
+                    connection.style.transform = `rotate(${angle}deg)`;
+                    
+                    connection.style.boxShadow = `0 0 ${10 + Math.random() * 10}px rgba(255, 215, 0, ${0.3 + Math.random() * 0.3})`;
+                    
+                    container.appendChild(connection);
+                });
+                
+                // Activate the constellation
+                setTimeout(() => {
+                    container.classList.add('active');
+                    
                     setTimeout(() => {
-                        img.style.transform = 'scale(1.1)';
+                        stars.forEach((star, i) => {
+                            setTimeout(() => {
+                                star.classList.add('active');
+                            }, i * 80);
+                        });
+                        
+                        const connectionElements = document.querySelectorAll('.constellation-connection');
+                        connectionElements.forEach((conn, i) => {
+                            setTimeout(() => {
+                                conn.classList.add('active');
+                            }, (stars.length * 80) + (i * 60));
+                        });
+                        
+                        setTimeout(() => {
+                            container.style.animation = 'titleFloat 15s infinite ease-in-out';
+                        }, 2000);
+                        
+                    }, 500);
+                    
+                }, 1000);
+                
+                // Click anywhere to close messages
+                container.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('constellation-star') && 
+                        !e.target.classList.contains('constellation-message') &&
+                        !e.target.classList.contains('constellation-close')) {
+                        hideAllMessages();
+                    }
+                });
+                
+                return container;
+            }
+            
+            function showStarMessage(x, y, message, starElement) {
+                hideAllMessages();
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'constellation-message';
+                messageDiv.innerHTML = `
+                    <button class="constellation-close">&times;</button>
+                    <h3>Birthday Wish ✨</h3>
+                    <p>${message}</p>
+                `;
+                
+                let left = x;
+                let top = y + 5;
+                
+                if (left > 70) left -= 25;
+                else left += 2;
+                
+                if (top > 70) top -= 20;
+                
+                messageDiv.style.left = `${left}%`;
+                messageDiv.style.top = `${top}%`;
+                
+                messageDiv.querySelector('.constellation-close').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    messageDiv.classList.remove('active');
+                    setTimeout(() => {
+                        if (messageDiv.parentNode) {
+                            messageDiv.parentNode.removeChild(messageDiv);
+                        }
                     }, 500);
                 });
-            });
+                
+                document.getElementById('constellation-container').appendChild(messageDiv);
+                
+                setTimeout(() => {
+                    messageDiv.classList.add('active');
+                }, 10);
+                
+                createSparkles({
+                    pageX: starElement.getBoundingClientRect().left + starElement.offsetWidth / 2,
+                    pageY: starElement.getBoundingClientRect().top + starElement.offsetHeight / 2
+                });
+            }
             
-            // Typing effect for final page with new font
+            function hideAllMessages() {
+                document.querySelectorAll('.constellation-message').forEach(msg => {
+                    msg.classList.remove('active');
+                    setTimeout(() => {
+                        if (msg.parentNode) {
+                            msg.parentNode.removeChild(msg);
+                        }
+                    }, 500);
+                });
+            }
+            
+            // Typing effect for final page
             function startFinalTypingEffect() {
                 const typingText = document.getElementById('final-typing-text');
                 if (!typingText) return;
@@ -2621,7 +2926,17 @@ May all your dreams come true and may this birthday be as special as you are!
 Wishing you the most amazing birthday ever!
 
 With all my love and warmest wishes,
-Your Secret Admirer 💝`;
+Your Secret Admirer 💝
+
+PS: Scroll down to read the complete message. Every word is written with love and care for you, my dear Lakshita. May this birthday mark the beginning of the most wonderful year of your life! 💕
+
+Remember:
+• You are stronger than you think
+• More beautiful than you realize
+• More loved than you can imagine
+• And destined for amazing things! ✨
+
+Here's to you, Lakshita - may your day be as bright and beautiful as you are! 🌟`;
 
                 typingText.textContent = '';
                 let i = 0;
@@ -2630,11 +2945,10 @@ Your Secret Admirer 💝`;
                     if (i < message.length) {
                         typingText.textContent += message.charAt(i);
                         i++;
-                        setTimeout(typeWriter, 30); // Slower typing
+                        setTimeout(typeWriter, 30);
                     }
                 }
                 
-                // Start typing after a brief pause
                 setTimeout(typeWriter, 1000);
             }
             
@@ -2658,13 +2972,11 @@ Your Secret Admirer 💝`;
                 
                 document.body.appendChild(element);
                 
-                // Animate in
                 setTimeout(() => {
                     element.style.opacity = '1';
                     element.style.transform = 'translateY(-100px) scale(1)';
                 }, 10);
                 
-                // Animate out and remove
                 setTimeout(() => {
                     element.style.opacity = '0';
                     element.style.transform = 'translateY(-200px) scale(0.5)';
@@ -2690,28 +3002,23 @@ Your Secret Admirer 💝`;
             
             // Subtle celebration
             function startSubtleCelebration() {
-                // Show final celebration overlay
                 const finalCelebration = document.getElementById('final-celebration');
                 finalCelebration.classList.add('active');
                 
-                // Increase fireworks opacity slightly
                 fireworks.canvas.style.opacity = '0.6';
                 
-                // Launch subtle fireworks bursts
                 for (let i = 0; i < 5; i++) {
                     setTimeout(() => {
                         fireworks.launchSubtleBurst(2);
                     }, i * 800);
                 }
                 
-                // Create floating elements
                 for (let i = 0; i < 15; i++) {
                     setTimeout(() => {
                         createFloatingElement('🎉');
                     }, i * 300);
                 }
                 
-                // Create heart confetti
                 createHeartConfetti(40);
             }
             
